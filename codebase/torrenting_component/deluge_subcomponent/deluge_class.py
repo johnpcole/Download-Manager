@@ -4,9 +4,14 @@ from deluge_client import DelugeRPCClient as DelugeDaemonInterface
 class DefineDelugeInterface:
 	def __init__(self, address, port, username, password):
 
+		# The actual interface with the deluge daemon, via the RPCClient package
+		# This object captures the interface (including address & credentials) to be
+		# opened, closed, and used to pass messages to the daemon
 		self.delugeinterface = DelugeDaemonInterface(address, port, username, password)
 
-	# =========================================================================================
+# =========================================================================================
+# Opens a connection with the deluge daemon, for messages to be passed to/from it
+# =========================================================================================
 
 	def openconnection(self):
 
@@ -21,7 +26,9 @@ class DefineDelugeInterface:
 		# print "========================================================="
 		return self.delugeinterface.connected
 
-	# =========================================================================================
+# =========================================================================================
+# Closes the open connection with the deluge daemon
+# =========================================================================================
 
 	def closeconnection(self):
 
@@ -29,7 +36,9 @@ class DefineDelugeInterface:
 		# self.delugeinterface.disconnect()
 		return self.delugeinterface.connected
 
-	# =========================================================================================
+# =========================================================================================
+# Returns a list of strings, one per torrent, providing the GUID of each torrent
+# =========================================================================================
 
 	def gettorrentlist(self):
 

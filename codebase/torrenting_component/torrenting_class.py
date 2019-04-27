@@ -1,7 +1,7 @@
 from .deluge_subcomponent import deluge_module as DelugeClient
 from .torrentdata_subcomponent import torrentdata_module as TorrentData
 from ..functions_component import functions_module as Functions
-from .pimonitor_subcomponent import pimonitor_module as PiMonitor
+from .thermometer_subcomponent import thermometer_module as PiThermometer
 from .sessiondatameters_subcomponent import sessiondatameters_module as SessionDataMeters
 
 
@@ -30,7 +30,7 @@ class DefineTorrentManager:
 
 		dummyoutcome = self.delugeclient.openconnection()
 
-		self.sessiondata.updatesessionstats(self.delugeclient.getsessiondata(), PiMonitor.gettemperature())
+		self.sessiondata.updatesessionstats(self.delugeclient.getsessiondata(), PiThermometer.gettemperature())
 
 		torrentidlist = self.delugeclient.gettorrentlist()
 
