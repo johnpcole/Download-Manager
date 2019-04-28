@@ -130,7 +130,7 @@ class DefineTorrentManager:
 	def reconfiguretorrent(self, torrentid, newconfig):
 
 		torrentobject = self.gettorrentobject(torrentid)
-		torrentobject.reconfiguretorrent(newconfig)
+		torrentobject.updateinfo(newconfig)
 
 # =========================================================================================
 

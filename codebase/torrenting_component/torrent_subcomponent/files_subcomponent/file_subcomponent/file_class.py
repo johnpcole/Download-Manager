@@ -1,6 +1,6 @@
-from ....functions_component import functions_module as Functions
+from .....functions_component import functions_module as Functions
 
-class DefineFileItem:
+class DefineFile:
 
 	def __init__(self, fileid, path, size):
 
@@ -168,4 +168,44 @@ class DefineFileItem:
 					outcome = rawsplit[1]
 		return outcome
 
+# =========================================================================================
 
+	def getfiletitle(self, tvshowseason):
+
+		outcome = self.gettitle()
+		if tvshowseason != "":
+			if outcome[:6] != "Ignore":
+				outcome = Functions.minifyseason(tvshowseason, self.getepisodepart(0)) + outcome
+		return outcome
+
+# =========================================================================================
+
+	def getdestinationfilename(self, moviename, movieyear):
+
+		rawfilename = self.gettitle()
+		filename = ""
+		rawsplit = rawfilename.split(" ")
+		if rawsplit[0] != "Ignored":
+			if rawsplit[0] == "Film":
+				filename = moviename
+				if movieyear != "":
+					filename = filename + " (" + movieyear + ")"
+			else:
+				filename = rawsplit[0]
+			if rawsplit[len(rawsplit)-2] == "Subtitle":
+				if rawsplit[len(rawsplit)-3] != "Standard":
+					filename = filename + " - " + rawsplit[len(rawsplit)-3]
+			filename = filename + "." + self.getextension()
+
+		return filename
+
+# =========================================================================================
+
+	def getdestination(self, torrenttype, destinationfolder, moviename, movieyear):
+
+		if (torrenttype != "none") and (self.getoutcome() == "copy"):
+			outcome = destinationfolder
+			outcome.append(self.getdestinationfilename(moviename, movieyear))
+		else:
+			outcome = []
+		return outcome

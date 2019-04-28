@@ -6,11 +6,11 @@ function saveTorrentConfiguration()
     var newtype = getNewTorrentType()
     var newinstructions = {}
     if (newtype == 'tvshow') {
-        newinstructions = { 'torrenttype' : newtype, 'tvshowname' : getFieldValue("tvshowselector"), 'season' : getFieldValue('tvshowseasonselector'), 'files' : getFileInstructions("tvshow") };
+        newinstructions = { 'torrenttype' : newtype, 'tvshowname' : getFieldValue("tvshowselector"), 'season' : getFieldValue('tvshowseasonselector'), 'fileinstructions' : getFileInstructions("tvshow") };
     } else if (newtype == 'movie') {
-        newinstructions = { 'torrenttype' : newtype, 'moviename' : getFieldValue("moviename"), 'year' : getFieldValue('movieyear'), 'files' : getFileInstructions("movie") };
+        newinstructions = { 'torrenttype' : newtype, 'moviename' : getFieldValue("moviename"), 'year' : getFieldValue('movieyear'), 'fileinstructions' : getFileInstructions("movie") };
     } else {
-        newinstructions = { 'torrenttype' : newtype, 'moviename' : getFieldValue("moviename"), 'files' : getUnknownTorrentFileInstructions() };
+        newinstructions = { 'torrenttype' : newtype, 'moviename' : getFieldValue("moviename"), 'fileinstructions' : getUnknownTorrentFileInstructions() };
     };
     updateCopyButton(getImageName('Status').substr(7), newtype);
     updateTorrentConfig(newinstructions);

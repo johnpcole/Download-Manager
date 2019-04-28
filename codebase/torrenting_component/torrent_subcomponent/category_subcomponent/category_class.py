@@ -94,9 +94,22 @@ class DefineCategory:
 # Returns the name, whether tv show or movie (string)
 # =========================================================================================
 
-	def getmovieortvshowname(self):
+	def gettorrenttitle(self, episodesuffix):
 
-		return self.movieorshowname
+		if self.movieorshowname == "":
+			outcome = "New Unspecified Torrent"
+		else:
+			outcome = self.movieorshowname
+
+		if episodesuffix == "":
+			suffix = self.seasonoryear
+		else:
+			suffix = episodesuffix
+
+		if suffix != "":
+			outcome = outcome + " - " + suffix
+
+		return outcome
 
 
 
