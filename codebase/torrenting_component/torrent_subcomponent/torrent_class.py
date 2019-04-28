@@ -1,46 +1,41 @@
 from .filedata_subcomponent import filedata_module as FileData
 from ...functions_component import functions_module as Functions
+from .category_subcomponent import category_module as Category
+from .status_subcomponent import status_module as Status
+
+
+# This class creates an object which is used to capture information about an individual torrent
+# The object contains a mixture of remotely read Deluge Daemon data and local Download-Manager data
 
 
 class DefineTorrentItem:
 
 	def __init__(self, torrentid):
 
+		# The raw name of the torrent (string)
 		self.torrentname = ""
 
+		# The GUID of the torrent, used to key the deluge daemon's list of torrents (string)
 		self.torrentid = torrentid
 
-		self.size = "!UNKNOWN!"
-
-		self.status = "!UNKNOWN!"
-
+		# The file path of the completed torrent, captured as a list, one item per folder in the hierarchical file
+		# system (list/array of strings)
 		self.location = "!UNKNOWN!"
 
-		self.progress = -99999
-
-		self.finished = False
-
+		# Is a ????
 		self.files = []
 
+		# Determines if the file data of the torrent has changed since the torrent info was last read from Deluge
+		# When a torrent is first added, there are zero files; Once the first peer has connected, file information
+		# becomes available which needs to be read into Download-Manager
 		self.filechangeflag = False
 
-		self.torrenttype = "unknown"
+		self.torrentcategory = Category.createcategory()
 
-		self.movieorshowname = ""
-
-		self.seasonoryear = ""
-
-		self.eta = "!UNKNOWN!"
+		self.torrentstatus = Status.createstatus()
 
 		self.dateadded = -99999
 
-#		self.totalpeers = 0
-
-		self.activepeers = 0
-
-#		self.totalseeders = 0
-
-		self.activeseeders = 0
 
 	# =========================================================================================
 
@@ -53,55 +48,47 @@ class DefineTorrentItem:
 			if dataitem == "name":
 				self.torrentname = Functions.sanitisetext(datalist[dataitem])
 
-			elif dataitem == "torrenttype":
-				self.torrenttype = datalist[dataitem]
-
+			# -----------------------------------------------------------------------------------------------
 			elif dataitem == "total_size":
-				self.size = Functions.sanitisesize(datalist[dataitem])
-
+				self.torrentstatus.setsize(datalist[dataitem])
 			elif dataitem == "state":
-				temp = datalist[dataitem]
-				self.status = temp.lower()
+				self.torrentstatus.setstatus(datalist[dataitem])
+			elif dataitem == "progress":
+				self.torrentstatus.setprogress(datalist[dataitem])
+			elif dataitem == "is_finished":
+				self.torrentstatus.setfinished(datalist[dataitem])
+			elif dataitem == "eta":
+				self.torrentstatus.seteta(datalist[dataitem])
+			elif dataitem == "num_seeds":
+				self.torrentstatus.setactiveseeders(datalist[dataitem])
+			elif dataitem == "num_peers":
+				self.torrentstatus.setactivepeers(datalist[dataitem])
+			# -----------------------------------------------------------------------------------------------
+
 
 			elif dataitem == "save_path":
 				path = datalist[dataitem]
 				self.location = path.split('/')
 
-			elif dataitem == "progress":
-				self.progress = str(int(datalist[dataitem])) + "%"
-
-			elif dataitem == "is_finished":
-				if datalist[dataitem] == True:
-					self.finished = "Completed"
-				else:
-					self.finished = "In Progress"
 
 			elif dataitem == "files":
 				self.updatefiledata(datalist[dataitem])
 
-			elif (dataitem == "moviename") or (dataitem == "tvshowname"):
-				self.movieorshowname = datalist[dataitem]
-
-			elif (dataitem == "year") or (dataitem == "season"):
-				self.seasonoryear = datalist[dataitem]
-
-			elif dataitem == "eta":
-				self.eta = Functions.sanitisetime(datalist[dataitem])
+			#-----------------------------------------------------------------------------------------------
+			elif dataitem == "torrenttype":
+				self.torrentcategory.settype(datalist[dataitem])
+			elif dataitem == "moviename":
+				self.torrentcategory.setmoviename(datalist[dataitem])
+			elif dataitem == "tvshowname":
+				self.torrentcategory.setshowname(datalist[dataitem])
+			elif dataitem == "year":
+				self.torrentcategory.setyear(datalist[dataitem])
+			elif dataitem == "season":
+				self.torrentcategory.setseason(datalist[dataitem])
+			#-----------------------------------------------------------------------------------------------
 
 			elif dataitem == "time_added":
 				self.dateadded = datalist[dataitem]
-
-			elif dataitem == "num_seeds":
-				self.activeseeders = datalist[dataitem]
-
-#			elif dataitem == "total_seeds":
-#				self.totalseeders = datalist[dataitem]
-
-			elif dataitem == "num_peers":
-				self.activepeers = datalist[dataitem]
-
-#			elif dataitem == "total_peers":
-#				self.totalpeers = datalist[dataitem]
 
 			else:
 				outcome = "Unknown Data Label: " + dataitem
@@ -150,145 +137,18 @@ class DefineTorrentItem:
 
 # =========================================================================================
 
-	def getname(self):
-
-		return self.torrentname
-
-# =========================================================================================
-
-	def getsize(self):
-
-		return self.size
-
-# =========================================================================================
-
-	def getstatus(self):
-
-		return self.status
-
-# =========================================================================================
-
-	def getlocation(self):
-
-		return self.location
-
-# =========================================================================================
-
-	def getprogress(self):
-
-		if self.progress == "100%":
-			outcome = ""
-		else:
-			outcome = self.progress
-		return outcome
-
-# =========================================================================================
-
-	def getfinished(self):
-
-		return self.finished
-
-
-# =========================================================================================
-
-	def getfullstatus(self):
-
-		if self.status == "queued":
-			if self.finished == "Completed":
-				outcome = "seeding_queued"
-			else:
-				outcome = "downloading_queued"
-		elif self.status == "paused":
-			if self.finished == "Completed":
-				outcome = "seeding_paused"
-			else:
-				outcome = "downloading_paused"
-		elif self.status == "downloading":
-			outcome = "downloading_active"
-		elif self.status == "seeding":
-			outcome = "seeding_active"
-		else:
-			outcome = self.status
-		return outcome
-
-# =========================================================================================
-
 	def getfileobjects(self):
 
 		return self.files
 
 # =========================================================================================
 
-	def getmoviename(self):
-
-		if self.torrenttype == "movie":
-			outcome = self.movieorshowname
-		else:
-			outcome = ""
-		return outcome
-
-# =========================================================================================
-
-	def getshowname(self):
-
-		if self.torrenttype == "tvshow":
-			outcome = self.movieorshowname
-		else:
-			outcome = ""
-		return outcome
-
-# =========================================================================================
-
-	def getseason(self):
-
-		if self.torrenttype == "tvshow":
-			outcome = self.seasonoryear
-		else:
-			outcome = ""
-		return outcome
-
-# =========================================================================================
-
-	def getyear(self):
-
-		if self.torrenttype == "movie":
-			outcome = self.seasonoryear
-		else:
-			outcome = ""
-		return outcome
-
-# =========================================================================================
-
-	def geteta(self):
-
-		return self.eta
-
-# =========================================================================================
-
-	def gettype(self):
-
-		return self.torrenttype
-
-# =========================================================================================
-
-	def getprogresssizeeta(self):
-
-		outcome = self.getprogress()
-		if outcome != "":
-			outcome = outcome + " of "
-		outcome = outcome + self.size
-		if self.getfullstatus() == "downloading_active":
-			outcome = outcome + " (~" + self.eta + ")"
-		return outcome
-
-# =========================================================================================
-
 	def gettorrenttitle(self):
 
-		outcome = self.getmoviename() + self.getshowname()
+		outcome = self.torrentcategory.getmovieortvshowname()
 		if outcome == "":
 			outcome = "New Unspecified Torrent"
-		if self.gettype() == "tvshow":
+		if self.torrentcategory.gettype() == "tvshow":
 			episodeoutcome = ""
 			for file in self.files:
 				if file.getoutcome() == "copy":
@@ -300,11 +160,11 @@ class DefineTorrentItem:
 							if episodeoutcome != episodename:
 								episodeoutcome = "(Multiple Episodes)"
 			if (episodeoutcome != "") and (episodeoutcome != "(Multiple Episodes)"):
-				suffix = Functions.minifyseason(self.getseason(), episodeoutcome) + Functions.minifyepisode(episodeoutcome)
+				suffix = Functions.minifyseason(self.torrentcategory.getseason(), episodeoutcome) + Functions.minifyepisode(episodeoutcome)
 			else:
-				suffix = self.getseason()
+				suffix = self.torrentcategory.getseason()
 		else:
-			suffix = self.getyear()
+			suffix = self.torrentcategory.getyear()
 		if suffix != "":
 			outcome = outcome + " - " + suffix
 
@@ -318,13 +178,13 @@ class DefineTorrentItem:
 			outcome = { 'torrentid': self.torrentid,
 						'torrenttitle': self.gettorrenttitle(),
 						'torrentname': self.torrentname,
-						'torrenttype': self.torrenttype,
-						'status': self.getfullstatus(),
-						'progress': self.progress}
+						'torrenttype': self.torrentcategory.gettype(),
+						'status': self.torrentstatus.getfulltorrentstatus(),
+						'progress': self.torrentstatus.progress}
 		elif datamode == "refresh":
 			outcome = { 'torrentid': self.torrentid,
-						'status': self.getfullstatus(),
-						'progress': self.progress}
+						'status': self.torrentstatus.getfulltorrentstatus(),
+						'progress': self.torrentstatus.progress}
 		else:
 			assert 1==0, datamode
 		return outcome
@@ -337,25 +197,25 @@ class DefineTorrentItem:
 			outcome = { 'torrentid': self.torrentid,
 						'torrenttitle': self.gettorrenttitle(),
 						'torrentname': self.torrentname,
-						'torrenttype': self.torrenttype,
-						'status': self.getfullstatus(),
-						'progress': self.getprogresssizeeta(),
+						'torrenttype': self.torrentcategory.gettype(),
+						'status': self.torrentstatus.getfulltorrentstatus(),
+						'progress': self.torrentstatus.getprogresssizeeta(),
 						'files': self.getextendedfiledata(datamode)}
 		elif datamode == "refresh":
-			outcome = { 'status': self.getfullstatus(),
-						'progress': self.getprogresssizeeta(),
+			outcome = { 'status': self.torrentstatus.getfulltorrentstatus(),
+						'progress': self.torrentstatus.getprogresssizeeta(),
 						'filechangealert': self.filechangeflag}
 			self.filechangeflag = False
 		elif datamode == "reconfigure":
 			outcome = { 'torrenttitle': self.gettorrenttitle(),
-						'torrenttype': self.torrenttype,
+						'torrenttype': self.torrentcategory.gettype(),
 						'files': self.getextendedfiledata(datamode)}
 		elif datamode == "prepareedit":
-			outcome = { 'moviename': self.getmoviename(),
-						'movieyear': self.getyear(),
-						'tvshowname': self.getshowname(),
-						'tvshowseason': self.getseason(),
-						'torrenttype': self.gettype(),
+			outcome = { 'moviename': self.torrentcategory.getmoviename(),
+						'movieyear': self.torrentcategory.getyear(),
+						'tvshowname': self.torrentcategory.getshowname(),
+						'tvshowseason': self.torrentcategory.getseason(),
+						'torrenttype': self.torrentcategory.gettype(),
 						'files': self.getextendedfiledata(datamode)}
 		else:
 			assert 1 == 0, datamode
@@ -394,9 +254,9 @@ class DefineTorrentItem:
 	def getfiletitle(self, fileobject):
 
 		outcome = fileobject.gettitle()
-		if self.gettype() == "tvshow":
+		if self.torrentcategory.gettype() == "tvshow":
 			if outcome[:6] != "Ignore":
-				outcome = Functions.minifyseason(self.getseason(), fileobject.getepisodepart(0)) + outcome
+				outcome = Functions.minifyseason(self.torrentcategory.getseason(), fileobject.getepisodepart(0)) + outcome
 		return outcome
 
 
@@ -415,10 +275,7 @@ class DefineTorrentItem:
 
 	def getsavedata(self):
 
-		outcome = self.getid() + "|-"
-		outcome = outcome + "|" + self.gettype()
-		outcome = outcome + "|" + self.getmoviename() + self.getshowname()
-		outcome = outcome + "|" + self.getyear() + self.getseason()
+		outcome = self.getid() + "|-|" + self.torrentcategory.getsavedata()
 		outcomelist = []
 		outcomelist.append(outcome)
 		for fileitem in self.files:
@@ -431,7 +288,7 @@ class DefineTorrentItem:
 	def setsavedata(self, dataarray):
 
 		if dataarray[1] == "-":
-			self.updateinfo({"torrenttype": dataarray[2], "moviename": dataarray[3], "year": dataarray[4]})
+			self.torrentcategory.setsavedata(dataarray[2], dataarray[3], dataarray[4])
 		else:
 			existingfile = self.getfileobject(int(dataarray[1]))
 			if existingfile is not None:
@@ -448,9 +305,9 @@ class DefineTorrentItem:
 		rawsplit = rawfilename.split(" ")
 		if rawsplit[0] != "Ignored":
 			if rawsplit[0] == "Film":
-				filename = self.getmoviename()
-				if self.getyear() != "":
-					filename = filename + " (" + self.getyear() + ")"
+				filename = self.torrentcategory.getmoviename()
+				if self.torrentcategory.getyear() != "":
+					filename = filename + " (" + self.torrentcategory.getyear() + ")"
 			else:
 				filename = rawsplit[0]
 			if rawsplit[len(rawsplit)-2] == "Subtitle":
@@ -460,29 +317,13 @@ class DefineTorrentItem:
 
 		return filename
 
-# =========================================================================================
-
-	def getdestinationfolder(self):
-
-		folders = []
-		if self.gettype() == "movie":
-			folders.append("Movies")
-			folders.append(Functions.getinitial(self.getmoviename()))
-
-		elif self.gettype() == "tvshow":
-			folders.append("TV Shows")
-			folders.append(self.getshowname())
-			if self.getseason() != "":
-				folders.append(self.getseason())
-
-		return folders
 
 # =========================================================================================
 
 	def getdestination(self, fileobject):
 
-		if (self.gettype() != "none") and (fileobject.getoutcome() == "copy"):
-			outcome = self.getdestinationfolder()
+		if (self.torrentcategory.gettype() != "none") and (fileobject.getoutcome() == "copy"):
+			outcome = self.torrentcategory.getdestinationfolder()
 			outcome.append(self.getdestinationfilename(fileobject))
 		else:
 			outcome = []
@@ -496,7 +337,7 @@ class DefineTorrentItem:
 		for file in self.files:
 			filedestination = self.getdestination(file)
 			if filedestination != []:
-				instruction = {'source': self.getlocation() + file.getpath(), 'target': filedestination,
+				instruction = {'source': self.location + file.getpath(), 'target': filedestination,
 																							'size': file.getrawsize()}
 				outcome.append(instruction)
 		return outcome
@@ -504,21 +345,4 @@ class DefineTorrentItem:
 
 
 	def getconnectiondata(self):
-
-		outcome = {}
-		outcome['activedownloads'] = 0
-		outcome['activeuploads'] = 0
-		outcome['downloadcount'] = 0
-		outcome['activedownloads'] = 0
-
-		torrentstatus = self.getfullstatus()
-		if torrentstatus[-6:] == "active":
-			outcome['uploadcount'] = 1
-			if self.activepeers > 0:
-				outcome['activeuploads'] = 1
-			if torrentstatus == "downloading_active":
-				outcome['downloadcount'] = 1
-				if self.activeseeders > 0:
-					outcome['activedownloads'] = 1
-
-		return outcome
+		return self.torrentstatus.getconnectiondata()

@@ -1,38 +1,68 @@
-from . import sessiondatameters_privatefunctions as MeterFunctions
+from .meter_subcomponent import meter_module as Meter
 
-
+# This class creates an object which is used to store overarching information about the Deluge Daemon session and
+# the Raspberry Pi hardware (e.g. temperature / free disk space), and present the information in a format useful for
+# graphical presentation
+# The object only stores information fed to it, rather than looking up the information itself,
+# and stores the information within each child meter object, rather than on itself; It's just a collection
 
 class DefineSessionDataMeters:
 
 	def __init__(self):
 
-		self.uploadspeed = 0
+		# Overall Upload Speed
+		self.uploadspeed = Meter.createlogarithmicmeter(1.0, "Short")
 
-		self.downloadspeed = 0
+		# Overall Download Speed
+		self.downloadspeed = Meter.createlogarithmicmeter(1.0, "Long")
 
-		self.freespace = 0
+		# Free space on the disk of the daemon's COMPLETED folder
+		self.freespace = Meter.createlogarithmicmeter(3.0, "Long")
 
-		self.temperature = 0
+		# Temperature of the Raspberry Pi
+		self.temperature = Meter.createlinearmeter(32.5, 52.5, "Long")
 
-		self.downloadcount = 0
+		# Total number of incomplete torrents that are unpaused
+		self.downloadcount = Meter.createblockmeter("Outer")
 
-		self.activedownloads = 0
+		# Number of incomplete torrents that are actively leeching filesegments from peers
+		self.activedownloads = Meter.createblockmeter("Outer")
 
-		self.uploadcount = 0
+		# Total number of complete torrents that are unpaused
+		self.uploadcount = Meter.createblockmeter("Inner")
 
-		self.activeuploads = 0
+		# Number of complete torrents that are actively seeding filesegments to peers
+		self.activeuploads = Meter.createblockmeter("Inner")
 
 
 
+# =========================================================================================
+# Takes the specified dictionary of session stats and specified system temperature
+# and stores them in the meter objects for later use
+# Also takes the specified dictionary of detailed torrent data,
+# and takes a cumulative count of torrents that are unpaused, and are actively seeding/leeching
+# storing them in the meter objects for later use
+# =========================================================================================
 
-	# =========================================================================================
+	def updatesessiondata(self, delugesessiondata, temperaturedata, torrentset):
 
-	def updateactivitycounts(self, torrentset):
+		self.temperature.setmetervalue(temperaturedata)
 
-		self.downloadcount = 0
-		self.activedownloads = 0
-		self.uploadcount = 0
-		self.activeuploads = 0
+		for indexkey in delugesessiondata:
+
+			if indexkey == 'uploadspeed':
+				self.uploadspeed.setmetervalue(delugesessiondata[indexkey])
+			elif indexkey == 'downloadspeed':
+				self.downloadspeed.setmetervalue(delugesessiondata[indexkey])
+			elif indexkey == 'freespace':
+				self.freespace.setmetervalue(delugesessiondata[indexkey])
+			else:
+				print("Unexepected session data: ", indexkey)
+
+		totaldownloadcounter = 0
+		activedownloadcounter = 0
+		totaluploadcounter = 0
+		activeuploadcounter = 0
 
 		for existingtorrent in torrentset:
 
@@ -40,50 +70,40 @@ class DefineSessionDataMeters:
 
 			for indexkey in newcount:
 				if indexkey == 'downloadcount':
-					self.downloadcount = self.downloadcount + newcount[indexkey]
+					totaldownloadcounter = totaldownloadcounter + newcount[indexkey]
 				elif indexkey == 'activedownloads':
-					self.activedownloads = self.activedownloads + newcount[indexkey]
+					activedownloadcounter = activedownloadcounter + newcount[indexkey]
 				elif indexkey == 'uploadcount':
-					self.uploadcount = self.uploadcount + newcount[indexkey]
+					totaluploadcounter = totaluploadcounter + newcount[indexkey]
 				elif indexkey == 'activeuploads':
-					self.activeuploads = self.activeuploads + newcount[indexkey]
+					activeuploadcounter = activeuploadcounter + newcount[indexkey]
 				else:
 					print("Unexpected torrent data: ", indexkey)
 
-# =========================================================================================
-
-	def updatesessionstats(self, delugesessiondata, temperaturedata):
-
-		self.temperature = temperaturedata
-
-		for indexkey in delugesessiondata:
-
-			if indexkey == 'uploadspeed':
-				self.uploadspeed = delugesessiondata[indexkey]
-			elif indexkey == 'downloadspeed':
-				self.downloadspeed = delugesessiondata[indexkey]
-			elif indexkey == 'freespace':
-				self.freespace = delugesessiondata[indexkey]
-			else:
-				print("Unexecpted session data: ", indexkey)
+		self.downloadcount.setmetervalue(totaldownloadcounter)
+		self.activedownloads.setmetervalue(activedownloadcounter)
+		self.uploadcount.setmetervalue(totaluploadcounter)
+		self.activeuploads.setmetervalue(activeuploadcounter)
 
 
 
-# =========================================================================================
-# Generates an array of stat numerics, required to draw the meter graphs
+
+			# =========================================================================================
+# Returns a dictionary of dictionaries, which contain the graphical coordinates
+# required to draw the meter graphs
 # =========================================================================================
 
 	def getstats(self):
 
 		outcome = {}
-		outcome['downloadspeed'] = MeterFunctions.getneedlemeterdata(self.downloadspeed, -9999.9, 1.0, "Long")
-		outcome['uploadspeed'] = MeterFunctions.getneedlemeterdata(self.uploadspeed, -9999.9, 1.0, "Short")
-		outcome['space'] = MeterFunctions.getneedlemeterdata(self.freespace, -9999.9, 3.0, "Long")
-		outcome['temperature'] = MeterFunctions.getneedlemeterdata(self.temperature, 32.5, 52.5, "Long")
-		outcome['downloadcount'] = MeterFunctions.getblockmeterdata(self.downloadcount, "Outer")
-		outcome['activedownloads'] = MeterFunctions.getblockmeterdata(self.activedownloads, "Outer")
-		outcome['uploadcount'] = MeterFunctions.getblockmeterdata(self.uploadcount, "Inner")
-		outcome['activeuploads'] = MeterFunctions.getblockmeterdata(self.activeuploads, "Inner")
+		outcome['downloadspeed'] = self.downloadspeed.getmeterdata()
+		outcome['uploadspeed'] = self.uploadspeed.getmeterdata()
+		outcome['space'] = self.freespace.getmeterdata()
+		outcome['temperature'] = self.temperature.getmeterdata()
+		outcome['downloadcount'] = self.downloadcount.getmeterdata()
+		outcome['activedownloads'] = self.activedownloads.getmeterdata()
+		outcome['uploadcount'] = self.uploadcount.getmeterdata()
+		outcome['activeuploads'] = self.activeuploads.getmeterdata()
 
 #		index = 30.0
 #		for indexcounter in range(1, 11):

@@ -1,5 +1,5 @@
 from .deluge_subcomponent import deluge_module as DelugeClient
-from .torrentdata_subcomponent import torrentdata_module as TorrentData
+from .torrent_subcomponent import torrent_module as TorrentData
 from ..functions_component import functions_module as Functions
 from .thermometer_subcomponent import thermometer_module as PiThermometer
 from .sessiondatameters_subcomponent import sessiondatameters_module as SessionDataMeters
@@ -15,7 +15,7 @@ class DefineTorrentManager:
 		else:
 			self.delugeclient = DelugeClient.createinterface(address, port, username, password)
 
-		# The list of torrents in the deluge daemon; each item contains composite torrenting data
+		# The list of torrents in the deluge daemon; each item contains composite torrenting data (structured/layered dictionary)
 		self.torrents = []
 
 		# An array of meter graph data, capturing important overall torrenting stats
@@ -28,20 +28,29 @@ class DefineTorrentManager:
 
 	def refreshtorrentlist(self):
 
+		# Open the connection to the Deluge Daemon
 		dummyoutcome = self.delugeclient.openconnection()
 
-		self.sessiondata.updatesessionstats(self.delugeclient.getsessiondata(), PiThermometer.gettemperature())
+		# Get the overall session data from the Deluge Daemon (as a flat dictionary of values)
+		sessiondata = self.delugeclient.getsessiondata()
 
+		# Get the list of torrent GUIDs from the Delude Daemon (as a flat list)
 		torrentidlist = self.delugeclient.gettorrentlist()
 
+		# Close the connection to the Deluge Daemon
 		dummyoutcome = self.delugeclient.closeconnection()
 		#print("Connection closure attempted - Connection State = ", outcome)
 
+		# Update the list of torrents to include new torrents not previously managed by Download-Manager
 		self.registermissingtorrentsandupdatetorrentdata(torrentidlist)
 
+		# Update the list of torrents to exclude torrents previously managed by Download-Manager
 		self.cleantorrentlist(torrentidlist)
 
-		self.sessiondata.updateactivitycounts(self.torrents)
+		# Update the session data meters with the latest Delude Daemon session data and Raspberry Pi temperature
+		self.sessiondata.updatesessiondata(sessiondata, PiThermometer.gettemperature(), self.torrents)
+
+
 
 # =========================================================================================
 # Registers a torrent in Download-Manager, with default torrent data which is
