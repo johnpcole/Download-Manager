@@ -31,6 +31,13 @@ class DefineTorrentItem:
 
 	def updateinfo(self, datalist):
 
+		# Some values are only valid for certain torrent types; so to ensure there isn't
+		# an error (because we cannot guarantee the order data is passed through), the
+		# torrenttype is updated before the rest of the data dictionary is processed
+		if "torrenttype" in datalist:
+			self.torrentcategory.settype(datalist["torrenttype"])
+
+
 		for dataitem in datalist:
 
 			if dataitem == "name":
