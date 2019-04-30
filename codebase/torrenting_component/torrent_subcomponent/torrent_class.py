@@ -181,7 +181,14 @@ class DefineTorrentItem:
 # =========================================================================================
 
 	def getcopyactions(self):
-		return self.torrentfiles.getcopyactions(self.torrentcategory.gettype(),
+		if self.torrentstatus.getfinished() == 'Completed':
+			outcome = self.torrentfiles.getcopyactions(self.torrentcategory.gettype(),
 													self.torrentcategory.getdestinationfolder(),
 													self.torrentcategory.getmoviename(),
 													self.torrentcategory.getyear())
+		else:
+			outcome = []
+
+		return outcome
+
+

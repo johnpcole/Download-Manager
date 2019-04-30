@@ -209,12 +209,7 @@ class DefineTorrentManager:
 	def getcopyactions(self, torrentid):
 
 		torrentobject = self.gettorrentobject(torrentid)
-		if torrentobject.getfinished() == 'Completed':
-			outcome = torrentobject.getcopyactions()
-		else:
-			outcome = []
-
-		return outcome
+		return torrentobject.getcopyactions()
 
 
 

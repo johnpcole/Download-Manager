@@ -130,3 +130,9 @@ class DefineStatus:
 	def getprogress(self):
 
 		return self.progress
+
+# =========================================================================================
+
+	def getfinished(self):
+
+		return self.finished
