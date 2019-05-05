@@ -11,7 +11,7 @@ class DefineCategory:
 	def __init__(self):
 
 		# Determines whether the torrent is a TV Show, Movie or Other (string)
-		self.torrenttype = "Unknown"
+		self.torrenttype = "unknown"
 
 		# The specified movie name, or tv show name (string)
 		self.movieorshowname = ""
