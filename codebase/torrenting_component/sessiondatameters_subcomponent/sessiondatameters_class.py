@@ -20,7 +20,7 @@ class DefineSessionDataMeters:
 		self.freespace = Meter.createlogarithmicmeter(3.0, "Long")
 
 		# Temperature of the Raspberry Pi
-		self.temperature = Meter.createlinearmeter(28.0, 44.0, "Long")
+		self.temperature = Meter.createlinearmeter(22.5, 42.5, "Long")
 
 		# Total number of incomplete torrents that are unpaused
 		self.downloadcount = Meter.createblockmeter("Outer")
