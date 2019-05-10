@@ -89,21 +89,27 @@ def getloggingdata():
 		else:
 			if len(cache) > 0:
 				linecounter = linecounter + 1
-				outcome.insert(0, {"lineindex": linecounter, "entrytype": "information", "content": cache})
+				outcome.insert(0, {"lineindex": linecounter, "entrytype": "information", "content": cache, "importance": "major"})
 				cache = []
 			flaskoutput = {}
 			datetimestart = logentry.find("[")
 			datetimeend = logentry.find("]")
 			linecounter = linecounter + 1
 			flaskoutput["lineindex"] = linecounter
-			flaskoutput["datetime"] = logentry[datetimestart + 1:datetimeend]
+			datetime = logentry[datetimeend - 8:datetimeend] + " - " + logentry[datetimestart + 1:datetimeend - 9]
+			flaskoutput["datetime"] = datetime.replace("/", " ")
 			flaskoutput["requestipaddress"] = "From " + logentry[:datetimestart - 4]
 			rawdata = logentry[datetimeend + 3:]
 			rawdata = rawdata.split(" ")
 			flaskoutput["method"] = rawdata[0]
-			flaskoutput["path"] = rawdata[1]
+			requestedpath = rawdata[1]
+			flaskoutput["path"] = requestedpath
+			if requestedpath[:8] == "/static/":
+				flaskoutput["importance"] = "minor"
+			else:
+				flaskoutput["importance"] = "major"
 			flaskoutput["outcome"] = rawdata[3]
-			if rawdata[3] == "200":
+			if (rawdata[3] == "200") or (rawdata[3] == "304"):
 				flaskoutput["entrytype"] = "success"
 			else:
 				flaskoutput["entrytype"] = "failure"
@@ -111,7 +117,7 @@ def getloggingdata():
 			outcome.insert(0, flaskoutput)
 	if len(cache) > 0:
 		linecounter = linecounter + 1
-		outcome.insert(0, {"lineindex": linecounter, "entrytype": "information", "content": cache})
+		outcome.insert(0, {"lineindex": linecounter, "entrytype": "information", "content": cache, "importance": "major"})
 
 
 	return outcome

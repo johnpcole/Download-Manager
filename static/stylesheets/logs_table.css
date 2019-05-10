@@ -7,12 +7,10 @@ table {
 }
 
 tr {
-  background-color: #bde9ba;
-  border-bottom: 3px solid #DDDDEE;
+  background-color: #000000;
 }
 
 td {
-  font-size: 80%;
   padding: 4px;
   text-align: left;
   vertical-align: top;
@@ -49,5 +47,16 @@ tr.failure {
 tr.information {
   background-color: #7D7D00;
 }
+
+tr.minor {
+  font-size: 50%;
+  border-bottom: 1px solid #DDDDEE;
+}
+
+tr.major {
+  font-size: 80%;
+  border-bottom: 3px solid #DDDDEE;
+}
+
 
 tr:hover {color:#000000;}

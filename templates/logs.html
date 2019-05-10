@@ -41,7 +41,7 @@ Banner Content
 
             --><table>
 {% for logentry in loggingoutput %}
-        <tr class="{{ logentry.entrytype }}">
+        <tr class="{{ logentry.entrytype }} {{ logentry.importance }}">
         <td class="counter">{{ logentry.lineindex }}</td>
 {% if logentry.entrytype == "information" %}
             <td colspan="5">
