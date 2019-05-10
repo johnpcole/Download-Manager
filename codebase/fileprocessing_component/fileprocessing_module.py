@@ -1,5 +1,6 @@
 from .filesystem_subcomponent import filesystem_module as FileSystem
 from . import fileprocessing_class as FileManagerClass
+from . import fileprocessing_privatefunctions as Functions
 
 # =========================================================================================
 # Creates the Library object, which contains file server connectivity data,
@@ -89,36 +90,13 @@ def getloggingdata():
 		else:
 			if len(cache) > 0:
 				linecounter = linecounter + 1
-				outcome.insert(0, {"lineindex": linecounter, "entrytype": "information", "content": cache, "importance": "major"})
+				outcome.insert(0, Functions.getnonflaskoutput(cache, linecounter))
 				cache = []
-			flaskoutput = {}
-			datetimestart = logentry.find("[")
-			datetimeend = logentry.find("]")
 			linecounter = linecounter + 1
-			flaskoutput["lineindex"] = linecounter
-			datetime = logentry[datetimeend - 8:datetimeend] + " - " + logentry[datetimestart + 1:datetimeend - 9]
-			flaskoutput["datetime"] = datetime.replace("/", " ")
-			flaskoutput["requestipaddress"] = "From " + logentry[:datetimestart - 4]
-			rawdata = logentry[datetimeend + 3:]
-			rawdata = rawdata.split(" ")
-			flaskoutput["method"] = rawdata[0]
-			requestedpath = rawdata[1]
-			flaskoutput["path"] = requestedpath
-			if requestedpath[:8] == "/static/":
-				flaskoutput["importance"] = "minor"
-			else:
-				flaskoutput["importance"] = "major"
-			flaskoutput["outcome"] = rawdata[3]
-			if (rawdata[3] == "200") or (rawdata[3] == "304"):
-				flaskoutput["entrytype"] = "success"
-			else:
-				flaskoutput["entrytype"] = "failure"
-
-			outcome.insert(0, flaskoutput)
+			outcome.insert(0, Functions.getflaskoutput(logentry, linecounter))
 	if len(cache) > 0:
 		linecounter = linecounter + 1
-		outcome.insert(0, {"lineindex": linecounter, "entrytype": "information", "content": cache, "importance": "major"})
-
+		outcome.insert(0, Functions.getnonflaskoutput(cache, linecounter))
 
 	return outcome
 
