@@ -84,7 +84,7 @@ class DefineFiles:
 
 # =========================================================================================
 
-	def gettorrenttitleepisodesuffix(self):
+	def buildtorrenttitleepisodesuffix(self):
 
 		episodeoutcome = ""
 		for file in self.files:
@@ -130,8 +130,15 @@ class DefineFiles:
 
 	# =========================================================================================
 
-	def getcopyactions(self, torrenttype, destinationfolder, moviename, movieyear):
+	def buildcopyactions(self, torrenttype, destinationfolder, moviename, movieyear):
 
+		print("=======================")
+		print("Build Copy Actions:")
+		print(torrenttype)
+		print(destinationfolder)
+		print(moviename)
+		print(movieyear)
+		print("=======================")
 		outcome = []
 		for file in self.files:
 			filedestination = file.getdestination(torrenttype, destinationfolder, moviename, movieyear)

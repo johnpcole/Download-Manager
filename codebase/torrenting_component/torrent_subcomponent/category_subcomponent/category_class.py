@@ -94,7 +94,7 @@ class DefineCategory:
 # Returns the name, whether tv show or movie (string)
 # =========================================================================================
 
-	def gettorrenttitle(self, episodesuffix):
+	def buildtorrenttitle(self, episodesuffix):
 
 		if self.movieorshowname == "":
 			outcome = "New Unspecified Torrent"
@@ -179,7 +179,7 @@ class DefineCategory:
 # Returns the category data in file writable format (pipe delimited string)
 # =========================================================================================
 
-	def getsavedata(self):
+	def getcategorysavedata(self):
 
 		outcome = self.torrenttype + "|" + self.movieorshowname + "|" + self.seasonoryear
 		return outcome
@@ -190,7 +190,7 @@ class DefineCategory:
 # Sets the category data read from a file (strings) - No validation of data
 # =========================================================================================
 
-	def setsavedata(self, typedata, namedata, otherdata):
+	def setcategorysavedata(self, typedata, namedata, otherdata):
 
 		self.torrenttype = typedata
 		self.movieorshowname = namedata

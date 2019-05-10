@@ -189,6 +189,21 @@ def addnewtorrent():
 	#torrentmanager.refreshtorrentlist()
 	return Jsondata(newtorrentid=newid)
 
+
+
+#===============================================================================================
+# Display the logging file contents
+#===============================================================================================
+
+@website.route('/Logs')
+def displaylogs():
+
+	return Webpage('logs.html', loggingoutput = FileManager.getloggingdata())
+
+
+
+
+
 #-----------------------------------------------
 
 

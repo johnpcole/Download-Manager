@@ -72,3 +72,49 @@ def buildpath(nodelist):
 
 	return outcome[2:]
 
+# =========================================================================================
+# Reads the logging data, from a file
+# =========================================================================================
+
+def getloggingdata():
+	loggingoutput = FileSystem.readfromdisk('./data/Logging.log')
+	outcome = []
+	linecounter = 0
+
+	cache = []
+	for logentry in loggingoutput:
+		searchoutcome = logentry.find("HTTP/1.1")
+		if searchoutcome == -1:
+			cache.append(logentry)
+		else:
+			if len(cache) > 0:
+				linecounter = linecounter + 1
+				outcome.insert(0, {"lineindex": linecounter, "entrytype": "information", "content": cache})
+				cache = []
+			flaskoutput = {}
+			datetimestart = logentry.find("[")
+			datetimeend = logentry.find("]")
+			linecounter = linecounter + 1
+			flaskoutput["lineindex"] = linecounter
+			flaskoutput["datetime"] = logentry[datetimestart + 1:datetimeend]
+			flaskoutput["requestipaddress"] = "From " + logentry[:datetimestart - 4]
+			rawdata = logentry[datetimeend + 3:]
+			rawdata = rawdata.split(" ")
+			flaskoutput["method"] = rawdata[0]
+			flaskoutput["path"] = rawdata[1]
+			flaskoutput["outcome"] = rawdata[3]
+			if rawdata[3] == "200":
+				flaskoutput["entrytype"] = "success"
+			else:
+				flaskoutput["entrytype"] = "failure"
+
+			outcome.insert(0, flaskoutput)
+	if len(cache) > 0:
+		linecounter = linecounter + 1
+		outcome.insert(0, {"lineindex": linecounter, "entrytype": "information", "content": cache})
+
+
+	return outcome
+
+
+

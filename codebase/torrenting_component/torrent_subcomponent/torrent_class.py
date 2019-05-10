@@ -18,13 +18,14 @@ class DefineTorrentItem:
 		# The GUID of the torrent, used to key the deluge daemon's list of torrents (string)
 		self.torrentid = torrentid
 
+		self.dateadded = -99999
+
 		self.torrentcategory = Category.createcategory()
 
 		self.torrentstatus = Status.createstatus()
 
 		self.torrentfiles = Files.createfilesdata()
 
-		self.dateadded = -99999
 
 
 	# =========================================================================================
@@ -95,11 +96,11 @@ class DefineTorrentItem:
 		episodesuffix = ""
 
 		if self.torrentcategory.gettype() == "tvshow":
-			episodeoutcome = self.torrentfiles.gettorrenttitleepisodesuffix()
+			episodeoutcome = self.torrentfiles.buildtorrenttitleepisodesuffix()
 			if (episodeoutcome != "") and (episodeoutcome != "(Multiple Episodes)"):
 				episodesuffix = Functions.minifyseason(self.torrentcategory.getseason(), episodeoutcome) + Functions.minifyepisode(episodeoutcome)
 
-		return self.torrentcategory.gettorrenttitle(episodesuffix)
+		return self.torrentcategory.buildtorrenttitle(episodesuffix)
 
 # =========================================================================================
 
@@ -156,7 +157,7 @@ class DefineTorrentItem:
 	def getsavedata(self):
 
 		outcomelist = []
-		outcomelist.append(self.getid() + "|-|" + self.torrentcategory.getsavedata())
+		outcomelist.append(self.getid() + "|-|" + self.torrentcategory.getcategorysavedata())
 		filesavedata = self.torrentfiles.getfilesavedata()
 		for fileitem in filesavedata:
 			outcomelist.append(self.getid() + "|" + fileitem)
@@ -167,7 +168,7 @@ class DefineTorrentItem:
 	def setsavedata(self, dataarray):
 
 		if dataarray[1] == "-":
-			self.torrentcategory.setsavedata(dataarray[2], dataarray[3], dataarray[4])
+			self.torrentcategory.setcategorysavedata(dataarray[2], dataarray[3], dataarray[4])
 		else:
 			self.torrentfiles.updatefilespurposes({dataarray[1]: dataarray[2]})
 
@@ -176,13 +177,13 @@ class DefineTorrentItem:
 # =========================================================================================
 
 	def getconnectiondata(self):
-		return self.torrentstatus.getconnectiondata()
+		return self.torrentstatus.getconnectionstatusdata()
 
 # =========================================================================================
 
 	def getcopyactions(self):
 		if self.torrentstatus.getfinished() == 'Completed':
-			outcome = self.torrentfiles.getcopyactions(self.torrentcategory.gettype(),
+			outcome = self.torrentfiles.buildcopyactions(self.torrentcategory.gettype(),
 														self.torrentcategory.getdestinationfolder(),
 														self.torrentcategory.getmoviename(),
 														self.torrentcategory.getyear())

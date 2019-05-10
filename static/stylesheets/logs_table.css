@@ -1,0 +1,53 @@
+table {
+  border-collapse: collapse;
+  width: 1018px;
+  margin-left:auto;
+  margin-right:auto;
+  color: #FFFFFF
+}
+
+tr {
+  background-color: #bde9ba;
+  border-bottom: 3px solid #DDDDEE;
+}
+
+td {
+  font-size: 80%;
+  padding: 4px;
+  text-align: left;
+  vertical-align: top;
+}
+
+td.counter {
+  text-align: right;
+  width: 40px;
+  padding-right: 10px;
+}
+
+td.datetime {
+  text-align: right;
+  width: 150px;
+}
+
+td.ipaddress {
+  text-indent: 20px;
+  width: 140px;
+}
+
+td.post {
+  width: 60px;
+}
+
+tr.success {
+  background-color: #009600;
+}
+
+tr.failure {
+  background-color: #AF0000;
+}
+
+tr.information {
+  background-color: #7D7D00;
+}
+
+tr:hover {color:#000000;}

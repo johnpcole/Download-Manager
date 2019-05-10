@@ -105,7 +105,7 @@ class DefineStatus:
 
 # =========================================================================================
 
-	def getconnectiondata(self):
+	def getconnectionstatusdata(self):
 
 		outcome = {}
 		outcome['activedownloads'] = 0
