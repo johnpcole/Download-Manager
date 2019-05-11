@@ -186,7 +186,8 @@ class DefineTorrentItem:
 			outcome = self.torrentfiles.buildcopyactions(self.torrentcategory.gettype(),
 														self.torrentcategory.getdestinationfolder(),
 														self.torrentcategory.getmoviename(),
-														self.torrentcategory.getyear())
+														self.torrentcategory.getyear(),
+														self.torrentcategory.getseason())
 		else:
 			outcome = []
 

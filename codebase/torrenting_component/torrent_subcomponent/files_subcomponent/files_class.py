@@ -130,20 +130,11 @@ class DefineFiles:
 
 	# =========================================================================================
 
-	def buildcopyactions(self, torrenttype, destinationfolder, moviename, movieyear):
+	def buildcopyactions(self, torrenttype, destinationfolder, moviename, movieyear, tvseason):
 
-		#Functions.printout("=======================")
-		#Functions.printout("Build Copy Actions:")
-		#Functions.printout(torrenttype)
-		#Functions.printout(destinationfolder)
-		#Functions.printout(moviename)
-		#Functions.printout(movieyear)
-		#Functions.printout("=======================")
 		outcome = []
 		for file in self.files:
-			filedestination = file.getcopydestination(torrenttype, destinationfolder, moviename, movieyear)
-			Functions.printout(filedestination)
-			Functions.printout("======================")
+			filedestination = file.getcopydestination(torrenttype, destinationfolder, moviename, movieyear, tvseason)
 			if filedestination != []:
 				instruction = {'source': self.location + file.getpath(), 'target': filedestination,
 																						'size': file.getrawsize()}

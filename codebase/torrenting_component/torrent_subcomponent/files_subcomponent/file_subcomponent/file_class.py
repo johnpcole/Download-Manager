@@ -180,9 +180,9 @@ class DefineFile:
 
 # =========================================================================================
 
-	def getdestinationfilename(self, moviename, movieyear):
+	def getdestinationfilename(self, moviename, movieyear, tvshowseason):
 
-		rawfilename = self.gettitle()
+		rawfilename = self.getfiletitle(tvshowseason)
 		filename = ""
 		rawsplit = rawfilename.split(" ")
 		if rawsplit[0] != "Ignored":
@@ -201,11 +201,11 @@ class DefineFile:
 
 # =========================================================================================
 
-	def getcopydestination(self, torrenttype, destinationfolder, moviename, movieyear):
+	def getcopydestination(self, torrenttype, destinationfolder, moviename, movieyear, tvseason):
 
 		if (torrenttype != "none") and (self.getoutcome() == "copy"):
 			outcome = destinationfolder.copy()
-			outcome.append(self.getdestinationfilename(moviename, movieyear))
+			outcome.append(self.getdestinationfilename(moviename, movieyear, tvseason))
 		else:
 			outcome = []
 		return outcome
