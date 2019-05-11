@@ -1,4 +1,7 @@
 import os as OperatingSystem
+from ...functions_component import functions_module as Functions
+
+
 
 def mountnetworkdrive(mountpoint, networkpath, username, password):
 	if concatenatepaths(" ", " ") == " / ":
@@ -38,7 +41,7 @@ def readfromdisk(filename):
 
 	except:
 		# Print an error if the file cannot be read
-		print("Cannot read file - ", filename)
+		Functions.printout("Cannot read file - " + filename)
 
 	return newfilelist
 
@@ -99,7 +102,7 @@ def getfolderlisting(folderpath):
 			outcome[listitem] = itemtype
 
 	except:
-		print("Cannot access folder - ", folderpath)
+		Functions.printout("Cannot access folder - " + folderpath)
 
 	return outcome
 
@@ -194,7 +197,7 @@ def writetodisk(filename, outputlist):
 
 	except:
 		# Print an error if the file cannot be written
-		print("Cannot write file - ", filename)
+		Functions.printout("Cannot write file - " + filename)
 
 
 
@@ -217,10 +220,8 @@ def createpathfromlist(pathlist):
 # ---------------------------------------------
 
 def copyfile(source, target):
-	print("======================================================================")
-	print("Source: ", source)
-	print("Target: ", target)
-	print("======================================================================")
+	arrows = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;"
+	Functions.printout("Copying File</br>============</br>" + source + "</br>" +arrows + arrows + arrows + arrows + arrows + "</br>" + target)
 
 	if concatenatepaths(" ", " ") == " / ":
 		outcome = OperatingSystem.system('cp "' + source + '" "' + target + '"')

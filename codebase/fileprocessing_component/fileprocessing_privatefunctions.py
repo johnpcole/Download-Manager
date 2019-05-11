@@ -22,11 +22,18 @@ def getflaskoutput(logentry, linecounter):
 		outcome["entrytype"] = "failure"
 	return outcome
 
-
-def getnonflaskoutput(cache, linecounter):
+def getdownloadmanageroutput(logentry, linecounter):
 	outcome = {}
 	outcome["lineindex"] = linecounter
 	outcome["entrytype"] = "information"
+	outcome["content"] = logentry[19:]
+	outcome["importance"] = "minor"
+	return outcome
+
+def getotheroutput(cache, linecounter):
+	outcome = {}
+	outcome["lineindex"] = linecounter
+	outcome["entrytype"] = "other"
 	outcome["content"] = cache
 	outcome["importance"] = "major"
 	return outcome

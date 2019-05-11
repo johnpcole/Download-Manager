@@ -201,10 +201,10 @@ class DefineFile:
 
 # =========================================================================================
 
-	def getdestination(self, torrenttype, destinationfolder, moviename, movieyear):
+	def getcopydestination(self, torrenttype, destinationfolder, moviename, movieyear):
 
 		if (torrenttype != "none") and (self.getoutcome() == "copy"):
-			outcome = destinationfolder
+			outcome = destinationfolder.copy()
 			outcome.append(self.getdestinationfilename(moviename, movieyear))
 		else:
 			outcome = []

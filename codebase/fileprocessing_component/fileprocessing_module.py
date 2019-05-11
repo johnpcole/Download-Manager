@@ -85,18 +85,22 @@ def getloggingdata():
 	cache = []
 	for logentry in loggingoutput:
 		searchoutcome = logentry.find("HTTP/1.1")
-		if searchoutcome == -1:
+		searchoutcometwo = logentry.find("[DOWNLOAD-MANAGER] ")
+		if (searchoutcome == -1) and (searchoutcometwo == -1):
 			cache.append(logentry)
 		else:
 			if len(cache) > 0:
 				linecounter = linecounter + 1
-				outcome.insert(0, Functions.getnonflaskoutput(cache, linecounter))
+				outcome.insert(0, Functions.getotheroutput(cache, linecounter))
 				cache = []
 			linecounter = linecounter + 1
-			outcome.insert(0, Functions.getflaskoutput(logentry, linecounter))
+			if searchoutcometwo != -1:
+				outcome.insert(0, Functions.getdownloadmanageroutput(logentry, linecounter))
+			else:
+				outcome.insert(0, Functions.getflaskoutput(logentry, linecounter))
 	if len(cache) > 0:
 		linecounter = linecounter + 1
-		outcome.insert(0, Functions.getnonflaskoutput(cache, linecounter))
+		outcome.insert(0, Functions.getotheroutput(cache, linecounter))
 
 	return outcome
 

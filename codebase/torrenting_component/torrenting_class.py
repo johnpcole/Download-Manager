@@ -60,7 +60,7 @@ class DefineTorrentManager:
 	def registertorrentobject(self, torrentid):
 
 		self.torrents.append(TorrentData.createitem(torrentid))
-		print("Registering Torrent in Download-Manager", torrentid)
+		Functions.printout("Registering Torrent in Download-Manager" + torrentid)
 
 		return self.gettorrentobject(torrentid)
 
@@ -153,7 +153,7 @@ class DefineTorrentManager:
 			if torrentobject is not None:
 				torrentobject.setsavedata(datavalues)
 			else:
-				print("Ignoring Saved Config for Torrent ", datavalues[0])
+				Functions.printout("Ignoring Saved Config for Torrent " + datavalues[0])
 
 # =========================================================================================
 
@@ -161,7 +161,7 @@ class DefineTorrentManager:
 
 		outcome = self.delugeclient.openconnection()
 		newid = self.delugeclient.addtorrentlink(newurl)
-		print("New Raw Torrent ID: ", newid)
+		Functions.printout("New Raw Torrent ID: " + newid)
 		newobject = self.registertorrentobject(newid)
 		#TO-DO = change newobject to be success/error outcome, allowing for graceful failure
 		self.refreshtorrentdata(newid)
@@ -182,7 +182,7 @@ class DefineTorrentManager:
 			self.delugeclient.resumetorrent("ALL")
 			outcome = self.delugeclient.closeconnection()
 		else:
-			print("Unknown Bulk Torrent Request ", bulkaction)
+			Functions.printout("Unknown Bulk Torrent Request " + bulkaction)
 
 # =========================================================================================
 
@@ -202,7 +202,7 @@ class DefineTorrentManager:
 			self.delugeclient.deletetorrent(torrentid)
 			outcome = self.delugeclient.closeconnection()
 		else:
-			print("Unknown Single Torrent Request ", action)
+			Functions.printout("Unknown Single Torrent Request " + action)
 
 # =========================================================================================
 
@@ -244,7 +244,7 @@ class DefineTorrentManager:
 					foundflag = True
 
 			if foundflag == False:
-				print("Deregistering Missing Torrent in Download-Manager: ", existingtorrent.getid())
+				Functions.printout("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
 
 		self.torrents = Functions.sortdictionary(cleanlist, 'dateadded', True)
 

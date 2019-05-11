@@ -1,5 +1,6 @@
 import math as Maths
 import operator as Operators
+import os as OperatingSystem
 
 
 def sortdictionary(rawdictionary, sortattribute, reverseflag):
@@ -132,3 +133,10 @@ def getinitial(name):
 	return outcome.upper()
 
 
+
+def printout(printtext):
+	if isinstance(printtext, list):
+		for itementry in printtext:
+			printout(itementry)
+	else:
+		OperatingSystem.system('echo "[DOWNLOAD-MANAGER] ' + printtext + '"')

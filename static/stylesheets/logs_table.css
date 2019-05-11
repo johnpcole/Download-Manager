@@ -44,8 +44,12 @@ tr.failure {
   background-color: #AF0000;
 }
 
-tr.information {
+tr.other {
   background-color: #7D7D00;
+}
+
+tr.information {
+  background-color: #000096;
 }
 
 tr.minor {
