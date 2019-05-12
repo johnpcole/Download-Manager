@@ -14,7 +14,7 @@ def getflaskoutput(logentry, linecounter):
 	if requestedpath[:8] == "/static/":
 		outcome["importance"] = "minor"
 	else:
-		outcome["importance"] = "major"
+		outcome["importance"] = "minor"
 	outcome["outcome"] = rawdata[3]
 	if (rawdata[3] == "200") or (rawdata[3] == "304"):
 		outcome["entrytype"] = "success"
@@ -27,7 +27,7 @@ def getdownloadmanageroutput(logentry, linecounter):
 	outcome["lineindex"] = linecounter
 	outcome["entrytype"] = "information"
 	outcome["content"] = logentry[19:]
-	outcome["importance"] = "minor"
+	outcome["importance"] = "major"
 	return outcome
 
 def getotheroutput(cache, linecounter):
