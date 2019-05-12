@@ -152,9 +152,10 @@ Rescan-File-Server-Button
 
         {{ buttontemplate("RescanFileServer", "updateTorrentsList('RescanFileServer')", "folder_refresh", "rescan fileserver") }}
 
-        <button type="button" id="Config" onclick="javascript:folderMaintenance();">
-            <img src="./static/images/listaction_config.png" alt="config folder button" />
-        </button>
+Logs-Button
+
+        {{ buttontemplate("ViewLogs", "window.location.href = '/Logs'", "information", "view logs") }}
+
 
  --></div><!--
 
