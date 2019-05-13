@@ -60,7 +60,7 @@ class DefineTorrentManager:
 	def registertorrentobject(self, torrentid):
 
 		self.torrents.append(TorrentData.createitem(torrentid))
-		Functions.printout("Registering Torrent in Download-Manager" + torrentid)
+		Functions.printout("Registering Torrent in Download-Manager: " + torrentid)
 
 		return self.gettorrentobject(torrentid)
 

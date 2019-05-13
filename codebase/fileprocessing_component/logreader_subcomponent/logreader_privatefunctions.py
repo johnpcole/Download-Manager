@@ -1,4 +1,4 @@
-def getflaskoutput(logentry, linecounter):
+def extractflaskoutput(logentry, linecounter):
 	outcome = {}
 	outcome["lineindex"] = linecounter
 	datetimestart = logentry.find("[")
@@ -11,10 +11,6 @@ def getflaskoutput(logentry, linecounter):
 	outcome["method"] = rawdata[0]
 	requestedpath = rawdata[1]
 	outcome["path"] = requestedpath
-	if requestedpath[:8] == "/static/":
-		outcome["importance"] = "minor"
-	else:
-		outcome["importance"] = "minor"
 	outcome["outcome"] = rawdata[3]
 	if (rawdata[3] == "200") or (rawdata[3] == "304"):
 		outcome["entrytype"] = "success"
@@ -22,18 +18,42 @@ def getflaskoutput(logentry, linecounter):
 		outcome["entrytype"] = "failure"
 	return outcome
 
-def getdownloadmanageroutput(logentry, linecounter):
+
+
+def extractdownloadmanageroutput(logentry, linecounter):
 	outcome = {}
 	outcome["lineindex"] = linecounter
-	outcome["entrytype"] = "information"
-	outcome["content"] = logentry[19:]
-	outcome["importance"] = "major"
+	if logentry.find("[DOWNLOAD-MANAGER] > ") != -1:
+		outcome["content"] = logentry[21:]
+		outcome["entrytype"] = "invocation"
+	else:
+		outcome["content"] = logentry[19:]
+		outcome["entrytype"] = "information"
 	return outcome
 
-def getotheroutput(cache, linecounter):
+
+
+def extractotheroutput(cache, linecounter):
 	outcome = {}
 	outcome["lineindex"] = linecounter
-	outcome["entrytype"] = "other"
+	startingline = cache[0]
+	if startingline.find("] ERROR in app:") != -1:
+		outcome["entrytype"] = "error"
+	else:
+		outcome["entrytype"] = "other"
 	outcome["content"] = cache
-	outcome["importance"] = "major"
 	return outcome
+	
+
+
+
+def determineoutputtype(outputstring):
+
+	outcome = "OTHER"
+	if outputstring.find("HTTP/1.1") != -1:
+		outcome = "FLASK"
+	else:
+		if outputstring.find("[DOWNLOAD-MANAGER] ") != -1:
+			outcome = "DOWNLOAD-MANAGER"
+	return outcome
+

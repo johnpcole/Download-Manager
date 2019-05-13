@@ -4,32 +4,45 @@ class DefineFile:
 
 	def __init__(self, fileid, path, size):
 
+		# The deluge ID of the file
 		self.fileid = fileid
 
+		# The reported source path of the file, once the torrent has completed downloading
+		# This is stored as an array, with each level of folder/file captured as a string element
 		self.path = path.split('/')
 
+		# The reported size of the file
 		self.rawsize = size
 
+		# The type of file - NONE, SUBTITLE, VIDEO; Derived from the reported filename extension
 		self.filetype = "NOT PROCESSED"
 		self.updatefiletype()
 
-		self.episode = "ignore"
+		# The purpose of the file - ignore, ???????? etc
+		self.filepurpose = "ignore"
 
+		# ????????????????
 		self.sanitisedfilename = Functions.sanitisetext(self.getshortpath())
 
 
 # =========================================================================================
+# Changes the purpose of the file
+# =========================================================================================
 
-	def updatefilepurpose(self, episode):
+	def updatefilepurpose(self, newpurpose):
 
-		self.episode = episode
+		self.filepurpose = newpurpose
 
+# =========================================================================================
+# Returns the purpose of the file
 # =========================================================================================
 
 	def getpurpose(self):
 
-		return self.episode
+		return self.filepurpose
 
+# =========================================================================================
+# Returns the filetype - NONE, SUBTITLE, VIDEO
 # =========================================================================================
 
 	def gettype(self):
@@ -37,17 +50,25 @@ class DefineFile:
 		return self.filetype
 
 # =========================================================================================
+# Returns the ID of the file
+# =========================================================================================
 
 	def getid(self):
 
 		return self.fileid
 
 # =========================================================================================
+# Returns the source path of the saved file, once the torrent has completed downloading
+# This is a string array, with each level of folder/file captured as a string element
+# =========================================================================================
 
 	def getpath(self):
 
 		return self.path
 
+# =========================================================================================
+# Returns the source path of the saved file's parent folder, once the torrent has completed downloading
+# This is a string array, with each level of folder captured as a string element
 # =========================================================================================
 
 	def getshortpath(self):
@@ -56,11 +77,15 @@ class DefineFile:
 		return pathsplit[len(pathsplit)-1]
 
 # =========================================================================================
+# Returns the sanitised filename???????????????
+# =========================================================================================
 
 	def getsanitisedfilename(self):
 
 		return self.sanitisedfilename
 
+# =========================================================================================
+# Returns the reported filesize
 # =========================================================================================
 
 	def getrawsize(self):
@@ -68,11 +93,15 @@ class DefineFile:
 		return self.rawsize
 
 # =========================================================================================
+# Returns the sanitised filesize
+# =========================================================================================
 
 	def getsize(self):
 
 		return Functions.sanitisesize(self.rawsize)
 
+# =========================================================================================
+# Returns the filename extension
 # =========================================================================================
 
 	def getextension(self):
@@ -86,6 +115,8 @@ class DefineFile:
 
 		return extension
 
+# =========================================================================================
+# Sets the filetype, based on the filename extension
 # =========================================================================================
 
 	def updatefiletype(self):
@@ -117,20 +148,24 @@ class DefineFile:
 
 	def getsavedata(self):
 
-		outcome = str(self.getid()) + "|" + self.getpurpose()
+		outcome = str(self.fileid) + "|" + self.filepurpose
 		return outcome
 
 # =========================================================================================
+# Returns the computed title of the file: Ignored File, Ignored Video File, Ignored Subtitle File
+# WHAT ABOUT FILMS??????????????????????????????????????????
+# This is the "Title" that is displayed on the torrent webpage?????
+# =========================================================================================
 
-	def gettitle(self):
+	def gettitlebase(self):
 
 		outcome = ""
 		if self.gettype() != "none":
-			if self.getpurpose() == "ignore":
+			if self.filepurpose == "ignore":
 				outcome = "Ignored"
 			else:
-				outcome = Functions.minifyepisode(self.getepisodepart(0))
-				subtitle = self.getepisodepart(1)
+				outcome = Functions.minifyepisode(self.getepisodepart())
+				subtitle = self.getsubtitlepart()
 				if subtitle != "":
 					outcome = outcome + " " + subtitle
 			if self.gettype() == "video":
@@ -142,40 +177,55 @@ class DefineFile:
 		return outcome
 
 # =========================================================================================
+# Returns the outcome of the file, either "ignore" or "copy", based on the file purpose
+# =========================================================================================
 
 	def getoutcome(self):
 
 		outcome = ""
-		if self.getpurpose() == "ignore":
+		if self.filepurpose == "ignore":
 			outcome = "ignore"
 		else:
 			outcome = "copy"
 		return outcome
 
 # =========================================================================================
+# Returns a sub-string of the processed file purpose equating to the EPISODE
+# =========================================================================================
 
-	def getepisodepart(self, part):
+	def getepisodepart(self):
 
 		outcome = ""
-		rawstring = self.getpurpose()
-		rawsplit = rawstring.split("_")
-		if part == 0:
-			outcome = rawsplit[0]
-		elif (part == 1) and (self.gettype() == "subtitle"):
+		rawsplit = self.filepurpose.split("_")
+		return rawsplit[0]
+
+# =========================================================================================
+# Returns a sub-string of the processed file purpose equating to the SUBTITLE DESIGNATION
+# =========================================================================================
+
+	def getsubtitlepart(self):
+
+		outcome = ""
+		if self.filetype == "subtitle":
 			outcome = "Unknown"
+			rawsplit = self.filepurpose.split("_")
 			if len(rawsplit) > 1:
 				if rawsplit[1] != "":
 					outcome = rawsplit[1]
 		return outcome
 
 # =========================================================================================
+# Returns the full computed title of the file: Ignored File, Ignored Video File, Ignored Subtitle File
+# WHAT ABOUT FILMS??????????????????????????????????????????
+# This is the filename that the file is copied to?????
+# =========================================================================================
 
 	def getfiletitle(self, tvshowseason):
 
-		outcome = self.gettitle()
+		outcome = self.gettitlebase()
 		if tvshowseason != "":
 			if outcome[:6] != "Ignore":
-				outcome = Functions.minifyseason(tvshowseason, self.getepisodepart(0)) + outcome
+				outcome = Functions.minifyseason(tvshowseason, self.getepisodepart()) + outcome
 		return outcome
 
 # =========================================================================================

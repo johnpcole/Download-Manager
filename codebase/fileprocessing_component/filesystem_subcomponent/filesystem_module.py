@@ -220,8 +220,11 @@ def createpathfromlist(pathlist):
 # ---------------------------------------------
 
 def copyfile(source, target):
-	arrows = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr;"
-	Functions.printout("Copying File</br>============</br>" + source + "</br>" +arrows + arrows + arrows + arrows + arrows + "</br>" + target)
+	space = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+	arrows = space + space + "&darr;"
+	indent = space + space + space + space + space
+	lineofarrows = arrows + arrows + arrows + arrows + arrows
+	Functions.printout("Copying File:&nbsp;" + space + source + "</br>" + indent + lineofarrows + "</br>" + indent + target)
 
 	if concatenatepaths(" ", " ") == " / ":
 		outcome = OperatingSystem.system('cp "' + source + '" "' + target + '"')

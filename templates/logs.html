@@ -41,20 +41,22 @@ Banner Content
 
             --><table>
 {% for logentry in loggingoutput %}
-        <tr class="{{ logentry.entrytype }} {{ logentry.importance }}">
+        <tr class="{{ logentry.entrytype }}">
         <td class="counter">{{ logentry.lineindex }}</td>
 {% if logentry.entrytype == "other" %}
         <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
-{% else %}
-    {% if logentry.entrytype == "information" %}
+{% elif logentry.entrytype == "information" %}
         <td colspan="5">{{ logentry.content|safe }}</td>
-    {% else %}
+{% elif logentry.entrytype == "invocation" %}
+        <td colspan="5">{{ logentry.content|safe }}</td>
+{% elif logentry.entrytype == "error" %}
+        <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
+{% else %}
         <td class="datetime">{{ logentry.datetime }}</td>
         <td class="ipaddress">{{ logentry.requestipaddress }}</td>
         <td class="post">{{ logentry.method }}</td>
         <td>{{ logentry.path }}</td>
         <td class="counter">{{ logentry.outcome }}</td>
-    {% endif %}
 {% endif %}
         </tr>
 {% endfor %}

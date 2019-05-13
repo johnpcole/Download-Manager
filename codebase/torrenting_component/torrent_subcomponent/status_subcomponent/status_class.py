@@ -31,18 +31,24 @@ class DefineStatus:
 
 		self.activeseeders = 0
 
+# =========================================================================================
 
 	def setsize(self, newvalue):
 		self.size = Functions.sanitisesize(newvalue)
 
+# =========================================================================================
 
 	def setstatus(self, newvalue):
 		self.status = newvalue.lower()
 
 
+# =========================================================================================
+
 	def setprogress(self, newvalue):
 		self.progress = str(int(newvalue)) + "%"
 
+
+# =========================================================================================
 
 	def setfinished(self, newvalue):
 		if newvalue == True:
@@ -51,13 +57,19 @@ class DefineStatus:
 			self.finished = "In Progress"
 
 
+# =========================================================================================
+
 	def seteta(self, newvalue):
 		self.eta = Functions.sanitisetime(newvalue)
 
 
+# =========================================================================================
+
 	def setactivepeers(self, newvalue):
 		self.activepeers = newvalue
 
+
+# =========================================================================================
 
 	def setactiveseeders(self, newvalue):
 		self.activeseeders = newvalue

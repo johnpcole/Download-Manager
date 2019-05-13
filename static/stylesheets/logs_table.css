@@ -8,6 +8,8 @@ table {
 
 tr {
   background-color: #000000;
+  border-bottom: 1px solid #DDDDEE;
+
 }
 
 td {
@@ -29,7 +31,7 @@ td.datetime {
 
 td.ipaddress {
   text-indent: 20px;
-  width: 140px;
+  width: 100px;
 }
 
 td.post {
@@ -37,30 +39,34 @@ td.post {
 }
 
 tr.success {
+  font-size: 55%;
   background-color: #009600;
 }
 
 tr.failure {
+  font-size: 55%;
+  background-color: #AF0000;
+}
+
+tr.error {
+  font-size: 70%;
   background-color: #AF0000;
 }
 
 tr.other {
+  font-size: 70%;
   background-color: #DC6E00;
 }
 
 tr.information {
+  font-size: 55%;
   background-color: #000096;
 }
 
-tr.minor {
-  font-size: 50%;
-  border-bottom: 1px solid #DDDDEE;
+tr.invocation {
+  font-size: 70%;
+  background-color: #000096;
+  border-bottom: 4px solid #DDDDEE;
 }
-
-tr.major {
-  font-size: 80%;
-  border-bottom: 3px solid #DDDDEE;
-}
-
 
 tr:hover {color:#000000;}

@@ -89,7 +89,7 @@ class DefineFiles:
 		episodeoutcome = ""
 		for file in self.files:
 			if file.getoutcome() == "copy":
-				episodename = Functions.minifyepisode(file.getepisodepart(0))
+				episodename = Functions.minifyepisode(file.getepisodepart())
 				if episodename != "":
 					if episodeoutcome == "":
 						episodeoutcome = episodename
@@ -120,8 +120,8 @@ class DefineFiles:
 				elif datamode == "prepareedit":
 					filedata["outcome"] = file.getoutcome()
 					filedata["filetype"] = file.gettype()
-					filedata["episodeselector"] = file.getepisodepart(0)
-					filedata["subtitleselector"] = file.getepisodepart(1)
+					filedata["episodeselector"] = file.getepisodepart()
+					filedata["subtitleselector"] = file.getsubtitlepart()
 				else:
 					assert 1 == 0, datamode
 				outcome.append(filedata)
