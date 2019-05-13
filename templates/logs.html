@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block javascript %}
+
+    <script src="./static/javascript/logs.js"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block banner %}
+
+ --><div id="IndexBanner" class="tile bannertile file_video_copy"><!--
+
+
+Banner Content
+
+     --><div class="indexbannercontent">
+            <div class="titlebox indexbannertitle">
+                <span>Download-Manager Logs</span>
+            </div><!--
+         --><div class="tilesplitter contentsplitter"></div>
+        </div><!--
+
+
+ --></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block content %}
+
+            --><table>
+{% for logentry in loggingoutput %}
+        <tr class="{{ logentry.entrytype }}">
+        <td class="counter">{{ logentry.lineindex }}</td>
+{% if logentry.entrytype == "other" %}
+        <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
+{% elif logentry.entrytype == "information" %}
+        <td colspan="5">{{ logentry.content|safe }}</td>
+{% elif logentry.entrytype == "invocation" %}
+        <td colspan="5">{{ logentry.content|safe }}</td>
+{% elif logentry.entrytype == "error" %}
+        <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
+{% else %}
+        <td class="datetime">{{ logentry.datetime }}</td>
+        <td class="ipaddress">{{ logentry.requestipaddress }}</td>
+        <td class="post">{{ logentry.method }}</td>
+        <td>{{ logentry.path }}</td>
+        <td class="counter">{{ logentry.outcome }}</td>
+{% endif %}
+        </tr>
+{% endfor %}
+</table><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block toolbar %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block dialogs %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block hiddendata %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}

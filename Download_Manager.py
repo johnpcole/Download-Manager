@@ -4,6 +4,9 @@ from flask import Flask as Webserver
 from flask import render_template as Webpage
 from flask import jsonify as Jsondata
 from flask import request as Webpost
+from codebase.functions_component import functions_module as Functions
+
+Functions.printout("> Starting Download-Manager Application")
 
 librarymanager = FileManager.createmanager(FileManager.getlibraryconnectionconfig())
 torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
@@ -22,6 +25,7 @@ website = Webserver(__name__)
 @website.route('/')
 def initialiselistpage():
 
+	Functions.printout("> Loading All Torrents List Page")
 	torrentmanager.refreshtorrentlist()
 	return Webpage('index.html', torrentlist = torrentmanager.gettorrentlistdata("initialise"), stats = torrentmanager.getstats())
 
@@ -37,12 +41,15 @@ def updatelistpage():
 	rawdata = Webpost.get_json()
 	bulkaction = rawdata["bulkaction"]
 	if (bulkaction == "Start") or (bulkaction == "Stop"):
+		Functions.printout("> " + bulkaction + "ing all Torrents")
 		torrentmanager.bulkprocessalltorrents(bulkaction)
 	elif bulkaction == "RescanFileServer":
-		print("Rescanning File-Server for TV Shows & Seasons")
+		Functions.printout("> Rescanning File-Server for TV Shows & Seasons")
 		librarymanager.discovertvshows()
-	elif bulkaction != "Refresh":
-		print("Unknown Torrents List Update Action ", bulkaction)
+	elif bulkaction == "Refresh":
+		Functions.printout("> Refreshing All Torrents List Page")
+	else:
+		Functions.printout("> Unknown Torrents List Update Action: " + bulkaction)
 	torrentmanager.refreshtorrentlist()
 	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats = torrentmanager.getstats())
 
@@ -56,9 +63,11 @@ def updatelistpage():
 def initialisetorrentpage(torrentid):
 
 	if torrentmanager.validatetorrentid(torrentid) == True:
+		Functions.printout("> Loading Specific Torrent Page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 		torrentmanager.refreshtorrentdata(torrentid)
 		return Webpage('torrent.html', selectedtorrent = torrentmanager.gettorrentdata(torrentid, "initialise"))
 	else:
+		Functions.printout("> Returning to Torrents List; Unknown Torrent Specified&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 		torrentmanager.refreshtorrentlist()
 		return Webpage('index.html', torrentlist = torrentmanager.gettorrentlistdata("initialise"))
 
@@ -76,13 +85,16 @@ def updatetorrentpage():
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		torrentaction = rawdata['torrentaction']
 		if (torrentaction == "Start") or (torrentaction == "Stop"):
+			Functions.printout("> " + torrentaction + "ing Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 			torrentmanager.processonetorrent(torrentid, torrentaction)
-		elif torrentaction != "Refresh":
-			print("Unknown Torrent Update Action ", torrentaction)
+		elif torrentaction == "Refresh":
+			Functions.printout("> Refreshing Specific Torrent Page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		else:
+			Functions.printout("> Unknown Torrent Update Action: " + torrentaction)
 		torrentmanager.refreshtorrentdata(torrentid)
 		return Jsondata(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "refresh"))
 	else:
-		print("Updating unknown torrent ", torrentid)
+		Functions.printout("> Requested " + torrentaction + " Update to Unknown Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 
 
 
@@ -97,11 +109,13 @@ def copytorrent():
 	torrentid = rawdata['copyinstruction']
 	if torrentid != "!!! CONTINUE EXISTING COPY PROCESS !!!":
 		if torrentmanager.validatetorrentid(torrentid) == True:
+			Functions.printout("> Initiating Torrent Copy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 			librarymanager.queuefilecopy(torrentmanager.getcopyactions(torrentid))
 		else:
-			print("Copying unknown torrent ", torrentid)
+			Functions.printout("> Requested Initiate Torrent Copy of Unknown Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 		refreshmode = False
 	else:
+		Functions.printout("> Continuing Torrent Copy")
 		wastetime()
 		refreshmode = librarymanager.processfilecopylist()
 	return Jsondata(copydata = librarymanager.getcopyprocessinfo(), refreshmode = refreshmode)
@@ -118,9 +132,10 @@ def deletetorrent():
 	rawdata = Webpost.get_json()
 	torrentid = rawdata['deleteinstruction']
 	if torrentmanager.validatetorrentid(torrentid) == True:
+		Functions.printout("> Deleting Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 		torrentmanager.processonetorrent(torrentid, "Delete")
 	else:
-		print("Deleting unknown torrent ", torrentid)
+		Functions.printout("> Requested Deletion of Unknown Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 	return Jsondata(deletedata = "Done")
 
 
@@ -136,11 +151,12 @@ def reconfiguretorrentconfiguration():
 	torrentid = rawdata['torrentid']
 	wastetime()
 	if torrentmanager.validatetorrentid(torrentid) == True:
+		Functions.printout("> Saving Reconfigured Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 		torrentmanager.reconfiguretorrent(torrentid, rawdata['newconfiguration'])
 		FileManager.saveconfigs(torrentmanager.getconfigs())
 		return Jsondata(selectedtorrent = torrentmanager.gettorrentdata(torrentid, "reconfigure"))
 	else:
-		print("Reconfiguring unknown torrent ", torrentid)
+		Functions.printout("> Requested Save Reconfiguration of Unknown Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 
 
 
@@ -154,12 +170,13 @@ def edittorrentconfiguration():
 	rawdata = Webpost.get_json()
 	torrentid = rawdata['torrentid']
 	if torrentmanager.validatetorrentid(torrentid) == True:
+		Functions.printout("> Starting Torrent Reconfiguration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 		wastetime()
 		torrentdata = torrentmanager.gettorrentdata(torrentid, "prepareedit")
 		return Jsondata(selectedtorrent=torrentdata,
 									listitems=librarymanager.getdropdownlists(torrentdata['tvshowname']))
 	else:
-		print("Edit unknown torrent ", torrentid)
+		Functions.printout("> Requested Unknown Torrent Reconfiguration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
 
 
 
@@ -170,6 +187,7 @@ def edittorrentconfiguration():
 @website.route('/GetTVShowSeasons', methods=['POST'])
 def updatetvshowseasonslist():
 
+	Functions.printout("> Getting TV Show Data")
 	rawdata = Webpost.get_json()
 	wastetime()
 	return Jsondata(seasons=librarymanager.gettvshowseasons(rawdata['tvshow']))
@@ -183,11 +201,28 @@ def updatetvshowseasonslist():
 @website.route('/AddTorrent', methods=['POST'])
 def addnewtorrent():
 
+	Functions.printout("> Adding New Torrent")
 	rawdata = Webpost.get_json()
 	newid = torrentmanager.addnewtorrenttoclient(rawdata['newurl'])
 	wastetime()
 	#torrentmanager.refreshtorrentlist()
 	return Jsondata(newtorrentid=newid)
+
+
+
+#===============================================================================================
+# Display the logging file contents
+#===============================================================================================
+
+@website.route('/Logs')
+def displaylogs():
+
+	Functions.printout("> Loading Application Log Page")
+	return Webpage('logs.html', loggingoutput = FileManager.getloggingdata())
+
+
+
+
 
 #-----------------------------------------------
 
