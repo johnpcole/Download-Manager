@@ -42,7 +42,7 @@ Thermometer
 
 
                 {{ meteroutlinetemplate("thermometer") }}
-                {{ metermarkerstemplate("35", "", "40", "", "45", "", "50", "high") }}
+                {{ metermarkerstemplate("25", "", "30", "", "35", "", "40", "high") }}
                 {{ meterlinetemplate("tempneedle", "#DD6666", stats.temperature.ho, stats.temperature.vo, stats.temperature.hf, stats.temperature.vf) }}
                 {{ thermometertemplate() }}
                 {{ meterendtemplate() }}
@@ -152,9 +152,10 @@ Rescan-File-Server-Button
 
         {{ buttontemplate("RescanFileServer", "updateTorrentsList('RescanFileServer')", "folder_refresh", "rescan fileserver") }}
 
-        <button type="button" id="Config" onclick="javascript:folderMaintenance();">
-            <img src="./static/images/listaction_config.png" alt="config folder button" />
-        </button>
+Logs-Button
+
+        {{ buttontemplate("ViewLogs", "window.location.href = '/Logs'", "information", "view logs") }}
+
 
  --></div><!--
 

@@ -1,6 +1,12 @@
 import math as Maths
 import operator as Operators
+import os as OperatingSystem
 
+
+
+# =========================================================================================
+# Sorts a dictionary by the specified sort attribute
+# =========================================================================================
 
 def sortdictionary(rawdictionary, sortattribute, reverseflag):
 
@@ -9,6 +15,10 @@ def sortdictionary(rawdictionary, sortattribute, reverseflag):
 	return outcome
 
 
+
+# =========================================================================================
+# Converts a numeric value of bytes into a string using SI units
+# =========================================================================================
 
 def sanitisesize(rawsize):
 
@@ -23,6 +33,11 @@ def sanitisesize(rawsize):
 
 	return outcome
 
+
+
+# =========================================================================================
+# Converts a numeric value of seconds into a string using s/m/h/d units
+# =========================================================================================
 
 def sanitisetime(rawtime):
 
@@ -39,6 +54,11 @@ def sanitisetime(rawtime):
 
 	return outcome
 
+
+
+# =========================================================================================
+# Converts non-alphanumeric characters into underscores
+# =========================================================================================
 
 def sanitisetext(rawtext):
 
@@ -71,6 +91,11 @@ def sanitisetext(rawtext):
 	return outcome
 
 
+
+# =========================================================================================
+# Returns a string providing the season shorthand s00, s01 etc
+# =========================================================================================
+
 def minifyseason(seasonname, episodename):
 
 	episodesplit = episodename.split(" ")
@@ -91,6 +116,10 @@ def minifyseason(seasonname, episodename):
 
 
 
+# =========================================================================================
+# Returns a string providing the episode shorthand e01, e02, e01e02 etc
+# =========================================================================================
+
 def minifyepisode(episodename):
 
 	episodesplit = episodename.split(" ")
@@ -108,6 +137,10 @@ def minifyepisode(episodename):
 		e = episodename
 	return e
 
+
+# =========================================================================================
+# Returns the lead character of a name a, b, c etc - Ignoring initial The, A or An
+# =========================================================================================
 
 def getinitial(name):
 
@@ -131,4 +164,24 @@ def getinitial(name):
 
 	return outcome.upper()
 
+
+# =========================================================================================
+# Prints text to the console, with a prefix that allows the logging webpage to render the content nicely
+# =========================================================================================
+
+def printout(printtext):
+	if isinstance(printtext, list):
+		for itementry in printtext:
+			printout(itementry)
+	else:
+		OperatingSystem.system('echo "[DOWNLOAD-MANAGER] ' + printtext + '"')
+
+
+
+def printinvocation(instruction, torrentid):
+	printtext = "> " + instruction
+	if torrentid != "":
+		printtext = printtext + " | " + torrentid
+		#printtext = printtext + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>"
+	printout(printtext)
 
