@@ -24,7 +24,14 @@ def extractdownloadmanageroutput(logentry, linecounter):
 	outcome = {}
 	outcome["lineindex"] = linecounter
 	if logentry.find("[DOWNLOAD-MANAGER] > ") != -1:
-		outcome["content"] = logentry[21:]
+		content = logentry[21:]
+		if content.find(" | ") == -1:
+			outcome["instruction"] = content
+			outcome["torrentid"] = ""
+		else:
+			splitcontent = content.split(" | ")
+			outcome["instruction"] = splitcontent[0]
+			outcome["torrentid"] = "(" + splitcontent[1] + ")"
 		outcome["entrytype"] = "invocation"
 	else:
 		outcome["content"] = logentry[19:]

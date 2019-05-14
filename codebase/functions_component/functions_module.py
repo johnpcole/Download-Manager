@@ -181,6 +181,7 @@ def printout(printtext):
 def printinvocation(instruction, torrentid):
 	printtext = "> " + instruction
 	if torrentid != "":
-		printtext = printtext + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>"
+		printtext = printtext + " | " + torrentid
+		#printtext = printtext + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>"
 	printout(printtext)
 
