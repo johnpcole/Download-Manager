@@ -175,3 +175,12 @@ def printout(printtext):
 			printout(itementry)
 	else:
 		OperatingSystem.system('echo "[DOWNLOAD-MANAGER] ' + printtext + '"')
+
+
+
+def printinvocation(instruction, torrentid):
+	printtext = "> " + instruction
+	if torrentid != "":
+		printtext = printtext + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>"
+	printout(printtext)
+

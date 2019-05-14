@@ -6,7 +6,7 @@ from flask import jsonify as Jsondata
 from flask import request as Webpost
 from codebase.functions_component import functions_module as Functions
 
-Functions.printout("> Starting Download-Manager Application")
+Functions.printinvocation("Starting Download-Manager Application", "")
 
 librarymanager = FileManager.createmanager(FileManager.getlibraryconnectionconfig())
 torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
@@ -25,7 +25,7 @@ website = Webserver(__name__)
 @website.route('/')
 def initialiselistpage():
 
-	Functions.printout("> Loading All Torrents List Page")
+	Functions.printinvocation("Loading All Torrents List Page", "")
 	torrentmanager.refreshtorrentlist()
 	return Webpage('index.html', torrentlist = torrentmanager.gettorrentlistdata("initialise"), stats = torrentmanager.getstats())
 
@@ -41,15 +41,15 @@ def updatelistpage():
 	rawdata = Webpost.get_json()
 	bulkaction = rawdata["bulkaction"]
 	if (bulkaction == "Start") or (bulkaction == "Stop"):
-		Functions.printout("> " + bulkaction + "ing all Torrents")
+		Functions.printinvocation(bulkaction + "ing all Torrents", "")
 		torrentmanager.bulkprocessalltorrents(bulkaction)
 	elif bulkaction == "RescanFileServer":
-		Functions.printout("> Rescanning File-Server for TV Shows & Seasons")
+		Functions.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
 		librarymanager.discovertvshows()
 	elif bulkaction == "Refresh":
-		Functions.printout("> Refreshing All Torrents List Page")
+		Functions.printinvocation("Refreshing All Torrents List Page", "")
 	else:
-		Functions.printout("> Unknown Torrents List Update Action: " + bulkaction)
+		Functions.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
 	torrentmanager.refreshtorrentlist()
 	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats = torrentmanager.getstats())
 
@@ -63,11 +63,11 @@ def updatelistpage():
 def initialisetorrentpage(torrentid):
 
 	if torrentmanager.validatetorrentid(torrentid) == True:
-		Functions.printout("> Loading Specific Torrent Page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		Functions.printinvocation("Loading Specific Torrent Page", torrentid)
 		torrentmanager.refreshtorrentdata(torrentid)
 		return Webpage('torrent.html', selectedtorrent = torrentmanager.gettorrentdata(torrentid, "initialise"))
 	else:
-		Functions.printout("> Returning to Torrents List; Unknown Torrent Specified&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		Functions.printinvocation("Returning to Torrents List; Unknown Torrent Specified", torrentid)
 		torrentmanager.refreshtorrentlist()
 		return Webpage('index.html', torrentlist = torrentmanager.gettorrentlistdata("initialise"))
 
@@ -85,16 +85,16 @@ def updatetorrentpage():
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		torrentaction = rawdata['torrentaction']
 		if (torrentaction == "Start") or (torrentaction == "Stop"):
-			Functions.printout("> " + torrentaction + "ing Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+			Functions.printinvocation(torrentaction + "ing Torrent", torrentid )
 			torrentmanager.processonetorrent(torrentid, torrentaction)
 		elif torrentaction == "Refresh":
-			Functions.printout("> Refreshing Specific Torrent Page&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+			Functions.printinvocation("Refreshing Specific Torrent Page", torrentid)
 		else:
-			Functions.printout("> Unknown Torrent Update Action: " + torrentaction)
+			Functions.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
 		torrentmanager.refreshtorrentdata(torrentid)
 		return Jsondata(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "refresh"))
 	else:
-		Functions.printout("> Requested " + torrentaction + " Update to Unknown Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		Functions.printinvocation("Requested Update to Unknown Torrent", torrentid)
 
 
 
@@ -109,13 +109,13 @@ def copytorrent():
 	torrentid = rawdata['copyinstruction']
 	if torrentid != "!!! CONTINUE EXISTING COPY PROCESS !!!":
 		if torrentmanager.validatetorrentid(torrentid) == True:
-			Functions.printout("> Initiating Torrent Copy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+			Functions.printinvocation("Initiating Torrent Copy", torrentid)
 			librarymanager.queuefilecopy(torrentmanager.getcopyactions(torrentid))
 		else:
-			Functions.printout("> Requested Initiate Torrent Copy of Unknown Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+			Functions.printinvocation("Requested Initiate Torrent Copy of Unknown Torrent", torrentid)
 		refreshmode = False
 	else:
-		Functions.printout("> Continuing Torrent Copy")
+		Functions.printinvocation("Continuing Torrent Copy", "")
 		wastetime()
 		refreshmode = librarymanager.processfilecopylist()
 	return Jsondata(copydata = librarymanager.getcopyprocessinfo(), refreshmode = refreshmode)
@@ -132,10 +132,10 @@ def deletetorrent():
 	rawdata = Webpost.get_json()
 	torrentid = rawdata['deleteinstruction']
 	if torrentmanager.validatetorrentid(torrentid) == True:
-		Functions.printout("> Deleting Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		Functions.printinvocation("Deleting Torrent", torrentid)
 		torrentmanager.processonetorrent(torrentid, "Delete")
 	else:
-		Functions.printout("> Requested Deletion of Unknown Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		Functions.printinvocation("Requested Deletion of Unknown Torrent", torrentid)
 	return Jsondata(deletedata = "Done")
 
 
@@ -151,12 +151,12 @@ def reconfiguretorrentconfiguration():
 	torrentid = rawdata['torrentid']
 	wastetime()
 	if torrentmanager.validatetorrentid(torrentid) == True:
-		Functions.printout("> Saving Reconfigured Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		Functions.printinvocation("Saving Reconfigured Torrent", torrentid)
 		torrentmanager.reconfiguretorrent(torrentid, rawdata['newconfiguration'])
 		FileManager.saveconfigs(torrentmanager.getconfigs())
 		return Jsondata(selectedtorrent = torrentmanager.gettorrentdata(torrentid, "reconfigure"))
 	else:
-		Functions.printout("> Requested Save Reconfiguration of Unknown Torrent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		Functions.printinvocation("Requested Save Reconfiguration of Unknown Torrent", torrentid)
 
 
 
@@ -170,13 +170,13 @@ def edittorrentconfiguration():
 	rawdata = Webpost.get_json()
 	torrentid = rawdata['torrentid']
 	if torrentmanager.validatetorrentid(torrentid) == True:
-		Functions.printout("> Starting Torrent Reconfiguration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		Functions.printinvocation("Starting Torrent Reconfiguration", torrentid)
 		wastetime()
 		torrentdata = torrentmanager.gettorrentdata(torrentid, "prepareedit")
 		return Jsondata(selectedtorrent=torrentdata,
 									listitems=librarymanager.getdropdownlists(torrentdata['tvshowname']))
 	else:
-		Functions.printout("> Requested Unknown Torrent Reconfiguration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>")
+		Functions.printinvocation("Requested Unknown Torrent Reconfiguration", torrentid)
 
 
 
@@ -187,7 +187,7 @@ def edittorrentconfiguration():
 @website.route('/GetTVShowSeasons', methods=['POST'])
 def updatetvshowseasonslist():
 
-	Functions.printout("> Getting TV Show Data")
+	Functions.printinvocation("Getting TV Show Data", "")
 	rawdata = Webpost.get_json()
 	wastetime()
 	return Jsondata(seasons=librarymanager.gettvshowseasons(rawdata['tvshow']))
@@ -201,7 +201,7 @@ def updatetvshowseasonslist():
 @website.route('/AddTorrent', methods=['POST'])
 def addnewtorrent():
 
-	Functions.printout("> Adding New Torrent")
+	Functions.printinvocation("Adding New Torrent", "")
 	rawdata = Webpost.get_json()
 	newid = torrentmanager.addnewtorrenttoclient(rawdata['newurl'])
 	wastetime()
@@ -217,7 +217,7 @@ def addnewtorrent():
 @website.route('/Logs')
 def displaylogs():
 
-	Functions.printout("> Loading Application Log Page")
+	Functions.printinvocation("Loading Application Log Page", "")
 	return Webpage('logs.html', loggingoutput = FileManager.getloggingdata())
 
 
