@@ -13,6 +13,7 @@ torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionco
 torrentmanager.refreshtorrentlist()
 torrentmanager.setconfigs(FileManager.loadconfigs())
 webmode = FileManager.getwebhostconfig()
+loggingmode = FileManager.getloggingconfig()
 
 website = Webserver(__name__)
 
@@ -27,7 +28,7 @@ def initialiselistpage():
 
 	Functions.printinvocation("Loading All Torrents List Page", "")
 	torrentmanager.refreshtorrentlist()
-	return Webpage('index.html', torrentlist = torrentmanager.gettorrentlistdata("initialise"), stats = torrentmanager.getstats())
+	return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=torrentmanager.getstats())
 
 
 
@@ -51,7 +52,7 @@ def updatelistpage():
 	else:
 		Functions.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
 	torrentmanager.refreshtorrentlist()
-	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats = torrentmanager.getstats())
+	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats=torrentmanager.getstats())
 
 
 
@@ -65,11 +66,11 @@ def initialisetorrentpage(torrentid):
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		Functions.printinvocation("Loading Specific Torrent Page", torrentid)
 		torrentmanager.refreshtorrentdata(torrentid)
-		return Webpage('torrent.html', selectedtorrent = torrentmanager.gettorrentdata(torrentid, "initialise"))
+		return Webpage('torrent.html', selectedtorrent=torrentmanager.gettorrentdata(torrentid, "initialise"))
 	else:
 		Functions.printinvocation("Returning to Torrents List; Unknown Torrent Specified", torrentid)
 		torrentmanager.refreshtorrentlist()
-		return Webpage('index.html', torrentlist = torrentmanager.gettorrentlistdata("initialise"))
+		return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"))
 
 
 
@@ -118,7 +119,7 @@ def copytorrent():
 		Functions.printinvocation("Continuing Torrent Copy", "")
 		wastetime()
 		refreshmode = librarymanager.processfilecopylist()
-	return Jsondata(copydata = librarymanager.getcopyprocessinfo(), refreshmode = refreshmode)
+	return Jsondata(copydata=librarymanager.getcopyprocessinfo(), refreshmode=refreshmode)
 
 
 
@@ -136,7 +137,7 @@ def deletetorrent():
 		torrentmanager.processonetorrent(torrentid, "Delete")
 	else:
 		Functions.printinvocation("Requested Deletion of Unknown Torrent", torrentid)
-	return Jsondata(deletedata = "Done")
+	return Jsondata(deletedata="Done")
 
 
 
@@ -154,7 +155,7 @@ def reconfiguretorrentconfiguration():
 		Functions.printinvocation("Saving Reconfigured Torrent", torrentid)
 		torrentmanager.reconfiguretorrent(torrentid, rawdata['newconfiguration'])
 		FileManager.saveconfigs(torrentmanager.getconfigs())
-		return Jsondata(selectedtorrent = torrentmanager.gettorrentdata(torrentid, "reconfigure"))
+		return Jsondata(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "reconfigure"))
 	else:
 		Functions.printinvocation("Requested Save Reconfiguration of Unknown Torrent", torrentid)
 
@@ -218,7 +219,7 @@ def addnewtorrent():
 def displaylogs():
 
 	Functions.printinvocation("Loading Application Log Page", "")
-	return Webpage('logs.html', loggingoutput = FileManager.getloggingdata())
+	return Webpage('logs.html', loggingoutput=FileManager.getloggingdata(loggingmode))
 
 
 

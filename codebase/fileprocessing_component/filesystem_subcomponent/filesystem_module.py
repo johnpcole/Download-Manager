@@ -3,7 +3,10 @@ from ...functions_component import functions_module as Functions
 
 
 
-def mountnetworkdrive(mountpoint, networkpath, username, password):
+def mountnetworkdrive(mountpoint, networkpath, username, password, reason):
+
+	Functions.printout("- Connecting to File-Server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reason + ")</small>")
+
 	if concatenatepaths(" ", " ") == " / ":
 		outcome = OperatingSystem.system('sudo mount -t cifs -o username='+username+',password='+password+',uid=pi,gid=pi,noexec,vers=2.0 '+networkpath+' '+mountpoint)
 	else:
@@ -13,7 +16,13 @@ def mountnetworkdrive(mountpoint, networkpath, username, password):
 			outcome = OperatingSystem.system('NET USE '+mountpoint+' '+networkpath)
 	return outcome
 
+
+
+
 def unmountnetworkdrive(mountpoint):
+
+	Functions.printout("- Disconnecting File-Server")
+
 	if concatenatepaths(" ", " ") == " / ":
 		outcome = OperatingSystem.system('sudo umount '+mountpoint)
 	else:

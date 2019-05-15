@@ -29,7 +29,7 @@ class DefineTorrentManager:
 	def refreshtorrentlist(self):
 
 		# Open the connection to the Deluge Daemon
-		dummyoutcome = self.delugeclient.openconnection()
+		dummyoutcome = self.delugeclient.openconnection("Refresh Torrents List")
 
 		# Get the overall session data from the Deluge Daemon (as a flat dictionary of values)
 		sessiondata = self.delugeclient.getsessiondata()
@@ -97,7 +97,7 @@ class DefineTorrentManager:
 
 		torrentobject = self.gettorrentobject(torrentid)
 
-		dummyoutcome = self.delugeclient.openconnection()
+		dummyoutcome = self.delugeclient.openconnection("Refresh Torrent " + torrentid)
 
 		torrentdata = self.delugeclient.gettorrentdata(torrentid)
 		torrentobject.updateinfo(torrentdata)
@@ -159,7 +159,7 @@ class DefineTorrentManager:
 
 	def addnewtorrenttoclient(self, newurl):
 
-		outcome = self.delugeclient.openconnection()
+		outcome = self.delugeclient.openconnection("Add Torrent")
 		newid = self.delugeclient.addtorrentlink(newurl)
 		Functions.printout("New Raw Torrent ID: " + newid)
 		newobject = self.registertorrentobject(newid)
@@ -174,11 +174,11 @@ class DefineTorrentManager:
 	def bulkprocessalltorrents(self, bulkaction):
 
 		if bulkaction == "Stop":
-			outcome = self.delugeclient.openconnection()
+			outcome = self.delugeclient.openconnection("Stop All Torrents")
 			self.delugeclient.pausetorrent("ALL")
 			outcome = self.delugeclient.closeconnection()
 		elif bulkaction == "Start":
-			outcome = self.delugeclient.openconnection()
+			outcome = self.delugeclient.openconnection("Start All Torrents")
 			self.delugeclient.resumetorrent("ALL")
 			outcome = self.delugeclient.closeconnection()
 		else:
@@ -189,15 +189,15 @@ class DefineTorrentManager:
 	def processonetorrent(self, torrentid, action):
 
 		if action == "Stop":
-			outcome = self.delugeclient.openconnection()
+			outcome = self.delugeclient.openconnection("Stop Torrent " + torrentid)
 			self.delugeclient.pausetorrent(torrentid)
 			outcome = self.delugeclient.closeconnection()
 		elif action == "Start":
-			outcome = self.delugeclient.openconnection()
+			outcome = self.delugeclient.openconnection("Start Torrent " + torrentid)
 			self.delugeclient.resumetorrent(torrentid)
 			outcome = self.delugeclient.closeconnection()
 		elif action == "Delete":
-			outcome = self.delugeclient.openconnection()
+			outcome = self.delugeclient.openconnection("Delete Torrent " + torrentid)
 			#self.delugeclient.pausetorrent(torrentid)
 			self.delugeclient.deletetorrent(torrentid)
 			outcome = self.delugeclient.closeconnection()

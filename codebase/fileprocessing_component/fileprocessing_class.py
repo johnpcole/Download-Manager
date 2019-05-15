@@ -32,7 +32,7 @@ class DefineLibraryManager:
 	def discovertvshows(self):
 
 		self.tvshows = {}
-		FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username, self.password)
+		FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username, self.password, "Discover TV Shows")
 		rootfolder = FileSystem.concatenatepaths(self.mountpoint, "TV Shows")
 		rootlisting = FileSystem.getfolderlisting(rootfolder)
 		for rootitem in rootlisting:
@@ -186,7 +186,7 @@ class DefineLibraryManager:
 				anychange = True
 
 				if copyitem.getactiontype() == "Connect":
-					actionoutcome = FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username, self.password)
+					actionoutcome = FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username, self.password, "Copy Files")
 				elif copyitem.getactiontype() == "Disconnect":
 					actionoutcome = FileSystem.unmountnetworkdrive(self.mountpoint)
 				else:
