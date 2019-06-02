@@ -26,6 +26,9 @@ def printinvocation(instruction, torrentid):
 
 
 
+def printrawline(printtext):
+	OperatingSystem.system('echo "' + printtext + '"')
+
 
 
 
