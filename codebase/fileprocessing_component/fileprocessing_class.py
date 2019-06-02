@@ -68,8 +68,6 @@ class DefineLibraryManager:
 
 	def gettvshows(self):
 
-		print("1===========================")
-		print(self.tvshows.keys())
 		newshowlist = []
 		for showitem in self.tvshows.keys():
 			print(showitem, Functions.dearticle(showitem))

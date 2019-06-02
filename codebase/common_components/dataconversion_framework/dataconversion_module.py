@@ -175,7 +175,7 @@ def dearticle(realname):
 		outcome = realname[3:] + "|||An"
 	else:
 		outcome = realname + "|||x"
-
+	return outcome
 
 
 def rearticle(switchedname):
@@ -184,7 +184,7 @@ def rearticle(switchedname):
 		outcome = switchedname
 	else:
 		outcome = splittext[1] + " " + splittext[0]
-
+	return outcome
 
 
 
