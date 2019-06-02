@@ -194,7 +194,7 @@ class DefineCategory:
 
 	def setcategorysavedata(self, typedata, namedata, otherdata):
 
-		self.torrenttype.set(typedata)
+		self.settype(typedata)
 		self.movieorshowname = namedata
 		self.seasonoryear = otherdata
 
