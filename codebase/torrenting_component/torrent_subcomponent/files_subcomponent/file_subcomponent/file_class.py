@@ -17,7 +17,7 @@ class DefineFile:
 		self.rawsize = size
 
 		# The type of file - NONE, SUBTITLE, VIDEO; Derived from the reported filename extension
-		self.filetype = Enumerations.createenum(["None", "Subtitle", "Video"], "None")
+		self.filetype = Enumerations.createenum(["none", "subtitle", "video"], "none")
 		self.updatefiletype()
 
 		# The purpose of the file - ignore, ???????? etc
@@ -162,7 +162,7 @@ class DefineFile:
 	def gettitlebase(self):
 
 		outcome = ""
-		if self.filetype.get("None") == False:
+		if self.filetype.get("none") == False:
 			if self.filepurpose == "ignore":
 				outcome = "Ignored"
 			else:
@@ -170,9 +170,9 @@ class DefineFile:
 				subtitle = self.getsubtitlepart()
 				if subtitle != "":
 					outcome = outcome + " " + subtitle
-			if self.filetype.get("Video") == True:
+			if self.filetype.get("video") == True:
 				outcome = outcome + " Video File"
-			elif self.filetype.get("Subtitle") == True:
+			elif self.filetype.get("subtitle") == True:
 				outcome = outcome + " Subtitle File"
 		else:
 			outcome = "Ignored File"

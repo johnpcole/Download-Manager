@@ -64,4 +64,5 @@ class DefineEnumeration:
 			outputline = "Value <" + valuelabel + "> does not exist in list |"
 			for itemname in self.valuelist:
 				outputline = outputline + itemname + "|"
-				assert valuelabel in self.valuelist, outputline + "."
+			outputline = outputline + "."
+			assert valuelabel in self.valuelist, outputline
