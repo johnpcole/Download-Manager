@@ -168,21 +168,20 @@ def dearticle(realname):
 	name = realname.lower()
 	splittest = name.split(" ")
 	if splittest[0] == "the":
-		outcome = realname[4:] + "|||The"
+		outcome = name[4:] + "|||"
 	elif splittest[0] == "a":
-		outcome = realname[2:] + "|||A"
+		outcome = name[2:] + "|||"
 	elif splittest[0] == "an":
-		outcome = realname[3:] + "|||An"
+		outcome = name[3:] + "|||"
 	else:
-		outcome = realname + "|||x"
+		outcome = name + "|||"
+	outcome = outcome + realname
 	return outcome
 
 
 def rearticle(switchedname):
 	splittext = switchedname.split("|||")
 	outcome = splittext[1]
-	if splittext[0] != "x":
-		outcome = outcome + " " + splittext[0]
 	return outcome
 
 
