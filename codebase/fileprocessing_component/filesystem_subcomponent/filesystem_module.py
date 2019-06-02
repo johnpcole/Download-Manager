@@ -1,11 +1,9 @@
 import os as OperatingSystem
-from ...functions_component import functions_module as Functions
-
+from ...common_components.logging_framework import logging_module as Logging
 
 
 def mountnetworkdrive(mountpoint, networkpath, username, password, reason):
-
-	Functions.printout("- Connecting to File-Server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reason + ")</small>")
+	Logging.printout("- Connecting to File-Server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reason + ")</small>")
 
 	if concatenatepaths(" ", " ") == " / ":
 		outcome = OperatingSystem.system('sudo mount -t cifs -o username='+username+',password='+password+',uid=pi,gid=pi,noexec,vers=2.0 '+networkpath+' '+mountpoint)
@@ -20,8 +18,7 @@ def mountnetworkdrive(mountpoint, networkpath, username, password, reason):
 
 
 def unmountnetworkdrive(mountpoint):
-
-	Functions.printout("- Disconnecting File-Server")
+	Logging.printout("- Disconnecting File-Server")
 
 	if concatenatepaths(" ", " ") == " / ":
 		outcome = OperatingSystem.system('sudo umount '+mountpoint)
@@ -50,7 +47,7 @@ def readfromdisk(filename):
 
 	except:
 		# Print an error if the file cannot be read
-		Functions.printout("Cannot read file - " + filename)
+		Logging.printout("Cannot read file - " + filename)
 
 	return newfilelist
 
@@ -111,7 +108,7 @@ def getfolderlisting(folderpath):
 			outcome[listitem] = itemtype
 
 	except:
-		Functions.printout("Cannot access folder - " + folderpath)
+		Logging.printout("Cannot access folder - " + folderpath)
 
 	return outcome
 
@@ -206,7 +203,7 @@ def writetodisk(filename, outputlist):
 
 	except:
 		# Print an error if the file cannot be written
-		Functions.printout("Cannot write file - " + filename)
+		Logging.printout("Cannot write file - " + filename)
 
 
 
@@ -233,7 +230,7 @@ def copyfile(source, target):
 	arrows = space + space + "&darr;"
 	indent = space + space + space + space + space
 	lineofarrows = arrows + arrows + arrows + arrows + arrows
-	Functions.printout("Copying File:&nbsp;" + space + source + "</br>" + indent + lineofarrows + "</br>" + indent + target)
+	Logging.printout("Copying File:&nbsp;" + space + source + "</br>" + indent + lineofarrows + "</br>" + indent + target)
 
 	if concatenatepaths(" ", " ") == " / ":
 		outcome = OperatingSystem.system('cp "' + source + '" "' + target + '"')

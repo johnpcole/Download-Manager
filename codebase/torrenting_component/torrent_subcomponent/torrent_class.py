@@ -1,7 +1,8 @@
 from .files_subcomponent import files_module as Files
-from ...functions_component import functions_module as Functions
+from ...common_components.dataconversion_framework import dataconversion_module as Functions
 from .category_subcomponent import category_module as Category
 from .status_subcomponent import status_module as Status
+from .monitor_subcomponent import monitor_module as Monitor
 
 
 # This class creates an object which is used to capture information about an individual torrent
@@ -26,6 +27,7 @@ class DefineTorrentItem:
 
 		self.torrentfiles = Files.createfilesdata()
 
+		self.torrentmonitor = Monitor.createmonitor()
 
 
 	# =========================================================================================
@@ -193,4 +195,9 @@ class DefineTorrentItem:
 
 		return outcome
 
+# =========================================================================================
+
+	def updatemonitor(self, datalist):
+
+		return self.torrentmonitor.updatemonitordata(datalist)
 

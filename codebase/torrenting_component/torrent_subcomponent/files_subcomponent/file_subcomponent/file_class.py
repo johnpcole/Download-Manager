@@ -1,4 +1,6 @@
-from .....functions_component import functions_module as Functions
+from .....common_components.dataconversion_framework import dataconversion_module as Functions
+from .....common_components.enumeration_datatype import enumeration_module as Enumerations
+
 
 class DefineFile:
 
@@ -15,7 +17,7 @@ class DefineFile:
 		self.rawsize = size
 
 		# The type of file - NONE, SUBTITLE, VIDEO; Derived from the reported filename extension
-		self.filetype = "NOT PROCESSED"
+		self.filetype = Enumerations.createenum(["None", "Subtitle", "Video"], "None")
 		self.updatefiletype()
 
 		# The purpose of the file - ignore, ???????? etc
@@ -47,7 +49,7 @@ class DefineFile:
 
 	def gettype(self):
 
-		return self.filetype
+		return self.filetype.displaycurrent()
 
 # =========================================================================================
 # Returns the ID of the file
@@ -142,7 +144,7 @@ class DefineFile:
 		elif extension == "mp4":
 			outcome = "VIDEO"
 
-		self.filetype = outcome.lower()
+		self.filetype.set(outcome.lower())
 
 # =========================================================================================
 
@@ -160,7 +162,7 @@ class DefineFile:
 	def gettitlebase(self):
 
 		outcome = ""
-		if self.gettype() != "none":
+		if self.filetype.get("None") == False:
 			if self.filepurpose == "ignore":
 				outcome = "Ignored"
 			else:
@@ -168,9 +170,9 @@ class DefineFile:
 				subtitle = self.getsubtitlepart()
 				if subtitle != "":
 					outcome = outcome + " " + subtitle
-			if self.gettype() == "video":
+			if self.filetype.get("Video") == True:
 				outcome = outcome + " Video File"
-			elif self.gettype() == "subtitle":
+			elif self.filetype.get("Subtitle") == True:
 				outcome = outcome + " Subtitle File"
 		else:
 			outcome = "Ignored File"
@@ -206,7 +208,7 @@ class DefineFile:
 	def getsubtitlepart(self):
 
 		outcome = ""
-		if self.filetype == "subtitle":
+		if self.filetype.get("subtitle") == True:
 			outcome = "Unknown"
 			rawsplit = self.filepurpose.split("_")
 			if len(rawsplit) > 1:

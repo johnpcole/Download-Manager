@@ -1,4 +1,4 @@
-from ....functions_component import functions_module as Functions
+from ....common_components.dataconversion_framework import dataconversion_module as Functions
 from .file_subcomponent import file_module as File
 
 

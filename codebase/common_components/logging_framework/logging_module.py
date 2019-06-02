@@ -1,4 +1,34 @@
-from . import logreader_privatefunctions as Functions
+import os as OperatingSystem
+from . import logging_privatefunctions as Functions
+
+
+
+
+# =========================================================================================
+# Prints text to the console, with a prefix that allows the logging webpage to render the content nicely
+# =========================================================================================
+
+def printout(printtext):
+	if isinstance(printtext, list):
+		for itementry in printtext:
+			printout(itementry)
+	else:
+		OperatingSystem.system('echo "[DOWNLOAD-MANAGER] ' + printtext + '"')
+
+
+
+def printinvocation(instruction, torrentid):
+	printtext = "> " + instruction
+	if torrentid != "":
+		printtext = printtext + " | " + torrentid
+		#printtext = printtext + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>"
+	printout(printtext)
+
+
+
+
+
+
 
 
 

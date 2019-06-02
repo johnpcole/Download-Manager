@@ -1,7 +1,6 @@
 from .filesystem_subcomponent import filesystem_module as FileSystem
 from . import fileprocessing_class as FileManagerClass
-from .logreader_subcomponent import logreader_module as LogReader
-from ..functions_component import functions_module as Functions
+from ..common_components.logging_framework import logging_module as Logging
 
 
 # =========================================================================================
@@ -21,7 +20,7 @@ def createmanager(connectioncredentials):
 # =========================================================================================
 
 def gettorrentconnectionconfig():
-	Functions.printout("Loading Deluge Daemon Connection Data")
+	Logging.printout("Loading Deluge Daemon Connection Data")
 	credentials = FileSystem.readfromdisk('./data/torrentconnection.cfg')
 	outcome = { 'Address': credentials[0],
 				'Port': int(credentials[1]),
@@ -36,7 +35,7 @@ def gettorrentconnectionconfig():
 # =========================================================================================
 
 def getlibraryconnectionconfig():
-	Functions.printout("Loading File-Server Connection Data")
+	Logging.printout("Loading File-Server Connection Data")
 	credentials = FileSystem.readfromdisk('./data/libraryconnection.cfg')
 	outcome = { 'Mountpoint': credentials[0],
 				'Address': credentials[1],
@@ -51,7 +50,7 @@ def getlibraryconnectionconfig():
 # =========================================================================================
 
 def saveconfigs(outputlist):
-	Functions.printout("Saving Torrents Configuration Data")
+	Logging.printout("Saving Torrents Configuration Data")
 	FileSystem.writetodisk('./data/torrentconfigs.db', outputlist)
 
 # =========================================================================================
@@ -59,7 +58,7 @@ def saveconfigs(outputlist):
 # =========================================================================================
 
 def loadconfigs():
-	Functions.printout("Loading Torrents Configuration Data")
+	Logging.printout("Loading Torrents Configuration Data")
 	return FileSystem.readfromdisk('./data/torrentconfigs.db')
 
 
@@ -69,7 +68,7 @@ def loadconfigs():
 # =========================================================================================
 
 def getwebhostconfig():
-	Functions.printout("Loading Web-Hosting Configuration Data")
+	Logging.printout("Loading Web-Hosting Configuration Data")
 	publicmode = FileSystem.readfromdisk('./data/webhost.cfg')
 	if publicmode[0] == "Public":
 		outcome = True
@@ -84,7 +83,7 @@ def getwebhostconfig():
 # =========================================================================================
 
 def getloggingconfig():
-	Functions.printout("Loading Logging Configuration Data")
+	Logging.printout("Loading Logging Configuration Data")
 	publicmode = FileSystem.readfromdisk('./data/logging.cfg')
 	if publicmode[0] == "On":
 		outcome = True
@@ -112,8 +111,8 @@ def buildpath(nodelist):
 # =========================================================================================
 
 def getloggingdata(loggingmode):
-	Functions.printout("Loading Logs")
+	Logging.printout("Loading Logs")
 	loggingoutput = FileSystem.readfromdisk('./data/Logging.log')
-	outcome = LogReader.processlog(loggingoutput, loggingmode)
+	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
 

@@ -1,5 +1,5 @@
 from deluge_client import DelugeRPCClient as DelugeDaemonInterface
-from ...functions_component import functions_module as Functions
+from ...common_components.logging_framework import logging_module as Logging
 
 # This class creates an object which is used to interface to a Deluge Daemon (via the RPCClient)
 # The object doesn't store any useful information itself, but present the most useful torrent management functions
@@ -40,7 +40,7 @@ class DefineDelugeInterface:
 
 	def openconnection(self, reasontext):
 
-		Functions.printout("- Connecting to Deluge Daemon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reasontext + ")</small>")
+		Logging.printout("- Connecting to Deluge Daemon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reasontext + ")</small>")
 
 		while self.delugeinterface.connected == False:
 			self.delugeinterface.connect()

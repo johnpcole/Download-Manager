@@ -1,16 +1,16 @@
-from codebase.torrenting_component import torrenting_module as TorrentManager
-from codebase.fileprocessing_component import fileprocessing_module as FileManager
+from .torrenting_component import torrenting_module as TorrentManager
+from .fileprocessing_component import fileprocessing_module as FileManager
 from flask import Flask as Webserver
 from flask import render_template as Webpage
 from flask import jsonify as Jsondata
 from flask import request as Webpost
-from codebase.functions_component import functions_module as Functions
+from codebase.common_components.dataconversion_framework import dataconversion_module as Functions
 
 Functions.printinvocation("Starting Download-Manager Application", "")
 
 librarymanager = FileManager.createmanager(FileManager.getlibraryconnectionconfig())
 torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
-torrentmanager.refreshtorrentlist()
+torrentmanager.refreshtorrentlist("Download-Manager")
 torrentmanager.setconfigs(FileManager.loadconfigs())
 webmode = FileManager.getwebhostconfig()
 loggingmode = FileManager.getloggingconfig()
@@ -27,7 +27,7 @@ website = Webserver(__name__)
 def initialiselistpage():
 
 	Functions.printinvocation("Loading All Torrents List Page", "")
-	torrentmanager.refreshtorrentlist()
+	torrentmanager.refreshtorrentlist("Download-Manager")
 	return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=torrentmanager.getstats())
 
 
@@ -51,7 +51,7 @@ def updatelistpage():
 		Functions.printinvocation("Refreshing All Torrents List Page", "")
 	else:
 		Functions.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
-	torrentmanager.refreshtorrentlist()
+	torrentmanager.refreshtorrentlist("Download-Manager")
 	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats=torrentmanager.getstats())
 
 
@@ -69,7 +69,7 @@ def initialisetorrentpage(torrentid):
 		return Webpage('torrent.html', selectedtorrent=torrentmanager.gettorrentdata(torrentid, "initialise"))
 	else:
 		Functions.printinvocation("Returning to Torrents List; Unknown Torrent Specified", torrentid)
-		torrentmanager.refreshtorrentlist()
+		torrentmanager.refreshtorrentlist("Download-Manager")
 		return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"))
 
 
