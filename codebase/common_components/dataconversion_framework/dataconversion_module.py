@@ -180,10 +180,9 @@ def dearticle(realname):
 
 def rearticle(switchedname):
 	splittext = switchedname.split("|||")
-	if splittext[0] == "x":
-		outcome = switchedname
-	else:
-		outcome = splittext[1] + " " + splittext[0]
+	outcome = splittext[1]
+	if splittext[0] != "x":
+		outcome = outcome + " " + splittext[0]
 	return outcome
 
 
