@@ -10,10 +10,8 @@ Functions.printinvocation("Starting Download-Manager Application", "")
 
 librarymanager = FileManager.createmanager(FileManager.getlibraryconnectionconfig())
 torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
-torrentmanager.refreshtorrentlist("Download-Manager")
 torrentmanager.setconfigs(FileManager.loadconfigs())
 webmode = FileManager.getwebhostconfig()
-loggingmode = FileManager.getloggingconfig()
 
 website = Webserver(__name__)
 
@@ -219,8 +217,14 @@ def addnewtorrent():
 def displaylogs():
 
 	Functions.printinvocation("Loading Application Log Page", "")
-	return Webpage('logs.html', loggingoutput=FileManager.getloggingdata(loggingmode))
+	return Webpage('logs.html', loggingoutput=FileManager.getloggingdata(False))
 
+
+@website.route('/VerboseLogs')
+def displayverboselogs():
+
+	Functions.printinvocation("Loading Application Verbose Log Page", "")
+	return Webpage('logs.html', loggingoutput=FileManager.getloggingdata(True))
 
 
 

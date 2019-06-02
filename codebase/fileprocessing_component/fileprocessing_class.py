@@ -1,5 +1,6 @@
 from .filesystem_subcomponent import filesystem_module as FileSystem
 from .copyaction_subcomponent import copyaction_module as CopyAction
+from ..common_components.dataconversion_framework import dataconversion_module as Functions
 
 class DefineLibraryManager:
 
@@ -67,7 +68,16 @@ class DefineLibraryManager:
 
 	def gettvshows(self):
 
-		return sorted(self.tvshows.keys())
+		showlist = self.tvshows.keys()
+		newshowlist = []
+		for showitem in showlist:
+			newshowlist.append(Functions.dearticle(showitem))
+		sortednewshowlist = sorted(newshowlist)
+		outcome = []
+		for showitem in sortednewshowlist:
+			newshowlist.append(Functions.rearticle(showitem))
+
+		return outcome
 
 # =========================================================================================
 # Returns the list of season names for the specified tv show

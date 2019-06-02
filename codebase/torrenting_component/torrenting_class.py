@@ -27,6 +27,8 @@ class DefineTorrentManager:
 		# An array of historic monitor history
 		#self.monitorhistory = MonitorHistory.createhistory()
 
+		self.refreshtorrentlist("Download-Manager")
+
 
 
 # =========================================================================================

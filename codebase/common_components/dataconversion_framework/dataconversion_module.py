@@ -1,5 +1,4 @@
 import operator as Operators
-import os as OperatingSystem
 
 
 
@@ -164,23 +163,26 @@ def getinitial(name):
 	return outcome.upper()
 
 
-# =========================================================================================
-# Prints text to the console, with a prefix that allows the logging webpage to render the content nicely
-# =========================================================================================
 
-def printout(printtext):
-	if isinstance(printtext, list):
-		for itementry in printtext:
-			printout(itementry)
+def dearticle(realname):
+	name = realname.lower()
+	splittest = name.split(" ")
+	if splittest[0] == "the":
+		outcome = realname[4:] + "|||The"
+	elif splittest[0] == "a":
+		outcome = realname[2:] + "|||A"
+	elif splittest[0] == "an":
+		outcome = realname[3:] + "|||An"
 	else:
-		OperatingSystem.system('echo "[DOWNLOAD-MANAGER] ' + printtext + '"')
+		outcome = realname + "|||x"
+
+def rearticle(switchedname):
+	splittext = switchedname.split("|||")
+	if splittext[0] == "x":
+		outcome = switchedname
+	else:
+		outcome = splittext[1] + " " + splittext[0]
 
 
 
-def printinvocation(instruction, torrentid):
-	printtext = "> " + instruction
-	if torrentid != "":
-		printtext = printtext + " | " + torrentid
-		#printtext = printtext + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + torrentid + ")</small>"
-	printout(printtext)
 
