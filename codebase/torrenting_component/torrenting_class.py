@@ -36,7 +36,7 @@ class DefineTorrentManager:
 	def refreshtorrentlist(self, refreshmode):
 
 		# Open the connection to the Deluge Daemon
-		dummyoutcome = self.delugeclient.openconnection("Refresh Torrents List (" + refreshmode + ")")
+		dummyoutcome = self.delugeclient.openconnection("Refresh Torrents List for " + refreshmode)
 
 		# Get the overall session data from the Deluge Daemon (as a flat dictionary of values)
 		if refreshmode == "Download-Manager":
