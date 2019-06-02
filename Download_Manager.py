@@ -1,5 +1,5 @@
-from .torrenting_component import torrenting_module as TorrentManager
-from .fileprocessing_component import fileprocessing_module as FileManager
+from codebase.torrenting_component import torrenting_module as TorrentManager
+from codebase.fileprocessing_component import fileprocessing_module as FileManager
 from flask import Flask as Webserver
 from flask import render_template as Webpage
 from flask import jsonify as Jsondata
