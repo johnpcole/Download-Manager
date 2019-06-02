@@ -69,10 +69,10 @@ class DefineLibraryManager:
 	def gettvshows(self):
 
 		print("1===========================")
-		showlist = self.tvshows.keys()
-		print(showlist)
+		print(self.tvshows.keys())
 		newshowlist = []
-		for showitem in showlist:
+		for showitem in self.tvshows.keys():
+			print(showitem, Functions.dearticle(showitem))
 			newshowlist.append(Functions.dearticle(showitem))
 		print("2===========================")
 		print(newshowlist)
