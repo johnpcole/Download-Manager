@@ -87,8 +87,10 @@ def getloggingconfig():
 	publicmode = FileSystem.readfromdisk('./data/logging.cfg')
 	if publicmode[0] == "On":
 		outcome = True
+		Logging.printrawline("Verbose Logging Enabled")
 	else:
 		outcome = False
+		Logging.printrawline("Verbose Logging Disabled")
 	return outcome
 
 
