@@ -70,7 +70,6 @@ class DefineLibraryManager:
 
 		newshowlist = []
 		for showitem in self.tvshows.keys():
-			print(showitem, Functions.dearticle(showitem))
 			newshowlist.append(Functions.dearticle(showitem))
 		sortednewshowlist = sorted(newshowlist)
 		outcome = []

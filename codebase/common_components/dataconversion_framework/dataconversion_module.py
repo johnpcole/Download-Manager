@@ -168,14 +168,14 @@ def dearticle(realname):
 	name = realname.lower()
 	splittest = name.split(" ")
 	if splittest[0] == "the":
-		outcome = name[4:] + "|||"
+		index = 4
 	elif splittest[0] == "a":
-		outcome = name[2:] + "|||"
+		index = 2
 	elif splittest[0] == "an":
-		outcome = name[3:] + "|||"
+		index = 3
 	else:
-		outcome = name + "|||"
-	outcome = outcome + realname
+		index = 0
+	outcome = name[index:] + "|||" + realname
 	return outcome
 
 
