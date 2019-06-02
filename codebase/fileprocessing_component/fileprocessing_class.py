@@ -68,14 +68,23 @@ class DefineLibraryManager:
 
 	def gettvshows(self):
 
+		print("1===========================")
 		showlist = self.tvshows.keys()
+		print(showlist)
 		newshowlist = []
 		for showitem in showlist:
 			newshowlist.append(Functions.dearticle(showitem))
+		print("2===========================")
+		print(newshowlist)
 		sortednewshowlist = sorted(newshowlist)
+		print("3===========================")
+		print(sortednewshowlist)
 		outcome = []
 		for showitem in sortednewshowlist:
-			newshowlist.append(Functions.rearticle(showitem))
+			outcome.append(Functions.rearticle(showitem))
+		print("4===========================")
+		print(outcome)
+		print("5===========================")
 
 		return outcome
 

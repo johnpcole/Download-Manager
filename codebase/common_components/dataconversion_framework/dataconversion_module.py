@@ -176,6 +176,8 @@ def dearticle(realname):
 	else:
 		outcome = realname + "|||x"
 
+
+
 def rearticle(switchedname):
 	splittext = switchedname.split("|||")
 	if splittext[0] == "x":
