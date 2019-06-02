@@ -61,7 +61,7 @@ class DefineFiles:
 				self.filechangeflag = True
 		if self.filechangeflag == True:
 			self.files = Functions.sortdictionary(self.files, 'sanitisedfilename', False)
-			outcome = {}
+			outcome = []
 			for currentfiletype in ["video", "subtitle", "none"]:
 				for existingfile in self.files:
 					if existingfile.gettype() == currentfiletype:

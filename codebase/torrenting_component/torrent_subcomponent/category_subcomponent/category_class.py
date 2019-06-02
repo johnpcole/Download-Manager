@@ -122,7 +122,7 @@ class DefineCategory:
 	def settype(self, newvalue):
 
 		if self.torrenttype.checkexists(newvalue) == True:
-			self.torrenttype = newvalue
+			self.torrenttype.set(newvalue)
 		else:
 			assert 1 == 0, "Inappropriate Torrent Type " + newvalue
 
