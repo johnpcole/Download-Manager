@@ -1,5 +1,6 @@
 from codebase.torrenting_component import torrenting_module as TorrentManager
 from codebase.fileprocessing_component import fileprocessing_module as FileManager
+from codebase.monitoring_component import monitoring_module as MonitorManager
 from flask import Flask as Webserver
 from flask import render_template as Webpage
 from flask import jsonify as Jsondata
@@ -11,6 +12,7 @@ Logging.printinvocation("Starting Download-Manager Application", "")
 librarymanager = FileManager.createmanager(FileManager.getlibraryconnectionconfig())
 torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
 torrentmanager.setconfigs(FileManager.loadconfigs())
+monitormanager = MonitorManager.createmonitor()
 webmode = FileManager.getwebhostconfig()
 
 website = Webserver(__name__)
@@ -26,7 +28,8 @@ def initialiselistpage():
 
 	Logging.printinvocation("Loading All Torrents List Page", "")
 	torrentmanager.refreshtorrentlist("Download-Manager")
-	return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=torrentmanager.getstats())
+	monitormanager.refreshmeters(torrentmanager.getsessiondata())
+	return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=monitormanager.getmeters())
 
 
 
@@ -50,7 +53,8 @@ def updatelistpage():
 	else:
 		Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
 	torrentmanager.refreshtorrentlist("Download-Manager")
-	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats=torrentmanager.getstats())
+	monitormanager.refreshmeters(torrentmanager.getsessiondata())
+	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats=monitormanager.getmeters())
 
 
 
@@ -225,6 +229,24 @@ def displayverboselogs():
 
 	Logging.printinvocation("Loading Application Verbose Log Page", "")
 	return Webpage('logs.html', loggingoutput=FileManager.getloggingdata(True))
+
+
+
+
+
+
+#===============================================================================================
+# Generate a Monitor History Item
+#===============================================================================================
+
+@website.route('/Monitor')
+def triggermonitor():
+
+	Logging.printinvocation("Triggering Monitor", "")
+	torrentmanager.refreshtorrentlist("Deluge-Monitor")
+	monitormanager.addhistoryentry(torrentmanager.getmonitordata())
+	return "Success"
+
 
 
 

@@ -10,7 +10,7 @@ class DefineMonitor:
 
 		self.trackerstatus = "unknown"
 
-		self.totaluploaded = 0
+		self.totaluploaded = -999
 
 # =========================================================================================
 
@@ -24,10 +24,11 @@ class DefineMonitor:
 # =========================================================================================
 
 	def updatetotaluploaded(self, newvalue):
+		outcome = 0
 		oldvalue = self.totaluploaded
-		outcome = newvalue - oldvalue
-		if outcome < 0:
-			outcome = 0
+		if oldvalue >= 0:
+			if newvalue > oldvalue:
+				outcome = newvalue - oldvalue
 		self.totaluploaded = newvalue
 		return outcome
 
