@@ -118,11 +118,7 @@ class DefineStatus:
 
 	def getconnectionstatusdata(self):
 
-		outcome = {}
-		outcome['activedownloads'] = 0
-		outcome['activeuploads'] = 0
-		outcome['downloadcount'] = 0
-		outcome['activedownloads'] = 0
+		outcome = {'activedownloads': 0, 'activeuploads': 0, 'downloadcount': 0, 'uploadcount': 0}
 
 		torrentstatus = self.getfulltorrentstatus()
 		if torrentstatus[-6:] == "active":
