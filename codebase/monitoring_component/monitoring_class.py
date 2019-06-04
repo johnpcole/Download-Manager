@@ -36,9 +36,6 @@ class DefineMonitor:
 
 	def addhistoryentry(self, monitordata):
 		datetime = 0
-		self.monitorhistory.append(HistoryItem.createhistoryitem(datetime, monitordata['uploadeddelta'],
-																					monitordata['redcount'],
-																						monitordata['ambercount'],
-																							monitordata['greencount']))
+		self.monitorhistory.append(HistoryItem.createhistoryitem(datetime, monitordata))
 
 

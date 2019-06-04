@@ -6,14 +6,8 @@
 
 class DefineItem:
 
-	def __init__(self, datetime, uploadeddelta, redcount, ambercount, greencount):
+	def __init__(self, datetime, sessiondata):
 
 		self.datetime = datetime
 
-		self.uploadeddelta = uploadeddelta
-
-		self.recount = redcount
-
-		self.ambercount = ambercount
-
-		self.greencount = greencount
+		self.sessiondata = sessiondata
