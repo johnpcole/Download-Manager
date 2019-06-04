@@ -22,6 +22,9 @@ class DefineDelugeInterface:
 		self.delugekeysfortorrentinfo = ["state", "save_path", "name", "total_size", "progress", "eta",
 												"files", "is_finished", "time_added", "num_seeds", "num_peers"]
 
+		# The deluge keys used for gaining monitor data about a single torrent via the 'core.get_torrent_status' call
+		self.delugekeysformonitorinfo = ["state", "upload_payload_rate"]
+
 		# The full list deluge keys available for gaining detailed data about a single torrent via the
 		# 'core.get_torrent_status' call
 		self.alldelugekeysavailablefortorrentinfo = ["state", "save_path", "tracker", "tracker_status", "next_announce",
@@ -204,4 +207,42 @@ class DefineDelugeInterface:
 		outcome['uploadspeed'] = rawstats1[b'payload_upload_rate']
 		outcome['downloadspeed'] = rawstats1[b'payload_download_rate']
 		outcome['freespace'] = rawstats2 / 1000000000
+
 		return outcome
+
+# =========================================================================================
+# Returns a structured/layered dictionary of information about a specified (by GUID) torrent
+# =========================================================================================
+
+	def getmonitordata(self, torrentid):
+
+		rawtorrentdata = self.delugeinterface.call('core.get_torrent_status', torrentid, self.delugekeysformonitorinfo)
+
+		outcome = {}
+
+		for itemkey in rawtorrentdata:
+			itemdata = rawtorrentdata[itemkey]
+			newkeyname = itemkey.decode("utf-8", "ignore")
+
+			if isinstance(itemdata, bytes) == True:
+				outcome[newkeyname] = itemdata.decode("utf-8", "ignore")
+
+			elif isinstance(itemdata, tuple) == True:
+				newlist = []
+				for subitem in itemdata:
+					newsubdictionary = {}
+					for subitemkey in subitem:
+						newsubitemkey = subitemkey.decode("utf-8", "ignore")
+						if isinstance(subitem[subitemkey], bytes) == True:
+							newsubitemdata = subitem[subitemkey].decode("utf-8", "ignore")
+						else:
+							newsubitemdata = subitem[subitemkey]
+						newsubdictionary[newsubitemkey] = newsubitemdata
+					newlist.append(newsubdictionary)
+				outcome[newkeyname] = newlist
+
+			else:
+				outcome[newkeyname] = itemdata
+
+		return outcome
+

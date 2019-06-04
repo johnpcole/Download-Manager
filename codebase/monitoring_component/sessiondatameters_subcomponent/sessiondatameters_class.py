@@ -44,7 +44,7 @@ class DefineSessionDataMeters:
 # storing them in the meter objects for later use
 # =========================================================================================
 
-	def updatesessiondata(self, delugesessiondata, temperaturedata, torrentset):
+	def updatesessiondata(self, delugesessiondata, temperaturedata):
 
 		self.temperature.setmetervalue(temperaturedata)
 
@@ -56,35 +56,16 @@ class DefineSessionDataMeters:
 				self.downloadspeed.setmetervalue(delugesessiondata[indexkey])
 			elif indexkey == 'freespace':
 				self.freespace.setmetervalue(delugesessiondata[indexkey])
+			elif indexkey == 'downloadcount':
+				self.downloadcount.setmetervalue(delugesessiondata[indexkey])
+			elif indexkey == 'activedownloads':
+				self.activedownloads.setmetervalue(delugesessiondata[indexkey])
+			elif indexkey == 'uploadcount':
+				self.uploadcount.setmetervalue(delugesessiondata[indexkey])
+			elif indexkey == 'activeuploads':
+				self.activeuploads.setmetervalue(delugesessiondata[indexkey])
 			else:
 				print("Unexepected session data: ", indexkey)
-
-		totaldownloadcounter = 0
-		activedownloadcounter = 0
-		totaluploadcounter = 0
-		activeuploadcounter = 0
-
-		for existingtorrent in torrentset:
-
-			newcount = existingtorrent.getconnectiondata()
-
-			for indexkey in newcount:
-				if indexkey == 'downloadcount':
-					totaldownloadcounter = totaldownloadcounter + newcount[indexkey]
-				elif indexkey == 'activedownloads':
-					activedownloadcounter = activedownloadcounter + newcount[indexkey]
-				elif indexkey == 'uploadcount':
-					totaluploadcounter = totaluploadcounter + newcount[indexkey]
-				elif indexkey == 'activeuploads':
-					activeuploadcounter = activeuploadcounter + newcount[indexkey]
-				else:
-					print("Unexpected torrent data: ", indexkey)
-
-		self.downloadcount.setmetervalue(totaldownloadcounter)
-		self.activedownloads.setmetervalue(activedownloadcounter)
-		self.uploadcount.setmetervalue(totaluploadcounter)
-		self.activeuploads.setmetervalue(activeuploadcounter)
-
 
 
 
