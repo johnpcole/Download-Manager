@@ -131,7 +131,7 @@ class DefineStatus:
 
 		torrentstatus = self.getfulltorrentstatus()
 		if torrentstatus[-6:] == "active":
-			outcome['greencount'] = 1
+			outcome[self.gettrackerstatus()] = 1
 			outcome['uploadcount'] = 1
 			if self.activepeers > 0:
 				outcome['activeuploads'] = 1
@@ -157,4 +157,20 @@ class DefineStatus:
 		else:
 			outcome = "In Progress"
 		return outcome
+
+# =========================================================================================
+
+	def gettrackerstatus(self):
+
+		if self.trackerstatus.find(" Error: "):
+			if self.trackerstatus.find(" Error: Invalid argument"):
+				outcome = 'ambercount'
+			else:
+				outcome = 'redcount'
+		else:
+			outcome = 'greencount'
+
+		return outcome
+
+
 
