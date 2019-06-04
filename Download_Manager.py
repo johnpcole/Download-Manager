@@ -28,8 +28,8 @@ def initialiselistpage():
 
 	Logging.printinvocation("Loading All Torrents List Page", "")
 	torrentmanager.refreshtorrentlist("Download-Manager")
-	monitormanager.refreshmeters(torrentmanager.getsessiondata())
-	return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=monitormanager.getmeters())
+	monitormanager.refreshsessionmeters(torrentmanager.getsessiondata())
+	return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=monitormanager.getsessionmeters())
 
 
 
@@ -53,8 +53,8 @@ def updatelistpage():
 	else:
 		Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
 	torrentmanager.refreshtorrentlist("Download-Manager")
-	monitormanager.refreshmeters(torrentmanager.getsessiondata())
-	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats=monitormanager.getmeters())
+	monitormanager.refreshsessionmeters(torrentmanager.getsessiondata())
+	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats=monitormanager.getsessionmeters())
 
 
 

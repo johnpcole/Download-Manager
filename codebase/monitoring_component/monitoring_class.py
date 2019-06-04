@@ -28,7 +28,7 @@ class DefineMonitor:
 # Generates an array of stat numerics, required to draw the meter graphs
 # =========================================================================================
 
-	def getmeters(self):
+	def getsessionmeters(self):
 
 		return self.sessionmeters.getstats()
 
