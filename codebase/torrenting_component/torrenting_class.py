@@ -18,9 +18,6 @@ class DefineTorrentManager:
 		# The dictionary of session data
 		self.sessiondata = {}
 
-		# The dictionary of current monitor data
-		self.monitordata = {}
-
 		self.refreshtorrentlist("Download-Manager")
 
 # =========================================================================================
@@ -33,7 +30,7 @@ class DefineTorrentManager:
 		dummyoutcome = self.delugeclient.openconnection("Refresh Torrents List for " + refreshmode)
 
 		# Get the list of torrent GUIDs from the Delude Daemon (as a flat list)
-		reportedtorrentidlist = self.delugeclient.gettorrentlist()
+		reportedtorrentidlist = self.delugeclient.retrievetorrentlist()
 
 		# Update the list of torrents to include new torrents not previously managed by Download-Manager
 		self.registermissingtorrents(reportedtorrentidlist)
@@ -41,18 +38,12 @@ class DefineTorrentManager:
 		# Update the list of torrents to exclude torrents previously managed by Download-Manager
 		self.cleantorrentlist(reportedtorrentidlist)
 
-		if refreshmode == "Download-Manager":
-			# Update all the torrents' data relevent for Download-Manager
-			self.refreshtorrentobjectsdata(self.torrents)
-			# Get the overall session data from the Deluge Daemon (as a flat dictionary of values)
-			self.refreshsessiondata()
+		# Update all the torrents' data relevent for Download-Manager/Deluge-Monitor
+		self.refreshtorrentobjectsdata(self.torrents, refreshmode)
 
-		elif refreshmode == "Deluge-Monitor":
-			# Update torrents' data relevent for Deluge Monitor
-			self.refreshmonitordata()
-
-		else:
-			assert 1 == 0, ("Unknown Refresh Torrents List Mode: " + refreshmode)
+		# Get the overall session data from the Deluge Daemon (as a flat dictionary of values)
+		# as well as summing up individual torrent data already gathered
+		self.refreshsessiondata()
 
 		# Close the connection to the Deluge Daemon
 		dummyoutcome = self.delugeclient.closeconnection()
@@ -96,15 +87,15 @@ class DefineTorrentManager:
 		return outcome
 
 # =========================================================================================
-# Refreshes the torrent data for the specified IDs, by connecting to the Deluge client
-# assuming there is already an open connection to Deluge
+# Refreshes the torrent data for the specified torrent objects, by connecting to the Deluge
+# client assuming there is already an open connection to Deluge
 # =========================================================================================
 
-	def refreshtorrentobjectsdata(self, torrentobjects):
+	def refreshtorrentobjectsdata(self, torrentobjects, lookupmode):
 
 		for torrentobject in torrentobjects:
 			torrentid = torrentobject.getid()
-			torrentdata = self.delugeclient.gettorrentdata(torrentid)
+			torrentdata = self.delugeclient.retrievetorrentdata(torrentid, lookupmode)
 			torrentobject.updateinfo(torrentdata)
 
 # =========================================================================================
@@ -115,7 +106,7 @@ class DefineTorrentManager:
 
 		dummyoutcome = self.delugeclient.openconnection("Refresh Torrent " + torrentid)
 		torrentobject = self.gettorrentobject(torrentid)
-		torrentdata = self.delugeclient.gettorrentdata(torrentid)
+		torrentdata = self.delugeclient.retrievetorrentdata(torrentid, "Download-Manager")
 		torrentobject.updateinfo(torrentdata)
 		dummyoutcome = self.delugeclient.closeconnection()
 		#print("Connection closure attempted - Connection State = ", outcome)
@@ -178,7 +169,7 @@ class DefineTorrentManager:
 		Logging.printout("New Raw Torrent ID: " + newid)
 		newobject = self.registertorrentobject(newid)
 		#TO-DO = change newobject to be success/error outcome, allowing for graceful failure
-		self.refreshtorrentobjectsdata([newobject])
+		self.refreshtorrentobjectsdata([newobject], "Download-Manager")
 		outcome = self.delugeclient.closeconnection()
 
 		return newid
@@ -262,49 +253,30 @@ class DefineTorrentManager:
 
 
 # =========================================================================================
-# Refreshes the torrent tracker/upload data for all torrents, by connecting to the Deluge client
-# =========================================================================================
-
-	def refreshmonitordata(self):
-
-		outcome = {'uploadeddelta': 0, 'redcount': 0, 'ambercount': 0, 'greencount': 0}
-
-		for torrentobject in self.torrents:
-			torrentid = torrentobject.getid()
-			torrentdata = self.delugeclient.getmonitordata(torrentid)
-			torrentoutcome = torrentobject.updatemonitor(torrentdata)
-			outcome['uploadeddelta'] = outcome['uploadeddelta'] + torrentoutcome['uploadeddelta']
-			trackerstatus = torrentoutcome['trackerstatus'] + "count"
-			outcome[trackerstatus] = outcome[trackerstatus] + 1
-
-		self.monitordata = outcome
-
-
-	def getmonitordata(self):
-
-		return self.monitordata
-
-# =========================================================================================
 # Refreshes the torrenting session data, by connecting to the Deluge client and also
 # extracting data from individual torrents
 # =========================================================================================
 
 	def refreshsessiondata(self):
 
-		torrentkeylist = ['downloadcount', 'activedownloads', 'uploadcount', 'activeuploads']
-
-		outcome = self.delugeclient.getsessiondata()
-		for indexkey in torrentkeylist:
-			outcome[indexkey] = 0
+		outcome = self.delugeclient.retrievesessiondata()
+		outcome['downloadcount'] = 0
+		outcome['activedownloads'] = 0
+		outcome['uploadcount'] = 0
+		outcome['activeuploads'] = 0
+		outcome['redcount'] = 0
+		outcome['ambercount'] = 0
+		outcome['greencount'] = 0
 
 		for existingtorrent in self.torrents:
 
 			currenttorrent = existingtorrent.getconnectiondata()
 
-			for indexkey in torrentkeylist:
+			for indexkey in currenttorrent:
 				outcome[indexkey] = outcome[indexkey] + currenttorrent[indexkey]
 
 		self.sessiondata = outcome
+
 
 
 	def getsessiondata(self):

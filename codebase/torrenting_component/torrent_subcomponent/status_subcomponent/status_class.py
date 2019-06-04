@@ -31,6 +31,8 @@ class DefineStatus:
 
 		self.activeseeders = 0
 
+		self.trackerstatus = "None"
+
 
 
 # =========================================================================================
@@ -72,6 +74,12 @@ class DefineStatus:
 
 	def setactiveseeders(self, newvalue):
 		self.activeseeders = newvalue
+
+
+# =========================================================================================
+
+	def settrackerstatus(self, newvalue):
+		self.trackerstatus = newvalue
 
 
 # =========================================================================================
@@ -118,10 +126,12 @@ class DefineStatus:
 
 	def getconnectionstatusdata(self):
 
-		outcome = {'activedownloads': 0, 'activeuploads': 0, 'downloadcount': 0, 'uploadcount': 0}
+		outcome = {'activedownloads': 0, 'activeuploads': 0, 'downloadcount': 0, 'uploadcount': 0,
+																	'redcount': 0, 'ambercount': 0, 'greencount': 0}
 
 		torrentstatus = self.getfulltorrentstatus()
 		if torrentstatus[-6:] == "active":
+			outcome['greencount'] = 1
 			outcome['uploadcount'] = 1
 			if self.activepeers > 0:
 				outcome['activeuploads'] = 1
@@ -147,3 +157,4 @@ class DefineStatus:
 		else:
 			outcome = "In Progress"
 		return outcome
+
