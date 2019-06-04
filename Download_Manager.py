@@ -244,8 +244,8 @@ def triggermonitor():
 
 	Logging.printinvocation("Triggering Monitor", "")
 	torrentmanager.refreshtorrentlist("Deluge-Monitor")
-	#monitormanager.addhistoryentry(torrentmanager.refreshsessiondata())
-	return Jsondata(tester=torrentmanager.refreshsessiondata())
+	#monitormanager.addhistoryentry(torrentmanager.getsessiondata())
+	return Jsondata(tester=torrentmanager.getsessiondata())
 
 
 
