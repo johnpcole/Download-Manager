@@ -65,7 +65,7 @@ class DefineSessionDataMeters:
 			elif indexkey == 'activeuploads':
 				self.activeuploads.setmetervalue(delugesessiondata[indexkey])
 			else:
-				print("Unexepected session data: ", indexkey)
+				tempo = 0
 
 
 

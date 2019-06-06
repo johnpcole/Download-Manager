@@ -1,7 +1,7 @@
 from .thermometer_subcomponent import thermometer_module as PiThermometer
 from .sessiondatameters_subcomponent import sessiondatameters_module as SessionDataMeters
 from .historyitem_subcomponent import historyitem_module as HistoryItem
-
+from ..common_components.datetime_datatypes import datetime_module as DateTime
 
 
 
@@ -35,10 +35,29 @@ class DefineMonitor:
 # =========================================================================================
 
 	def addhistoryentry(self, monitordata):
-		datetime = 0
-		self.monitorhistory.append(HistoryItem.createhistoryitem(datetime, monitordata['uploadeddelta'],
-																					monitordata['redcount'],
-																						monitordata['ambercount'],
-																							monitordata['greencount']))
+
+		self.monitorhistory.append(HistoryItem.createhistoryitem(DateTime.getnow(), monitordata))
+
+# =========================================================================================
+
+	def gethistory(self, startpointdatetime, endpointdatetime):
+
+		outcome = []
+		for historyitem in self.monitorhistory:
+			currentdatetime = historyitem.getdatetime()
+			if DateTime.isfirstlaterthansecond(currentdatetime, startpointdatetime):
+				if DateTime.isfirstlaterthansecond(endpointdatetime, currentdatetime):
+					outcome.append(historyitem.getalldata())
+
+		return outcome
+
+# =========================================================================================
+
+	def getlatestdayshistory(self):
+
+		endpointdatetime = DateTime.getnow()
+		startpointdatetime = DateTime.createfromobject(endpointdatetime)
+		startpointdatetime.adjustdays(-1)
+		return self.gethistory(startpointdatetime, endpointdatetime)
 
 

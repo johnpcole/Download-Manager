@@ -16,14 +16,14 @@ class DefineDelugeInterface:
 		self.delugeinterface = DelugeDaemonInterface(address, port, username, password)
 
 		# The deluge keys used for gaining overall session data via the 'core.get_session_status' call
-		self.delugekeysforsessioninfo = ["payload_download_rate", "payload_upload_rate"]
+		self.delugekeysforsessioninfo = ["payload_download_rate", "payload_upload_rate", "total_payload_upload"]
 
 		# The deluge keys used for gaining detailed data about a single torrent via the 'core.get_torrent_status' call
 		self.delugekeysfortorrentinfo = ["state", "save_path", "name", "total_size", "progress", "eta",
 												"files", "is_finished", "time_added", "num_seeds", "num_peers"]
 
-		# The deluge keys used for gaining monitor data about a single torrent via the 'core.get_torrent_status' call
-		self.delugekeysformonitorinfo = ["state", "upload_payload_rate"]
+		# The deluge keys used for gaining monitor data
+		self.delugekeysformonitorinfo = ["tracker_status", "state"]
 
 		# The full list deluge keys available for gaining detailed data about a single torrent via the
 		# 'core.get_torrent_status' call
@@ -74,7 +74,7 @@ class DefineDelugeInterface:
 # Returns a list of strings, one per torrent, providing the GUID of each torrent
 # =========================================================================================
 
-	def gettorrentlist(self):
+	def retrievetorrentlist(self):
 
 		rawtorrentlist = self.delugeinterface.call('core.get_session_state')
 
@@ -90,9 +90,15 @@ class DefineDelugeInterface:
 # Returns a structured/layered dictionary of information about a specified (by GUID) torrent
 # =========================================================================================
 
-	def gettorrentdata(self, torrentid):
+	def retrievetorrentdata(self, torrentid, datamode):
 
-		rawtorrentdata = self.delugeinterface.call('core.get_torrent_status', torrentid, self.delugekeysfortorrentinfo)
+		if datamode == "Download-Manager":
+			dataset = self.delugekeysfortorrentinfo
+		elif datamode == "Deluge-Monitor":
+			dataset = self.delugekeysformonitorinfo
+		else:
+			assert 1 == 0, "Inappropriate GetTorrentData Mode: " + datamode
+		rawtorrentdata = self.delugeinterface.call('core.get_torrent_status', torrentid, dataset)
 
 		outcome = {}
 
@@ -198,7 +204,7 @@ class DefineDelugeInterface:
 # Returns a dictionary of information about the daemon session
 # =========================================================================================
 
-	def getsessiondata(self):
+	def retrievesessiondata(self):
 
 		rawstats1 = self.delugeinterface.call('core.get_session_status', self.delugekeysforsessioninfo)
 		rawstats2 = self.delugeinterface.call('core.get_free_space')
@@ -206,43 +212,9 @@ class DefineDelugeInterface:
 		outcome = {}
 		outcome['uploadspeed'] = rawstats1[b'payload_upload_rate']
 		outcome['downloadspeed'] = rawstats1[b'payload_download_rate']
+		outcome['uploadedtotal'] = rawstats1[b'total_payload_upload']
 		outcome['freespace'] = rawstats2 / 1000000000
 
 		return outcome
 
-# =========================================================================================
-# Returns a structured/layered dictionary of information about a specified (by GUID) torrent
-# =========================================================================================
-
-	def getmonitordata(self, torrentid):
-
-		rawtorrentdata = self.delugeinterface.call('core.get_torrent_status', torrentid, self.delugekeysformonitorinfo)
-
-		outcome = {}
-
-		for itemkey in rawtorrentdata:
-			itemdata = rawtorrentdata[itemkey]
-			newkeyname = itemkey.decode("utf-8", "ignore")
-
-			if isinstance(itemdata, bytes) == True:
-				outcome[newkeyname] = itemdata.decode("utf-8", "ignore")
-
-			elif isinstance(itemdata, tuple) == True:
-				newlist = []
-				for subitem in itemdata:
-					newsubdictionary = {}
-					for subitemkey in subitem:
-						newsubitemkey = subitemkey.decode("utf-8", "ignore")
-						if isinstance(subitem[subitemkey], bytes) == True:
-							newsubitemdata = subitem[subitemkey].decode("utf-8", "ignore")
-						else:
-							newsubitemdata = subitem[subitemkey]
-						newsubdictionary[newsubitemkey] = newsubitemdata
-					newlist.append(newsubdictionary)
-				outcome[newkeyname] = newlist
-
-			else:
-				outcome[newkeyname] = itemdata
-
-		return outcome
 

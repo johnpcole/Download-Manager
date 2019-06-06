@@ -2,7 +2,6 @@ from .files_subcomponent import files_module as Files
 from ...common_components.dataconversion_framework import dataconversion_module as Functions
 from .category_subcomponent import category_module as Category
 from .status_subcomponent import status_module as Status
-from .monitor_subcomponent import monitor_module as Monitor
 
 
 # This class creates an object which is used to capture information about an individual torrent
@@ -27,10 +26,9 @@ class DefineTorrentItem:
 
 		self.torrentfiles = Files.createfilesdata()
 
-		self.torrentmonitor = Monitor.createmonitor()
 
 
-	# =========================================================================================
+# =========================================================================================
 
 	def updateinfo(self, datalist):
 
@@ -62,6 +60,8 @@ class DefineTorrentItem:
 				self.torrentstatus.setactiveseeders(datalist[dataitem])
 			elif dataitem == "num_peers":
 				self.torrentstatus.setactivepeers(datalist[dataitem])
+			elif dataitem == "tracker_status":
+				self.torrentstatus.settrackerstatus(datalist[dataitem])
 			# -----------------------------------------------------------------------------------------------
 			elif dataitem == "save_path":
 				self.torrentfiles.settorrentfilespath(datalist[dataitem])
@@ -195,9 +195,4 @@ class DefineTorrentItem:
 
 		return outcome
 
-# =========================================================================================
-
-	def updatemonitor(self, datalist):
-
-		return self.torrentmonitor.updatemonitordata(datalist)
 
