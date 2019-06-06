@@ -31,4 +31,5 @@ class DefineItem:
 		outcome['red'] = self.red
 		outcome['amber'] = self.amber
 		outcome['green'] = self.green
+		return outcome
 
