@@ -20,22 +20,31 @@ def extractflaskoutput(logentry, linecounter):
 
 
 
-def extractdownloadmanageroutput(logentry, linecounter):
+def extractdownloadmanagerinstruction(logentry, linecounter):
 	outcome = {}
 	outcome["lineindex"] = linecounter
-	if logentry.find("[DOWNLOAD-MANAGER] > ") != -1:
-		content = logentry[21:]
-		if content.find(" | ") == -1:
-			outcome["instruction"] = content
-			outcome["torrentid"] = ""
-		else:
-			splitcontent = content.split(" | ")
-			outcome["instruction"] = splitcontent[0]
-			outcome["torrentid"] = "(" + splitcontent[1] + ")"
-		outcome["entrytype"] = "invocation"
+	outcome["entrytype"] = "invocation"
+	content = logentry[21:]
+	if content.find(" | ") == -1:
+		outcome["instruction"] = content
+		outcome["torrentid"] = ""
 	else:
-		outcome["content"] = logentry[19:]
-		outcome["entrytype"] = "information"
+		splitcontent = content.split(" | ")
+		outcome["instruction"] = splitcontent[0]
+		outcome["torrentid"] = "(" + splitcontent[1] + ")"
+	return outcome
+
+
+
+def extractdownloadmanagerlog(logentry, linecounter):
+	outcome = {}
+	outcome["lineindex"] = linecounter
+	outcome["entrytype"] = "information"
+	logcontent = logentry[19:]
+	if logcontent[:2] == "- ":
+		outcome["content"] = logcontent[2:]
+	else:
+		outcome["content"] = logcontent
 	return outcome
 
 
@@ -54,13 +63,20 @@ def extractotheroutput(cache, linecounter):
 
 
 
-def determineoutputtype(outputstring):
+def determineoutputtype(outputstring, loggingmode):
 
 	outcome = "OTHER"
 	if outputstring.find("HTTP/1.1") != -1:
 		outcome = "FLASK"
 	else:
 		if outputstring.find("[DOWNLOAD-MANAGER] ") != -1:
-			outcome = "DOWNLOAD-MANAGER"
+			if outputstring.find("[DOWNLOAD-MANAGER] > ") != -1:
+				outcome = "DOWNLOAD-MANAGER-INSTRUCTION"
+			else:
+				if (loggingmode == True) or (outputstring.find("[DOWNLOAD-MANAGER] - ") == -1):
+					outcome = "DOWNLOAD-MANAGER-LOG"
+				else:
+					outcome = "IGNORE"
+
 	return outcome
 

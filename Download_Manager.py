@@ -1,17 +1,18 @@
 from codebase.torrenting_component import torrenting_module as TorrentManager
 from codebase.fileprocessing_component import fileprocessing_module as FileManager
+from codebase.monitoring_component import monitoring_module as MonitorManager
 from flask import Flask as Webserver
 from flask import render_template as Webpage
 from flask import jsonify as Jsondata
 from flask import request as Webpost
-from codebase.functions_component import functions_module as Functions
+from codebase.common_components.logging_framework import logging_module as Logging
 
-Functions.printinvocation("Starting Download-Manager Application", "")
+Logging.printinvocation("Starting Download-Manager Application", "")
 
 librarymanager = FileManager.createmanager(FileManager.getlibraryconnectionconfig())
 torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
-torrentmanager.refreshtorrentlist()
 torrentmanager.setconfigs(FileManager.loadconfigs())
+monitormanager = MonitorManager.createmonitor()
 webmode = FileManager.getwebhostconfig()
 
 website = Webserver(__name__)
@@ -25,9 +26,10 @@ website = Webserver(__name__)
 @website.route('/')
 def initialiselistpage():
 
-	Functions.printinvocation("Loading All Torrents List Page", "")
-	torrentmanager.refreshtorrentlist()
-	return Webpage('index.html', torrentlist = torrentmanager.gettorrentlistdata("initialise"), stats = torrentmanager.getstats())
+	Logging.printinvocation("Loading All Torrents List Page", "")
+	torrentmanager.refreshtorrentlist("Download-Manager")
+	monitormanager.refreshsessionmeters(torrentmanager.getsessiondata())
+	return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=monitormanager.getsessionmeters())
 
 
 
@@ -41,17 +43,18 @@ def updatelistpage():
 	rawdata = Webpost.get_json()
 	bulkaction = rawdata["bulkaction"]
 	if (bulkaction == "Start") or (bulkaction == "Stop"):
-		Functions.printinvocation(bulkaction + "ing all Torrents", "")
+		Logging.printinvocation(bulkaction + "ing all Torrents", "")
 		torrentmanager.bulkprocessalltorrents(bulkaction)
 	elif bulkaction == "RescanFileServer":
-		Functions.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
+		Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
 		librarymanager.discovertvshows()
 	elif bulkaction == "Refresh":
-		Functions.printinvocation("Refreshing All Torrents List Page", "")
+		Logging.printinvocation("Refreshing All Torrents List Page", "")
 	else:
-		Functions.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
-	torrentmanager.refreshtorrentlist()
-	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats = torrentmanager.getstats())
+		Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
+	torrentmanager.refreshtorrentlist("Download-Manager")
+	monitormanager.refreshsessionmeters(torrentmanager.getsessiondata())
+	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats=monitormanager.getsessionmeters())
 
 
 
@@ -63,13 +66,13 @@ def updatelistpage():
 def initialisetorrentpage(torrentid):
 
 	if torrentmanager.validatetorrentid(torrentid) == True:
-		Functions.printinvocation("Loading Specific Torrent Page", torrentid)
+		Logging.printinvocation("Loading Specific Torrent Page", torrentid)
 		torrentmanager.refreshtorrentdata(torrentid)
-		return Webpage('torrent.html', selectedtorrent = torrentmanager.gettorrentdata(torrentid, "initialise"))
+		return Webpage('torrent.html', selectedtorrent=torrentmanager.gettorrentdata(torrentid, "initialise"))
 	else:
-		Functions.printinvocation("Returning to Torrents List; Unknown Torrent Specified", torrentid)
-		torrentmanager.refreshtorrentlist()
-		return Webpage('index.html', torrentlist = torrentmanager.gettorrentlistdata("initialise"))
+		Logging.printinvocation("Returning to Torrents List; Unknown Torrent Specified", torrentid)
+		torrentmanager.refreshtorrentlist("Download-Manager")
+		return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"))
 
 
 
@@ -85,16 +88,16 @@ def updatetorrentpage():
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		torrentaction = rawdata['torrentaction']
 		if (torrentaction == "Start") or (torrentaction == "Stop"):
-			Functions.printinvocation(torrentaction + "ing Torrent", torrentid )
+			Logging.printinvocation(torrentaction + "ing Torrent", torrentid )
 			torrentmanager.processonetorrent(torrentid, torrentaction)
 		elif torrentaction == "Refresh":
-			Functions.printinvocation("Refreshing Specific Torrent Page", torrentid)
+			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
 		else:
-			Functions.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
+			Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
 		torrentmanager.refreshtorrentdata(torrentid)
 		return Jsondata(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "refresh"))
 	else:
-		Functions.printinvocation("Requested Update to Unknown Torrent", torrentid)
+		Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
 
 
 
@@ -109,16 +112,16 @@ def copytorrent():
 	torrentid = rawdata['copyinstruction']
 	if torrentid != "!!! CONTINUE EXISTING COPY PROCESS !!!":
 		if torrentmanager.validatetorrentid(torrentid) == True:
-			Functions.printinvocation("Initiating Torrent Copy", torrentid)
+			Logging.printinvocation("Initiating Torrent Copy", torrentid)
 			librarymanager.queuefilecopy(torrentmanager.getcopyactions(torrentid))
 		else:
-			Functions.printinvocation("Requested Initiate Torrent Copy of Unknown Torrent", torrentid)
+			Logging.printinvocation("Requested Initiate Torrent Copy of Unknown Torrent", torrentid)
 		refreshmode = False
 	else:
-		Functions.printinvocation("Continuing Torrent Copy", "")
+		Logging.printinvocation("Continuing Torrent Copy", "")
 		wastetime()
 		refreshmode = librarymanager.processfilecopylist()
-	return Jsondata(copydata = librarymanager.getcopyprocessinfo(), refreshmode = refreshmode)
+	return Jsondata(copydata=librarymanager.getcopyprocessinfo(), refreshmode=refreshmode)
 
 
 
@@ -132,11 +135,11 @@ def deletetorrent():
 	rawdata = Webpost.get_json()
 	torrentid = rawdata['deleteinstruction']
 	if torrentmanager.validatetorrentid(torrentid) == True:
-		Functions.printinvocation("Deleting Torrent", torrentid)
+		Logging.printinvocation("Deleting Torrent", torrentid)
 		torrentmanager.processonetorrent(torrentid, "Delete")
 	else:
-		Functions.printinvocation("Requested Deletion of Unknown Torrent", torrentid)
-	return Jsondata(deletedata = "Done")
+		Logging.printinvocation("Requested Deletion of Unknown Torrent", torrentid)
+	return Jsondata(deletedata="Done")
 
 
 
@@ -151,12 +154,12 @@ def reconfiguretorrentconfiguration():
 	torrentid = rawdata['torrentid']
 	wastetime()
 	if torrentmanager.validatetorrentid(torrentid) == True:
-		Functions.printinvocation("Saving Reconfigured Torrent", torrentid)
+		Logging.printinvocation("Saving Reconfigured Torrent", torrentid)
 		torrentmanager.reconfiguretorrent(torrentid, rawdata['newconfiguration'])
 		FileManager.saveconfigs(torrentmanager.getconfigs())
-		return Jsondata(selectedtorrent = torrentmanager.gettorrentdata(torrentid, "reconfigure"))
+		return Jsondata(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "reconfigure"))
 	else:
-		Functions.printinvocation("Requested Save Reconfiguration of Unknown Torrent", torrentid)
+		Logging.printinvocation("Requested Save Reconfiguration of Unknown Torrent", torrentid)
 
 
 
@@ -170,13 +173,13 @@ def edittorrentconfiguration():
 	rawdata = Webpost.get_json()
 	torrentid = rawdata['torrentid']
 	if torrentmanager.validatetorrentid(torrentid) == True:
-		Functions.printinvocation("Starting Torrent Reconfiguration", torrentid)
+		Logging.printinvocation("Starting Torrent Reconfiguration", torrentid)
 		wastetime()
 		torrentdata = torrentmanager.gettorrentdata(torrentid, "prepareedit")
 		return Jsondata(selectedtorrent=torrentdata,
 									listitems=librarymanager.getdropdownlists(torrentdata['tvshowname']))
 	else:
-		Functions.printinvocation("Requested Unknown Torrent Reconfiguration", torrentid)
+		Logging.printinvocation("Requested Unknown Torrent Reconfiguration", torrentid)
 
 
 
@@ -187,7 +190,7 @@ def edittorrentconfiguration():
 @website.route('/GetTVShowSeasons', methods=['POST'])
 def updatetvshowseasonslist():
 
-	Functions.printinvocation("Getting TV Show Data", "")
+	Logging.printinvocation("Getting TV Show Data", "")
 	rawdata = Webpost.get_json()
 	wastetime()
 	return Jsondata(seasons=librarymanager.gettvshowseasons(rawdata['tvshow']))
@@ -201,7 +204,7 @@ def updatetvshowseasonslist():
 @website.route('/AddTorrent', methods=['POST'])
 def addnewtorrent():
 
-	Functions.printinvocation("Adding New Torrent", "")
+	Logging.printinvocation("Adding New Torrent", "")
 	rawdata = Webpost.get_json()
 	newid = torrentmanager.addnewtorrenttoclient(rawdata['newurl'])
 	wastetime()
@@ -217,8 +220,32 @@ def addnewtorrent():
 @website.route('/Logs')
 def displaylogs():
 
-	Functions.printinvocation("Loading Application Log Page", "")
-	return Webpage('logs.html', loggingoutput = FileManager.getloggingdata())
+	Logging.printinvocation("Loading Application Log Page", "")
+	return Webpage('logs.html', loggingoutput=FileManager.getloggingdata(False))
+
+
+@website.route('/VerboseLogs')
+def displayverboselogs():
+
+	Logging.printinvocation("Loading Application Verbose Log Page", "")
+	return Webpage('logs.html', loggingoutput=FileManager.getloggingdata(True))
+
+
+
+
+
+
+#===============================================================================================
+# Generate a Monitor History Item
+#===============================================================================================
+
+@website.route('/Monitor')
+def triggermonitor():
+
+	Logging.printinvocation("Triggering Monitor", "")
+	torrentmanager.refreshtorrentlist("Deluge-Monitor")
+	monitormanager.addhistoryentry(torrentmanager.getsessiondata())
+	return Jsondata(tester=monitormanager.getlatestdayshistory())
 
 
 

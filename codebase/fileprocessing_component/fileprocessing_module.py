@@ -1,7 +1,6 @@
 from .filesystem_subcomponent import filesystem_module as FileSystem
 from . import fileprocessing_class as FileManagerClass
-from .logreader_subcomponent import logreader_module as LogReader
-
+from ..common_components.logging_framework import logging_module as Logging
 
 
 # =========================================================================================
@@ -21,6 +20,7 @@ def createmanager(connectioncredentials):
 # =========================================================================================
 
 def gettorrentconnectionconfig():
+	Logging.printout("Loading Deluge Daemon Connection Data")
 	credentials = FileSystem.readfromdisk('./data/torrentconnection.cfg')
 	outcome = { 'Address': credentials[0],
 				'Port': int(credentials[1]),
@@ -35,6 +35,7 @@ def gettorrentconnectionconfig():
 # =========================================================================================
 
 def getlibraryconnectionconfig():
+	Logging.printout("Loading File-Server Connection Data")
 	credentials = FileSystem.readfromdisk('./data/libraryconnection.cfg')
 	outcome = { 'Mountpoint': credentials[0],
 				'Address': credentials[1],
@@ -49,6 +50,7 @@ def getlibraryconnectionconfig():
 # =========================================================================================
 
 def saveconfigs(outputlist):
+	Logging.printout("Saving Torrents Configuration Data")
 	FileSystem.writetodisk('./data/torrentconfigs.db', outputlist)
 
 # =========================================================================================
@@ -56,6 +58,7 @@ def saveconfigs(outputlist):
 # =========================================================================================
 
 def loadconfigs():
+	Logging.printout("Loading Torrents Configuration Data")
 	return FileSystem.readfromdisk('./data/torrentconfigs.db')
 
 
@@ -65,11 +68,29 @@ def loadconfigs():
 # =========================================================================================
 
 def getwebhostconfig():
+	Logging.printout("Loading Web-Hosting Configuration Data")
 	publicmode = FileSystem.readfromdisk('./data/webhost.cfg')
 	if publicmode[0] == "Public":
 		outcome = True
 	else:
 		outcome = False
+	return outcome
+
+
+
+# =========================================================================================
+# Reads the configuration data for logging, from a file
+# =========================================================================================
+
+def getloggingconfig():
+	Logging.printout("Loading Logging Configuration Data")
+	publicmode = FileSystem.readfromdisk('./data/logging.cfg')
+	if publicmode[0] == "On":
+		outcome = True
+		Logging.printrawline("Verbose Logging Enabled")
+	else:
+		outcome = False
+		Logging.printrawline("Verbose Logging Disabled")
 	return outcome
 
 
@@ -91,8 +112,9 @@ def buildpath(nodelist):
 # Reads the logging data, from a file
 # =========================================================================================
 
-def getloggingdata():
+def getloggingdata(loggingmode):
+	Logging.printout("Loading Logs")
 	loggingoutput = FileSystem.readfromdisk('./data/Logging.log')
-	outcome = LogReader.processlog(loggingoutput)
+	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
 

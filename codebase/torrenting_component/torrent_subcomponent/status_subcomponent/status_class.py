@@ -1,4 +1,4 @@
-from ....functions_component import functions_module as Functions
+from ....common_components.dataconversion_framework import dataconversion_module as Functions
 
 
 # This class creates an object which is used to capture status information about an individual torrent
@@ -21,8 +21,8 @@ class DefineStatus:
 		self.progress = -99999
 
 		# Defines whether the torrent has completed downloading or not (without relying on the percentage, which
-		# is a rounded number that may give false results); Can be set to In Progress or Completed (string)
-		self.finished = "In Progress"
+		# is a rounded number that may give false results)
+		self.iscompleted = False
 
 
 		self.eta = "!UNKNOWN!"
@@ -30,6 +30,10 @@ class DefineStatus:
 		self.activepeers = 0
 
 		self.activeseeders = 0
+
+		self.trackerstatus = "None"
+
+
 
 # =========================================================================================
 
@@ -51,10 +55,7 @@ class DefineStatus:
 # =========================================================================================
 
 	def setfinished(self, newvalue):
-		if newvalue == True:
-			self.finished = "Completed"
-		else:
-			self.finished = "In Progress"
+		self.iscompleted = newvalue
 
 
 # =========================================================================================
@@ -77,15 +78,21 @@ class DefineStatus:
 
 # =========================================================================================
 
+	def settrackerstatus(self, newvalue):
+		self.trackerstatus = newvalue
+
+
+# =========================================================================================
+
 	def getfulltorrentstatus(self):
 
 		if self.status == "queued":
-			if self.finished == "Completed":
+			if self.iscompleted == True:
 				outcome = "seeding_queued"
 			else:
 				outcome = "downloading_queued"
 		elif self.status == "paused":
-			if self.finished == "Completed":
+			if self.iscompleted == True:
 				outcome = "seeding_paused"
 			else:
 				outcome = "downloading_paused"
@@ -119,14 +126,12 @@ class DefineStatus:
 
 	def getconnectionstatusdata(self):
 
-		outcome = {}
-		outcome['activedownloads'] = 0
-		outcome['activeuploads'] = 0
-		outcome['downloadcount'] = 0
-		outcome['activedownloads'] = 0
+		outcome = {'activedownloads': 0, 'activeuploads': 0, 'downloadcount': 0, 'uploadcount': 0,
+									'redcount': 0, 'orangecount': 0, 'ambercount': 0, 'yellowcount': 0, 'greencount': 0}
 
 		torrentstatus = self.getfulltorrentstatus()
 		if torrentstatus[-6:] == "active":
+			outcome[self.gettrackerstatus() + 'count'] = 1
 			outcome['uploadcount'] = 1
 			if self.activepeers > 0:
 				outcome['activeuploads'] = 1
@@ -147,4 +152,28 @@ class DefineStatus:
 
 	def getfinished(self):
 
-		return self.finished
+		if self.iscompleted == True:
+			outcome = "Completed"
+		else:
+			outcome = "In Progress"
+		return outcome
+
+# =========================================================================================
+
+	def gettrackerstatus(self):
+		if self.trackerstatus.find(" Announce OK") != -1:
+			outcome = 'green'
+		elif self.trackerstatus.find(" Error: ") != -1:
+			if self.trackerstatus.find(" Error: timed out") != -1:
+				outcome = 'amber'
+			elif self.trackerstatus.find(" Error: Invalid argument") != -1:
+				outcome = 'orange'
+			else:
+				outcome = 'red'
+		else:
+			outcome = 'yellow'
+
+		return outcome
+
+
+

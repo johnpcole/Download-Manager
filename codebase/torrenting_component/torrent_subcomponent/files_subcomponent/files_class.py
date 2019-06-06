@@ -1,4 +1,4 @@
-from ....functions_component import functions_module as Functions
+from ....common_components.dataconversion_framework import dataconversion_module as Functions
 from .file_subcomponent import file_module as File
 
 
@@ -60,7 +60,13 @@ class DefineFiles:
 				self.files.append(File.createfile(fileitem['index'], fileitem['path'], fileitem['size']))
 				self.filechangeflag = True
 		if self.filechangeflag == True:
-			self.files = Functions.sortdictionary(self.files, 'filetype', True)
+			self.files = Functions.sortdictionary(self.files, 'sanitisedfilename', False)
+			outcome = []
+			for currentfiletype in ["video", "subtitle", "none"]:
+				for existingfile in self.files:
+					if existingfile.gettype() == currentfiletype:
+						outcome.append(existingfile)
+			self.files = outcome
 
 # =========================================================================================
 

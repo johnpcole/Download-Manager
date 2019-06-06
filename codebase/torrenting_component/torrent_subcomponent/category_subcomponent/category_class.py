@@ -1,4 +1,6 @@
-from ....functions_component import functions_module as Functions
+from ....common_components.dataconversion_framework import dataconversion_module as Functions
+from ....common_components.enumeration_datatype import enumeration_module as Enumerations
+
 
 
 # This class creates an object which is used to capture information about an individual torrent that is captured
@@ -11,7 +13,7 @@ class DefineCategory:
 	def __init__(self):
 
 		# Determines whether the torrent is a TV Show, Movie or Other (string)
-		self.torrenttype = "unknown"
+		self.torrenttype = Enumerations.createenum(["unknown", "tvshow", "movie"], "unknown")
 
 		# The specified movie name, or tv show name (string)
 		self.movieorshowname = ""
@@ -26,7 +28,7 @@ class DefineCategory:
 
 	def gettype(self):
 
-		return self.torrenttype
+		return self.torrenttype.displaycurrent()
 
 
 
@@ -37,7 +39,7 @@ class DefineCategory:
 
 	def getmoviename(self):
 
-		if self.torrenttype == "movie":
+		if self.torrenttype.get("movie") == True:
 			outcome = self.movieorshowname
 		else:
 			outcome = ""
@@ -52,7 +54,7 @@ class DefineCategory:
 
 	def getshowname(self):
 
-		if self.torrenttype == "tvshow":
+		if self.torrenttype.get("tvshow") == True:
 			outcome = self.movieorshowname
 		else:
 			outcome = ""
@@ -67,7 +69,7 @@ class DefineCategory:
 
 	def getseason(self):
 
-		if self.torrenttype == "tvshow":
+		if self.torrenttype.get("tvshow") == True:
 			outcome = self.seasonoryear
 		else:
 			outcome = ""
@@ -82,7 +84,7 @@ class DefineCategory:
 
 	def getyear(self):
 
-		if self.torrenttype == "movie":
+		if self.torrenttype.get("movie") == True:
 			outcome = self.seasonoryear
 		else:
 			outcome = ""
@@ -119,8 +121,8 @@ class DefineCategory:
 
 	def settype(self, newvalue):
 
-		if (newvalue == "tvshow") or (newvalue == "movie") or (newvalue == "unknown"):
-			self.torrenttype = newvalue
+		if self.torrenttype.checkexists(newvalue) == True:
+			self.torrenttype.set(newvalue)
 		else:
 			assert 1 == 0, "Inappropriate Torrent Type " + newvalue
 
@@ -133,7 +135,7 @@ class DefineCategory:
 
 	def setmoviename(self, newvalue):
 
-		if self.torrenttype != "movie":
+		if self.torrenttype.get("movie") == False:
 			assert 1 == 0, "Cannot set movie name for non-movie"
 		self.movieorshowname = newvalue
 
@@ -145,7 +147,7 @@ class DefineCategory:
 
 	def setshowname(self, newvalue):
 
-		if self.torrenttype != "tvshow":
+		if self.torrenttype.get("tvshow") == False:
 			assert 1 == 0, "Cannot set show name for non-tv-show"
 		self.movieorshowname = newvalue
 
@@ -157,7 +159,7 @@ class DefineCategory:
 
 	def setseason(self, newvalue):
 
-		if self.torrenttype != "tvshow":
+		if self.torrenttype.get("tvshow") == False:
 			assert 1 == 0, "Cannot set season for non-tv-show"
 		self.seasonoryear = newvalue
 
@@ -169,7 +171,7 @@ class DefineCategory:
 
 	def setyear(self, newvalue):
 
-		if self.torrenttype != "movie":
+		if self.torrenttype.get("movie") == False:
 			assert 1 == 0, "Cannot set year for non-movie"
 		self.seasonoryear = newvalue
 
@@ -181,7 +183,7 @@ class DefineCategory:
 
 	def getcategorysavedata(self):
 
-		outcome = self.torrenttype + "|" + self.movieorshowname + "|" + self.seasonoryear
+		outcome = self.torrenttype.displaycurrent() + "|" + self.movieorshowname + "|" + self.seasonoryear
 		return outcome
 
 
@@ -192,7 +194,7 @@ class DefineCategory:
 
 	def setcategorysavedata(self, typedata, namedata, otherdata):
 
-		self.torrenttype = typedata
+		self.settype(typedata)
 		self.movieorshowname = namedata
 		self.seasonoryear = otherdata
 
@@ -205,10 +207,10 @@ class DefineCategory:
 	def getdestinationfolder(self):
 
 		folders = []
-		if self.torrenttype == "movie":
+		if self.torrenttype.get("movie") == True:
 			folders.append("Movies")
 			folders.append(Functions.getinitial(self.movieorshowname))
-		elif self.torrenttype == "tvshow":
+		elif self.torrenttype.get("tvshow") == True:
 			folders.append("TV Shows")
 			folders.append(self.movieorshowname)
 			if self.seasonoryear != "":

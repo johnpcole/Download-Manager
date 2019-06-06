@@ -1,4 +1,5 @@
 from deluge_client import DelugeRPCClient as DelugeDaemonInterface
+from ...common_components.logging_framework import logging_module as Logging
 
 # This class creates an object which is used to interface to a Deluge Daemon (via the RPCClient)
 # The object doesn't store any useful information itself, but present the most useful torrent management functions
@@ -15,11 +16,14 @@ class DefineDelugeInterface:
 		self.delugeinterface = DelugeDaemonInterface(address, port, username, password)
 
 		# The deluge keys used for gaining overall session data via the 'core.get_session_status' call
-		self.delugekeysforsessioninfo = ["payload_download_rate", "payload_upload_rate"]
+		self.delugekeysforsessioninfo = ["payload_download_rate", "payload_upload_rate", "total_payload_upload"]
 
 		# The deluge keys used for gaining detailed data about a single torrent via the 'core.get_torrent_status' call
 		self.delugekeysfortorrentinfo = ["state", "save_path", "name", "total_size", "progress", "eta",
 												"files", "is_finished", "time_added", "num_seeds", "num_peers"]
+
+		# The deluge keys used for gaining monitor data
+		self.delugekeysformonitorinfo = ["tracker_status", "state"]
 
 		# The full list deluge keys available for gaining detailed data about a single torrent via the
 		# 'core.get_torrent_status' call
@@ -37,7 +41,9 @@ class DefineDelugeInterface:
 # Opens a connection with the deluge daemon, for messages to be passed to/from it
 # =========================================================================================
 
-	def openconnection(self):
+	def openconnection(self, reasontext):
+
+		Logging.printout("- Connecting to Deluge Daemon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reasontext + ")</small>")
 
 		while self.delugeinterface.connected == False:
 			self.delugeinterface.connect()
@@ -68,7 +74,7 @@ class DefineDelugeInterface:
 # Returns a list of strings, one per torrent, providing the GUID of each torrent
 # =========================================================================================
 
-	def gettorrentlist(self):
+	def retrievetorrentlist(self):
 
 		rawtorrentlist = self.delugeinterface.call('core.get_session_state')
 
@@ -84,9 +90,15 @@ class DefineDelugeInterface:
 # Returns a structured/layered dictionary of information about a specified (by GUID) torrent
 # =========================================================================================
 
-	def gettorrentdata(self, torrentid):
+	def retrievetorrentdata(self, torrentid, datamode):
 
-		rawtorrentdata = self.delugeinterface.call('core.get_torrent_status', torrentid, self.delugekeysfortorrentinfo)
+		if datamode == "Download-Manager":
+			dataset = self.delugekeysfortorrentinfo
+		elif datamode == "Deluge-Monitor":
+			dataset = self.delugekeysformonitorinfo
+		else:
+			assert 1 == 0, "Inappropriate GetTorrentData Mode: " + datamode
+		rawtorrentdata = self.delugeinterface.call('core.get_torrent_status', torrentid, dataset)
 
 		outcome = {}
 
@@ -192,7 +204,7 @@ class DefineDelugeInterface:
 # Returns a dictionary of information about the daemon session
 # =========================================================================================
 
-	def getsessiondata(self):
+	def retrievesessiondata(self):
 
 		rawstats1 = self.delugeinterface.call('core.get_session_status', self.delugekeysforsessioninfo)
 		rawstats2 = self.delugeinterface.call('core.get_free_space')
@@ -200,5 +212,9 @@ class DefineDelugeInterface:
 		outcome = {}
 		outcome['uploadspeed'] = rawstats1[b'payload_upload_rate']
 		outcome['downloadspeed'] = rawstats1[b'payload_download_rate']
+		outcome['uploadedtotal'] = rawstats1[b'total_payload_upload']
 		outcome['freespace'] = rawstats2 / 1000000000
+
 		return outcome
+
+

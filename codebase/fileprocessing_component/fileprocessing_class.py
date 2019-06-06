@@ -1,5 +1,6 @@
 from .filesystem_subcomponent import filesystem_module as FileSystem
 from .copyaction_subcomponent import copyaction_module as CopyAction
+from ..common_components.dataconversion_framework import dataconversion_module as Functions
 
 class DefineLibraryManager:
 
@@ -32,7 +33,7 @@ class DefineLibraryManager:
 	def discovertvshows(self):
 
 		self.tvshows = {}
-		FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username, self.password)
+		FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username, self.password, "Discover TV Shows")
 		rootfolder = FileSystem.concatenatepaths(self.mountpoint, "TV Shows")
 		rootlisting = FileSystem.getfolderlisting(rootfolder)
 		for rootitem in rootlisting:
@@ -67,7 +68,15 @@ class DefineLibraryManager:
 
 	def gettvshows(self):
 
-		return sorted(self.tvshows.keys())
+		newshowlist = []
+		for showitem in self.tvshows.keys():
+			newshowlist.append(Functions.dearticle(showitem))
+		sortednewshowlist = sorted(newshowlist)
+		outcome = []
+		for showitem in sortednewshowlist:
+			outcome.append(Functions.rearticle(showitem))
+
+		return outcome
 
 # =========================================================================================
 # Returns the list of season names for the specified tv show
@@ -186,7 +195,7 @@ class DefineLibraryManager:
 				anychange = True
 
 				if copyitem.getactiontype() == "Connect":
-					actionoutcome = FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username, self.password)
+					actionoutcome = FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username, self.password, "Copy Files")
 				elif copyitem.getactiontype() == "Disconnect":
 					actionoutcome = FileSystem.unmountnetworkdrive(self.mountpoint)
 				else:
