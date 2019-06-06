@@ -46,10 +46,14 @@ class DefineMonitor:
 		print("==================")
 		for historyitem in self.monitorhistory:
 			currentdatetime = historyitem.getdatetime()
-			print("Looking up: " + currentdatetime.getiso())
+			print("Looking up: " + currentdatetime.getiso() + "   " + startpointdatetime.getiso() + "   " + endpointdatetime.getiso())
 			if DateTime.isfirstlaterthansecond(currentdatetime, startpointdatetime):
+				print("PASSED FIRST TEST")
 				if DateTime.isfirstlaterthansecond(endpointdatetime, currentdatetime):
+					print("PASSED SECOND TEST")
 					outcome.append(historyitem)
+
+		return outcome
 
 # =========================================================================================
 
