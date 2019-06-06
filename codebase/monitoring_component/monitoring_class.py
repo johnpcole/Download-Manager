@@ -45,6 +45,7 @@ class DefineMonitor:
 		outcome = []
 		for historyitem in self.monitorhistory:
 			currentdatetime = historyitem.getdatetime()
+			print(currentdatetime.getiso())
 			if DateTime.isfirstlaterthansecond(currentdatetime, startpointdatetime):
 				if DateTime.isfirstlaterthansecond(endpointdatetime, currentdatetime):
 					outcome.append(historyitem)
@@ -55,6 +56,7 @@ class DefineMonitor:
 
 		endpointdatetime = DateTime.getnow()
 		startpointdatetime = endpointdatetime.adjustdays(-1)
+		print(startpointdatetime.getiso(), endpointdatetime.getiso())
 		return self.gethistory(startpointdatetime, endpointdatetime)
 
 
