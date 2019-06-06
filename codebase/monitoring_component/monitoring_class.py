@@ -43,8 +43,10 @@ class DefineMonitor:
 	def gethistory(self, startpointdatetime, endpointdatetime):
 
 		outcome = []
+		print("==================")
 		for historyitem in self.monitorhistory:
 			currentdatetime = historyitem.getdatetime()
+			print("Looking up: " + currentdatetime)
 			if DateTime.isfirstlaterthansecond(currentdatetime, startpointdatetime):
 				if DateTime.isfirstlaterthansecond(endpointdatetime, currentdatetime):
 					outcome.append(historyitem)
