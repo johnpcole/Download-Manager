@@ -15,6 +15,20 @@ class DefineItem:
 		self.amber = sessiondata['ambercount']
 		self.green = sessiondata['greencount']
 
+
+
 	def getdatetime(self):
 
 		return self.datetime
+
+
+
+	def getalldata(self):
+
+		outcome = {}
+		outcome['datetime'] = self.datetime.getiso()
+		outcome['uploaded'] = self.uploaded
+		outcome['red'] = self.red
+		outcome['amber'] = self.amber
+		outcome['green'] = self.green
+
