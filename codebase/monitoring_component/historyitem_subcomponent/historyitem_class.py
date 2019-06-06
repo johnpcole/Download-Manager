@@ -12,7 +12,9 @@ class DefineItem:
 		self.datetime = datetime
 		self.uploaded = sessiondata['uploadedtotal']
 		self.red = sessiondata['redcount']
+		self.orange = sessiondata['orangecount']
 		self.amber = sessiondata['ambercount']
+		self.yellow = sessiondata['yellowcount']
 		self.green = sessiondata['greencount']
 
 
@@ -29,7 +31,9 @@ class DefineItem:
 		outcome['datetime'] = self.datetime.getiso()
 		outcome['uploaded'] = self.uploaded
 		outcome['red'] = self.red
+		outcome['orange'] = self.orange
 		outcome['amber'] = self.amber
+		outcome['yellow'] = self.yellow
 		outcome['green'] = self.green
 		return outcome
 

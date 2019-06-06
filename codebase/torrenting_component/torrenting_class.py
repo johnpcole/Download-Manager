@@ -265,7 +265,9 @@ class DefineTorrentManager:
 		outcome['uploadcount'] = 0
 		outcome['activeuploads'] = 0
 		outcome['redcount'] = 0
+		outcome['orangecount'] = 0
 		outcome['ambercount'] = 0
+		outcome['yellowcount'] = 0
 		outcome['greencount'] = 0
 
 		for existingtorrent in self.torrents:
