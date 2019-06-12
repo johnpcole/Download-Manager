@@ -47,6 +47,8 @@ Banner Content
         <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
 {% elif logentry.entrytype == "information" %}
         <td colspan="5">{{ logentry.content|safe }}</td>
+{% elif logentry.entrytype == "restart" %}
+        <td colspan="5">{{ logentry.content|safe }}</td>
 {% elif logentry.entrytype == "invocation" %}
         <td colspan="3">{{ logentry.instruction }}</td>
         <td class="torrentid"><small>{{ logentry.torrentid }}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

@@ -12,6 +12,6 @@ cp /mnt/Torrents-Disk/Download-Manager/data/logging-2.log /mnt/Torrents-Disk/Dow
 cp /mnt/Torrents-Disk/Download-Manager/data/logging-1.log /mnt/Torrents-Disk/Download-Manager/data/logging-2.log
 cp /mnt/Torrents-Disk/Download-Manager/data/logging-0.log /mnt/Torrents-Disk/Download-Manager/data/logging-1.log
 
-python3 Download_Manager.py >/mnt/Torrents-Disk/Download-Manager/data/logging-0.log 2>%1
+python3 Download_Manager.py >/mnt/Torrents-Disk/Download-Manager/data/logging-0.log 2>&1
 
 

@@ -59,6 +59,8 @@ def processlog(loggingoutput, loggingmode):
 			elif logtype == "FLASK":
 				linecounter = linecounter + 1
 				outcome.insert(0, Functions.extractflaskoutput(logentry, linecounter))
+			elif logtype == "RESTART":
+				outcome.insert(0, {"lineindex": "-", "entrytype": "restart", "instruction": "Restarting Service", "torrentid": ""})
 
 	if len(cache) > 0:
 		linecounter = linecounter + 1
