@@ -117,8 +117,9 @@ def getloggingdata(loggingmode):
 	loggingoutput = []
 	for filename in ['9', '8', '7', '6', '5', '4', '3', '2', '1', '0']:
 		logcontents = FileSystem.readfromdisk('./data/logging-' + filename + '.log')
-		if (filename != '0') and (len(logcontents) > 0 ):
-			loggingoutput.append('[DOWNLOAD-MANAGER] > Restart')
+		if len(logcontents) > 0:
+			if filename != '9':
+				loggingoutput.append('[DOWNLOAD-MANAGER] > Restart')
 			loggingoutput.extend(logcontents)
 	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
