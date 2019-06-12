@@ -119,7 +119,7 @@ def getloggingdata(loggingmode):
 		logcontents = FileSystem.readfromdisk('./data/logging-' + filename + '.log')
 		if len(logcontents) > 0:
 			if filename != '9':
-				loggingoutput.append('[DOWNLOAD-MANAGER] > Restart')
+				loggingoutput.append('--- RESTART SERVICE ---')
 			loggingoutput.extend(logcontents)
 	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
