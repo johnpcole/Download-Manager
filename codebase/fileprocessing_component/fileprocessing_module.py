@@ -116,9 +116,11 @@ def getloggingdata(loggingmode):
 	Logging.printout("Loading Logs")
 	loggingoutput = []
 	for filename in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
-		if filename != '0':
+		logcontents = FileSystem.readfromdisk('./data/logging-' + filename + '.log')
+		print('---', filename, '---', logcontents)
+		if (filename != '0') and (logcontents != ""):
 			loggingoutput.append('--- RESTART ---')
-		loggingoutput.extend(FileSystem.readfromdisk('./data/logging-' + filename + '.log'))
+			loggingoutput.extend(logcontents)
 	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
 
