@@ -114,7 +114,11 @@ def buildpath(nodelist):
 
 def getloggingdata(loggingmode):
 	Logging.printout("Loading Logs")
-	loggingoutput = FileSystem.readfromdisk('./data/Logging.log')
+	loggingoutput = []
+	for filename in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+		if filename != '0':
+			loggingoutput.append('--- RESTART ---')
+		loggingoutput.extend(FileSystem.readfromdisk('./data/logging-' + filename + '.log'))
 	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
 
