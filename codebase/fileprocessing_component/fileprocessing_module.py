@@ -115,7 +115,8 @@ def savemonitor(monitordata):
 
 	datestamp = monitordata[:8]
 	filename = './data/monitor-' + datestamp + '.db'
-
+	print("!!! Writing to " + filename)
+	print(FileSystem.doesexist(filename))
 	if FileSystem.doesexist(filename) == True:
 		appendflag = "Append"
 	else:
