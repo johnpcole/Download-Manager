@@ -122,5 +122,5 @@ def savemonitor(monitordata):
 	else:
 		appendflag = "Overwrite"
 
-	FileSystem.writetodisk(filename, monitordata, appendflag)
+	FileSystem.writetodisk(filename, [monitordata], appendflag)
 
