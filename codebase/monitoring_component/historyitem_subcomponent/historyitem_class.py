@@ -37,3 +37,10 @@ class DefineItem:
 		outcome['green'] = self.green
 		return outcome
 
+
+
+	def getsavedata(self):
+
+		outcome = self.datetime.getiso() + "|" + str(self.uploaded) + "|" + str(self.green) + "|"
+		outcome = outcome + str(self.yellow) + "|" + str(self.amber) + "|" + str(self.orange) + "|" + str(self.red)
+		return outcome

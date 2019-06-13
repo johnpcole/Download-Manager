@@ -187,7 +187,14 @@ def getname(filename):
 # Writes a file to disk from a list
 # ---------------------------------------------
 
-def writetodisk(filename, outputlist):
+def writetodisk(filename, outputlist, appendwritemode):
+
+	if appendwritemode == "Overwrite":
+		modeflag = 'w'
+	elif appendwritemode == "Append":
+		modeflag = 'a'
+	else:
+		assert 1 == 0, ("Unknown file write output mode: " + appendwritemode)
 
 	newlist = []
 	for originalitem in outputlist:
@@ -196,7 +203,7 @@ def writetodisk(filename, outputlist):
 
 	try:
 		# Open the file for the duration of this process
-		with open(filename, 'w') as targetfile:
+		with open(filename, appendwritemode) as targetfile:
 
 			# Print out all items in list
 			targetfile.writelines(newlist)

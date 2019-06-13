@@ -51,7 +51,7 @@ def getlibraryconnectionconfig():
 
 def saveconfigs(outputlist):
 	Logging.printout("Saving Torrents Configuration Data")
-	FileSystem.writetodisk('./data/torrentconfigs.db', outputlist)
+	FileSystem.writetodisk('./data/torrentconfigs.db', outputlist, "Overwrite")
 
 # =========================================================================================
 # Reads the current torrent config information, from a file
@@ -75,24 +75,6 @@ def getwebhostconfig():
 	else:
 		outcome = False
 	return outcome
-
-
-
-# =========================================================================================
-# Reads the configuration data for logging, from a file
-# =========================================================================================
-
-def getloggingconfig():
-	Logging.printout("Loading Logging Configuration Data")
-	publicmode = FileSystem.readfromdisk('./data/logging.cfg')
-	if publicmode[0] == "On":
-		outcome = True
-		Logging.printrawline("Verbose Logging Enabled")
-	else:
-		outcome = False
-		Logging.printrawline("Verbose Logging Disabled")
-	return outcome
-
 
 
 # =========================================================================================
@@ -123,4 +105,21 @@ def getloggingdata(loggingmode):
 			loggingoutput.extend(logcontents)
 	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
+
+
+# =========================================================================================
+# Writes monitor data
+# =========================================================================================
+
+def savemonitor(monitordata):
+
+	datestamp = monitordata[:8]
+	filename = './data/monitor-' + datestamp + '.db'
+
+	if FileSystem.doesexist(filename) == True:
+		appendflag = "Append"
+	else:
+		appendflag = "Overwrite"
+
+	FileSystem.writetodisk(filename, monitordata, appendflag)
 

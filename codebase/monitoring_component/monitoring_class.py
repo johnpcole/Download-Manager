@@ -60,4 +60,22 @@ class DefineMonitor:
 		startpointdatetime.adjustdays(-1)
 		return self.gethistory(startpointdatetime, endpointdatetime)
 
+# =========================================================================================
 
+	def getlatesthistoryitemforsaving(self):
+
+		if len(self.monitorhistory) > 0:
+			latesthistoryitem = self.monitorhistory[-1]
+			outcome = latesthistoryitem.getsavedata()
+
+		else:
+			outcome = "||||||"
+
+		return outcome
+
+
+
+
+	def getmonitorstate(self):
+
+		return len(self.monitorhistory)
