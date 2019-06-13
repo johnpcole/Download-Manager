@@ -203,7 +203,7 @@ def writetodisk(filename, outputlist, appendwritemode):
 
 	try:
 		# Open the file for the duration of this process
-		with open(filename, appendwritemode) as targetfile:
+		with open(filename, modeflag) as targetfile:
 
 			# Print out all items in list
 			targetfile.writelines(newlist)
