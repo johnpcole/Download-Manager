@@ -23,7 +23,7 @@ echo "==========================================================================
 unzip $1.zip
 
 echo "============================================================================================"
-rm /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/launcher.sh
+rm /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/*.sh
 cp -r /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/* /home/pi/$2/
 
 echo "============================================================================================"
