@@ -1,10 +1,16 @@
 from urllib.request import urlopen as GetWebPage
 from urllib.request import Request as GenerateWebRequest
 from urllib.request import URLError as WebError
-import ssl as Security
-from .codebase.common_components.logging_framework import logging_module as Logging
 from time import sleep as Wait
-from .codebase.common_components.datetime_datatypes import datetime_module as DateTime
+import ssl as Security
+from codebase.common_components.logging_framework import logging_module as Logging
+from codebase.common_components.datetime_datatypes import datetime_module as DateTime
+
+
+def getdatetimeera(datetimeobject):
+
+	datetimetext = datetimeobject.getiso()
+	return datetimetext[:13]
 
 
 
@@ -53,20 +59,15 @@ class DefineDelayer:
 
 	def checkdelay(self):
 
-		currentdatetime = DateTime.getnow()
-		datetimetext = currentdatetime.getiso()
-		currentdatetime = datetimetext[:13]
-		datetimetext = self.latestcall.getiso()
-		previousdatetime = datetimetext[:13]
-		if currentdatetime != previousdatetime:
-			self.latestcall = currentdatetime
+		nowdatetime = DateTime.getnow()
+
+		if getdatetimeera(nowdatetime) != getdatetimeera(self.latestcall):
+			self.latestcall.setfromobject(nowdatetime)
 			outcome = True
 		else:
 			outcome = False
 
 		return outcome
-
-
 
 
 Logging.printrawline("Starting Download-Manager Application")
