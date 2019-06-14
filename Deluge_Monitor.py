@@ -25,11 +25,11 @@ class DefineScraper:
 		self.webaddress = webaddress
 
 
-	def retrievewebpages(self):
+	def retrievewebpages(self, datetimestamp):
 
 		tries = 0
 
-		Logging.printrawline("Triggering Deluge-Monitor...")
+		Logging.printrawline("Triggering Deluge-Monitor at " + datetimestamp + "...")
 
 		while tries < self.webcalltries:
 			try:
@@ -70,6 +70,13 @@ class DefineDelayer:
 		return outcome
 
 
+
+	def getlatestcall(self):
+
+		return self.latestcall.getiso()
+
+
+
 Logging.printrawline("Starting Download-Manager Application")
 
 delayer = DefineDelayer()
@@ -78,7 +85,7 @@ scraper = DefineScraper("http://127.0.0.1:5000/Monitor")
 while 1 != 0:
 
 	if delayer.checkdelay() == True:
-		scraper.retrievewebpages()
+		scraper.retrievewebpages(delayer.getlatestcall())
 		Wait(8)
 	else:
 		Wait(1)
