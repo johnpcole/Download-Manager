@@ -5,9 +5,9 @@ from .webscraper_subcomponent import webscraper_module as WebScraper
 
 class DefineTrigger:
 
-	def __init__(self, webaddress):
+	def __init__(self, webaddress, erasize):
 
-		self.delayer = Delayer.createdelayer()
+		self.delayer = Delayer.createdelayer(erasize)
 
 		self.scraper = WebScraper.createscraper(webaddress)
 

@@ -1,20 +1,23 @@
-from ..datetime_datatypes import datetime_module as DateTime
+from ...common_components.datetime_datatypes import datetime_module as DateTime
 from . import delayer_privatefunctions as Functions
 from time import sleep as Wait
 
 
 class DefineDelayer:
 
-	def __init__(self):
+	def __init__(self, eraflag):
 
 		self.latestcall = DateTime.getnow()
+
+		self.erasize = eraflag
+
 
 
 	def checkdelay(self):
 
 		nowdatetime = DateTime.getnow()
 
-		if Functions.getdatetimeera(nowdatetime) != Functions.getdatetimeera(self.latestcall):
+		if Functions.comparedatetimes(nowdatetime, self.latestcall, self.erasize) == False:
 			self.latestcall.setfromobject(nowdatetime)
 			outcome = True
 		else:
@@ -29,10 +32,19 @@ class DefineDelayer:
 		return self.latestcall.getiso()
 
 
+
 	def waitshort(self):
 
-		Wait(2)
+		if self.erasize > 1:
+			Wait(1)
+
+
 
 	def waitlong(self):
 
-		Wait(55)
+		if self.erasize == 4:
+			Wait(598)
+		elif self.erasize == 3:
+			Wait(58)
+		elif self.erasize == 2:
+			Wait(8)

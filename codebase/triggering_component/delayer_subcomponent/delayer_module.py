@@ -1,6 +1,6 @@
 from . import delayer_class as DelayerClass
 
 
-def createdelayer():
-	return DelayerClass.DefineDelayer()
+def createdelayer(erasize):
+	return DelayerClass.DefineDelayer(erasize)
 
