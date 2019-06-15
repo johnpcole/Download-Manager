@@ -14,3 +14,4 @@ def comparedatetimes(datetimeobjectone, datetimeobjecttwo, erasize):
 		outcome = False
 
 	return outcome
+
