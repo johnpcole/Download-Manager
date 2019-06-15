@@ -1,6 +1,5 @@
 from codebase.common_components.logging_framework import logging_module as Logging
-from codebase.common_components.webscraper_framework import webscraper_module as WebScraper
-from.codebase.common_components.delayer_framework import delayer_module as Delayer
+from codebase.triggering_component import triggering_module as Trigger
 
 
 
@@ -10,16 +9,11 @@ from.codebase.common_components.delayer_framework import delayer_module as Delay
 
 Logging.printrawline("Starting Download-Manager Application")
 
-delayer = Delayer.createdelayer()
-scraper = WebScraper.createscraper("http://127.0.0.1:5000/Monitor")
+trigger = Trigger.createtrigger("http://127.0.0.1:5000/TriggerDelugeMonitor")
 
 while 1 != 0:
 
-	if delayer.checkdelay() == True:
-		scraper.retrievewebpages(delayer.getlatestcall())
-		delayer.waitlong()
-	else:
-		delayer.waitshort()
+	trigger.refresh()
 
 Logging.printrawline("Ending Download-Manager Application")
 

@@ -1,4 +1,4 @@
 def getdatetimeera(datetimeobject):
 
 	datetimetext = datetimeobject.getiso()
-	return datetimetext[:13]
+	return datetimetext[:12]

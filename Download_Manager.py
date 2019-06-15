@@ -1,11 +1,11 @@
 from codebase.torrenting_component import torrenting_module as TorrentManager
 from codebase.fileprocessing_component import fileprocessing_module as FileManager
 from codebase.monitoring_component import monitoring_module as MonitorManager
+from codebase.common_components.logging_framework import logging_module as Logging
 from flask import Flask as Webserver
 from flask import render_template as Webpage
 from flask import jsonify as Jsondata
 from flask import request as Webpost
-from codebase.common_components.logging_framework import logging_module as Logging
 
 Logging.printinvocation("Starting Download-Manager Application", "")
 
@@ -232,6 +232,14 @@ def displayverboselogs():
 
 
 
+#===============================================================================================
+# Display the monitor
+#===============================================================================================
+
+@website.route('/View')
+def displaymonitor():
+
+	return Webpage('monitor.html', monitoroutput=monitormanager.getdisplay())
 
 
 
@@ -239,7 +247,7 @@ def displayverboselogs():
 # Generate a Monitor History Item
 #===============================================================================================
 
-@website.route('/Monitor')
+@website.route('/TriggerDelugeMonitor')
 def triggermonitor():
 
 	Logging.printinvocation("Triggering Monitor", "")

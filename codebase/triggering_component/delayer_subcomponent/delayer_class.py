@@ -35,4 +35,4 @@ class DefineDelayer:
 
 	def waitlong(self):
 
-		Wait(8)
+		Wait(55)

@@ -21,7 +21,7 @@ class DefineScraper:
 
 		tries = 0
 
-		Logging.printrawline("Triggering Deluge-Monitor at " + datetimestamp + "...")
+		#Logging.printrawline("Triggering Deluge-Monitor at " + datetimestamp + "...")
 
 		while tries < self.webcalltries:
 			try:
@@ -32,9 +32,10 @@ class DefineScraper:
 				tries = 99999
 			except WebError as errorobject:
 				tries = tries + 1
-				Logging.printrawline(" -   Error Triggering Deluge-Monitor: " + errorobject.reason)
+				#Logging.printrawline(" -   Error Triggering Deluge-Monitor: " + errorobject.reason)
 
-		if tries == 99999:
-			Logging.printrawline(" -   Successfully Triggered Monitor: " + webresponse)
-		else:
-			Logging.printrawline(" -   Gave up Triggering Deluge-Monitor")
+
+		if tries != 99999:
+			Logging.printrawline(" -   Gave up Triggering Deluge-Monitor at " + datetimestamp)
+		#else:
+			#Logging.printrawline(" -   Successfully Triggered Monitor: " + webresponse)

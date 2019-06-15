@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block javascript %}
+
+    <script src="./static/javascript/logs.js"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block banner %}
+
+ --><div id="IndexBanner" class="tile bannertile file_video_copy"><!--
+
+
+Banner Content
+
+     --><div class="indexbannercontent">
+            <div class="titlebox indexbannertitle">
+                <span>Deluge-Monitor</span>
+            </div><!--
+         --><div class="tilesplitter contentsplitter"></div>
+        </div><!--
+
+
+ --></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block content %}
+
+     --><div class="">
+            <svg width="200" height="200">
+
+                <g stroke="#EEEEEE" stroke-width="1.5" stroke-linecap="round">
+{% for logentry in monitoroutput %}
+{% endfor %}
+
+                    <circle cx="60.5" cy="61" r="58" fill="#222222" />
+                    <rect x="0" y="67" width="121" height="8" fill="#7D7D00" stroke-width="0"/>
+                    <line y1="67" x1="3" y2="67" x2="118" />
+                </g>
+
+
+            </svg>
+        </div><!--
+
+
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block toolbar %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block dialogs %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block hiddendata %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}
