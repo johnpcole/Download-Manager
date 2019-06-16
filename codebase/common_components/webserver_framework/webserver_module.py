@@ -17,6 +17,6 @@ def getrequestdata():
 
 
 
-def makehtml(templatename, **kwargs):
-	return FlaskApplication.render_template(templatename, kwargs)
+def makehtml(**kwargs):
+	return FlaskApplication.render_template(kwargs)
 
