@@ -116,7 +116,7 @@ Raw-Title
 Progress and Status
 
          --><div class="subtitlebox torrentsubtitleright">
-                <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/type_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
+                <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
              --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
             </div><!--
 
