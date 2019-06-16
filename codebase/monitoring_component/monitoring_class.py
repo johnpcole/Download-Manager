@@ -89,6 +89,7 @@ class DefineMonitor:
 		for historyitem in self.getlatestdayshistory():
 			horizontalposition = horizontalposition + 3
 			outcome.extend(historyitem.getgraphicdata(horizontalposition, 0, 3, 3))
+		print(outcome)
 		return outcome
 
 
