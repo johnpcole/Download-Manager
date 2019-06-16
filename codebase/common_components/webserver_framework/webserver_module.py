@@ -9,7 +9,7 @@ import flask as FlaskApplication
 
 
 def createwebsite():
-	return FlaskApplication.Flask(__name__, template_folder='../../../webassets/templates')
+	return FlaskApplication.Flask(__name__, template_folder='../../../webassets/templates', static_folder='../../../webassets/static')
 
 
 
