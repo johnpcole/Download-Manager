@@ -58,6 +58,6 @@ class DefineItem:
 					instruction = 'fill="' + colour + '" ' + 'x="' + str(horizontaloffset) + '" y="' + str(totalheight)
 					instruction = instruction + '" width="' + str(blockwidth) + '" height="' + str(blockheight) + '"'
 					outcome.append(instruction)
-					totalheight = totalheight + blockheight
+					totalheight = totalheight + blockheight + 2
 
 		return outcome
