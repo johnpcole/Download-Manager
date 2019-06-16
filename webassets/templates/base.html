@@ -1,15 +1,15 @@
 <html>
-    <script src="./static/javascript/jquery-3.2.0.js"></script>
-    <script src="./static/javascript/manage_controls.js"></script>
-    <script src="./static/javascript/manage_elements.js"></script>
-    <script src="./static/javascript/manage_colours.js"></script>
+    <script src="{{ url_for('static', filename='javascript/jquery-3.2.0.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/manage_controls.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/manage_elements.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/manage_colours.js') }}"></script>
     {% block javascript %}{% endblock %}
     <head>
         <title>Download-Manager</title>
         <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-        <link rel="icon" href='./static/favicon.png' />
+        <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tiles.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tiles_wide.css') }}" />
