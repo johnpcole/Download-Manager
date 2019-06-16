@@ -28,7 +28,8 @@ def initialiselistpage():
 	Logging.printinvocation("Loading All Torrents List Page", "")
 	torrentmanager.refreshtorrentlist("Download-Manager")
 	monitormanager.refreshsessionmeters(torrentmanager.getsessiondata())
-	return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=monitormanager.getsessionmeters())
+	return WebServer.makehtml('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=monitormanager.getsessionmeters())
+	#return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=monitormanager.getsessionmeters())
 
 
 
