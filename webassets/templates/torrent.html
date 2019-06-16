@@ -110,7 +110,7 @@ Section: Raw-Title
 Section: Progress and Status
 
      --><div class="subtitlebox bannersubtitleright"><!--
-         --><img id="Status" src="{{ url_for('static', filename='images/' + selectedtorrent.status + '.png') }}" alt="{{ selectedtorrent.status }}" /><!--
+         --><img id="Status" src="{{ url_for('static', filename='images/status_' + selectedtorrent.status + '.png') }}" alt="{{ selectedtorrent.status }}" /><!--
          --><span id="Progress">{{ selectedtorrent.progress }}</span><!--
      --></div><!--
 
@@ -145,7 +145,7 @@ Subsection: Configured-Filename
 Subsection: Type
 
              --><div class="titlebox contenttitleright">
-                    <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileaction' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />
+                    <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileaction_' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />
                 </div><!--
 
          --></div><!--
