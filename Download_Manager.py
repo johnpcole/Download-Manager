@@ -235,7 +235,7 @@ def displayverboselogs():
 # Display the monitor
 #===============================================================================================
 
-@website.route('/View')
+@website.route('/Monitor')
 def displaymonitor():
 
 	return WebServer.makehtml('monitor.html', monitoroutput=monitormanager.getdisplay())
