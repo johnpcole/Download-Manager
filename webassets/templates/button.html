@@ -1,7 +1,7 @@
 {% macro buttontemplate(id, jsaction, image, alttext) %}
 
      --><button type="button" id="{{ id }}" onclick="javascript:{{ jsaction }};">
-            <img src="{{ url_for('static', filename='stylesheets/images/' + image + '.png') }}" alt="{{ alttext }} button" />
+            <img src="{{ url_for('static', filename='images/' + image + '.png') }}" alt="{{ alttext }} button" />
         </button><!--
 
 {% endmacro %}
@@ -13,7 +13,7 @@
 {% macro disabledbuttontemplate(id, jsaction, image, alttext) %}
 
      --><button disabled type="button" id="{{ id }}" onclick="javascript:{{ jsaction }};">
-            <img src="{{ url_for('static', filename='stylesheets/images/' + image + '.png') }}" alt="{{ alttext }} button" />
+            <img src="{{ url_for('static', filename='images/' + image + '.png') }}" alt="{{ alttext }} button" />
         </button><!--
 
 {% endmacro %}
@@ -25,7 +25,7 @@
 {% macro itembuttontemplate(idprefix, fileid, jsaction, jsactiontype, image, alttext) %}
 
      --><button type="button" id="{{ idprefix }}-{{ fileid }}" onclick="javascript:{{ jsaction }}('{{ fileid }}','{{ jsactiontype }}');">
-            <img src="{{ url_for('static', filename='stylesheets/images/' + image + '.png') }}" alt="{{ alttext }} button" />
+            <img src="{{ url_for('static', filename='images/' + image + '.png') }}" alt="{{ alttext }} button" />
         </button><!--
 
 {% endmacro %}
