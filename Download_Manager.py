@@ -41,7 +41,7 @@ def initialiselistpage():
 @website.route('/UpdateTorrentsList', methods=['POST'])
 def updatelistpage():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	bulkaction = rawdata["bulkaction"]
 	if (bulkaction == "Start") or (bulkaction == "Stop"):
 		Logging.printinvocation(bulkaction + "ing all Torrents", "")
@@ -84,7 +84,7 @@ def initialisetorrentpage(torrentid):
 @website.route('/UpdateTorrent', methods=['POST'])
 def updatetorrentpage():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['torrentid']
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		torrentaction = rawdata['torrentaction']
@@ -109,7 +109,7 @@ def updatetorrentpage():
 @website.route('/CopyTorrent', methods=['POST'])
 def copytorrent():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['copyinstruction']
 	if torrentid != "!!! CONTINUE EXISTING COPY PROCESS !!!":
 		if torrentmanager.validatetorrentid(torrentid) == True:
@@ -133,7 +133,7 @@ def copytorrent():
 @website.route('/DeleteTorrent', methods=['POST'])
 def deletetorrent():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['deleteinstruction']
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		Logging.printinvocation("Deleting Torrent", torrentid)
@@ -151,7 +151,7 @@ def deletetorrent():
 @website.route('/ReconfigureTorrent', methods=['POST'])
 def reconfiguretorrentconfiguration():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['torrentid']
 	wastetime()
 	if torrentmanager.validatetorrentid(torrentid) == True:
@@ -171,7 +171,7 @@ def reconfiguretorrentconfiguration():
 @website.route('/EditTorrent', methods=['POST'])
 def edittorrentconfiguration():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['torrentid']
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		Logging.printinvocation("Starting Torrent Reconfiguration", torrentid)
@@ -192,7 +192,7 @@ def edittorrentconfiguration():
 def updatetvshowseasonslist():
 
 	Logging.printinvocation("Getting TV Show Data", "")
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	wastetime()
 	return Jsondata(seasons=librarymanager.gettvshowseasons(rawdata['tvshow']))
 
@@ -206,7 +206,7 @@ def updatetvshowseasonslist():
 def addnewtorrent():
 
 	Logging.printinvocation("Adding New Torrent", "")
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	newid = torrentmanager.addnewtorrenttoclient(rawdata['newurl'])
 	wastetime()
 	#torrentmanager.refreshtorrentlist()
