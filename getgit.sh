@@ -6,8 +6,7 @@ mkdir /home/pi/$2
 mkdir /home/pi/$2/data
 rm -r /home/pi/GETGITDOWNLOADTEMP
 rm -r /home/pi/$2/codebase
-rm -r /home/pi/$2/templates
-rm -r /home/pi/$2/static
+rm -r /home/pi/$2/webassets
 rm Download-Manager.py
 
 echo "============================================================================================"
