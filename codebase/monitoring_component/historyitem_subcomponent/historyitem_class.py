@@ -54,9 +54,10 @@ class DefineItem:
 		colourlist = {"#FF0000": self.red, "#FF6600": self.orange, "#FFAA00": self.amber, "#FFFF00": self.yellow, "#00FF00": self.green}
 		for colour in colourlist.keys():
 			if colourlist[colour] > 0:
-				instruction = '" fill="' + colour + '" ' + 'x="' + str(horizontaloffset) + '" y="' + str(totalheight)
-				instruction = instruction + '" width="' + str(blockwidth) + '" height="' + str(colourlist[colour] * blockheight)
+				overallheight = colourlist[colour] * blockheight
+				instruction = 'fill="' + colour + '" ' + 'x="' + str(horizontaloffset) + '" y="' + str(totalheight)
+				instruction = instruction + '" width="' + str(blockwidth) + '" height="' + str(overallheight) + '"'
 				outcome.append(instruction)
-				totalheight = totalheight + (colourlist[colour] * blockheight)
+				totalheight = totalheight + overallheight
 
 		return outcome
