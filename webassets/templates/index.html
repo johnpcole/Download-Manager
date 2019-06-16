@@ -17,8 +17,8 @@
 
 {% block javascript %}
 
-    <script src="./static/javascript/index_update_torrents.js"></script>
-    <script src="./static/javascript/index_add_torrent.js"></script>
+    <script src="{{ url_for('static', filename='javascript/index_update_torrents.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index_add_torrent.js') }}"></script>
 
 {% endblock %}
 
@@ -99,7 +99,7 @@ Configured-Title
 Type
 
          --><div class="titlebox contenttitleright">
-                <img src="./static/images/type_{{ torrent.torrenttype }}.png" alt="{{ torrent.torrenttype }}" />
+                <img src="{{ url_for('static', filename='images/type_' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
             </div><!--
 
 Horizontal-Bar
@@ -116,7 +116,7 @@ Raw-Title
 Progress and Status
 
          --><div class="subtitlebox torrentsubtitleright">
-                <img id="StatusIcon-{{ torrent.torrentid }}" src="./static/images/status_{{ torrent.status }}.png" alt="{{ torrent.status }}" /><!--
+                <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
              --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
             </div><!--
 

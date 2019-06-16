@@ -2,10 +2,9 @@ from codebase.torrenting_component import torrenting_module as TorrentManager
 from codebase.fileprocessing_component import fileprocessing_module as FileManager
 from codebase.monitoring_component import monitoring_module as MonitorManager
 from codebase.common_components.logging_framework import logging_module as Logging
-from flask import Flask as Webserver
-from flask import render_template as Webpage
-from flask import jsonify as Jsondata
-from flask import request as Webpost
+from codebase.common_components.webserver_framework import webserver_module as WebServer
+
+
 
 Logging.printinvocation("Starting Download-Manager Application", "")
 
@@ -15,7 +14,7 @@ torrentmanager.setconfigs(FileManager.loadconfigs())
 monitormanager = MonitorManager.createmonitor()
 webmode = FileManager.getwebhostconfig()
 
-website = Webserver(__name__)
+website = WebServer.createwebsite()
 
 
 
@@ -29,7 +28,7 @@ def initialiselistpage():
 	Logging.printinvocation("Loading All Torrents List Page", "")
 	torrentmanager.refreshtorrentlist("Download-Manager")
 	monitormanager.refreshsessionmeters(torrentmanager.getsessiondata())
-	return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=monitormanager.getsessionmeters())
+	return WebServer.makehtml('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"), stats=monitormanager.getsessionmeters())
 
 
 
@@ -40,7 +39,7 @@ def initialiselistpage():
 @website.route('/UpdateTorrentsList', methods=['POST'])
 def updatelistpage():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	bulkaction = rawdata["bulkaction"]
 	if (bulkaction == "Start") or (bulkaction == "Stop"):
 		Logging.printinvocation(bulkaction + "ing all Torrents", "")
@@ -54,7 +53,7 @@ def updatelistpage():
 		Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
 	torrentmanager.refreshtorrentlist("Download-Manager")
 	monitormanager.refreshsessionmeters(torrentmanager.getsessiondata())
-	return Jsondata(torrents=torrentmanager.gettorrentlistdata("refresh"), stats=monitormanager.getsessionmeters())
+	return WebServer.makejson(torrents=torrentmanager.gettorrentlistdata("refresh"), stats=monitormanager.getsessionmeters())
 
 
 
@@ -68,11 +67,11 @@ def initialisetorrentpage(torrentid):
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		Logging.printinvocation("Loading Specific Torrent Page", torrentid)
 		torrentmanager.refreshtorrentdata(torrentid)
-		return Webpage('torrent.html', selectedtorrent=torrentmanager.gettorrentdata(torrentid, "initialise"))
+		return WebServer.makehtml('torrent.html', selectedtorrent=torrentmanager.gettorrentdata(torrentid, "initialise"))
 	else:
 		Logging.printinvocation("Returning to Torrents List; Unknown Torrent Specified", torrentid)
 		torrentmanager.refreshtorrentlist("Download-Manager")
-		return Webpage('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"))
+		return WebServer.makehtml('index.html', torrentlist=torrentmanager.gettorrentlistdata("initialise"))
 
 
 
@@ -83,7 +82,7 @@ def initialisetorrentpage(torrentid):
 @website.route('/UpdateTorrent', methods=['POST'])
 def updatetorrentpage():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['torrentid']
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		torrentaction = rawdata['torrentaction']
@@ -95,7 +94,7 @@ def updatetorrentpage():
 		else:
 			Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
 		torrentmanager.refreshtorrentdata(torrentid)
-		return Jsondata(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "refresh"))
+		return WebServer.makejson(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "refresh"))
 	else:
 		Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
 
@@ -108,7 +107,7 @@ def updatetorrentpage():
 @website.route('/CopyTorrent', methods=['POST'])
 def copytorrent():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['copyinstruction']
 	if torrentid != "!!! CONTINUE EXISTING COPY PROCESS !!!":
 		if torrentmanager.validatetorrentid(torrentid) == True:
@@ -121,7 +120,7 @@ def copytorrent():
 		Logging.printinvocation("Continuing Torrent Copy", "")
 		wastetime()
 		refreshmode = librarymanager.processfilecopylist()
-	return Jsondata(copydata=librarymanager.getcopyprocessinfo(), refreshmode=refreshmode)
+	return WebServer.makejson(copydata=librarymanager.getcopyprocessinfo(), refreshmode=refreshmode)
 
 
 
@@ -132,14 +131,14 @@ def copytorrent():
 @website.route('/DeleteTorrent', methods=['POST'])
 def deletetorrent():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['deleteinstruction']
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		Logging.printinvocation("Deleting Torrent", torrentid)
 		torrentmanager.processonetorrent(torrentid, "Delete")
 	else:
 		Logging.printinvocation("Requested Deletion of Unknown Torrent", torrentid)
-	return Jsondata(deletedata="Done")
+	return WebServer.makejson(deletedata="Done")
 
 
 
@@ -150,14 +149,14 @@ def deletetorrent():
 @website.route('/ReconfigureTorrent', methods=['POST'])
 def reconfiguretorrentconfiguration():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['torrentid']
 	wastetime()
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		Logging.printinvocation("Saving Reconfigured Torrent", torrentid)
 		torrentmanager.reconfiguretorrent(torrentid, rawdata['newconfiguration'])
 		FileManager.saveconfigs(torrentmanager.getconfigs())
-		return Jsondata(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "reconfigure"))
+		return WebServer.makejson(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "reconfigure"))
 	else:
 		Logging.printinvocation("Requested Save Reconfiguration of Unknown Torrent", torrentid)
 
@@ -170,13 +169,13 @@ def reconfiguretorrentconfiguration():
 @website.route('/EditTorrent', methods=['POST'])
 def edittorrentconfiguration():
 
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	torrentid = rawdata['torrentid']
 	if torrentmanager.validatetorrentid(torrentid) == True:
 		Logging.printinvocation("Starting Torrent Reconfiguration", torrentid)
 		wastetime()
 		torrentdata = torrentmanager.gettorrentdata(torrentid, "prepareedit")
-		return Jsondata(selectedtorrent=torrentdata,
+		return WebServer.makejson(selectedtorrent=torrentdata,
 									listitems=librarymanager.getdropdownlists(torrentdata['tvshowname']))
 	else:
 		Logging.printinvocation("Requested Unknown Torrent Reconfiguration", torrentid)
@@ -191,9 +190,9 @@ def edittorrentconfiguration():
 def updatetvshowseasonslist():
 
 	Logging.printinvocation("Getting TV Show Data", "")
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	wastetime()
-	return Jsondata(seasons=librarymanager.gettvshowseasons(rawdata['tvshow']))
+	return WebServer.makejson(seasons=librarymanager.gettvshowseasons(rawdata['tvshow']))
 
 
 
@@ -205,11 +204,11 @@ def updatetvshowseasonslist():
 def addnewtorrent():
 
 	Logging.printinvocation("Adding New Torrent", "")
-	rawdata = Webpost.get_json()
+	rawdata = WebServer.getrequestdata()
 	newid = torrentmanager.addnewtorrenttoclient(rawdata['newurl'])
 	wastetime()
 	#torrentmanager.refreshtorrentlist()
-	return Jsondata(newtorrentid=newid)
+	return WebServer.makejson(newtorrentid=newid)
 
 
 
@@ -221,14 +220,14 @@ def addnewtorrent():
 def displaylogs():
 
 	Logging.printinvocation("Loading Application Log Page", "")
-	return Webpage('logs.html', loggingoutput=FileManager.getloggingdata(False))
+	return WebServer.makehtml('logs.html', loggingoutput=FileManager.getloggingdata(False))
 
 
 @website.route('/VerboseLogs')
 def displayverboselogs():
 
 	Logging.printinvocation("Loading Application Verbose Log Page", "")
-	return Webpage('logs.html', loggingoutput=FileManager.getloggingdata(True))
+	return WebServer.makehtml('logs.html', loggingoutput=FileManager.getloggingdata(True))
 
 
 
@@ -239,7 +238,7 @@ def displayverboselogs():
 @website.route('/View')
 def displaymonitor():
 
-	return Webpage('monitor.html', monitoroutput=monitormanager.getdisplay())
+	return WebServer.makehtml('monitor.html', monitoroutput=monitormanager.getdisplay())
 
 
 
@@ -254,7 +253,7 @@ def triggermonitor():
 	torrentmanager.refreshtorrentlist("Deluge-Monitor")
 	monitormanager.addhistoryentry(torrentmanager.getsessiondata())
 	FileManager.savemonitor(monitormanager.getlatesthistoryitemforsaving())
-	return Jsondata(tester=monitormanager.getmonitorstate())
+	return WebServer.makejson(tester=monitormanager.getmonitorstate())
 
 
 

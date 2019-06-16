@@ -57,7 +57,7 @@ function populateCopyDialog(copydata)
         var currentitem = copydata[index];
         outputtext = outputtext + '<div class="dialogitemleft dialogitem">' + currentitem.description + '</div>';
         outputtext = outputtext + '<div id="copydialog-' + index + '" class="dialogitemright dialogitem">';
-        outputtext = outputtext + '&nbsp;<img src="./static/images/copy_' + currentitem.status + '.png" /></div>';
+        outputtext = outputtext + '&nbsp;<img src="/webassets/images/copy_' + currentitem.status + '.png" /></div>';
     });
     rerenderText('dialogcontent', outputtext);
 };
@@ -84,7 +84,7 @@ function updateCopyDialog(copydata)
                 outputtext = outputtext + '(~<span id="progressoutput">0</span>%)'
             };
         };
-        outputtext = outputtext + '&nbsp;<img src="./static/images/copy_' + currentitem.status + '.png" />';
+        outputtext = outputtext + '&nbsp;<img src="/webassets/images/copy_' + currentitem.status + '.png" />';
         rerenderText(currentobject, outputtext);
     });
 };

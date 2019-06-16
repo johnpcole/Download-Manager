@@ -11,16 +11,16 @@
 
 {% block javascript %}
 
-    <script src="./static/javascript/torrent_action_buttons.js"></script>
-    <script src="./static/javascript/torrent_change_tvshow.js"></script>
-    <script src="./static/javascript/torrent_change_torrenttype.js"></script>
-    <script src="./static/javascript/torrent_change_fileoutcome.js"></script>
-    <script src="./static/javascript/torrent_save_config.js"></script>
-    <script src="./static/javascript/torrent_edit_config.js"></script>
-    <script src="./static/javascript/torrent_cancel_config.js"></script>
-    <script src="./static/javascript/torrent_update_state.js"></script>
-    <script src="./static/javascript/torrent_copy.js"></script>
-    <script src="./static/javascript/torrent_delete.js"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_action_buttons.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_change_tvshow.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_change_torrenttype.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_change_fileoutcome.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_save_config.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_edit_config.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_cancel_config.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_update_state.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_copy.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_delete.js') }}"></script>
 
 {% endblock %}
 
@@ -45,7 +45,7 @@ Subsection: Configured-Title
 Subsection: Type
 
          --><div class="titlebox bannertitleright">
-                <img id="TorrentType" src="./static/images/type_{{ selectedtorrent.torrenttype }}.png" alt="{{ selectedtorrent.torrenttype }}" />
+                <img id="TorrentType" src="{{ url_for('static', filename='images/type_' + selectedtorrent.torrenttype + '.png') }}" alt="{{ selectedtorrent.torrenttype }}" />
             </div><!--
 
      --></div><!--
@@ -110,7 +110,7 @@ Section: Raw-Title
 Section: Progress and Status
 
      --><div class="subtitlebox bannersubtitleright"><!--
-         --><img id="Status" src="./static/images/status_{{ selectedtorrent.status }}.png" alt="{{ selectedtorrent.status }}" /><!--
+         --><img id="Status" src="{{ url_for('static', filename='images/status_' + selectedtorrent.status + '.png') }}" alt="{{ selectedtorrent.status }}" /><!--
          --><span id="Progress">{{ selectedtorrent.progress }}</span><!--
      --></div><!--
 
@@ -145,7 +145,7 @@ Subsection: Configured-Filename
 Subsection: Type
 
              --><div class="titlebox contenttitleright">
-                    <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="./static/images/fileaction_{{ fileitem.outcome }}.png" alt="{{ fileitem.outcome }}" />
+                    <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileaction_' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />
                 </div><!--
 
          --></div><!--
@@ -238,7 +238,7 @@ Section: Raw-Filename
 Section: File-Type & File-Size
 
          --><div class="subtitlebox filesubtitleright">
-                <img id="filetype-{{ fileitem.fileid }}" src="./static/images/filetype_{{ fileitem.filetype }}.png" alt="{{ fileitem.filetype }}" /><!--
+                <img id="filetype-{{ fileitem.fileid }}" src="{{ url_for('static', filename='images/filetype_' + fileitem.filetype + '.png') }}" alt="{{ fileitem.filetype }}" /><!--
              --><span>{{ fileitem.size }}</span>
             </div><!--
 
@@ -337,11 +337,11 @@ Dialog-Content
  --><div class="hidden">
         <span id="copyprogress">0</span>
         <span id="copystep">0</span>
-        <img src="./static/images/copy_queued.png" />
-        <img src="./static/images/copy_copying.png" />
-        <img src="./static/images/copy_connecting.png" />
-        <img src="./static/images/copy_copied.png" />
-        <img src="./static/images/copy_failed.png" />
+        <img src="{{ url_for('static', filename='images/copy_queued.png') }}" />
+        <img src="{{ url_for('static', filename='images/copy_copying.png') }}" />
+        <img src="{{ url_for('static', filename='images/copy_connecting.png') }}" />
+        <img src="{{ url_for('static', filename='images/copy_copied.png') }}" />
+        <img src="{{ url_for('static', filename='images/copy_failed.png') }}" />
     </div><!--
 
 {% endblock %}

@@ -95,7 +95,7 @@ function rerenderImage(fieldname, fieldimage)
 {
     var tileData = document.getElementById(fieldname);
     if (tileData != null) {
-        tileData.src = "./static/images/"+fieldimage+".png";
+        tileData.src = "/webassets/images/"+fieldimage+".png";
     } else {
         alert("rerenderImage: "+ fieldname);
     }
