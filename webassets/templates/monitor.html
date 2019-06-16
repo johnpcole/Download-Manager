@@ -44,7 +44,7 @@ Banner Content
 
                 <g stroke-linecap="round">
 {% for logentry in monitoroutput %}
-                    <rect {{ logentry }} stroke-width="0"/>
+                    <rect {{ logentry|safe }} stroke-width="0"/>
 {% endfor %}
 
                 </g>
