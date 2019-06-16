@@ -3,10 +3,8 @@ from codebase.fileprocessing_component import fileprocessing_module as FileManag
 from codebase.monitoring_component import monitoring_module as MonitorManager
 from codebase.common_components.logging_framework import logging_module as Logging
 from codebase.common_components.webserver_framework import webserver_module as WebServer
-#from flask import Flask as Webserver
 from flask import render_template as Webpage
 from flask import jsonify as Jsondata
-from flask import request as Webpost
 
 Logging.printinvocation("Starting Download-Manager Application", "")
 
