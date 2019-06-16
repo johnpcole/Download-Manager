@@ -79,3 +79,17 @@ class DefineMonitor:
 	def getmonitorstate(self):
 
 		return len(self.monitorhistory)
+
+
+
+	def gethistorygraphics(self):
+
+		outcome = []
+		horizontalposition = 0
+		for historyitem in self.getlatestdayshistory():
+			horizontalposition = horizontalposition + 3
+			outcome.extend(historyitem.getgraphicdata(horizontalposition, 0, 3, 3))
+		return outcome
+
+
+

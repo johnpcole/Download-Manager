@@ -44,6 +44,7 @@ Banner Content
 
                 <g stroke="#EEEEEE" stroke-width="1.5" stroke-linecap="round">
 {% for logentry in monitoroutput %}
+                    <rect {{ logentry }} stroke-width="0"/>
 {% endfor %}
 
                     <circle cx="60.5" cy="61" r="58" fill="#222222" />

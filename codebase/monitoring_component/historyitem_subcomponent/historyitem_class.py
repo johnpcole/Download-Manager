@@ -44,3 +44,19 @@ class DefineItem:
 		outcome = self.datetime.getiso() + "|" + str(self.uploaded) + "|" + str(self.green) + "|"
 		outcome = outcome + str(self.yellow) + "|" + str(self.amber) + "|" + str(self.orange) + "|" + str(self.red)
 		return outcome
+
+
+
+	def getgraphicdata(self, horizontaloffset, verticaloffset, blockwidth, blockheight):
+
+		outcome = []
+		totalheight = verticaloffset
+		colourlist = {"#FF0000": self.red, "#FF6600": self.orange, "#FFAA00": self.amber, "#FFFF00": self.yellow, "#00FF00": self.green}
+		for colour in colourlist:
+			if colourlist[colour] > 0:
+				instruction = '" fill="' + colour + '" ' + 'x="' + str(horizontaloffset) + '" y="' + str(totalheight)
+				instruction = instruction + '" width="' + str(blockwidth) + '" height="' + str(colourlist[colour] * blockheight)
+				outcome.append(instruction)
+				totalheight = totalheight + (colourlist[colour] * blockheight)
+
+		return outcome
