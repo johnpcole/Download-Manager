@@ -42,14 +42,11 @@ Banner Content
      --><div class="">
             <svg width="200" height="200">
 
-                <g stroke="#EEEEEE" stroke-width="1.5" stroke-linecap="round">
+                <g stroke-linecap="round">
 {% for logentry in monitoroutput %}
                     <rect {{ logentry }} stroke-width="0"/>
 {% endfor %}
 
-                    <circle cx="60.5" cy="61" r="58" fill="#222222" />
-                    <rect x="0" y="67" width="121" height="8" fill="#7D7D00" stroke-width="0"/>
-                    <line y1="67" x1="3" y2="67" x2="118" />
                 </g>
 
 
