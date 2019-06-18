@@ -51,7 +51,7 @@ class DefineItem:
 
 		outcome = []
 		totalheight = verticaloffset
-		#colourlist = {"#FF0000": self.red, "#FF6600": self.orange, "#FFAA00": self.amber, "#FFFF00": self.yellow, "#00FF00": self.green}
+		#colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
 		colourlist = {"1#CC0000": 4, "2#FF6600": 4, "3#FFBB11": 4, "4#EEEE11": 4, "5#00CC00": 4}
 		for colour in sorted(colourlist.keys()):
 			if colourlist[colour] > 0:
