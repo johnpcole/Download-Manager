@@ -58,7 +58,8 @@ class DefineItem:
 				for indexer in range(0, colourlist[colour]):
 					instruction = 'fill="' + colour[1:] + '" ' + 'x="' + str(horizontaloffset) + '" y="' + str(totalheight)
 					instruction = instruction + '" width="' + str(blockwidth) + '" height="' + str(blockheight) + '"'
-					outcome.append(instruction)
+					if totalheight > 5:
+						outcome.append(instruction)
 					totalheight = totalheight - blockheight - 1
 
 		return outcome
