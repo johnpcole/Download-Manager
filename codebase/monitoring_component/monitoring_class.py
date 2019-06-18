@@ -85,9 +85,9 @@ class DefineMonitor:
 	def gethistorygraphics(self):
 
 		outcome = []
-		horizontalposition = 3 + (4 * 250)
+		horizontalposition = 3 + (4 * 256)
 		for historyitem in self.monitorhistory:
-			horizontalposition = horizontalposition + 4
+			horizontalposition = horizontalposition - 4
 			outcome.extend(historyitem.getgraphicdata(horizontalposition, 123, 3, 5))
 		print(outcome)
 		return outcome
