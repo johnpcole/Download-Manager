@@ -88,7 +88,7 @@ class DefineMonitor:
 		horizontalposition = 0
 		for historyitem in self.monitorhistory:
 			horizontalposition = horizontalposition + 4
-			outcome.extend(historyitem.getgraphicdata(horizontalposition, 10, 3, 3))
+			outcome.extend(historyitem.getgraphicdata(horizontalposition, 100, 3, 3))
 		print(outcome)
 		return outcome
 
