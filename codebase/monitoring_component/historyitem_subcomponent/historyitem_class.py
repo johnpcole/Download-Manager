@@ -53,7 +53,7 @@ class DefineItem:
 		totalheight = verticaloffset
 		#colourlist = {"#FF0000": self.red, "#FF6600": self.orange, "#FFAA00": self.amber, "#FFFF00": self.yellow, "#00FF00": self.green}
 		colourlist = {"1#FF0000": 4, "2#FF6633": 4, "3#FFBB00": 4, "4#FFFF00": 4, "5#00FF00": 4}
-		for colour in colourlist.keys():
+		for colour in sorted(colourlist.keys()):
 			if colourlist[colour] > 0:
 				for indexer in range(0, colourlist[colour]):
 					instruction = 'fill="' + colour[1:] + '" ' + 'x="' + str(horizontaloffset) + '" y="' + str(totalheight)
