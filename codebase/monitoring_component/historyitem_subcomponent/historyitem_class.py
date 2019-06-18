@@ -50,7 +50,7 @@ class DefineItem:
 	def getgraphicdata(self, horizontaloffset, verticaloffset, blockwidth, blockheight):
 
 		outcome = []
-		totalheight = 0 - verticaloffset
+		totalheight = verticaloffset
 		colourlist = {"#FF0000": self.red, "#FF6600": self.orange, "#FFAA00": self.amber, "#FFFF00": self.yellow, "#00FF00": self.green}
 		for colour in colourlist.keys():
 			if colourlist[colour] > 0:
