@@ -54,7 +54,7 @@ class DefineItem:
 		ver = verticaloffset
 		horizontalinstruction = Functions.geteradifference(origintimeobject, self.datetime)
 		print("====================================================")
-		print(origintimeobject.getiso(), self.datetime.getiso(), horizontaloffset)
+		print(origintimeobject.getiso(), self.datetime.getiso(), horizontalinstruction)
 		print("====================================================")
 		if horizontalinstruction > -1:
 			hor = horizontaloffset + ((horizontalinstruction + 1) * boxwidth)

@@ -11,7 +11,6 @@ def geteradifference(origindatetimeobject, currentdatetimeobject):
 
 	originitem = getdatetimeera(origindatetimeobject)
 	currentitem = getdatetimeera(currentdatetimeobject)
-	print(originitem.getiso(), currentitem.getiso())
 
 	differencevalueobject = DateTime.secondsdifference(currentitem, originitem)
 	differencevalue = differencevalueobject.getsecondsvalue()
