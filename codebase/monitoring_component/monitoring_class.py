@@ -87,7 +87,7 @@ class DefineMonitor:
 	def gethistorygraphics(self):
 
 		nowtimedate = DateTime.getnow()
-		nowtimedate.adjusthours(-36)
+		nowtimedate.adjusthours(-42)
 		boxoutcome = []
 		for historyitem in self.monitorhistory:
 			boxoutcome.extend(historyitem.getgraphicdata(3, 123, 3, 5, nowtimedate, self.erasize))
