@@ -12,6 +12,8 @@ def geteradifference(origindatetimeobject, currentdatetimeobject):
 
 	originitem = getdatetimeera(origindatetimeobject)
 	currentitem = getdatetimeera(currentdatetimeobject)
+	print(originitem.getiso(), currentitem.getiso(), DateTime.secondsdifference(originitem, currentitem))
+
 
 	if DateTime.isfirstlaterthansecond(originitem, currentitem) == True:
 		outcome = -99999
