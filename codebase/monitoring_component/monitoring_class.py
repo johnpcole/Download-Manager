@@ -99,7 +99,7 @@ class DefineMonitor:
 		while indexer < 100: #markerposition < 260:
 			indexer = indexer + 1
 			print("Current Marker", currentmarker.getiso(), "   Marker Position", markerposition)
-			instruction = 'x1="' + str(markerposition) + '" y1=150" x2="' + str(markerposition) + '" y2="160"'
+			instruction = 'x1="' + str(markerposition) + '" y1="150" x2="' + str(markerposition) + '" y2="160"'
 			markersoutcome.append(instruction)
 			currentmarker.adjusthours(3)
 			markerposition = EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)
