@@ -4,7 +4,6 @@ def getdatetimeera(datetimeobject):
 
 	thistimeera = datetimeobject.getiso()
 	thistimeera = thistimeera[:11] + "000"
-	print(thistimeera)
 	return DateTime.createfromiso(thistimeera)
 
 
@@ -12,13 +11,14 @@ def geteradifference(origindatetimeobject, currentdatetimeobject):
 
 	originitem = getdatetimeera(origindatetimeobject)
 	currentitem = getdatetimeera(currentdatetimeobject)
-	print(originitem.getiso(), currentitem.getiso(), DateTime.secondsdifference(originitem, currentitem))
+	print(originitem.getiso(), currentitem.getiso())
 
 
 	if DateTime.isfirstlaterthansecond(originitem, currentitem) == True:
 		outcome = -99999
 	else:
 		differencevalue = DateTime.secondsdifference(originitem, currentitem)
+		print("Seconds difference ", differencevalue)
 		outcome = int(differencevalue.getsecondsvalue() / 600)
 
 	return outcome
