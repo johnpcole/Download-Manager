@@ -78,18 +78,17 @@ class DefineMonitor:
 
 	def getmonitorstate(self):
 
-		return len(self.monitorhistory)
+		return { "History_Size": len(self.monitorhistory), "Latest_Entry": self.getlatesthistoryitemforsaving() }
 
 
 
 	def gethistorygraphics(self):
 
+		nowtimedate = DateTime.getnow()
+		nowtimedate.adjustdays(-1)
 		outcome = []
-		horizontalposition = 3 + (4 * 256)
 		for historyitem in self.monitorhistory:
-			horizontalposition = horizontalposition - 4
-			outcome.extend(historyitem.getgraphicdata(horizontalposition, 123, 3, 5))
-		print(outcome)
+			outcome.extend(historyitem.getgraphicdata(3, 123, 3, 5, nowtimedate))
 		return outcome
 
 

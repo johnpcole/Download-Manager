@@ -1,3 +1,4 @@
+from . import historyitem_privatefunctions as Functions
 
 
 
@@ -47,19 +48,22 @@ class DefineItem:
 
 
 
-	def getgraphicdata(self, horizontaloffset, verticaloffset, blockwidth, blockheight):
+	def getgraphicdata(self, horizontaloffset, verticaloffset, boxwidth, boxheight, origintimeobject):
 
 		outcome = []
-		totalheight = verticaloffset
-		#colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
-		colourlist = {"1#CC0000": 4, "2#FF6600": 4, "3#FFBB11": 4, "4#EEEE11": 4, "5#00CC00": 4}
-		for colour in sorted(colourlist.keys()):
-			if colourlist[colour] > 0:
-				for indexer in range(0, colourlist[colour]):
-					instruction = 'fill="' + colour[1:] + '" ' + 'x="' + str(horizontaloffset) + '" y="' + str(totalheight)
-					instruction = instruction + '" width="' + str(blockwidth) + '" height="' + str(blockheight) + '"'
-					if totalheight > 5:
-						outcome.append(instruction)
-					totalheight = totalheight - blockheight - 1
+		ver = verticaloffset
+		horizontalinstruction = Functions.geteradifference(origintimeobject, self.datetime)
+		if horizontalinstruction > -1:
+			hor = horizontaloffset + ((horizontalinstruction + 1) * boxwidth)
+			#colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
+			colourlist = {"1#CC0000": 4, "2#FF6600": 4, "3#FFBB11": 4, "4#EEEE11": 4, "5#00CC00": 4}
+			for colour in sorted(colourlist.keys()):
+				if colourlist[colour] > 0:
+					for indexer in range(0, colourlist[colour]):
+						instruction = 'fill="' + colour[1:] + '" ' + 'x="' + str(hor) + '" y="' + str(ver)
+						instruction = instruction + '" width="' + str(boxwidth) + '" height="' + str(boxheight) + '"'
+						if ver > 5:
+							outcome.append(instruction)
+							ver = ver - boxheight - 1
 
 		return outcome
