@@ -18,7 +18,7 @@ def geteradifference(origindatetimeobject, currentdatetimeobject):
 		outcome = -99999
 	else:
 		differencevalue = DateTime.secondsdifference(originitem, currentitem)
-		print("Seconds difference ", differencevalue)
+		print("Seconds difference ", differencevalue.getsecondsvalue())
 		outcome = int(differencevalue.getsecondsvalue() / 600)
 
 	return outcome
