@@ -15,7 +15,9 @@ def getera(datetimeobject, erasize):
 def geteraasobject(datetimeobject, erasize):
 
 	era = getera(datetimeobject, erasize)
-	return DateTime.createfromiso(era)
+	outcome = DateTime.createfromiso(era)
+	print(datetimeobject.getiso(), era, outcome.getiso())
+	return outcome
 
 
 
