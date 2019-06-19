@@ -16,7 +16,7 @@ class DefineMonitor:
 		self.monitorhistory = []
 
 		# Defines the granularity of display of monitor data
-		self.erasize = 3 # Ten minute intervals
+		self.erasize = 4 # Ten minute intervals
 
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
@@ -101,7 +101,7 @@ class DefineMonitor:
 			print("Current Marker", currentmarker.getiso(), "   Marker Position", markerposition)
 			instruction = 'x1="' + str(markerposition) + '" y1=150" x2="' + str(markerposition) + '" y2="160"'
 			markersoutcome.append(instruction)
-			currentmarker = EraFunctions.adjustobject(currentmarker, 1, self.erasize)
+			currentmarker.adjusthours(3)
 			markerposition = EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)
 
 

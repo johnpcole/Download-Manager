@@ -7,7 +7,7 @@ def getera(datetimeobject, erasize):
 	lookupsize = 15 - erasize
 	datetimetext = datetimeobject.getiso()
 	filler = "00000000"
-	outcome = datetimetext[:lookupsize] + filler[:erasize]
+	outcome = datetimetext[:lookupsize] + filler[:erasize-1]
 	return outcome
 
 
@@ -16,7 +16,6 @@ def geteraasobject(datetimeobject, erasize):
 
 	era = getera(datetimeobject, erasize)
 	outcome = DateTime.createfromiso(era)
-	print(datetimeobject.getiso(), era, outcome.getiso())
 	return outcome
 
 
