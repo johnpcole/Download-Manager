@@ -1,5 +1,5 @@
 from ...common_components.datetime_datatypes import datetime_module as DateTime
-from . import delayer_privatefunctions as Functions
+from ...common_components.datetime_datatypes import eras_module as EraFunctions
 from time import sleep as Wait
 
 
@@ -17,7 +17,7 @@ class DefineDelayer:
 
 		nowdatetime = DateTime.getnow()
 
-		if Functions.comparedatetimes(nowdatetime, self.latestcall, self.erasize) == False:
+		if EraFunctions.compareeras(nowdatetime, self.latestcall, self.erasize) == False:
 			self.latestcall.setfromobject(nowdatetime)
 			outcome = True
 		else:

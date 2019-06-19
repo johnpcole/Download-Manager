@@ -14,7 +14,7 @@ Logging.printrawline("Starting Download-Manager Application")
 # Use 3 for minute updates
 # Use 4 for ten-minute updates
 
-trigger = Trigger.createtrigger("http://127.0.0.1:5000/TriggerDelugeMonitor", 2)
+trigger = Trigger.createtrigger("http://127.0.0.1:5000/TriggerDelugeMonitor", 3)
 
 while 1 != 0:
 

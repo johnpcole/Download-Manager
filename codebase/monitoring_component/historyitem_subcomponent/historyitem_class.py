@@ -1,4 +1,4 @@
-from . import historyitem_privatefunctions as Functions
+from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
@@ -48,16 +48,16 @@ class DefineItem:
 
 
 
-	def getgraphicdata(self, horizontaloffset, verticaloffset, boxwidth, boxheight, origintimeobject):
+	def getgraphicdata(self, horizontaloffset, verticaloffset, boxwidth, boxheight, origintimeobject, erasize):
 
 		outcome = []
 		ver = verticaloffset
-		horizontalinstruction = Functions.geteradifference(origintimeobject, self.datetime)
+		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
 		print("====================================================")
 		print(origintimeobject.getiso(), self.datetime.getiso(), horizontalinstruction)
 		print("====================================================")
 		if horizontalinstruction > -1:
-			hor = horizontaloffset + ((horizontalinstruction + 1) * boxwidth)
+			hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
 			#colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
 			colourlist = {"1#CC0000": 4, "2#FF6600": 4, "3#FFBB11": 4, "4#EEEE11": 4, "5#00CC00": 4}
 			for colour in sorted(colourlist.keys()):

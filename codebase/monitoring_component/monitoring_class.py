@@ -2,7 +2,7 @@ from .thermometer_subcomponent import thermometer_module as PiThermometer
 from .sessiondatameters_subcomponent import sessiondatameters_module as SessionDataMeters
 from .historyitem_subcomponent import historyitem_module as HistoryItem
 from ..common_components.datetime_datatypes import datetime_module as DateTime
-
+from ..common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 class DefineMonitor:
@@ -15,6 +15,8 @@ class DefineMonitor:
 		# An array of historic monitor history
 		self.monitorhistory = []
 
+		# Defines the granularity of display of monitor data
+		self.erasize = 3 # Ten minute intervals
 
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
@@ -78,18 +80,30 @@ class DefineMonitor:
 
 	def getmonitorstate(self):
 
-		return { "History_Size": len(self.monitorhistory), "Latest_Entry": self.getlatesthistoryitemforsaving() }
+		return {"History_Size": len(self.monitorhistory), "Latest_Entry": self.getlatesthistoryitemforsaving()}
 
 
 
 	def gethistorygraphics(self):
 
 		nowtimedate = DateTime.getnow()
-		nowtimedate.adjusthours(-52)
-		outcome = []
+		nowtimedate.adjusthours(-36)
+		boxoutcome = []
 		for historyitem in self.monitorhistory:
-			outcome.extend(historyitem.getgraphicdata(3, 123, 3, 5, nowtimedate))
-		return outcome
+			boxoutcome.extend(historyitem.getgraphicdata(3, 123, 3, 5, nowtimedate, self.erasize))
+
+		markersoutcome = []
+		currentmarker = EraFunctions.geteraasobject(nowtimedate, self.erasize)
+		markerposition = EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)
+
+		while markerposition < 260:
+			instruction = 'x1="' + str(markerposition) + '" y1=150" x2="' + str(markerposition) + '" y2="160"'
+			markersoutcome.append(instruction)
+			currentmarker = EraFunctions.adjustobject(currentmarker, 1, self.erasize)
+			markerposition = EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)
+
+
+		return {"boxes": boxoutcome, "markers": markersoutcome}
 
 
 
