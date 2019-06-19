@@ -4,8 +4,8 @@ def getdatetimeera(datetimeobject):
 
 	thistimeera = datetimeobject.getiso()
 	thistimeera = thistimeera[:11] + "000"
-
-	return DateTime.createdatefromiso(thistimeera)
+	print(thistimeera)
+	return DateTime.createfromiso(thistimeera)
 
 
 def geteradifference(origindatetimeobject, currentdatetimeobject):
