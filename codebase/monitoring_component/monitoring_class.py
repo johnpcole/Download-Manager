@@ -17,7 +17,8 @@ class DefineMonitor:
 
 		# Defines the granularity of display of monitor data
 		self.erasize = 4 # Ten minute intervals
-
+		self.boxwidth = 3
+		self.horizontaloffset = 3
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
 # =========================================================================================
@@ -90,19 +91,19 @@ class DefineMonitor:
 		nowtimedate.adjusthours(-42)
 		boxoutcome = []
 		for historyitem in self.monitorhistory:
-			boxoutcome.extend(historyitem.getgraphicdata(3, 123, 3, 5, nowtimedate, self.erasize))
+			boxoutcome.extend(historyitem.getgraphicdata(self.horizontaloffset, 123, self.boxwidth, 5, nowtimedate, self.erasize))
 
 		markersoutcome = []
 		currentmarker = EraFunctions.geteraasobject(nowtimedate, self.erasize)
-		markerposition = EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)
+		currentmarker.adjusthours(-3)
 		indexer = 0
 		while indexer < 100: #markerposition < 260:
+			currentmarker.adjusthours(3)
+			markerposition = ((self.boxwidth + 1) * EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)) + self.horizontaloffset
 			indexer = indexer + 1
 			print("Current Marker", currentmarker.getiso(), "   Marker Position", markerposition)
 			instruction = 'x1="' + str(markerposition) + '" y1="150" x2="' + str(markerposition) + '" y2="160"'
 			markersoutcome.append(instruction)
-			currentmarker.adjusthours(3)
-			markerposition = EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)
 
 
 		return {"boxes": boxoutcome, "markers": markersoutcome}
