@@ -95,8 +95,10 @@ class DefineMonitor:
 		markersoutcome = []
 		currentmarker = EraFunctions.geteraasobject(nowtimedate, self.erasize)
 		markerposition = EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)
-
-		while markerposition < 260:
+		indexer = 0
+		while indexer < 100: #markerposition < 260:
+			indexer = indexer + 1
+			print("Current Marker", currentmarker.getiso(), "   Marker Position", markerposition)
 			instruction = 'x1="' + str(markerposition) + '" y1=150" x2="' + str(markerposition) + '" y2="160"'
 			markersoutcome.append(instruction)
 			currentmarker = EraFunctions.adjustobject(currentmarker, 1, self.erasize)
