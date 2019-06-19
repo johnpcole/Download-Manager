@@ -53,6 +53,9 @@ class DefineItem:
 		outcome = []
 		ver = verticaloffset
 		horizontalinstruction = Functions.geteradifference(origintimeobject, self.datetime)
+		print("====================================================")
+		print(origintimeobject.getiso(), self.datetime.getiso(), horizontaloffset)
+		print("====================================================")
 		if horizontalinstruction > -1:
 			hor = horizontaloffset + ((horizontalinstruction + 1) * boxwidth)
 			#colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
