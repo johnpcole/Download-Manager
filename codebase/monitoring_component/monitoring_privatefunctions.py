@@ -10,7 +10,7 @@ def getxaxis(nowtimedate, erasize, boxwidth, horizontaloffset, verticaloffset):
 	currentmarker = EraFunctions.geteraasobject(nowtimedate, 5)
 	currentmarker.adjusthours(-1)
 	markerposition = 0
-	while markerposition < 960:
+	while markerposition < 1000:
 		currentmarker.adjusthours(1)
 		markerposition = ((boxwidth + 1) * EraFunctions.geteradifference(nowtimedate, currentmarker,
 																					erasize)) + horizontaloffset + 1
@@ -25,6 +25,6 @@ def getxaxis(nowtimedate, erasize, boxwidth, horizontaloffset, verticaloffset):
 			instruction = 'x1="' + str(markerposition) + '" y1="' + str(top) + '" x2="' + str(markerposition) + '" y2="' + str(bottom) + '"'
 			markersoutcome.append(instruction)
 			if (currentmarker.gettimevalue() % 10800) == 0:
-				instruction = 'x="' + str(markerposition) + '" y="' + str(bottom + 13) + '" >' + EraFunctions.geteralabel(currentmarker, erasize)
+				instruction = 'x="' + str(markerposition) + '" y="' + str(bottom + 12) + '" >' + EraFunctions.geteralabel(currentmarker, erasize)
 				labelsoutcome.append(instruction)
 	return {"markers": markersoutcome, "labels": labelsoutcome}
