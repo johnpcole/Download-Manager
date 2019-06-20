@@ -14,9 +14,9 @@ def getxaxis(nowtimedate, erasize, boxwidth, horizontaloffset, verticaloffset):
 		currentmarker.adjusthours(1)
 		markerposition = ((boxwidth + 1) * EraFunctions.geteradifference(nowtimedate, currentmarker,
 																					erasize)) + horizontaloffset + 1
-		if (currentmarker.gettimevalue() % 86400) == 0:
-			bottom = top + 6
-		elif (currentmarker.gettimevalue() % 10800) == 0:
+		#if (currentmarker.gettimevalue() % 86400) == 0:
+		#	bottom = top + 6
+		if (currentmarker.gettimevalue() % 10800) == 0:
 			bottom = top + 4
 		else:
 			bottom = top + 2
