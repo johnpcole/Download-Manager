@@ -20,6 +20,7 @@ class DefineMonitor:
 		self.erasize = 4 # Ten minute intervals
 		self.boxwidth = 3
 		self.horizontaloffset = 3
+		self.verticaloffset = 123
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
 # =========================================================================================
@@ -93,10 +94,10 @@ class DefineMonitor:
 		nowtimedate.adjusthours(-42)
 		boxoutcome = []
 		for historyitem in self.monitorhistory:
-			boxoutcome.extend(historyitem.getgraphicdata(self.horizontaloffset, 123, self.boxwidth, 5, nowtimedate, self.erasize))
+			boxoutcome.extend(historyitem.getgraphicdata(self.horizontaloffset, self.verticaloffset, self.boxwidth, 5, nowtimedate, self.erasize))
 
 		outcome["boxes"] = boxoutcome
-		outcome.update(Functions.getxaxis(nowtimedate, self.erasize, self.boxwidth, self.horizontaloffset))
+		outcome.update(Functions.getxaxis(nowtimedate, self.erasize, self.boxwidth, self.horizontaloffset, self.verticaloffset))
 
 		return outcome
 
