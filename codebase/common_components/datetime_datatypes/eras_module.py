@@ -95,7 +95,7 @@ def geteralabel(datetimeobject, erasize):
 			outcome = "Fri"
 	else:
 		hours = era[8:10]
-		outcome = str(int(hours)) + ":" + era[10:12]
+		outcome = str(int(hours)) # + ":" + era[10:12]
 
 	return Convert.stringspacer(outcome)
 
