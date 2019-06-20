@@ -2,7 +2,8 @@ from .thermometer_subcomponent import thermometer_module as PiThermometer
 from .sessiondatameters_subcomponent import sessiondatameters_module as SessionDataMeters
 from .historyitem_subcomponent import historyitem_module as HistoryItem
 from ..common_components.datetime_datatypes import datetime_module as DateTime
-from ..common_components.datetime_datatypes import eras_module as EraFunctions
+from . import monitoring_privatefunctions as Functions
+
 
 
 class DefineMonitor:
@@ -87,27 +88,17 @@ class DefineMonitor:
 
 	def gethistorygraphics(self):
 
+		outcome = {}
 		nowtimedate = DateTime.getnow()
 		nowtimedate.adjusthours(-42)
 		boxoutcome = []
 		for historyitem in self.monitorhistory:
 			boxoutcome.extend(historyitem.getgraphicdata(self.horizontaloffset, 123, self.boxwidth, 5, nowtimedate, self.erasize))
 
-		markersoutcome = []
-		labelsoutcome = []
-		currentmarker = EraFunctions.geteraasobject(nowtimedate, 5)
-		currentmarker.adjusthours(-3)
-		markerposition = 0
-		while markerposition < 960:
-			currentmarker.adjusthours(3)
-			markerposition = ((self.boxwidth + 1) * EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)) + self.horizontaloffset
-			print("Current Marker", currentmarker.getiso(), "   Marker Position", markerposition)
-			if markerposition >= self.horizontaloffset:
-				instruction = 'x1="' + str(markerposition) + '" y1="130" x2="' + str(markerposition) + '" y2="132"'
-				markersoutcome.append(instruction)
-				instruction = 'x="' + str(markerposition) + '" y="145" >' + EraFunctions.geteralabel(currentmarker, self.erasize)
-				labelsoutcome.append(instruction)
-		return {"boxes": boxoutcome, "markers": markersoutcome, "labels": labelsoutcome}
+		outcome["boxes"] = boxoutcome
+		outcome.update(Functions.getxaxis(nowtimedate, self.erasize, self.boxwidth, self.horizontaloffset))
+
+		return outcome
 
 
 
