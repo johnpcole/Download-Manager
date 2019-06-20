@@ -1,4 +1,5 @@
 from . import datetime_module as DateTime
+from ...common_components.dataconversion_framework import dataconversion_module as Convert
 
 
 
@@ -83,6 +84,6 @@ def geteralabel(datetimeobject, erasize):
 		hours = era[8:10]
 		outcome = str(int(hours)) + ":" + era[10:12]
 
-	return outcome
+	return Convert.stringspacer(outcome)
 
 

@@ -179,10 +179,24 @@ def dearticle(realname):
 	return outcome
 
 
+
 def rearticle(switchedname):
 	splittext = switchedname.split("|||")
 	outcome = splittext[1]
 	return outcome
 
+
+
+def stringspacer(instring):
+
+	stringlength = len(instring)
+	if stringlength > 1:
+		outcome = instring[0:1]
+		for index in range(1, stringlength):
+			outcome = outcome + " " + instring[index:index+1]
+	else:
+		outcome = instring
+
+	return outcome
 
 
