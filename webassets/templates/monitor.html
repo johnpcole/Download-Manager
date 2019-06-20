@@ -60,6 +60,9 @@ Banner Content
 {% for logentry in monitoroutput.markers %}
                     <line {{ logentry|safe }} />
 {% endfor %}
+{% for logentry in monitoroutput.labels %}
+                    <text class="metertext" text-anchor="middle" {{ logentry|safe }}</text>
+{% endfor %}
                 </g>
 
             </svg>

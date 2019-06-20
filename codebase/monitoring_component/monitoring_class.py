@@ -94,18 +94,20 @@ class DefineMonitor:
 			boxoutcome.extend(historyitem.getgraphicdata(self.horizontaloffset, 123, self.boxwidth, 5, nowtimedate, self.erasize))
 
 		markersoutcome = []
-		currentmarker = EraFunctions.geteraasobject(nowtimedate, self.erasize)
+		labelsoutcome = []
+		currentmarker = EraFunctions.geteraasobject(nowtimedate, 5)
 		currentmarker.adjusthours(-3)
 		markerposition = 0
-		while markerposition < 1026:
+		while markerposition < 960:
 			currentmarker.adjusthours(3)
 			markerposition = ((self.boxwidth + 1) * EraFunctions.geteradifference(nowtimedate, currentmarker, self.erasize)) + self.horizontaloffset
 			print("Current Marker", currentmarker.getiso(), "   Marker Position", markerposition)
 			if markerposition >= self.horizontaloffset:
 				instruction = 'x1="' + str(markerposition) + '" y1="150" x2="' + str(markerposition) + '" y2="160"'
 				markersoutcome.append(instruction)
-
-		return {"boxes": boxoutcome, "markers": markersoutcome}
+				instruction = 'x="' + str(markerposition) + '" y="170" >' + currentmarker.getiso()
+				labelsoutcome.append(instruction)
+		return {"boxes": boxoutcome, "markers": markersoutcome, "labels": labelsoutcome}
 
 
 
