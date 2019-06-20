@@ -77,9 +77,22 @@ def geteralabel(datetimeobject, erasize):
 	era = getera(datetimeobject, erasize)
 
 	if era[-6:] == "000000":
-		date = era[6:8]
-		month = era[4:6]
-		outcome = str(int(date)) + "-" + str(int(month))
+		milleniumcount = datetimeobject.getdatevalue()
+		weekindex = milleniumcount % 7
+		if weekindex == 0:
+			outcome = "Sat"
+		elif weekindex == 1:
+			outcome = "Sun"
+		elif weekindex == 2:
+			outcome = "Mon"
+		elif weekindex == 3:
+			outcome = "Tue"
+		elif weekindex == 4:
+			outcome = "Wed"
+		elif weekindex == 5:
+			outcome = "Thu"
+		else:
+			outcome = "Fri"
 	else:
 		hours = era[8:10]
 		outcome = str(int(hours)) + ":" + era[10:12]
