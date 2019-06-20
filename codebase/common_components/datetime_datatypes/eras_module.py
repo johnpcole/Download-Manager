@@ -76,9 +76,12 @@ def geteralabel(datetimeobject, erasize):
 	era = getera(datetimeobject, erasize)
 
 	if era[-6:] == "000000":
-		outcome = era[6:8] + "-" + era[4:6] + "-" + era[0:4]
+		date = era[6:8]
+		month = era[4:6]
+		outcome = str(int(date)) + "-" + str(int(month)) + "-" + era[2:4]
 	else:
-		outcome = era[8:10] + ":" + era[10:12]
+		hours = era[8:10]
+		outcome = str(int(hours)) + ":" + era[10:12]
 
 	return outcome
 
