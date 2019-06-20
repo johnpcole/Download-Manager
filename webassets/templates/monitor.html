@@ -43,7 +43,7 @@ Banner Content
             <svg width="1030" height="400">
 
                 <style>
-                    .metertext { font: 13px 'Oswald', sans-serif; fill: #999999; font-weight: normal;}
+                    .metertext { font: 10px 'Oswald', sans-serif; fill: #999999; font-weight: normal;}
                 </style>
 
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0">
@@ -64,10 +64,10 @@ Banner Content
 {% for logentry in monitoroutput.markers %}
                     <line {{ logentry|safe }} />
 {% endfor %}
-{% for logentry in monitoroutput.labels %}
-                    <text class="metertext" text-anchor="middle" {{ logentry|safe }}</text>
-{% endfor %}
                 </g>
+{% for logentry in monitoroutput.labels %}
+                <text class="metertext" text-anchor="middle" {{ logentry|safe }}</text>
+{% endfor %}
 
             </svg>
         </div><!--
