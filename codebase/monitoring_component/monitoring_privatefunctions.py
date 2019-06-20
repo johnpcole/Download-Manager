@@ -7,7 +7,6 @@ def getxaxis(nowtimedate, erasize, boxwidth, horizontaloffset):
 	markersoutcome = []
 	labelsoutcome = []
 	currentmarker = EraFunctions.geteraasobject(nowtimedate, 5)
-	print(currentmarker, currentmarker.getiso(), currentmarker.gettimevalue())
 	while (currentmarker.gettimevalue() % 10800) != 0:
 		currentmarker.adjusthours(-1)
 	markerposition = 0

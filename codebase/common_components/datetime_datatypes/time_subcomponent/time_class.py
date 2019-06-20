@@ -137,7 +137,7 @@ class DefineTime:
 	# ---------------------------------------------------------
 
 	def getsecondsintoday(self):
-		print("Looking up seconds in today", self.secondsintoday)
+
 		return self.secondsintoday
 
 
