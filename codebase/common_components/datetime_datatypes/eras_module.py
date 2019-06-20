@@ -52,6 +52,7 @@ def geteradifference(origindatetimeobject, currentdatetimeobject, erasize):
 	return int(differencevalue / divisor)
 
 
+
 def adjustobject(originaldatetimeobject, adjustvalue, erasize):
 
 	newobject = DateTime.createfromobject(originaldatetimeobject)
@@ -67,3 +68,18 @@ def adjustobject(originaldatetimeobject, adjustvalue, erasize):
 		newobject.adjusthours(adjustvalue)
 
 	return newobject
+
+
+
+def geteralabel(datetimeobject, erasize):
+
+	era = getera(datetimeobject, erasize)
+
+	if era[-6:] == "000000":
+		outcome = era[6:8] + "-" + era[4:6] + "-" + era[0:4]
+	else:
+		outcome = era[8:10] + ":" + era[10:12]
+
+	return outcome
+
+

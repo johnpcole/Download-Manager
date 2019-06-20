@@ -105,7 +105,7 @@ class DefineMonitor:
 			if markerposition >= self.horizontaloffset:
 				instruction = 'x1="' + str(markerposition) + '" y1="150" x2="' + str(markerposition) + '" y2="160"'
 				markersoutcome.append(instruction)
-				instruction = 'x="' + str(markerposition) + '" y="170" >' + currentmarker.getiso()
+				instruction = 'x="' + str(markerposition) + '" y="170" >' + EraFunctions.geteralabel(currentmarker, self.erasize)
 				labelsoutcome.append(instruction)
 		return {"boxes": boxoutcome, "markers": markersoutcome, "labels": labelsoutcome}
 
