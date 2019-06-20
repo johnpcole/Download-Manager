@@ -51,7 +51,7 @@ def getlibraryconnectionconfig():
 
 def saveconfigs(outputlist):
 	Logging.printout("Saving Torrents Configuration Data")
-	FileSystem.writetodisk('./data/torrentconfigs.db', outputlist)
+	FileSystem.writetodisk('./data/torrentconfigs.db', outputlist, "Overwrite")
 
 # =========================================================================================
 # Reads the current torrent config information, from a file
@@ -77,24 +77,6 @@ def getwebhostconfig():
 	return outcome
 
 
-
-# =========================================================================================
-# Reads the configuration data for logging, from a file
-# =========================================================================================
-
-def getloggingconfig():
-	Logging.printout("Loading Logging Configuration Data")
-	publicmode = FileSystem.readfromdisk('./data/logging.cfg')
-	if publicmode[0] == "On":
-		outcome = True
-		Logging.printrawline("Verbose Logging Enabled")
-	else:
-		outcome = False
-		Logging.printrawline("Verbose Logging Disabled")
-	return outcome
-
-
-
 # =========================================================================================
 # Creates a filepath from a list of nodes, using the appropriate filesystem symbol
 # =========================================================================================
@@ -114,7 +96,30 @@ def buildpath(nodelist):
 
 def getloggingdata(loggingmode):
 	Logging.printout("Loading Logs")
-	loggingoutput = FileSystem.readfromdisk('./data/Logging.log')
+	loggingoutput = []
+	for filename in ['9', '8', '7', '6', '5', '4', '3', '2', '1', '0']:
+		logcontents = FileSystem.readfromdisk('./data/logging-' + filename + '.log')
+		if len(logcontents) > 0:
+			if filename != '9':
+				loggingoutput.append('--- RESTART SERVICE ---')
+			loggingoutput.extend(logcontents)
 	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
+
+
+# =========================================================================================
+# Writes monitor data
+# =========================================================================================
+
+def savemonitor(monitordata):
+
+	datestamp = monitordata[:8]
+	filename = './data/monitor-' + datestamp + '.db'
+
+	if FileSystem.doesexist(filename) == True:
+		appendflag = "Append"
+	else:
+		appendflag = "Overwrite"
+
+	FileSystem.writetodisk(filename, [monitordata], appendflag)
 

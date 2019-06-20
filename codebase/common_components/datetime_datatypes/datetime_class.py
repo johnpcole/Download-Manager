@@ -365,7 +365,7 @@ class DefineDateTime:
 
 	def getdatevalue(self):
 
-		self.datecomponent.getdaysintomillennium()
+		return self.datecomponent.getdaysintomillennium()
 
 
 
@@ -375,7 +375,7 @@ class DefineDateTime:
 
 	def gettimevalue(self):
 
-		self.timecomponent.getsecondsintoday()
+		return self.timecomponent.getsecondsintoday()
 
 
 

@@ -1,3 +1,4 @@
+from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
@@ -37,3 +38,32 @@ class DefineItem:
 		outcome['green'] = self.green
 		return outcome
 
+
+
+	def getsavedata(self):
+
+		outcome = self.datetime.getiso() + "|" + str(self.uploaded) + "|" + str(self.green) + "|"
+		outcome = outcome + str(self.yellow) + "|" + str(self.amber) + "|" + str(self.orange) + "|" + str(self.red)
+		return outcome
+
+
+
+	def getgraphicdata(self, horizontaloffset, verticaloffset, boxwidth, boxheight, origintimeobject, erasize):
+
+		outcome = []
+		ver = verticaloffset
+		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
+		if horizontalinstruction > -1:
+			hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
+			colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
+			#colourlist = {"1#CC0000": 4, "2#FF6600": 4, "3#FFBB11": 4, "4#EEEE11": 4, "5#00CC00": 4}
+			for colour in sorted(colourlist.keys()):
+				if colourlist[colour] > 0:
+					for indexer in range(0, colourlist[colour]):
+						instruction = 'fill="' + colour[1:] + '" ' + 'x="' + str(hor) + '" y="' + str(ver)
+						instruction = instruction + '" width="' + str(boxwidth) + '" height="' + str(boxheight) + '"'
+						if ver > 5:
+							outcome.append(instruction)
+							ver = ver - boxheight - 1
+
+		return outcome
