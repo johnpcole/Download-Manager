@@ -28,3 +28,5 @@ def getxaxis(nowtimedate, erasize, boxwidth, horizontaloffset, verticaloffset):
 				instruction = 'x="' + str(markerposition) + '" y="' + str(bottom + 12) + '" >' + EraFunctions.geteralabel(currentmarker, erasize)
 				labelsoutcome.append(instruction)
 	return {"markers": markersoutcome, "labels": labelsoutcome}
+
+

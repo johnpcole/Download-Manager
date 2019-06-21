@@ -255,7 +255,7 @@ def triggermonitor():
 	torrentmanager.refreshtorrentlist("Deluge-Monitor")
 	monitormanager.addhistoryentry(torrentmanager.getsessiondata())
 	FileManager.savemonitor(monitormanager.getlatesthistoryitemforsaving())
-	return WebServer.makejson(tester=monitormanager.getmonitorstate())
+	return WebServer.makejson(message='deluge data captured')
 
 
 
