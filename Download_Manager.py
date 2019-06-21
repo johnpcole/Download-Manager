@@ -12,6 +12,8 @@ librarymanager = FileManager.createmanager(FileManager.getlibraryconnectionconfi
 torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
 torrentmanager.setconfigs(FileManager.loadconfigs())
 monitormanager = MonitorManager.createmonitor()
+monitormanager.restorehistory(FileManager.getmonitor(MonitorManager.getloadlist()))
+
 webmode = FileManager.getwebhostconfig()
 
 website = WebServer.createwebsite()

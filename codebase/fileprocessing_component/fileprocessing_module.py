@@ -123,3 +123,20 @@ def savemonitor(monitordata):
 
 	FileSystem.writetodisk(filename, [monitordata], appendflag)
 
+
+
+def getmonitor(filenamelist):
+
+	outcome = []
+
+	for filenameitem in filenamelist:
+		filename = './data/monitor-' + filenameitem + '.db'
+
+		if FileSystem.doesexist(filename) == True:
+			loggingitems = FileSystem.readfromdisk(filename)
+			outcome.extend(loggingitems)
+
+	return outcome
+
+
+
