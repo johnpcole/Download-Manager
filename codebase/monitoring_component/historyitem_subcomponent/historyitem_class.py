@@ -57,7 +57,7 @@ class DefineItem:
 		outcome = []
 		ver = verticaloffset
 		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
-		if horizontalinstruction > -1:
+		if horizontalinstruction > 0:
 			hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
 			colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
 			#colourlist = {"1#CC0000": 4, "2#FF6600": 4, "3#FFBB11": 4, "4#EEEE11": 4, "5#00CC00": 4}
@@ -78,9 +78,10 @@ class DefineItem:
 
 		outcome = []
 		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
-		if horizontalinstruction > -1:
+		if horizontalinstruction > 0:
 			boxheight = (125 * (self.uploaded - baselineuploaded)) / 1000000000
-			print(boxheight)
+			if boxheight > 0.125:
+				boxheight = 125
 			if boxheight > -1:
 				ver = verticaloffset + 260 - boxheight
 				hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
