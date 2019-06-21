@@ -77,13 +77,14 @@ class DefineItem:
 	def getuploadgraphicdata(self, horizontaloffset, verticaloffset, boxwidth, baselineuploaded, origintimeobject, erasize):
 
 		outcome = []
+		vert = verticaloffset + 260
 		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
 		if horizontalinstruction > -1:
-			boxheight = (self.uploaded - baselineuploaded)
+			boxheight = (125 * (self.uploaded - baselineuploaded)) / 1000000000
 			print(boxheight)
 			if boxheight > -1:
 				hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
-				instruction = 'x="' + str(hor) + '" y="' + str(verticaloffset)
+				instruction = 'x="' + str(hor) + '" y="' + str(vert)
 				instruction = instruction + '" width="' + str(boxwidth) + '" height="' + str(boxheight) + '"'
 				outcome.append(instruction)
 
