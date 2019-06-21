@@ -83,7 +83,7 @@ class DefineItem:
 			if boxheight > 0.125:
 				boxheight = 125
 			if boxheight > -1:
-				ver = verticaloffset + 260 - boxheight
+				ver = verticaloffset + 32 - boxheight
 				hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
 				instruction = 'x="' + str(hor) + '" y="' + str(ver)
 				instruction = instruction + '" width="' + str(boxwidth) + '" height="' + str(boxheight) + '"'
