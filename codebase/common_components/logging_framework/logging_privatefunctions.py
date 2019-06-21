@@ -66,7 +66,9 @@ def extractotheroutput(cache, linecounter):
 def determineoutputtype(outputstring, loggingmode):
 
 	outcome = "OTHER"
-	if outputstring.find("HTTP/1.1") != -1:
+	if outputstring == "--- RESTART SERVICE ---":
+		outcome = "RESTART"
+	elif outputstring.find("HTTP/1.1") != -1:
 		outcome = "FLASK"
 	else:
 		if outputstring.find("[DOWNLOAD-MANAGER] ") != -1:

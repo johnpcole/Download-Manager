@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+{% from 'meter.html' import meteroutlinetemplate %}
+{% from 'meter.html' import metermarkerstemplate %}
+{% from 'meter.html' import meterblockstemplate %}
+{% from 'meter.html' import meterlinetemplate %}
+{% from 'meter.html' import meterendtemplate %}
+{% from 'button.html' import buttontemplate %}
+{% from 'dialog.html' import dialogtoptemplate %}
+{% from 'dialog.html' import dialogbottomtemplate %}
+{% from 'icons.html' import thermometertemplate %}
+{% from 'icons.html' import storagetemplate %}
+{% from 'icons.html' import connectivitytemplate %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block javascript %}
+
+    <script src="{{ url_for('static', filename='javascript/index_update_torrents.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index_add_torrent.js') }}"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block banner %}
+
+ --><div id="IndexBanner" class="tile bannertile file_video_copy"><!--
+
+Space Meter
+
+                {{ meteroutlinetemplate("spacemeter") }}
+                {{ metermarkerstemplate("1", "", "", "10", "", "", "100", "low") }}
+                {{ meterlinetemplate("spaceneedle", "#92D050", stats.space.ho, stats.space.vo, stats.space.hf, stats.space.vf) }}
+                {{ storagetemplate() }}
+                {{ meterendtemplate() }}
+
+Thermometer
+
+
+                {{ meteroutlinetemplate("thermometer") }}
+                {{ metermarkerstemplate("25", "", "30", "", "35", "", "40", "high") }}
+                {{ meterlinetemplate("tempneedle", "#DD6666", stats.temperature.ho, stats.temperature.vo, stats.temperature.hf, stats.temperature.vf) }}
+                {{ thermometertemplate() }}
+                {{ meterendtemplate() }}
+
+Banner Content
+
+     --><div class="indexbannercontent">
+            <div class="titlebox indexbannertitle">
+                <span>Download-Manager</span>
+            </div><!--
+         --><div class="tilesplitter contentsplitter"></div>
+        </div><!--
+
+Speed Meter
+
+                {{ meteroutlinetemplate("speedmeter") }}
+                {{ metermarkerstemplate("1", "", "", "k", "", "", "M", "none") }}
+                {{ meterlinetemplate("downloadneedle", "#FFFF00", stats.downloadspeed.ho, stats.downloadspeed.vo, stats.downloadspeed.hf, stats.downloadspeed.vf) }}
+                {{ meterlinetemplate("uploadneedle", "#6688FF", stats.uploadspeed.ho, stats.uploadspeed.vo, stats.uploadspeed.hf, stats.uploadspeed.vf) }}
+                {{ connectivitytemplate() }}
+                {{ meterendtemplate() }}
+
+Count Meter
+
+                {{ meteroutlinetemplate("countmeter") }}
+                {{ meterblockstemplate(stats.downloadcount.fill, stats.downloadcount.gap, stats.downloadcount.offset, stats.activedownloads.fill, stats.activedownloads.gap, stats.activedownloads.offset, stats.uploadcount.fill, stats.uploadcount.gap, stats.uploadcount.offset, stats.activeuploads.fill, stats.activeuploads.gap, stats.activeuploads.offset) }}
+                {{ connectivitytemplate() }}
+                {{ meterendtemplate() }}
+
+ --></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block content %}
+
+ --><div class="tilesgroup"><!--
+
+{% for torrent in torrentlist %}
+
+Torrent {{ torrent.torrentid }}
+
+     --><a id="Torrent-{{ torrent.torrentid }}" class="tile contenttile torrent_{{ torrent.status }}" href="/Torrent={{ torrent.torrentid }}"><!--
+
+Configured-Title
+
+         --><div class="titlebox contenttitleleft">
+                <span>{{ torrent.torrenttitle }}</span>
+            </div><!--
+
+Type
+
+         --><div class="titlebox contenttitleright">
+                <img src="{{ url_for('static', filename='images/type_' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
+            </div><!--
+
+Horizontal-Bar
+
+         --><div class="tilesplitter contentsplitter">
+            </div><!--
+
+Raw-Title
+
+         --><div class="subtitlebox torrentsubtitleleft">
+                <span>{{ torrent.torrentname }}</span>
+            </div><!--
+
+Progress and Status
+
+         --><div class="subtitlebox torrentsubtitleright">
+                <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
+             --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
+            </div><!--
+
+     --></a><!--
+
+{% endfor %}
+
+ --></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block toolbar %}
+
+--><div class="actionbuttonsgroup"><!--
+
+Add-Button
+
+        {{ buttontemplate("Add", "addTorrent()", "listaction_add", "add") }}
+
+Stop-All-Button
+
+        {{ buttontemplate("Stop", "updateTorrentsList('Stop')", "listaction_stopall", "stop") }}
+
+Start-All-Button
+
+        {{ buttontemplate("Start", "updateTorrentsList('Start')", "listaction_startall", "start") }}
+
+Rescan-File-Server-Button
+
+        {{ buttontemplate("RescanFileServer", "updateTorrentsList('RescanFileServer')", "folder_refresh", "rescan fileserver") }}
+
+Logs-Button
+
+        {{ buttontemplate("ViewLogs", "window.location.href = '/Logs'", "information", "view logs") }}
+
+
+ --></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block dialogs %}
+
+ADD-DIALOG
+
+    {{ dialogtoptemplate("adddialog", "Adding Torrent", "CloseAdd", "cancelAdd()") }}
+
+Dialog-Content
+
+         --><div class="dialogcontent">
+                <div class="dialogitem dialogitemfull">
+                    <span>New Torrent URL: </span><!--
+                 --><input type="text" name="newurl" class="newurlfield" value="" />
+                </div>
+            </div><!--
+
+    {{ dialogbottomtemplate("ConfirmAdd", "confirmAdd()") }}
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block hiddendata %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}

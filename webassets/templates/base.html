@@ -1,0 +1,54 @@
+<html>
+    <script src="{{ url_for('static', filename='javascript/jquery-3.2.0.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/manage_controls.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/manage_elements.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/manage_colours.js') }}"></script>
+    {% block javascript %}{% endblock %}
+    <head>
+        <title>Download-Manager</title>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tiles.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tiles_wide.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tiles_narrow.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/controls_button.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/controls_other.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/controls_slider.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/controls_textbox.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/showhideareas.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/ajaxloader.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/tooltips.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dialogs.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/logs_table.css') }}" />
+    </head>
+    <body><!--
+
+        {% block banner %}{% endblock %}
+
+        {% block content %}{% endblock %}
+
+        {% block toolbar %}{% endblock %}
+
+        {% block dialogs %}{% endblock %}
+
+        {% block hiddendata %}{% endblock %}
+
+     --><div id="ajaxloader" class="screenblock">
+            <div class="spinner">
+                <div class="rect1">
+                </div><!--
+             --><div class="rect2">
+                </div><!--
+             --><div class="rect3">
+                </div><!--
+             --><div class="rect4">
+                </div><!--
+             --><div class="rect5">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
