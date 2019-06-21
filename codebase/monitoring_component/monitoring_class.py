@@ -41,7 +41,12 @@ class DefineMonitor:
 
 	def addhistoryentry(self, monitordata):
 
-		self.monitorhistory.append(HistoryItem.createhistoryitem(DateTime.getnow(), monitordata))
+		currentdatetime = DateTime.getnow()
+		self.monitorhistory.append(HistoryItem.createhistoryitem(currentdatetime, monitordata))
+		if currentdatetime.gettimevalue() < 600:
+			print("Before clean up: ", len(self.monitorhistory))
+			self.clearuphistory(currentdatetime)
+			print("After clean up: ", len(self.monitorhistory))
 
 # =========================================================================================
 
@@ -113,6 +118,17 @@ class DefineMonitor:
 		return outcome
 
 
+
+
+	def clearuphistory(self, currentdatetime):
+
+		threshold = currentdatetime.adjustdays(-5)
+		newhistorylist = []
+		for historyitem in self.monitorhistory:
+			if DateTime.isfirstlaterthansecond(historyitem.getdatetime(), threshold) == True:
+				newhistorylist.append(historyitem)
+
+		self.monitorhistory = newhistorylist.copy()
 
 
 
