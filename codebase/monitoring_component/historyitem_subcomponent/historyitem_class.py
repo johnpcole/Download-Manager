@@ -79,10 +79,11 @@ class DefineItem:
 		outcome = []
 		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
 		if horizontalinstruction > 0:
-			boxheight = (120 * (self.uploaded - baselineuploaded)) / 1000000000
-			if boxheight > 120.0:
-				boxheight = 120.0
-			if boxheight > 0.000000:
+			if (self.uploaded > baselineuploaded) and (baselineuploaded > 0):
+				deltaupload = self.uploaded - baselineuploaded
+				if deltaupload > 1000000000:
+					deltaupload = 1000000000
+				boxheight = (120 * deltaupload) / 1000000000
 				ver = verticaloffset + 150 - boxheight
 				hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
 				instruction = 'x="' + str(hor) + '" y="' + str(ver)
