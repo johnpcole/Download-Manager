@@ -82,7 +82,7 @@ class DefineItem:
 			boxheight = (125 * (self.uploaded - baselineuploaded)) / 1000000000
 			if boxheight > 0.125:
 				boxheight = 125
-			if boxheight > -1:
+			if boxheight > 0.000000:
 				ver = verticaloffset + 150 - boxheight
 				hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
 				instruction = 'x="' + str(hor) + '" y="' + str(ver)
