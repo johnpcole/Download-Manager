@@ -122,7 +122,8 @@ class DefineMonitor:
 
 	def clearuphistory(self, currentdatetime):
 
-		threshold = currentdatetime.adjustdays(-5)
+		threshold = DateTime.createfromobject(currentdatetime)
+		threshold.adjustdays(-5)
 		newhistorylist = []
 		for historyitem in self.monitorhistory:
 			if DateTime.isfirstlaterthansecond(historyitem.getdatetime(), threshold) == True:
