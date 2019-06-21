@@ -12,6 +12,8 @@ librarymanager = FileManager.createmanager(FileManager.getlibraryconnectionconfi
 torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
 torrentmanager.setconfigs(FileManager.loadconfigs())
 monitormanager = MonitorManager.createmonitor()
+monitormanager.restorehistory(FileManager.getmonitor(MonitorManager.getloadlist()))
+
 webmode = FileManager.getwebhostconfig()
 
 website = WebServer.createwebsite()
@@ -253,7 +255,7 @@ def triggermonitor():
 	torrentmanager.refreshtorrentlist("Deluge-Monitor")
 	monitormanager.addhistoryentry(torrentmanager.getsessiondata())
 	FileManager.savemonitor(monitormanager.getlatesthistoryitemforsaving())
-	return WebServer.makejson(tester=monitormanager.getmonitorstate())
+	return WebServer.makejson(message='deluge data captured')
 
 
 

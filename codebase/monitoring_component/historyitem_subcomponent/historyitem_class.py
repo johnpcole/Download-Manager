@@ -24,19 +24,23 @@ class DefineItem:
 
 		return self.datetime
 
+	def getuploaded(self):
+
+		return self.uploaded
 
 
-	def getalldata(self):
 
-		outcome = {}
-		outcome['datetime'] = self.datetime.getiso()
-		outcome['uploaded'] = self.uploaded
-		outcome['red'] = self.red
-		outcome['orange'] = self.orange
-		outcome['amber'] = self.amber
-		outcome['yellow'] = self.yellow
-		outcome['green'] = self.green
-		return outcome
+#	def getalldata(self):
+#
+#		outcome = {}
+#		outcome['datetime'] = self.datetime.getiso()
+#		outcome['uploaded'] = self.uploaded
+#		outcome['red'] = self.red
+#		outcome['orange'] = self.orange
+#		outcome['amber'] = self.amber
+#		outcome['yellow'] = self.yellow
+#		outcome['green'] = self.green
+#		return outcome
 
 
 
@@ -48,12 +52,12 @@ class DefineItem:
 
 
 
-	def getgraphicdata(self, horizontaloffset, verticaloffset, boxwidth, boxheight, origintimeobject, erasize):
+	def getstatusgraphicdata(self, horizontaloffset, verticaloffset, boxwidth, boxheight, origintimeobject, erasize):
 
 		outcome = []
 		ver = verticaloffset
 		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
-		if horizontalinstruction > -1:
+		if horizontalinstruction > 0:
 			hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
 			colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
 			#colourlist = {"1#CC0000": 4, "2#FF6600": 4, "3#FFBB11": 4, "4#EEEE11": 4, "5#00CC00": 4}
@@ -65,5 +69,25 @@ class DefineItem:
 						if ver > 5:
 							outcome.append(instruction)
 							ver = ver - boxheight - 1
+
+		return outcome
+
+
+
+	def getuploadgraphicdata(self, horizontaloffset, verticaloffset, boxwidth, baselineuploaded, origintimeobject, erasize):
+
+		outcome = []
+		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
+		if horizontalinstruction > 0:
+			if (self.uploaded > baselineuploaded) and (baselineuploaded > 0):
+				deltaupload = self.uploaded - baselineuploaded
+				if deltaupload > 1000000000:
+					deltaupload = 1000000000
+				boxheight = (120 * deltaupload) / 1000000000
+				ver = verticaloffset + 150 - boxheight
+				hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
+				instruction = 'x="' + str(hor) + '" y="' + str(ver)
+				instruction = instruction + '" width="' + str(boxwidth) + '" height="' + str(boxheight) + '"'
+				outcome.append(instruction)
 
 		return outcome

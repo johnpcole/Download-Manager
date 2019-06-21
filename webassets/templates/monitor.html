@@ -52,6 +52,13 @@ Banner Content
                     <rect {{ logentry|safe }} />
 {% endfor %}
                 </g>
+
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0">
+{% for logentry in monitoroutput.bars %}
+                    <rect fill="#6688FF" {{ logentry|safe }} />
+{% endfor %}
+                </g>
+
                 <g stroke-linecap="round" stroke="#DDDDDD" stroke-width="1">
                     <line x1="3" y1="99" x2="5" y2="99" />
                     <line x1="3" y1="69" x2="5" y2="69" />
@@ -60,6 +67,14 @@ Banner Content
 
                     <line x1="3" y1="130" x2="1027" y2="130" />
                     <line x1="5" y1="130" x2="5" y2="5" />
+
+                    <line x1="3" y1="244" x2="5" y2="244" />
+                    <line x1="3" y1="214" x2="5" y2="214" />
+                    <line x1="3" y1="184" x2="5" y2="184" />
+                    <line x1="3" y1="154" x2="5" y2="154" />
+
+                    <line x1="3" y1="275" x2="1027" y2="275" />
+                    <line x1="5" y1="275" x2="5" y2="150" />
 
 {% for logentry in monitoroutput.markers %}
                     <line {{ logentry|safe }} />

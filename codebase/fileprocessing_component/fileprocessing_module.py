@@ -123,3 +123,21 @@ def savemonitor(monitordata):
 
 	FileSystem.writetodisk(filename, [monitordata], appendflag)
 
+
+
+def getmonitor(filenamelist):
+
+	Logging.printout("Loading Recent Deluge Monitor History")
+	outcome = []
+
+	for filenameitem in filenamelist:
+		filename = './data/monitor-' + filenameitem + '.db'
+
+		if FileSystem.doesexist(filename) == True:
+			loggingitems = FileSystem.readfromdisk(filename)
+			outcome.extend(loggingitems)
+
+	return outcome
+
+
+
