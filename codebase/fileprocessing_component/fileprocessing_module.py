@@ -127,6 +127,7 @@ def savemonitor(monitordata):
 
 def getmonitor(filenamelist):
 
+	Logging.printout("Loading Recent Deluge Monitor History")
 	outcome = []
 
 	for filenameitem in filenamelist:
