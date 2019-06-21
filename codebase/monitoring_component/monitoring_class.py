@@ -106,7 +106,6 @@ class DefineMonitor:
 	def restorehistory(self, saveddatalist):
 
 		for dataitem in saveddatalist:
-			print(dataitem)
 			self.monitorhistory.append(HistoryItem.createfromfile(dataitem))
 
 
