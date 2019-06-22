@@ -17,11 +17,11 @@ def createfromfile(monitordata):
 	sessiondata['ambercount'] = int(dataarray[4])
 	sessiondata['yellowcount'] = int(dataarray[3])
 	sessiondata['greencount'] = int(dataarray[2])
-	vs = 0
+	vpnstatus = 0
 	if len(dataarray) > 7:
-		if dataarray == "1":
-			vs = 1
+		if dataarray[7] == "1":
+			vpnstatus = 1
 
-	return HistoryItemClass.DefineItem(DateTime.createfromiso(dataarray[0]), sessiondata, vs)
+	return HistoryItemClass.DefineItem(DateTime.createfromiso(dataarray[0]), sessiondata, vpnstatus)
 
 

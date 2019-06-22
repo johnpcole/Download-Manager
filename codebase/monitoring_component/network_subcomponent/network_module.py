@@ -10,5 +10,6 @@ def getvpnstatus():
 			splitdata = logrow.split(": flags=")
 			if splitdata[0] == "tun0":
 				outcome = 1
+	print("checked vpn status: ", outcome)
 	return outcome
 
