@@ -8,7 +8,7 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 class DefineItem:
 
-	def __init__(self, datetime, sessiondata):
+	def __init__(self, datetime, sessiondata, vpnstatus):
 
 		self.datetime = datetime
 		self.uploaded = sessiondata['uploadedtotal']
@@ -17,7 +17,7 @@ class DefineItem:
 		self.amber = sessiondata['ambercount']
 		self.yellow = sessiondata['yellowcount']
 		self.green = sessiondata['greencount']
-
+		self.vpnstatus = vpnstatus
 
 
 	def getdatetime(self):
@@ -27,6 +27,7 @@ class DefineItem:
 	def getuploaded(self):
 
 		return self.uploaded
+
 
 
 
@@ -47,7 +48,8 @@ class DefineItem:
 	def getsavedata(self):
 
 		outcome = self.datetime.getiso() + "|" + str(self.uploaded) + "|" + str(self.green) + "|"
-		outcome = outcome + str(self.yellow) + "|" + str(self.amber) + "|" + str(self.orange) + "|" + str(self.red)
+		outcome = outcome + str(self.yellow) + "|" + str(self.amber) + "|" + str(self.orange) + "|"
+		outcome = outcome + str(self.red) + "|" + str(self.vpnstatus)
 		return outcome
 
 
@@ -59,6 +61,12 @@ class DefineItem:
 		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
 		if horizontalinstruction > 0:
 			hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
+
+			if self.vpnstatus != 1:
+				instruction = 'fill="#FF0000" ' + 'x="' + str(hor - 1) + '" y="' + str(verticaloffset - 120)
+				instruction = instruction + '" width="' + str(boxwidth + 2) + '" height="127"'
+				outcome.append(instruction)
+
 			colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
 			#colourlist = {"1#CC0000": 4, "2#FF6600": 4, "3#FFBB11": 4, "4#EEEE11": 4, "5#00CC00": 4}
 			for colour in sorted(colourlist.keys()):
@@ -69,6 +77,7 @@ class DefineItem:
 						if ver > 5:
 							outcome.append(instruction)
 							ver = ver - boxheight - 1
+
 
 		return outcome
 

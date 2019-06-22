@@ -65,7 +65,11 @@ a.tile:hover {
     background-color: #000000;
 }
 
-.file_video_copy, .file_video_ignore {
+.indexbanner_bad {
+    background-color: #FF0000;
+}
+
+.file_video_copy, .file_video_ignore, .indexbanner_good {
     background-color: #7D7D00;
 }
 
@@ -208,4 +212,10 @@ div.indexbannercontent {
     #IndexBanner {
         height: 72px;
     }
+}
+
+#FixedIndexBanner {
+    position: relative;
+    width: 1018px;
+    height: 72px;
 }

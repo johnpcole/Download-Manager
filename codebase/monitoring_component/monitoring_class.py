@@ -3,6 +3,7 @@ from .sessiondatameters_subcomponent import sessiondatameters_module as SessionD
 from .historyitem_subcomponent import historyitem_module as HistoryItem
 from ..common_components.datetime_datatypes import datetime_module as DateTime
 from . import monitoring_privatefunctions as Functions
+from .network_subcomponent import network_module as Network
 
 
 
@@ -16,10 +17,12 @@ class DefineMonitor:
 		# An array of historic monitor history
 		self.monitorhistory = []
 
+		self.networkstatus = 0
+
 		# Defines the granularity of display of monitor data
 		self.erasize = 4 # Ten minute intervals
 		self.boxwidth = 3
-		self.horizontaloffset = 3
+		self.horizontaloffset = 5
 		self.verticaloffset = 123
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
@@ -28,6 +31,7 @@ class DefineMonitor:
 	def refreshsessionmeters(self, sessiondata):
 
 		self.sessionmeters.updatesessiondata(sessiondata, PiThermometer.gettemperature())
+		self.networkstatus = Network.getvpnstatus()
 
 # =========================================================================================
 # Generates an array of stat numerics, required to draw the meter graphs
@@ -35,13 +39,23 @@ class DefineMonitor:
 
 	def getsessionmeters(self):
 
-		return self.sessionmeters.getstats()
+		outcome = self.sessionmeters.getstats()
+		if self.networkstatus == 1:
+			outcome['networkstatus'] = "indexbanner_good"
+		else:
+			outcome['networkstatus'] = "indexbanner_bad"
+		return outcome
 
 # =========================================================================================
 
 	def addhistoryentry(self, monitordata):
 
-		self.monitorhistory.append(HistoryItem.createhistoryitem(DateTime.getnow(), monitordata))
+		currentdatetime = DateTime.getnow()
+		self.monitorhistory.append(HistoryItem.createhistoryitem(currentdatetime, monitordata, Network.getvpnstatus()))
+		if currentdatetime.gettimevalue() < 600:
+			print("Before clean up: ", len(self.monitorhistory))
+			self.clearuphistory(currentdatetime)
+			print("After clean up: ", len(self.monitorhistory))
 
 # =========================================================================================
 
@@ -74,7 +88,7 @@ class DefineMonitor:
 			outcome = latesthistoryitem.getsavedata()
 
 		else:
-			outcome = "0|0|0|0|0|0|0"
+			outcome = "0|0|0|0|0|0|0|True"
 
 		return outcome
 
@@ -113,6 +127,18 @@ class DefineMonitor:
 		return outcome
 
 
+
+
+	def clearuphistory(self, currentdatetime):
+
+		threshold = DateTime.createfromobject(currentdatetime)
+		threshold.adjustdays(-5)
+		newhistorylist = []
+		for historyitem in self.monitorhistory:
+			if DateTime.isfirstlaterthansecond(historyitem.getdatetime(), threshold) == True:
+				newhistorylist.append(historyitem)
+
+		self.monitorhistory = newhistorylist.copy()
 
 
 
