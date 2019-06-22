@@ -17,6 +17,8 @@ class DefineMonitor:
 		# An array of historic monitor history
 		self.monitorhistory = []
 
+		self.networkstatus = 0
+
 		# Defines the granularity of display of monitor data
 		self.erasize = 4 # Ten minute intervals
 		self.boxwidth = 3
@@ -29,6 +31,7 @@ class DefineMonitor:
 	def refreshsessionmeters(self, sessiondata):
 
 		self.sessionmeters.updatesessiondata(sessiondata, PiThermometer.gettemperature())
+		self.networkstatus = Network.getvpnstatus()
 
 # =========================================================================================
 # Generates an array of stat numerics, required to draw the meter graphs
@@ -36,7 +39,9 @@ class DefineMonitor:
 
 	def getsessionmeters(self):
 
-		return self.sessionmeters.getstats()
+		outcome = self.sessionmeters.getstats()
+		outcome['networkstatus'] = str(self.networkstatus)
+		return outcome
 
 # =========================================================================================
 

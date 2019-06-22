@@ -18,7 +18,6 @@ class DefineItem:
 		self.yellow = sessiondata['yellowcount']
 		self.green = sessiondata['greencount']
 		self.vpnstatus = vpnstatus
-		print("Creating history item with vpn status: ", self.vpnstatus)
 
 
 	def getdatetime(self):
@@ -28,6 +27,7 @@ class DefineItem:
 	def getuploaded(self):
 
 		return self.uploaded
+
 
 
 
