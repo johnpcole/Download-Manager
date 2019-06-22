@@ -213,3 +213,9 @@ div.indexbannercontent {
         height: 72px;
     }
 }
+
+#FixedIndexBanner {
+    position: relative;
+    width: 1018px;
+    height: 72px;
+}
