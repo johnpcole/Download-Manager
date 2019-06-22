@@ -3,12 +3,8 @@ from ...common_components.datetime_datatypes import datetime_module as DateTime
 
 
 def createhistoryitem(datetime, sessiondata, vpnstatus):
-	if vpnstatus == True:
-		vs = 1
-	else:
-		vs = 0
 
-	return HistoryItemClass.DefineItem(datetime, sessiondata, vs)
+	return HistoryItemClass.DefineItem(datetime, sessiondata, vpnstatus)
 
 
 

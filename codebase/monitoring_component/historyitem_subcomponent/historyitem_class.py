@@ -63,7 +63,6 @@ class DefineItem:
 			hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
 
 			if self.vpnstatus != 1:
-				print(verticaloffset, 3)
 				instruction = 'fill="#FF0000" ' + 'x="' + str(hor - 1) + '" y="' + str(verticaloffset - 120)
 				instruction = instruction + '" width="' + str(boxwidth + 2) + '" height="127"'
 				outcome.append(instruction)
