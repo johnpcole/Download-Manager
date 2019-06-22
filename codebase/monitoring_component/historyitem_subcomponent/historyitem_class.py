@@ -8,7 +8,7 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 class DefineItem:
 
-	def __init__(self, datetime, sessiondata):
+	def __init__(self, datetime, sessiondata, vpnstatus):
 
 		self.datetime = datetime
 		self.uploaded = sessiondata['uploadedtotal']
@@ -17,6 +17,7 @@ class DefineItem:
 		self.amber = sessiondata['ambercount']
 		self.yellow = sessiondata['yellowcount']
 		self.green = sessiondata['greencount']
+		self.vpnstatus = vpnstatus
 
 
 
@@ -47,7 +48,8 @@ class DefineItem:
 	def getsavedata(self):
 
 		outcome = self.datetime.getiso() + "|" + str(self.uploaded) + "|" + str(self.green) + "|"
-		outcome = outcome + str(self.yellow) + "|" + str(self.amber) + "|" + str(self.orange) + "|" + str(self.red)
+		outcome = outcome + str(self.yellow) + "|" + str(self.amber) + "|" + str(self.orange) + "|"
+		outcome = outcome + str(self.red) + "|" + self.vpnstatus
 		return outcome
 
 
@@ -69,6 +71,11 @@ class DefineItem:
 						if ver > 5:
 							outcome.append(instruction)
 							ver = ver - boxheight - 1
+
+			if self.vpnstatus != True:
+				instruction = 'fill="#FF0000" ' + 'x="' + str(hor + (boxwidth/2.0) - 0.5) + '" y="' + str(verticaloffset)
+				instruction = instruction + '" width="' + str(1) + '" height="120"'
+				outcome.append(instruction)
 
 		return outcome
 

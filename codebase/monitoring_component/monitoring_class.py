@@ -3,6 +3,7 @@ from .sessiondatameters_subcomponent import sessiondatameters_module as SessionD
 from .historyitem_subcomponent import historyitem_module as HistoryItem
 from ..common_components.datetime_datatypes import datetime_module as DateTime
 from . import monitoring_privatefunctions as Functions
+from .network_subcomponent import network_module as Network
 
 
 
@@ -42,7 +43,7 @@ class DefineMonitor:
 	def addhistoryentry(self, monitordata):
 
 		currentdatetime = DateTime.getnow()
-		self.monitorhistory.append(HistoryItem.createhistoryitem(currentdatetime, monitordata))
+		self.monitorhistory.append(HistoryItem.createhistoryitem(currentdatetime, monitordata, Network.getvpnstatus()))
 		if currentdatetime.gettimevalue() < 600:
 			print("Before clean up: ", len(self.monitorhistory))
 			self.clearuphistory(currentdatetime)
@@ -79,7 +80,7 @@ class DefineMonitor:
 			outcome = latesthistoryitem.getsavedata()
 
 		else:
-			outcome = "0|0|0|0|0|0|0"
+			outcome = "0|0|0|0|0|0|0|True"
 
 		return outcome
 
