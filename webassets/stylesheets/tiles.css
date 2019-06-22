@@ -65,7 +65,11 @@ a.tile:hover {
     background-color: #000000;
 }
 
-.file_video_copy, .file_video_ignore {
+.indexbanner_bad {
+    background-color: #FF0000
+}
+
+.file_video_copy, .file_video_ignore, .indexbanner_good {
     background-color: #7D7D00;
 }
 
