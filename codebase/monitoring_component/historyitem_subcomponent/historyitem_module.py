@@ -3,7 +3,12 @@ from ...common_components.datetime_datatypes import datetime_module as DateTime
 
 
 def createhistoryitem(datetime, sessiondata, vpnstatus):
-	return HistoryItemClass.DefineItem(datetime, sessiondata, vpnstatus)
+	if vpnstatus == True:
+		vs = 1
+	else:
+		vs = 0
+
+	return HistoryItemClass.DefineItem(datetime, sessiondata, vs)
 
 
 
@@ -16,10 +21,11 @@ def createfromfile(monitordata):
 	sessiondata['ambercount'] = int(dataarray[4])
 	sessiondata['yellowcount'] = int(dataarray[3])
 	sessiondata['greencount'] = int(dataarray[2])
+	vs = 0
 	if len(dataarray) > 7:
-		vpnstatus = dataarray[7]
-	else:
-		vpnstatus = False
-	return HistoryItemClass.DefineItem(DateTime.createfromiso(dataarray[0]), sessiondata, vpnstatus)
+		if dataarray == "1":
+			vs = 1
+
+	return HistoryItemClass.DefineItem(DateTime.createfromiso(dataarray[0]), sessiondata, vs)
 
 

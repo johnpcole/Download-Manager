@@ -49,7 +49,7 @@ class DefineItem:
 
 		outcome = self.datetime.getiso() + "|" + str(self.uploaded) + "|" + str(self.green) + "|"
 		outcome = outcome + str(self.yellow) + "|" + str(self.amber) + "|" + str(self.orange) + "|"
-		outcome = outcome + str(self.red) + "|" + self.vpnstatus
+		outcome = outcome + str(self.red) + "|" + str(self.vpnstatus)
 		return outcome
 
 
@@ -61,6 +61,12 @@ class DefineItem:
 		horizontalinstruction = EraFunctions.geteradifference(origintimeobject, self.datetime, erasize)
 		if horizontalinstruction > 0:
 			hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
+
+			if self.vpnstatus != 1:
+				instruction = 'fill="FF0000" ' + 'x="' + str(hor - 0.5) + '" y="' + str(verticaloffset - 130)
+				instruction = instruction + '" width="' + str(boxwidth + 1) + '" height="125"'
+				outcome.append(instruction)
+
 			colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
 			#colourlist = {"1#CC0000": 4, "2#FF6600": 4, "3#FFBB11": 4, "4#EEEE11": 4, "5#00CC00": 4}
 			for colour in sorted(colourlist.keys()):
@@ -72,10 +78,6 @@ class DefineItem:
 							outcome.append(instruction)
 							ver = ver - boxheight - 1
 
-			if self.vpnstatus != True:
-				instruction = 'fill="none" ' + 'x="' + str(hor) + '" y="' + str(verticaloffset - 125)
-				instruction = instruction + '" width="' + str(boxwidth) + '" height="125" stroke="#FF0000" stroke-width="1"'
-				outcome.append(instruction)
 
 		return outcome
 
