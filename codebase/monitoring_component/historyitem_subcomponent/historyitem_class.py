@@ -63,8 +63,9 @@ class DefineItem:
 			hor = horizontaloffset + (horizontalinstruction * (boxwidth + 1))
 
 			if self.vpnstatus != 1:
-				instruction = 'fill="FF0000" ' + 'x="' + str(hor - 0.5) + '" y="' + str(verticaloffset - 130)
-				instruction = instruction + '" width="' + str(boxwidth + 1) + '" height="125"'
+				print(verticaloffset, 3)
+				instruction = 'fill="#FF0000" ' + 'x="' + str(hor - 1) + '" y="' + str(verticaloffset - 130)
+				instruction = instruction + '" width="' + str(boxwidth + 2) + '" height="127"'
 				outcome.append(instruction)
 
 			colourlist = {"1#CC0000": self.red, "2#FF6600": self.orange, "3#FFBB11": self.amber, "4#EEEE11": self.yellow, "5#00CC00": self.green}
