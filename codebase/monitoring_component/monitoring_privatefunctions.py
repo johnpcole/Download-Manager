@@ -29,11 +29,13 @@ def getxaxis(nowtimedate, erasize, boxwidth, horizontaloffset, verticaloffset):
 
 			if (currentmarker.gettimevalue() % 10800) == 0:
 				textstyle = 'graphtext" '
+				vertalign = bottom + 12
 			else:
 				textstyle = 'littlegraphtext" '
-			instruction = textstyle + 'x="' + str(markerposition) + '" y="' + str(bottom + 12) + '" >' + EraFunctions.geteralabel(currentmarker, erasize)
+				vertalign = bottom + 10
+			instruction = textstyle + 'x="' + str(markerposition) + '" y="' + str(vertalign) + '" >' + EraFunctions.geteralabel(currentmarker, erasize)
 			labelsoutcome.append(instruction)
-			instruction = textstyle + 'x="' + str(markerposition) + '" y="' + str(bottom + 12 + 145) + '" >' + EraFunctions.geteralabel(currentmarker, erasize)
+			instruction = textstyle + 'x="' + str(markerposition) + '" y="' + str(vertalign + 145) + '" >' + EraFunctions.geteralabel(currentmarker, erasize)
 			labelsoutcome.append(instruction)
 
 	return {"markers": markersoutcome, "labels": labelsoutcome}
