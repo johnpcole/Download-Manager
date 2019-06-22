@@ -40,7 +40,10 @@ class DefineMonitor:
 	def getsessionmeters(self):
 
 		outcome = self.sessionmeters.getstats()
-		outcome['networkstatus'] = str(self.networkstatus)
+		if self.networkstatus == 1:
+			outcome['networkstatus'] = "indexbanner_good"
+		else:
+			outcome['networkstatus'] = "indexbanner_bad"
 		return outcome
 
 # =========================================================================================
