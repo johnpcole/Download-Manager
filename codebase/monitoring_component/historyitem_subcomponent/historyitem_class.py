@@ -73,8 +73,8 @@ class DefineItem:
 							ver = ver - boxheight - 1
 
 			if self.vpnstatus != True:
-				instruction = 'fill="#FF0000" ' + 'x="' + str(hor + (boxwidth/2.0) - 0.5) + '" y="' + str(verticaloffset)
-				instruction = instruction + '" width="' + str(1) + '" height="120"'
+				instruction = 'fill="none" ' + 'x="' + str(hor) + '" y="' + str(verticaloffset - 125)
+				instruction = instruction + '" width="' + str(boxwidth) + '" height="125" stroke="#FF0000" stroke-width="1"'
 				outcome.append(instruction)
 
 		return outcome
