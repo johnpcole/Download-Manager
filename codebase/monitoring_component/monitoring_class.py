@@ -22,7 +22,7 @@ class DefineMonitor:
 		# Defines the granularity of display of monitor data
 		self.erasize = 4 # Ten minute intervals
 		self.boxwidth = 3
-		self.horizontaloffset = 3
+		self.horizontaloffset = 5
 		self.verticaloffset = 123
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
