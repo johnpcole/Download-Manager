@@ -82,3 +82,9 @@ tr.restart {
 }
 
 tr:hover {color:#000000;}
+
+div.monitor {
+  width: 1018px;
+  margin-left:auto;
+  margin-right:auto;
+}
