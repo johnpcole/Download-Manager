@@ -11,6 +11,8 @@
 {% from 'icons.html' import storagetemplate %}
 {% from 'icons.html' import connectivitytemplate %}
 
+{% block bodycontext %}{% endblock %}
+
 
 <!-- ------------------------------------------------------------------------------------------------ -->
 
@@ -151,6 +153,10 @@ Start-All-Button
 Rescan-File-Server-Button
 
         {{ buttontemplate("RescanFileServer", "updateTorrentsList('RescanFileServer')", "folder_refresh", "rescan fileserver") }}
+
+Monitor-Button
+
+        {{ buttontemplate("ViewLogs", "window.location.href = '/Monitor'", "monitoring", "view monitor") }}
 
 Logs-Button
 
