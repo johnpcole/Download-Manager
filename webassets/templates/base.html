@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dialogs.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/logs_table.css') }}" />
     </head>
-    <body><!--
+    <body{% block bodycontext %}{% endblock %}><!--
 
         {% block banner %}{% endblock %}
 

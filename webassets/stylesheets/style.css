@@ -13,6 +13,10 @@ body {
     }
 }
 
+body.fixed {
+    width: 1054px;
+}
+
 span {
     margin: 0;
     padding: 0;
