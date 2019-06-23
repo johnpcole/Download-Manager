@@ -17,7 +17,7 @@ def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firsttop, sec
 	linesoutcome.append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
 
 	#vertical markers
-	for indexer in [0, 30, 60, 90]:
+	for indexer in [31, 61, 91, 121]:
 		linesoutcome.append(printline(horizontaloffset, firsttop - indexer, 2, 0))
 		linesoutcome.append(printline(horizontaloffset, secondtop - indexer, 2, 0))
 

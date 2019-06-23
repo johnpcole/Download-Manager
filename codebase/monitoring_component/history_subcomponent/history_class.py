@@ -18,9 +18,10 @@ class DefineHistory:
 		self.graphcolumnwidth = 3
 		self.graphhorizontaloffset = 5
 		self.graphupperverticaloffset = 130
-		self.graphlowerverticaloffset = 130 + 160
+		self.graphlowerverticaloffset = 275
 		self.graphwidth = 1020
 		self.graphheight = 125
+		self.graphblockheight = 5
 
 # =========================================================================================
 
