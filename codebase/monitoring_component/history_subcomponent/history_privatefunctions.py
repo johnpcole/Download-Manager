@@ -69,10 +69,10 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 
 			if historyitem.getuploaded() > 0:
 				barheight = calculatebarheight(graphheight - 5, historyitem.getuploaded())
-				print("barheight", barheight)
+				print(historyitem.getuploaded(), "barheight", barheight)
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 
-			if historyitem.getvpnstatus() != 10:
+			if historyitem.getvpnstatus() != 1:
 				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
 
 
