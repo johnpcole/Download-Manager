@@ -26,7 +26,7 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, 
 	markerposition = 0
 	while markerposition < 1000:
 		currentmarker.adjusthours(1)
-		markerposition = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, currentmarker, erasize)
+		markerposition = 1 + calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, currentmarker, erasize)
 		if markerposition >= horizontaloffset + 2:
 
 			if (currentmarker.gettimevalue() % 10800) == 0:
