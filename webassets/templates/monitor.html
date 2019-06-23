@@ -49,9 +49,16 @@ Banner Content
                 </style>
 
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0">
-                    <rect height="298" width="1030" x="0" y="0" fill="#333333"/>
+                    <rect height="318" width="1050" x="-10" y="-10" fill="#333333"/>
+                </g>
+                <g stroke-linecap="round" stroke="#DDDDDD" stroke-width="1">
+{% for logentry in monitoroutput.axeslines %}
+                    <line x1="{{ logentry.xa }}" y1="{{ logentry.ya }}" x2="{{ logentry.xb }}" y2="{{ logentry.yb }}" />
+{% endfor %}
+                </g>
+<!--
 {% for logentry in monitoroutput.boxes %}
-                    <rect {{ logentry|safe }} />
+                    <rect fill="{{ logentry.c }}" x="{{ logentry.x }}" y="{{ logentry.y }}" width="{{ logentry.w }}" height="{{ logentry.h }}" />
 {% endfor %}
                 </g>
 
@@ -85,7 +92,7 @@ Banner Content
 {% for logentry in monitoroutput.labels %}
                 <text text-anchor="middle" class="{{ logentry|safe }}</text>
 {% endfor %}
-
+-->
             </svg>
         </div><!--
 
