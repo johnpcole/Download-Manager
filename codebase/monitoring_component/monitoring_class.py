@@ -46,7 +46,7 @@ class DefineMonitor:
 
 	def addtohistory(self, monitordata):
 
-		self.monitorhistory.addhistoryentry(monitordata, Network.getvpnstatus())
+		return self.monitorhistory.addhistoryentry(monitordata, Network.getvpnstatus())
 
 # =========================================================================================
 
