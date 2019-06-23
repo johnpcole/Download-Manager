@@ -51,6 +51,23 @@ Banner Content
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0">
                     <rect height="318" width="1050" x="-10" y="-10" fill="#333333"/>
                 </g>
+                <g stroke-linecap="round" stroke="#EEEE00" stroke-width="1">
+                    <line x1="5" y1="99" x2="7" y2="99" />
+                    <line x1="5" y1="69" x2="7" y2="69" />
+                    <line x1="5" y1="39" x2="7" y2="39" />
+                    <line x1="5" y1="9" x2="7" y2="9" />
+
+                    <line x1="5" y1="130" x2="1025" y2="130" />
+                    <line x1="7" y1="130" x2="7" y2="5" />
+
+                    <line x1="5" y1="244" x2="7" y2="244" />
+                    <line x1="5" y1="214" x2="7" y2="214" />
+                    <line x1="5" y1="184" x2="7" y2="184" />
+                    <line x1="5" y1="154" x2="7" y2="154" />
+
+                    <line x1="5" y1="275" x2="1025" y2="275" />
+                    <line x1="7" y1="275" x2="7" y2="150" />
+                </g>
                 <g stroke-linecap="round" stroke="#DDDDDD" stroke-width="1">
 {% for logentry in monitoroutput.axeslines %}
                     <line x1="{{ logentry.xa }}" y1="{{ logentry.ya }}" x2="{{ logentry.xb }}" y2="{{ logentry.yb }}" />
@@ -68,22 +85,6 @@ Banner Content
 {% endfor %}
                 </g>
 -->
-                <g stroke-linecap="round" stroke="#00EEEE" stroke-width="1">
-                    <line x1="5" y1="99" x2="7" y2="99" />
-                    <line x1="5" y1="69" x2="7" y2="69" />
-                    <line x1="5" y1="39" x2="7" y2="39" />
-                    <line x1="5" y1="9" x2="7" y2="9" />
-
-                    <line x1="5" y1="130" x2="1025" y2="130" />
-                    <line x1="7" y1="130" x2="7" y2="5" />
-
-                    <line x1="5" y1="244" x2="7" y2="244" />
-                    <line x1="5" y1="214" x2="7" y2="214" />
-                    <line x1="5" y1="184" x2="7" y2="184" />
-                    <line x1="5" y1="154" x2="7" y2="154" />
-
-                    <line x1="5" y1="275" x2="1025" y2="275" />
-                    <line x1="7" y1="275" x2="7" y2="150" />
 <!--
 {% for logentry in monitoroutput.markers %}
                     <line {{ logentry|safe }} />
