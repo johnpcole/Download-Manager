@@ -50,6 +50,7 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, 
 def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history, boxheight):
 
 	outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": []}
+	previousuploaded = 0
 
 	for historyitem in history:
 
@@ -61,16 +62,17 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 			blockcount = 0
 			for colourkey in sorted(statusdata.keys()):
 				if statusdata[colourkey] > 0:
-					for indexer in range(0, 30): #statusdata[colourkey]):
+					for indexer in range(0, statusdata[colourkey]):
 						instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
 						blockcount = blockcount + 1
 						if blockcount < 21:
 							outcome[colourkey[2:]].append(instruction)
 
-			if historyitem.getuploaded() > 0:
-				barheight = calculatebarheight(graphheight - 5, historyitem.getuploaded())
-				print(historyitem.getuploaded(), "barheight", barheight)
+			uploadeddelta = historyitem.getuploaded() - previousuploaded
+			if uploadeddelta > 0:
+				barheight = calculatebarheight(graphheight - 5, uploadeddelta)
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
+			previousuploaded = historyitem.getuploaded()
 
 			if historyitem.getvpnstatus() != 1:
 				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
