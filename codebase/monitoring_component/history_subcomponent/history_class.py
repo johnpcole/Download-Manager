@@ -48,8 +48,8 @@ class DefineHistory:
 		origintimedate = DateTime.getnow()
 		origintimedate.adjusthours(-42)
 		outcome.update(Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
-							self.graphhorizontaloffset, self.graphupperverticaloffset, self.graphlowerverticaloffset,
-							self.graphwidth, self.graphheight))
+												self.graphhorizontaloffset, self.graphupperverticaloffset,
+												self.graphlowerverticaloffset, self.graphwidth, self.graphheight))
 
 #		boxoutcome = []
 #		baroutcome = []

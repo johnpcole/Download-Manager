@@ -21,27 +21,27 @@ def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firsttop, sec
 		linesoutcome.append(printline(horizontaloffset, firsttop - indexer, 2, 0))
 		linesoutcome.append(printline(horizontaloffset, secondtop - indexer, 2, 0))
 
+	#horizontal markers
 
+	currentmarker = EraFunctions.geteraasobject(nowtimedate, 5)
+	currentmarker.adjusthours(-1)
+	markerposition = 0
+	while markerposition < 1000:
+		currentmarker.adjusthours(1)
+		markerposition = calculatecolumnposition(boxwidth, horizontaloffset, nowtimedate, currentmarker, erasize)
+		if markerposition >= horizontaloffset:
 
-	# currentmarker = EraFunctions.geteraasobject(nowtimedate, 5)
-	# currentmarker.adjusthours(-1)
-	# markerposition = 0
-	# while markerposition < 1000:
-	# 	currentmarker.adjusthours(1)
-	# 	markerposition = calculatecolumnposition(boxwidth, horizontaloffset, nowtimedate, currentmarker, erasize)
-	# 	if markerposition >= horizontaloffset:
-	#
-	# 		if (currentmarker.gettimevalue() % 10800) == 0:
-	# 			markerheight = 4
-	# 			biglabelsoutcome.append(printtext(markerposition, firsttop + 16, EraFunctions.geteralabel(currentmarker, erasize)))
-	# 			biglabelsoutcome.append(printtext(markerposition, secondtop + 16, EraFunctions.geteralabel(currentmarker, erasize)))
-	# 		else:
-	# 			markerheight = 2
-	# 			littlelabelsoutcome.append(printtext(markerposition, firsttop + 12, EraFunctions.geteralabel(currentmarker, erasize)))
-	# 			littlelabelsoutcome.append(printtext(markerposition, secondtop + 12, EraFunctions.geteralabel(currentmarker, erasize)))
-	#
-	# 		markersoutcome.append(printline(markerposition, firsttop, 0, markerheight))
-	# 		markersoutcome.append(printline(markerposition, secondtop , 0, markerheight))
+			if (currentmarker.gettimevalue() % 10800) == 0:
+				markerheight = 4
+				biglabelsoutcome.append(printtext(markerposition, firsttop + 16, EraFunctions.geteralabel(currentmarker, erasize)))
+				biglabelsoutcome.append(printtext(markerposition, secondtop + 16, EraFunctions.geteralabel(currentmarker, erasize)))
+			else:
+				markerheight = 2
+				littlelabelsoutcome.append(printtext(markerposition, firsttop + 12, EraFunctions.geteralabel(currentmarker, erasize)))
+				littlelabelsoutcome.append(printtext(markerposition, secondtop + 12, EraFunctions.geteralabel(currentmarker, erasize)))
+
+			linesoutcome.append(printline(markerposition, firsttop, 0, markerheight))
+			linesoutcome.append(printline(markerposition, secondtop, 0, markerheight))
 
 	return {"axeslines": linesoutcome, "biglabels": biglabelsoutcome, "littlelabels": littlelabelsoutcome}
 
