@@ -47,7 +47,7 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, 
 	return outcome
 
 
-def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight, history, boxheight):
+def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history, boxheight):
 
 	outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": []}
 
@@ -58,14 +58,18 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 		if column >= horizontaloffset + 2:
 
 			statusdata = historyitem.getgraphdata()
-			statusdata = {'1_red': 4, '2_orange': 4, '3_amber': 4, '4_yellow': 4, '5_green': 4}
 			blockcount = 0
 			for colourkey in sorted(statusdata.keys()):
 				if statusdata[colourkey] > 0:
 					for indexer in range(0, statusdata[colourkey]):
 						instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
 						blockcount = blockcount + 1
-						outcome[colourkey[2:]].append(instruction)
+						if blockcount < 21:
+							outcome[colourkey[2:]].append(instruction)
+
+		if historyitem.getuploaded() > 0:
+			barheight = calculatebarheight(graphheight, historyitem.getuploaded())
+			outcome['blue'].append(printrectangle(column, secondtop, boxwidth, barheight - 5))
 
 	return outcome
 
@@ -97,9 +101,14 @@ def printtext(x, y, t):
 	return outcome
 
 def calculatecolumnposition(boxwidth, horizontaloffset, origindatetime, bardatetime, erasize):
-
 	return ((boxwidth + 1) * EraFunctions.geteradifference(origindatetime, bardatetime, erasize)) + horizontaloffset
 
 def calculaterowposition(boxheight, verticaloffset, previousboxes):
-
 	return verticaloffset - ((boxheight + 1) * (previousboxes + 1)) - 1
+
+def calculatebarheight(graphheight, dataamount):
+	if dataamount > 1000000000:
+		limiteddata = 1000000000
+	else:
+		limiteddata = dataamount
+	return  (graphheight * limiteddata) / 1000000000
