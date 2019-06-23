@@ -16,6 +16,12 @@ def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firsttop, sec
 	linesoutcome.append(printline(horizontaloffset + 2, firsttop, 0, 0 - graphheight))
 	linesoutcome.append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
 
+	#vertical markers
+	for indexer in [0, 30, 60, 90]:
+		linesoutcome.append(printline(horizontaloffset, indexer + firsttop, 2, 0))
+		linesoutcome.append(printline(horizontaloffset, indexer + secondtop, 2, 0))
+
+
 
 	# currentmarker = EraFunctions.geteraasobject(nowtimedate, 5)
 	# currentmarker.adjusthours(-1)
