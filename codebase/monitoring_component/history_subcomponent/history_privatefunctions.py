@@ -27,7 +27,7 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, 
 	while markerposition < 1000:
 		currentmarker.adjusthours(1)
 		markerposition = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, currentmarker, erasize)
-		if markerposition >= horizontaloffset:
+		if markerposition >= horizontaloffset + 2:
 
 			if (currentmarker.gettimevalue() % 10800) == 0:
 				markerheight = 4
@@ -53,17 +53,18 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
-		print("column position: ", column)
-		statusdata = historyitem.getgraphdata()
-		statusdata = {'1_red': 4, '2_orange': 4, '3_amber': 4, '4_yellow': 4, '5_green': 4}
-		print(statusdata)
-		blockcount = 0
-		for colourkey in sorted(statusdata.keys()):
-			if statusdata[colourkey] > 0:
-				for indexer in range(0, statusdata[colourkey]):
-					instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
-					blockcount = blockcount + 1
-					outcome[colourkey[2:]].append(instruction)
+
+		if column >= horizontaloffset + 2:
+
+			statusdata = historyitem.getgraphdata()
+			statusdata = {'1_red': 4, '2_orange': 4, '3_amber': 4, '4_yellow': 4, '5_green': 4}
+			blockcount = 0
+			for colourkey in sorted(statusdata.keys()):
+				if statusdata[colourkey] > 0:
+					for indexer in range(0, statusdata[colourkey]):
+						instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
+						blockcount = blockcount + 1
+						outcome[colourkey[2:]].append(instruction)
 
 	return outcome
 
