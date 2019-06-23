@@ -53,15 +53,16 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
-
+		print("column position: ", column)
 		statusdata = historyitem.getgraphdata()
+		print(statusdata)
 		blockcount = 0
-		for colour in sorted(statusdata.keys()):
-			if statusdata[colour] > 0:
-				for indexer in range(0, statusdata[colour]):
+		for colourkey in sorted(statusdata.keys()):
+			if statusdata[colourkey] > 0:
+				for indexer in range(0, statusdata[colourkey]):
 					instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
 					blockcount = blockcount + 1
-					outcome[colour[2:]].append(instruction)
+					outcome[colourkey[2:]].append(instruction)
 
 	return outcome
 
