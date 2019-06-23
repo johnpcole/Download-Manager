@@ -1,4 +1,4 @@
-from . import historyitem_class as HistoryClass
+from . import history_class as HistoryClass
 
 
 def createhistory():
