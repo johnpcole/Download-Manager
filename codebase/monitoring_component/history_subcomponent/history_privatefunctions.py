@@ -55,6 +55,7 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		print("column position: ", column)
 		statusdata = historyitem.getgraphdata()
+		statusdata = {'1_red': 5, '2_orange': 5, '3_amber': 5, '4_yellow': 5, '5_green': 5}
 		print(statusdata)
 		blockcount = 0
 		for colourkey in sorted(statusdata.keys()):
