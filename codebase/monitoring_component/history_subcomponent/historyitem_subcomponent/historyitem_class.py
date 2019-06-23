@@ -51,19 +51,19 @@ class DefineItem:
 	def getnewgraphdata(self):
 
 		outcome = []
-		if self.red > 0:
+		if self.red > -10:
 			for index in range(0, 3): #self.red):
 				outcome.append("red")
-		if self.orange > 0:
+		if self.orange > -10:
 			for index in range(0, 3): #, self.orange):
 				outcome.append("orange")
-		if self.amber > 0:
+		if self.amber > -10:
 			for index in range(0, 3): #, self.amber):
 				outcome.append("amber")
-		if self.yellow > 0:
+		if self.yellow > -10:
 			for index in range(0, 3): #, self.yellow):
 				outcome.append("yellow")
-		if self.green > 0:
+		if self.green > -10:
 			for index in range(0, 3): #, self.green):
 				outcome.append("green")
 		return outcome
