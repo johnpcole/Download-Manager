@@ -68,9 +68,9 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 							outcome[colourkey[2:]].append(instruction)
 
 			if historyitem.getuploaded() > 0:
-				barheight = calculatebarheight(graphheight - 5, historyitem.getuploaded())
-				barheight = calculatebarheight(graphheight - 5, 100000000000000)
-				outcome['blue'].append(printrectangle(column, secondtop - barheight, boxwidth, barheight))
+				barheight = calculatebarheight(graphheight, historyitem.getuploaded())
+				barheight = calculatebarheight(graphheight, 100000000000000)
+				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 
 	return outcome
 
