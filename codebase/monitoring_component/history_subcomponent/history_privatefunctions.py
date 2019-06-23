@@ -58,15 +58,20 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 
 		if column >= horizontaloffset + 2:
 
-			statusdata = historyitem.getgraphdata()
-			blockcount = 0
-			for colourkey in sorted(statusdata.keys()):
-				if statusdata[colourkey] > 0:
-					for indexer in range(0, statusdata[colourkey]):
-						instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
-						blockcount = blockcount + 1
-						if blockcount < 21:
-							outcome[colourkey[2:]].append(instruction)
+			rawdata = historyitem.getnewgraphdata()
+			for index in range(0, len(rawdata)):
+				if index < 21:
+					instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, index),
+																								boxwidth, boxheight)
+					outcome[rawdata[index]].append(instruction)
+#			blockcount = 0
+#			for colourkey in sorted(statusdata.keys()):
+#				if statusdata[colourkey] > 0:
+#					for indexer in range(0, statusdata[colourkey]):
+#						instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
+#						blockcount = blockcount + 1
+#						if blockcount < 21:
+#							outcome[colourkey[2:]].append(instruction)
 
 			uploadeddelta = historyitem.getuploaded() - previousuploaded
 			if uploadeddelta > 0:
@@ -76,8 +81,6 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 
 			if historyitem.getvpnstatus() != 1:
 				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
-
-
 
 	return outcome
 
