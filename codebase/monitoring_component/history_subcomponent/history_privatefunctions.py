@@ -73,7 +73,7 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 
 			if historyitem.getvpnstatus() != 10:
-				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight - 3, boxwidth + 2, graphheight - 2))
+				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
 
 
 
@@ -107,14 +107,16 @@ def printtext(x, y, t):
 	return outcome
 
 def calculatecolumnposition(boxwidth, horizontaloffset, origindatetime, bardatetime, erasize):
-	return ((boxwidth + 1) * EraFunctions.geteradifference(origindatetime, bardatetime, erasize)) + horizontaloffset
+	return (((boxwidth + 1) * EraFunctions.geteradifference(origindatetime, bardatetime, erasize)) + horizontaloffset)
 
 def calculaterowposition(boxheight, verticaloffset, previousboxes):
-	return verticaloffset - ((boxheight + 1) * (previousboxes + 1)) - 1
+	return (verticaloffset - ((boxheight + 1) * (previousboxes + 1)) - 1)
 
 def calculatebarheight(graphheight, dataamount):
 	if dataamount > 1000000000:
 		limiteddata = 1000000000
 	else:
 		limiteddata = dataamount
-	return  (graphheight * limiteddata) / 1000000000
+	return ((graphheight * limiteddata) / 1000000000)
+
+
