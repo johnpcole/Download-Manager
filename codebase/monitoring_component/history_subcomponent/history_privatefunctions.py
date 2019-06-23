@@ -57,8 +57,8 @@ def printline(x, y, w, h):
 	outcome = {}
 	outcome["xa"] = x
 	outcome["ya"] = y
-	outcome["xb"] = w - x
-	outcome["yb"] = h - y
+	outcome["xb"] = w + x
+	outcome["yb"] = h + y
 	return outcome
 
 def printtext(x, y, t):
