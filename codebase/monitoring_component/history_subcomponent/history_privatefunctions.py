@@ -55,7 +55,7 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		print("column position: ", column)
 		statusdata = historyitem.getgraphdata()
-		statusdata = {'1_red': 5, '2_orange': 5, '3_amber': 5, '4_yellow': 5, '5_green': 5}
+		statusdata = {'1_red': 4, '2_orange': 4, '3_amber': 4, '4_yellow': 4, '5_green': 4}
 		print(statusdata)
 		blockcount = 0
 		for colourkey in sorted(statusdata.keys()):
@@ -100,4 +100,4 @@ def calculatecolumnposition(boxwidth, horizontaloffset, origindatetime, bardatet
 
 def calculaterowposition(boxheight, verticaloffset, previousboxes):
 
-	return verticaloffset - ((boxheight + 1) * previousboxes) - 1
+	return verticaloffset - ((boxheight + 1) * (previousboxes + 1)) + 1
