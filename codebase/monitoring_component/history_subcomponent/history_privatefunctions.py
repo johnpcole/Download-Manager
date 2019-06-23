@@ -23,11 +23,12 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, 
 
 	currentmarker = EraFunctions.geteraasobject(origintimedate, 5)
 	currentmarker.adjusthours(-1)
-	markerposition = 0
-	while markerposition < 1000:
+	column = 0
+	hoffset = horizontaloffset + (boxwidth / 2.0)
+	while column < 1000:
 		currentmarker.adjusthours(1)
-		markerposition = 1 + calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, currentmarker, erasize)
-		if markerposition >= horizontaloffset + 2:
+		column = 1 + calculatecolumnposition(boxwidth, hoffset, origintimedate, currentmarker, erasize)
+		if column >= horizontaloffset + 2:
 
 			if (currentmarker.gettimevalue() % 10800) == 0:
 				markerheight = 4
@@ -38,10 +39,10 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, 
 				texttype = "littlelabels"
 				textoffset = 12
 
-			outcome[texttype].append(printtext(markerposition, firsttop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome[texttype].append(printtext(markerposition, secondtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome["axeslines"].append(printline(markerposition, firsttop, 0, markerheight))
-			outcome["axeslines"].append(printline(markerposition, secondtop, 0, markerheight))
+			outcome[texttype].append(printtext(column, firsttop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
+			outcome[texttype].append(printtext(column, secondtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
+			outcome["axeslines"].append(printline(column, firsttop, 0, markerheight))
+			outcome["axeslines"].append(printline(column, secondtop, 0, markerheight))
 
 	return outcome
 
