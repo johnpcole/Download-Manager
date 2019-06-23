@@ -100,4 +100,4 @@ def calculatecolumnposition(boxwidth, horizontaloffset, origindatetime, bardatet
 
 def calculaterowposition(boxheight, verticaloffset, previousboxes):
 
-	return ((boxheight + 1) * previousboxes) + verticaloffset
+	return verticaloffset - ((boxheight + 1) * previousboxes) - 1
