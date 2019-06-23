@@ -50,6 +50,11 @@ class DefineHistory:
 		outcome.update(Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
 												self.graphhorizontaloffset, self.graphupperverticaloffset,
 												self.graphlowerverticaloffset, self.graphwidth, self.graphheight))
+		outcome.update(Functions.getgraphblocks(origintimedate, self.erasize, self.graphcolumnwidth,
+												self.graphhorizontaloffset, self.graphupperverticaloffset,
+												self.graphlowerverticaloffset, self.graphwidth, self.graphheight,
+												self.monitorhistory, self.graphblockheight))
+
 
 #		boxoutcome = []
 #		baroutcome = []
