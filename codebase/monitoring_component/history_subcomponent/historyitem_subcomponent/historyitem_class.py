@@ -52,19 +52,19 @@ class DefineItem:
 
 		outcome = []
 		if self.red > 0:
-			for index in range(0, 3)#self.red):
+			for index in range(0, 3): #self.red):
 				outcome.append("red")
 		if self.orange > 0:
-			for index in range(0, 3)#, self.orange):
+			for index in range(0, 3): #, self.orange):
 				outcome.append("orange")
 		if self.amber > 0:
-			for index in range(0, 3)#, self.amber):
+			for index in range(0, 3): #, self.amber):
 				outcome.append("amber")
 		if self.yellow > 0:
-			for index in range(0, 3)#, self.yellow):
+			for index in range(0, 3): #, self.yellow):
 				outcome.append("yellow")
 		if self.green > 0:
-			for index in range(0, 3)#, self.green):
+			for index in range(0, 3): #, self.green):
 				outcome.append("green")
 		return outcome
 
