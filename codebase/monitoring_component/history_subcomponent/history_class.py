@@ -17,8 +17,10 @@ class DefineHistory:
 		# Screen metrics
 		self.graphcolumnwidth = 3
 		self.graphhorizontaloffset = 5
-		self.graphupperverticaloffset = 123
-		self.graphlowerverticaloffset = 123 + 160
+		self.graphupperverticaloffset = 130
+		self.graphlowerverticaloffset = 130 + 160
+		self.graphwidth = 1020
+		self.graphheight = 125
 
 # =========================================================================================
 
@@ -45,7 +47,8 @@ class DefineHistory:
 		origintimedate = DateTime.getnow()
 		origintimedate.adjusthours(-42)
 		outcome.update(Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
-							self.graphhorizontaloffset, self.graphupperverticaloffset, self.graphlowerverticaloffset))
+							self.graphhorizontaloffset, self.graphupperverticaloffset, self.graphlowerverticaloffset,
+							self.graphwidth, self.graphheight))
 
 #		boxoutcome = []
 #		baroutcome = []

@@ -2,21 +2,19 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
-def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firstverticaloffset, secondverticaloffset):
+def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight):
 
-	firsttop = firstverticaloffset + 7
-	secondtop = secondverticaloffset + 7
 	linesoutcome = []
 	littlelabelsoutcome = []
 	biglabelsoutcome = []
 
 	#horizontal axes
-	linesoutcome.append(printline(horizontaloffset, firsttop, 1020, 0))
-	linesoutcome.append(printline(horizontaloffset, secondtop, 1020, 0))
+	linesoutcome.append(printline(horizontaloffset, firsttop, graphwidth, 0))
+	linesoutcome.append(printline(horizontaloffset, secondtop, graphwidth, 0))
 
 	#vertical axes
-	linesoutcome.append(printline(horizontaloffset + 2, firsttop, 0, -125))
-	linesoutcome.append(printline(horizontaloffset + 2, secondtop, 0, -125))
+	linesoutcome.append(printline(horizontaloffset + 2, firsttop, 0, 0 - graphheight))
+	linesoutcome.append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
 
 
 	# currentmarker = EraFunctions.geteraasobject(nowtimedate, 5)
