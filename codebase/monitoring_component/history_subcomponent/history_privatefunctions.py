@@ -4,22 +4,20 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight):
 
-	linesoutcome = []
-	littlelabelsoutcome = []
-	biglabelsoutcome = []
+	outcome = {"axeslines": [], "biglabels": [], "littlelabels": []}
 
 	#horizontal axes
-	linesoutcome.append(printline(horizontaloffset, firsttop, graphwidth, 0))
-	linesoutcome.append(printline(horizontaloffset, secondtop, graphwidth, 0))
+	outcome["axeslines"].append(printline(horizontaloffset, firsttop, graphwidth, 0))
+	outcome["axeslines"].append(printline(horizontaloffset, secondtop, graphwidth, 0))
 
 	#vertical axes
-	linesoutcome.append(printline(horizontaloffset + 2, firsttop, 0, 0 - graphheight))
-	linesoutcome.append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
+	outcome["axeslines"].append(printline(horizontaloffset + 2, firsttop, 0, 0 - graphheight))
+	outcome["axeslines"].append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
 
 	#vertical markers
 	for indexer in [31, 61, 91, 121]:
-		linesoutcome.append(printline(horizontaloffset, firsttop - indexer, 2, 0))
-		linesoutcome.append(printline(horizontaloffset, secondtop - indexer, 2, 0))
+		outcome["axeslines"].append(printline(horizontaloffset, firsttop - indexer, 2, 0))
+		outcome["axeslines"].append(printline(horizontaloffset, secondtop - indexer, 2, 0))
 
 	#horizontal markers
 
@@ -33,17 +31,19 @@ def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firsttop, sec
 
 			if (currentmarker.gettimevalue() % 10800) == 0:
 				markerheight = 4
-				biglabelsoutcome.append(printtext(markerposition, firsttop + 16, EraFunctions.geteralabel(currentmarker, erasize)))
-				biglabelsoutcome.append(printtext(markerposition, secondtop + 16, EraFunctions.geteralabel(currentmarker, erasize)))
+				texttype = "biglabels"
+				textoffset = 16
 			else:
 				markerheight = 2
-				littlelabelsoutcome.append(printtext(markerposition, firsttop + 12, EraFunctions.geteralabel(currentmarker, erasize)))
-				littlelabelsoutcome.append(printtext(markerposition, secondtop + 12, EraFunctions.geteralabel(currentmarker, erasize)))
+				texttype = "littlelabels"
+				textoffset = 12
 
-			linesoutcome.append(printline(markerposition, firsttop, 0, markerheight))
-			linesoutcome.append(printline(markerposition, secondtop, 0, markerheight))
+			outcome[texttype].append(printtext(markerposition, firsttop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
+			outcome[texttype].append(printtext(markerposition, secondtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
+			outcome["axeslines"].append(printline(markerposition, firsttop, 0, markerheight))
+			outcome["axeslines"].append(printline(markerposition, secondtop, 0, markerheight))
 
-	return {"axeslines": linesoutcome, "biglabels": biglabelsoutcome, "littlelabels": littlelabelsoutcome}
+	return outcome
 
 
 
