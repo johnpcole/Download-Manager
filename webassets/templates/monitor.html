@@ -48,31 +48,58 @@ Banner Content
                     .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal;}
                 </style>
 <!-- Blocks -->
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0">
-                    <rect height="318" width="1050" x="-10" y="-10" fill="#333333"/>
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
+                    <rect height="318" width="1050" x="-10" y="-10"/>
                 </g>
-<!-- Axes -->
+<!-- Bright Red -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FF0000">
+{% for logentry in monitoroutput.brightred %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Red -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#CC0000">
+{% for logentry in monitoroutput.red %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Orange -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FF6600">
+{% for logentry in monitoroutput.orange %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Amber -->
+               <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FFBB11">
+{% for logentry in monitoroutput.amber %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Yellow -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#EEEE11">
+{% for logentry in monitoroutput.yellow %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+ <!-- Green -->
+               <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#00CC00">
+{% for logentry in monitoroutput.green %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Light Blue -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#6688FF">
+{% for logentry in monitoroutput.blue %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Axes Lines-->
                 <g stroke-linecap="round" stroke="#DDDDDD" stroke-width="1">
 {% for logentry in monitoroutput.axeslines %}
                     <line x1="{{ logentry.xa }}" y1="{{ logentry.ya }}" x2="{{ logentry.xb }}" y2="{{ logentry.yb }}" />
 {% endfor %}
                 </g>
-<!--
-{% for logentry in monitoroutput.boxes %}
-                    <rect fill="{{ logentry.c }}" x="{{ logentry.x }}" y="{{ logentry.y }}" width="{{ logentry.w }}" height="{{ logentry.h }}" />
-{% endfor %}
-                </g>
-
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0">
-{% for logentry in monitoroutput.bars %}
-                    <rect fill="#6688FF" {{ logentry|safe }} />
-{% endfor %}
-                </g>
-{% for logentry in monitoroutput.markers %}
-                    <line {{ logentry|safe }} />
-{% endfor %}
-                </g>
--->
+<!-- Axes Labels -->
 {% for logentry in monitoroutput.biglabels %}
                 <text text-anchor="middle" class="graphtext" x="{{ logentry.x }}" y="{{ logentry.y }}">{{ logentry.t }}</text>
 {% endfor %}

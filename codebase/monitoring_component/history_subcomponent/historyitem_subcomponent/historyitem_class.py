@@ -28,6 +28,16 @@ class DefineItem:
 
 		return self.uploaded
 
+	def getgraphdata(self):
+
+		outcome = {}
+		outcome['1_red'] = self.red
+		outcome['2_orange'] = self.orange
+		outcome['3_amber'] = self.amber
+		outcome['4_yellow'] = self.yellow
+		outcome['5_green'] = self.green
+
+		return outcome
 
 
 

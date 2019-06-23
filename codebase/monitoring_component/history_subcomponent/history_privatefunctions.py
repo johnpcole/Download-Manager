@@ -2,7 +2,7 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
-def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight):
+def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight):
 
 	outcome = {"axeslines": [], "biglabels": [], "littlelabels": []}
 
@@ -21,12 +21,12 @@ def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firsttop, sec
 
 	#horizontal markers
 
-	currentmarker = EraFunctions.geteraasobject(nowtimedate, 5)
+	currentmarker = EraFunctions.geteraasobject(origintimedate, 5)
 	currentmarker.adjusthours(-1)
 	markerposition = 0
 	while markerposition < 1000:
 		currentmarker.adjusthours(1)
-		markerposition = calculatecolumnposition(boxwidth, horizontaloffset, nowtimedate, currentmarker, erasize)
+		markerposition = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, currentmarker, erasize)
 		if markerposition >= horizontaloffset:
 
 			if (currentmarker.gettimevalue() % 10800) == 0:
@@ -45,6 +45,25 @@ def getgraphaxes(nowtimedate, erasize, boxwidth, horizontaloffset, firsttop, sec
 
 	return outcome
 
+
+def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight, history, boxheight):
+
+	outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": []}
+
+	for historyitem in history:
+
+		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
+
+		statusdata = historyitem.getgraphdata()
+		blockcount = 0
+		for colour in sorted(statusdata.keys()):
+			if statusdata[colour] > 0:
+				for indexer in range(0, statusdata[colour]):
+					instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
+					blockcount = blockcount + 1
+					outcome[colour[2:]].append(instruction)
+
+	return outcome
 
 
 def printrectangle(x, y, w, h):
@@ -77,4 +96,6 @@ def calculatecolumnposition(boxwidth, horizontaloffset, origindatetime, bardatet
 
 	return ((boxwidth + 1) * EraFunctions.geteradifference(origindatetime, bardatetime, erasize)) + horizontaloffset
 
+def calculaterowposition(boxheight, verticaloffset, previousboxes):
 
+	return ((boxheight + 1) * previousboxes) + verticaloffset
