@@ -61,7 +61,7 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 			blockcount = 0
 			for colourkey in sorted(statusdata.keys()):
 				if statusdata[colourkey] > 0:
-					for indexer in range(0, statusdata[colourkey]):
+					for indexer in range(0, 30): #statusdata[colourkey]):
 						instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
 						blockcount = blockcount + 1
 						if blockcount < 21:
@@ -69,10 +69,11 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 
 			if historyitem.getuploaded() > 0:
 				barheight = calculatebarheight(graphheight - 5, historyitem.getuploaded())
+				print("barheight", barheight)
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 
 			if historyitem.getvpnstatus() != 10:
-				outcome['brightred'].append(printrectangle(column, firsttop - graphheight - 2, boxwidth, graphheight))
+				outcome['brightred'].append(printrectangle(column, firsttop - graphheight - 1, boxwidth, graphheight))
 
 
 

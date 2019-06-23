@@ -55,19 +55,6 @@ class DefineHistory:
 												self.graphlowerverticaloffset, self.graphheight,
 												self.monitorhistory, self.graphblockheight))
 
-
-#		boxoutcome = []
-#		baroutcome = []
-#		uploadtally = 0
-#		for historyitem in self.monitorhistory:
-#			boxoutcome.extend(historyitem.getstatusgraphicdata(self.horizontaloffset, self.verticaloffset, self.boxwidth, 5, origintimedate, self.erasize))
-#			baroutcome.extend(historyitem.getuploadgraphicdata(self.horizontaloffset, self.verticaloffset, self.boxwidth, uploadtally, origintimedate, self.erasize))
-#			uploadtally = historyitem.getuploaded()
-
-#		outcome["boxes"] = boxoutcome
-#		outcome["bars"] = baroutcome
-#		outcome.update(Functions.getxaxis(origintimedate, self.erasize, self.boxwidth, self.horizontaloffset, self.verticaloffset))
-
 		return outcome
 
 
