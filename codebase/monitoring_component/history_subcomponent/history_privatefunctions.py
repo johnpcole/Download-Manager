@@ -73,7 +73,7 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 
 			if historyitem.getvpnstatus() != 10:
-				outcome['brightred'].append(printrectangle(column, firsttop - graphheight - 1, boxwidth, graphheight))
+				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight - 3, boxwidth + 2, graphheight - 2))
 
 
 
