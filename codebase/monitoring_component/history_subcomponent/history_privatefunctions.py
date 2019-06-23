@@ -55,30 +55,23 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
-
 		if column >= horizontaloffset + 2:
 
-			rawdata = historyitem.getnewgraphdata()
-			for index in range(0, len(rawdata)):
-				if index < 21:
-					instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, index),
-																								boxwidth, boxheight)
-					outcome[rawdata[index]].append(instruction)
-#			blockcount = 0
-#			for colourkey in sorted(statusdata.keys()):
-#				if statusdata[colourkey] > 0:
-#					for indexer in range(0, statusdata[colourkey]):
-#						instruction = printrectangle(column, calculaterowposition(boxheight, firsttop, blockcount), boxwidth, boxheight)
-#						blockcount = blockcount + 1
-#						if blockcount < 21:
-#							outcome[colourkey[2:]].append(instruction)
+			# Add Torrent Status Blocks
+			colourlist = historyitem.getgraphdata()
+			indexmax = min(len(colourlist), 21)
+			for index in range(0, indexmax):
+				outcome[colourlist[index]].append(printrectangle(column, calculaterowposition(boxheight, firsttop,
+																						index), boxwidth, boxheight))
 
+			# Add Uploaded Delta Bar
 			uploadeddelta = historyitem.getuploaded() - previousuploaded
 			if uploadeddelta > 0:
 				barheight = calculatebarheight(graphheight - 5, uploadeddelta)
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 			previousuploaded = historyitem.getuploaded()
 
+			# Add VPN Down Warning Bar
 			if historyitem.getvpnstatus() != 1:
 				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
 
@@ -118,10 +111,6 @@ def calculaterowposition(boxheight, verticaloffset, previousboxes):
 	return (verticaloffset - ((boxheight + 1) * (previousboxes + 1)) - 1)
 
 def calculatebarheight(graphheight, dataamount):
-	if dataamount > 1000000000:
-		limiteddata = 1000000000
-	else:
-		limiteddata = dataamount
-	return ((graphheight * limiteddata) / 1000000000)
+	return ((graphheight * min(dataamount, 1000000000)) / 1000000000)
 
 

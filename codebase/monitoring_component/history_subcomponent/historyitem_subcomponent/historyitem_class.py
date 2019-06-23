@@ -28,16 +28,6 @@ class DefineItem:
 
 		return self.uploaded
 
-	def getgraphdata(self):
-
-		outcome = {}
-		outcome['1_red'] = self.red
-		outcome['2_orange'] = self.orange
-		outcome['3_amber'] = self.amber
-		outcome['4_yellow'] = self.yellow
-		outcome['5_green'] = self.green
-		return outcome
-
 	def getvpnstatus(self):
 		return self.vpnstatus
 
@@ -48,23 +38,23 @@ class DefineItem:
 		outcome = outcome + str(self.red) + "|" + str(self.vpnstatus)
 		return outcome
 
-	def getnewgraphdata(self):
+	def getgraphdata(self):
 
 		outcome = []
-		if self.red > -10:
-			for index in range(0, 3): #self.red):
+		if self.red > 0:
+			for index in range(0, self.red):
 				outcome.append("red")
-		if self.orange > -10:
-			for index in range(0, 3): #, self.orange):
+		if self.orange > 0:
+			for index in range(0, self.orange):
 				outcome.append("orange")
-		if self.amber > -10:
-			for index in range(0, 3): #, self.amber):
+		if self.amber > 0:
+			for index in range(0, self.amber):
 				outcome.append("amber")
-		if self.yellow > -10:
-			for index in range(0, 3): #, self.yellow):
+		if self.yellow > 0:
+			for index in range(0, self.yellow):
 				outcome.append("yellow")
-		if self.green > -10:
-			for index in range(0, 3): #, self.green):
+		if self.green > 0:
+			for index in range(0, self.green):
 				outcome.append("green")
 		return outcome
 
