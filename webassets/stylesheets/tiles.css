@@ -26,11 +26,11 @@ div.bannertile, div.contenttile, a.contenttile, #FixedIndexBanner {
     outline: 0;
 }
 
-a.tile {
+a.contenttile {
     text-decoration: none;
 }
 
-a.tile:hover {
+a.contenttile:hover {
     background-color: #222222;
 }
 
@@ -111,6 +111,7 @@ div.indexbannertitle, div.contenttitleleft, div.contenttitleright, div.bannertit
    TITLE SEPARATOR LINE
    =============================================================================== */
 
+/* Separator Bars */
 div.contentsplitter, div.bannersplitter {
     height: 2px;
     border-style: solid;
