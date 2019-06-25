@@ -87,7 +87,8 @@ a.tile:hover {
    TILE TITLE ROW
    =============================================================================== */
 
-div.titlebox {
+/* Title Boxes */
+div.indexbannertitle, div.contenttitleleft, div.contenttitleright, div.bannertitleleft, div.bannertitleright, div.contenttitlefull {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -95,7 +96,8 @@ div.titlebox {
     padding: 2px 3px 6px 3px;
 }
 
-div.titlebox img {
+/* Title Box Images */
+.indexbannertitle img, .contenttitleleftimg , .contenttitleright img, .bannertitleleft img, .bannertitleright img, .contenttitlefull img {
     display: inline-block;
     height: 18px;
     width: 18px;

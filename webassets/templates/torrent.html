@@ -39,13 +39,13 @@ Section: Configured-Title & Type Read-Only-View
 
 Subsection: Configured-Title
 
-          --><div class="titlebox bannertitleleft" id="TorrentTitle">
+          --><div class="bannertitleleft" id="TorrentTitle">
                 <span>{{ selectedtorrent.torrenttitle }}</span>
             </div><!--
 
 Subsection: Type
 
-         --><div class="titlebox bannertitleright">
+         --><div class="bannertitleright">
                 <img id="TorrentType" src="{{ url_for('static', filename='images/type_' + selectedtorrent.torrenttype + '.png') }}" alt="{{ selectedtorrent.torrenttype }}" />
             </div><!--
 
@@ -139,13 +139,13 @@ Section: Configured-Filename & Type Read-Only-View
 
 Subsection: Configured-Filename
 
-             --><div class="titlebox contenttitleleft" id="filetitle-{{ fileitem.fileid }}">
+             --><div class="contenttitleleft" id="filetitle-{{ fileitem.fileid }}">
                     <span>{{ fileitem.filetitle }}</span>
                 </div><!--
 
 Subsection: Type
 
-             --><div class="titlebox contenttitleright">
+             --><div class="contenttitleright">
                     <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileaction_' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />
                 </div><!--
 
@@ -159,7 +159,7 @@ Section: Configured-Filename & Type Edit-Mode-View
 
 Section-Mode: Unusable-Filetype; Torrent Type Irrelevent
 
-             --><div class="titlebox contenttitlefull buttongroupequivalent">
+             --><div class="contenttitlefull buttongroupequivalent">
                     <span>Ignored File</span>
                 </div><!--
 
@@ -169,7 +169,7 @@ Section-Mode: Usable-Filetype; Unknown Torrent Type
 
              --><div class="unknownonlyfields"><!--
 
-                 --><div class="titlebox contenttitlefull buttongroupequivalent">
+                 --><div class="contenttitlefull buttongroupequivalent">
                         <span>Do Not Save</span>
                     </div><!--
 
