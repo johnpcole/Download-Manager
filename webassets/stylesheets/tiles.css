@@ -14,7 +14,8 @@ div.tilesgroup {
     }
 }
 
-div.tile, a.tile {
+/* Generic Tile object, covers banner tiles and torrent & file tiles */
+div.bannertile, .tilesgroup > div, .tilesgroup > div, #FixedIndexBanner {
     display: inline-block;
     overflow: hidden;
     margin: 7px;
