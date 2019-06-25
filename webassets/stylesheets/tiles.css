@@ -15,7 +15,7 @@ div.tilesgroup {
 }
 
 /* Generic Tile object, covers banner tiles and torrent & file tiles */
-div.bannertile, .tilesgroup > div, .tilesgroup > a, #FixedIndexBanner {
+div.bannertile, div.contenttile, a.contenttile, #FixedIndexBanner {
     display: inline-block;
     overflow: hidden;
     margin: 7px;
@@ -97,7 +97,7 @@ div.indexbannertitle, div.contenttitleleft, div.contenttitleright, div.bannertit
 }
 
 /* Title Box Images */
-.indexbannertitle img, .contenttitleleftimg , .contenttitleright img, .bannertitleleft img, .bannertitleright img, .contenttitlefull img {
+.indexbannertitle img, .contenttitleleft img , .contenttitleright img, .bannertitleleft img, .bannertitleright img, .contenttitlefull img {
     display: inline-block;
     height: 18px;
     width: 18px;
@@ -125,7 +125,8 @@ div.tilesplitter {
    TILE SUBTILE ROW
    =============================================================================== */
 
-div.subtitlebox {
+/* Subtitle Boxes */
+div.torrentsubtitleleft, div.torrentsubtitleright, div.bannersubtitleleft, div.bannersubtitleright, div.filesubtitleleft, div.filesubtitleright {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -134,7 +135,8 @@ div.subtitlebox {
     padding: 5px 4px 4px 4px;
 }
 
-div.subtitlebox img {
+/* Subtitle Box Images */
+.torrentsubtitleleft img, .torrentsubtitleright img, .bannersubtitleleft img, .bannersubtitleright img, .filesubtitleleft img, .filesubtitleright img {
     display: inline-block;
     height: 13px;
     width: 13px;

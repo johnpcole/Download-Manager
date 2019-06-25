@@ -111,13 +111,13 @@ Horizontal-Bar
 
 Raw-Title
 
-         --><div class="subtitlebox torrentsubtitleleft">
+         --><div class="torrentsubtitleleft">
                 <span>{{ torrent.torrentname }}</span>
             </div><!--
 
 Progress and Status
 
-         --><div class="subtitlebox torrentsubtitleright">
+         --><div class="torrentsubtitleright">
                 <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
              --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
             </div><!--

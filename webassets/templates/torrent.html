@@ -104,13 +104,13 @@ Section: Horizontal-Line
 
 Section: Raw-Title
 
-     --><div class="subtitlebox bannersubtitleleft">
+     --><div class="bannersubtitleleft">
             <span>{{ selectedtorrent.torrentname }}</span>
         </div><!--
 
 Section: Progress and Status
 
-     --><div class="subtitlebox bannersubtitleright"><!--
+     --><div class="bannersubtitleright"><!--
          --><img id="Status" src="{{ url_for('static', filename='images/status_' + selectedtorrent.status + '.png') }}" alt="{{ selectedtorrent.status }}" /><!--
          --><span id="Progress">{{ selectedtorrent.progress }}</span><!--
      --></div><!--
@@ -231,14 +231,14 @@ Section: Horizontal-Line
 
 Section: Raw-Filename
 
-         --><div class="subtitlebox filesubtitleleft">
+         --><div class="filesubtitleleft">
                 <span class="tooltip">{{ fileitem.filename }}</span><!--
              --><span>{{ fileitem.filename }}</span>
             </div><!--
 
 Section: File-Type & File-Size
 
-         --><div class="subtitlebox filesubtitleright">
+         --><div class="filesubtitleright">
                 <img id="filetype-{{ fileitem.fileid }}" src="{{ url_for('static', filename='images/filetype_' + fileitem.filetype + '.png') }}" alt="{{ fileitem.filetype }}" /><!--
              --><span>{{ fileitem.size }}</span>
             </div><!--
