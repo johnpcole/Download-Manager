@@ -75,6 +75,8 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 			if historyitem.getvpnstatus() != 1:
 				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
 
+		previousuploaded = historyitem.getuploaded()
+
 	return outcome
 
 
