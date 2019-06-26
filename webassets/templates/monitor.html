@@ -17,16 +17,16 @@
 
 {% block banner %}
 
- --><div id="FixedIndexBanner" class="tile indexbanner_good"><!--
+ --><div id="FixedIndexBanner" class="indexbanner_good"><!--
 
 
 Banner Content
 
      --><div class="indexbannercontent">
-            <div class="titlebox indexbannertitle">
+            <div class="indexbannertitle">
                 <span>Deluge-Monitor</span>
             </div><!--
-         --><div class="tilesplitter contentsplitter"></div>
+         --><div class="contentsplitter"></div>
         </div><!--
 
 
@@ -47,45 +47,65 @@ Banner Content
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal;}
                     .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal;}
                 </style>
-
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0">
-                    <rect height="298" width="1030" x="0" y="0" fill="#333333"/>
-{% for logentry in monitoroutput.boxes %}
-                    <rect {{ logentry|safe }} />
+<!-- Blocks -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
+                    <rect height="318" width="1050" x="-10" y="-10"/>
+                </g>
+<!-- Bright Red -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FF0000">
+{% for logentry in monitoroutput.brightred %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
 {% endfor %}
                 </g>
-
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0">
-{% for logentry in monitoroutput.bars %}
-                    <rect fill="#6688FF" {{ logentry|safe }} />
+<!-- Red -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#CC0000">
+{% for logentry in monitoroutput.red %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
 {% endfor %}
                 </g>
-
+<!-- Orange -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FF6600">
+{% for logentry in monitoroutput.orange %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Amber -->
+               <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FFBB11">
+{% for logentry in monitoroutput.amber %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Yellow -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#EEEE11">
+{% for logentry in monitoroutput.yellow %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+ <!-- Green -->
+               <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#00CC00">
+{% for logentry in monitoroutput.green %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Light Blue -->
+                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#6688FF">
+{% for logentry in monitoroutput.blue %}
+                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
+{% endfor %}
+                </g>
+<!-- Axes Lines-->
                 <g stroke-linecap="round" stroke="#DDDDDD" stroke-width="1">
-                    <line x1="5" y1="99" x2="7" y2="99" />
-                    <line x1="5" y1="69" x2="7" y2="69" />
-                    <line x1="5" y1="39" x2="7" y2="39" />
-                    <line x1="5" y1="9" x2="7" y2="9" />
-
-                    <line x1="5" y1="130" x2="1025" y2="130" />
-                    <line x1="7" y1="130" x2="7" y2="5" />
-
-                    <line x1="5" y1="244" x2="7" y2="244" />
-                    <line x1="5" y1="214" x2="7" y2="214" />
-                    <line x1="5" y1="184" x2="7" y2="184" />
-                    <line x1="5" y1="154" x2="7" y2="154" />
-
-                    <line x1="5" y1="275" x2="1025" y2="275" />
-                    <line x1="7" y1="275" x2="7" y2="150" />
-
-{% for logentry in monitoroutput.markers %}
-                    <line {{ logentry|safe }} />
+{% for logentry in monitoroutput.axeslines %}
+                    <line x1="{{ logentry.xa }}" y1="{{ logentry.ya }}" x2="{{ logentry.xb }}" y2="{{ logentry.yb }}" />
 {% endfor %}
                 </g>
-{% for logentry in monitoroutput.labels %}
-                <text text-anchor="middle" class="{{ logentry|safe }}</text>
+<!-- Axes Labels -->
+{% for logentry in monitoroutput.biglabels %}
+                <text text-anchor="middle" class="graphtext" x="{{ logentry.x }}" y="{{ logentry.y }}">{{ logentry.t }}</text>
 {% endfor %}
-
+{% for logentry in monitoroutput.littlelabels %}
+                <text text-anchor="middle" class="littlegraphtext" x="{{ logentry.x }}" y="{{ logentry.y }}">{{ logentry.t }}</text>
+{% endfor %}
             </svg>
         </div><!--
 

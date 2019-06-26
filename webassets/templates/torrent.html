@@ -31,7 +31,7 @@
 
 {% block banner %}
 
- --><div id="TorrentTile" class="tile bannertile torrent_{{ selectedtorrent.status }}"><!--
+ --><div id="TorrentTile" class="bannertile torrent_{{ selectedtorrent.status }}"><!--
 
 Section: Configured-Title & Type Read-Only-View
 
@@ -39,13 +39,13 @@ Section: Configured-Title & Type Read-Only-View
 
 Subsection: Configured-Title
 
-          --><div class="titlebox bannertitleleft" id="TorrentTitle">
+          --><div class="bannertitleleft" id="TorrentTitle">
                 <span>{{ selectedtorrent.torrenttitle }}</span>
             </div><!--
 
 Subsection: Type
 
-         --><div class="titlebox bannertitleright">
+         --><div class="bannertitleright">
                 <img id="TorrentType" src="{{ url_for('static', filename='images/type_' + selectedtorrent.torrenttype + '.png') }}" alt="{{ selectedtorrent.torrenttype }}" />
             </div><!--
 
@@ -100,17 +100,17 @@ Subsection: Movie-Type-Fields
 
 Section: Horizontal-Line
 
-     --><div class="tilesplitter bannersplitter"></div><!--
+     --><div class="bannersplitter"></div><!--
 
 Section: Raw-Title
 
-     --><div class="subtitlebox bannersubtitleleft">
+     --><div class="bannersubtitleleft">
             <span>{{ selectedtorrent.torrentname }}</span>
         </div><!--
 
 Section: Progress and Status
 
-     --><div class="subtitlebox bannersubtitleright"><!--
+     --><div class="bannersubtitleright"><!--
          --><img id="Status" src="{{ url_for('static', filename='images/status_' + selectedtorrent.status + '.png') }}" alt="{{ selectedtorrent.status }}" /><!--
          --><span id="Progress">{{ selectedtorrent.progress }}</span><!--
      --></div><!--
@@ -131,7 +131,7 @@ Section: Progress and Status
 
 File {{ fileitem.filetitle }}
 
-     --><div id="File-{{ fileitem.fileid }}" class="tile contenttile file_{{ fileitem.filetype }}_{{ fileitem.outcome }}"><!--
+     --><div id="File-{{ fileitem.fileid }}" class="contenttile file_{{ fileitem.filetype }}_{{ fileitem.outcome }}"><!--
 
 Section: Configured-Filename & Type Read-Only-View
 
@@ -139,13 +139,13 @@ Section: Configured-Filename & Type Read-Only-View
 
 Subsection: Configured-Filename
 
-             --><div class="titlebox contenttitleleft" id="filetitle-{{ fileitem.fileid }}">
+             --><div class="contenttitleleft" id="filetitle-{{ fileitem.fileid }}">
                     <span>{{ fileitem.filetitle }}</span>
                 </div><!--
 
 Subsection: Type
 
-             --><div class="titlebox contenttitleright">
+             --><div class="contenttitleright">
                     <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileaction_' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />
                 </div><!--
 
@@ -159,7 +159,7 @@ Section: Configured-Filename & Type Edit-Mode-View
 
 Section-Mode: Unusable-Filetype; Torrent Type Irrelevent
 
-             --><div class="titlebox contenttitlefull buttongroupequivalent">
+             --><div class="contenttitlefull buttongroupequivalent">
                     <span>Ignored File</span>
                 </div><!--
 
@@ -169,7 +169,7 @@ Section-Mode: Usable-Filetype; Unknown Torrent Type
 
              --><div class="unknownonlyfields"><!--
 
-                 --><div class="titlebox contenttitlefull buttongroupequivalent">
+                 --><div class="contenttitlefull buttongroupequivalent">
                         <span>Do Not Save</span>
                     </div><!--
 
@@ -226,19 +226,19 @@ Subsection: Do-Copy-Filemode
 
 Section: Horizontal-Line
 
-         --><div class="tilesplitter contentsplitter">
+         --><div class="contentsplitter">
             </div><!--
 
 Section: Raw-Filename
 
-         --><div class="subtitlebox filesubtitleleft">
+         --><div class="filesubtitleleft">
                 <span class="tooltip">{{ fileitem.filename }}</span><!--
              --><span>{{ fileitem.filename }}</span>
             </div><!--
 
 Section: File-Type & File-Size
 
-         --><div class="subtitlebox filesubtitleright">
+         --><div class="filesubtitleright">
                 <img id="filetype-{{ fileitem.fileid }}" src="{{ url_for('static', filename='images/filetype_' + fileitem.filetype + '.png') }}" alt="{{ fileitem.filetype }}" /><!--
              --><span>{{ fileitem.size }}</span>
             </div><!--
