@@ -10,3 +10,29 @@
 
 
 <!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% macro graphlines(dataset, linecolour) %}
+
+    <g stroke-linecap="round" stroke="{{ linecolour }}" stroke-width="1">
+        {% for logentry in dataset %}
+        <line x1="{{ logentry.xa }}" y1="{{ logentry.ya }}" x2="{{ logentry.xb }}" y2="{{ logentry.yb }}"></line>
+        {% endfor %}
+    </g>
+
+{% endmacro %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% macro graphtext(dataset, textstyle, textalign) %}
+
+        {% for logentry in dataset %}
+        <text text-anchor="{{ textalign }}" class="{{ textstyle }}" x="{{ logentry.x }}" y="{{ logentry.y }}">{{ logentry.t }}</text>
+        {% endfor %}
+
+{% endmacro %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
