@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% from 'graphing.html' import graphblocksandbars %}
+
 
 {% block bodycontext %} class="fixed"{% endblock %}
 
@@ -44,8 +46,9 @@ Banner Content
             <svg width="1030" height="298">
 
                 <style>
-                    .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal;}
-                    .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal;}
+                    .graphheadings { font: 12px 'Open Sans, sans-serif; fill #FFFFFF; font-weight: normal; }
+                    .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
+                    .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal; }
                 </style>
 <!-- Blocks -->
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
@@ -58,11 +61,7 @@ Banner Content
 {% endfor %}
                 </g>
 <!-- Red -->
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#CC0000">
-{% for logentry in monitoroutput.red %}
-                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
-{% endfor %}
-                </g>
+                {{ graphblocksandbars(monitoroutput.red, "#CC0000") }}
 <!-- Orange -->
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FF6600">
 {% for logentry in monitoroutput.orange %}

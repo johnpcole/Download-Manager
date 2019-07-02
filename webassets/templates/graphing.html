@@ -1,0 +1,12 @@
+{% macro graphblocksandbars(dataset, blockcolour) %}
+
+    <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="{{ blockcolour }}">
+        {% for logentry in monitoroutput.brightred %}
+        <rect x="{{ dataset.x }}" y="{{ dataset.y }}" height="{{ dataset.h }}" width="{{ dataset.w }}"></rect>
+        {% endfor %}
+    </g>
+
+{% endmacro %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
