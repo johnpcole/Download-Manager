@@ -50,9 +50,9 @@ Banner Content
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
                     .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal; }
-                    .graphheadings { font: 12px 'Open Sans, sans-serif; fill #FFFFFF; font-weight: normal; }
+                    .graphheadings { font: 12px 'Open Sans', sans-serif; fill #FFFFFF; font-weight: normal; }
                 </style>
-<!-- Blocks -->
+<!-- Graph Background -->
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
                     <rect height="318" width="1050" x="-10" y="-10"/>
                 </g>
@@ -75,7 +75,9 @@ Banner Content
 <!-- Axes Labels -->
                 {{ graphtext(monitoroutput.biglabels, "graphtext", "middle") }}
                 {{ graphtext(monitoroutput.littlelabels, "littlegraphtext", "middle") }}
-
+<!-- Chart Headings -->
+                <text text-anchor="start" class="graphheadings" x="10" y="10">Latest Tracker Statuses</text>
+                <text text-anchor="start" class="graphheadings" x="10" y="150">Latest Upload Rates</text>
 
             </svg>
         </div><!--
