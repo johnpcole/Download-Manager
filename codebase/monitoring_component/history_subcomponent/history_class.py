@@ -17,8 +17,8 @@ class DefineHistory:
 		# Screen metrics
 		self.graphcolumnwidth = 3
 		self.graphhorizontaloffset = 5
-		self.graphupperverticaloffset = 150 #17
-		self.graphlowerverticaloffset = 320 #187
+		self.graphupperverticaloffset = 150   #  17 for heading
+		self.graphlowerverticaloffset = 320   # 187 for heading
 		self.graphwidth = 1020
 		self.graphheight = 125
 		self.graphblockheight = 5

@@ -69,7 +69,6 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 			if uploadeddelta > 0:
 				barheight = calculatebarheight(graphheight - 5, uploadeddelta)
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
-			previousuploaded = historyitem.getuploaded()
 
 			# Add VPN Down Warning Bar
 			if historyitem.getvpnstatus() != 1:
