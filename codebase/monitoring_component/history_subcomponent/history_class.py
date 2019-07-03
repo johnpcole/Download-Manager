@@ -107,6 +107,7 @@ class DefineHistory:
 			else:
 				outcome.append(currentlonghistoryitem)
 				currentlonghistoryitem = HistoryItem.createblank(EraFunctions.geteraasobject(newhour, 5))
+				currentlonghistoryitem.cumulate(historyitem)
 		if EraFunctions.compareeras(currentlonghistoryitem.getdatetime(), DateTime.getnow(), 5) == False:
 			outcome.append(currentlonghistoryitem)
 		return outcome
