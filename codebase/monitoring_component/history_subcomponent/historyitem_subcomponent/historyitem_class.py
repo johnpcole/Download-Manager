@@ -1,4 +1,3 @@
-from ....common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
@@ -29,6 +28,7 @@ class DefineItem:
 		return self.uploaded
 
 	def getvpnstatus(self):
+
 		return self.vpnstatus
 
 	def getsavedata(self):
@@ -59,4 +59,26 @@ class DefineItem:
 		return outcome
 
 
+	def cumulate(self, anotherhistoryitem):
+
+		self.uploaded = max(anotherhistoryitem.uploaded, self.uploaded)
+		self.red = self.red + anotherhistoryitem.red
+		self.orange = self.orange + anotherhistoryitem.orange
+		self.amber = self.amber + anotherhistoryitem.amber
+		self.yellow = self.yellow + anotherhistoryitem.yellow
+		self.green = self.green + anotherhistoryitem.green
+		if anotherhistoryitem.vpnstatus != 1:
+			self.vpnstatus = 0
+
+
+
+	def getlonggraphdata(self):
+
+		sessiondata = {}
+		sessiondata['red'] = self.red
+		sessiondata['orange'] = self.orange
+		sessiondata['amber'] = self.amber
+		sessiondata['yellow'] = self.yellow
+		sessiondata['green'] = self.green
+		return sessiondata
 

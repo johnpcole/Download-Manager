@@ -42,13 +42,17 @@ def geteradifference(origindatetimeobject, currentdatetimeobject, erasize):
 
 	divisor = 1
 	if erasize > 1:
-		divisor = divisor * 10
+		divisor = divisor * 10                             # Ten seconds
 		if erasize > 2:
-			divisor = divisor * 6
+			divisor = divisor * 6                          # Minutes
 			if erasize > 3:
-				divisor = divisor * 10
+				divisor = divisor * 10                     # Ten Minutes
 				if erasize > 4:
-					divisor = divisor * 6
+					divisor = divisor * 6                  # Hours
+					if erasize > 5:
+						divisor = divisor * 10             # Ten Hours
+						if erasize > 6:
+							divisor = 24 * divisor / 10    # Days
 
 	return int(differencevalue / divisor)
 
@@ -65,8 +69,12 @@ def adjustobject(originaldatetimeobject, adjustvalue, erasize):
 		newobject.adjustminutes(adjustvalue)
 	elif erasize == 4:
 		newobject.adjustminutes(adjustvalue * 10)
-	else:
+	elif erasize == 5:
 		newobject.adjusthours(adjustvalue)
+	elif erasize == 6:
+		newobject.adjusthours(adjustvalue * 10)
+	else:
+		newobject.adjustdays(adjustvalue)
 
 	return newobject
 
