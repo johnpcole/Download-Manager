@@ -10,9 +10,9 @@ def createmonitor():
 
 def getloadlist():
 	timedate = DateTime.getnow()
-	timedate.adjustdays(-9)
+	timedate.adjustdays(-12)
 	outcome = []
-	for index in range(0, 9):
+	for index in range(0, 12):
 		timedate.adjustdays(1)
 		outcome.append(timedate.getdateiso())
 

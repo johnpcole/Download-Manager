@@ -80,7 +80,7 @@ class DefineHistory:
 		if currentdatetime.gettimevalue() < 600:
 			print("Before clean up: ", len(self.monitorhistory))
 			threshold = DateTime.createfromobject(currentdatetime)
-			threshold.adjustdays(-8)
+			threshold.adjustdays(-11)
 			newhistorylist = []
 			for historyitem in self.monitorhistory:
 				if DateTime.isfirstlaterthansecond(historyitem.getdatetime(), threshold) == True:
@@ -103,7 +103,8 @@ class DefineHistory:
 			else:
 				outcome.append(currentlonghistoryitem)
 				currentlonghistoryitem = HistoryItem.createblank(EraFunctions.geteraasobject(newhour, 5))
-		outcome.append(currentlonghistoryitem)
+		if EraFunctions.compareeras(currentlonghistoryitem.getdatetime(), DateTime.getnow(), 5) == False:
+			outcome.append(currentlonghistoryitem)
 		return outcome
 
 
