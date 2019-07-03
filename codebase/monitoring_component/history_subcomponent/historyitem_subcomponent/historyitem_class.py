@@ -69,6 +69,8 @@ class DefineItem:
 		self.green = self.green + anotherhistoryitem.green
 		if anotherhistoryitem.vpnstatus != 1:
 			self.vpnstatus = 0
+		print(self.datetime.getiso(), self.uploaded, self.red, self.orange, self.amber, self.yellow, self.green, self.vpnstatus)
+
 
 
 	def getlonggraphdata(self):

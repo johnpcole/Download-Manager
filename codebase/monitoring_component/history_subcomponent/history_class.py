@@ -88,11 +88,10 @@ class DefineHistory:
 	def getlonghistory(self):
 
 		outcome = []
-		currenthour = DateTime.createfromiso("20100101000000")
-		currentlonghistoryitem = HistoryItem.createblank(currenthour)
+		currentlonghistoryitem = HistoryItem.createblank(DateTime.createfromiso("20100101000000"))
 		for historyitem in self.monitorhistory:
 			newhour = historyitem.getdatetime()
-			if EraFunctions.compareeras(newhour, currenthour, 5) == True:
+			if EraFunctions.compareeras(newhour, currentlonghistoryitem.getdatetime(), 5) == True:
 				currentlonghistoryitem.cumulate(historyitem)
 			else:
 				outcome.append(currentlonghistoryitem)
