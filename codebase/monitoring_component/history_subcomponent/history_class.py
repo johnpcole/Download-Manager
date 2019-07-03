@@ -53,7 +53,7 @@ class DefineHistory:
 		longorigintimedate = DateTime.createfromobject(origintimedate)
 		origintimedate.adjusthours(-42)
 		longorigintimedate.adjustdays(-10)
-		longorigintimedate.adjusthours(-4)
+		longorigintimedate.adjusthours(-12)
 #		outcome.update(Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
 #												self.graphhorizontaloffset, self.graphupperverticaloffset,
 #												self.graphlowerverticaloffset, self.graphwidth, self.graphheight))
