@@ -119,6 +119,50 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 
 
 
+def getlonggraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight):
+
+	outcome = {"axeslines": [], "biglabels": [], "littlelabels": []}
+
+	#horizontal axes
+	outcome["axeslines"].append(printline(horizontaloffset, firsttop, graphwidth, 0))
+	outcome["axeslines"].append(printline(horizontaloffset, secondtop, graphwidth, 0))
+
+	#vertical axes
+	outcome["axeslines"].append(printline(horizontaloffset + 2, firsttop, 0, 0 - graphheight))
+	outcome["axeslines"].append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
+
+	#vertical markers
+	for indexer in [31, 61, 91, 121]:
+		outcome["axeslines"].append(printline(horizontaloffset, firsttop - indexer, 2, 0))
+		outcome["axeslines"].append(printline(horizontaloffset, secondtop - indexer, 2, 0))
+
+	#horizontal markers
+
+	currentmarker = EraFunctions.geteraasobject(origintimedate, 7)
+	currentmarker.adjustdays(-1)
+	column = 0
+	hoffset = horizontaloffset + (boxwidth / 2.0)
+	while column < 1000:
+		currentmarker.adjusthours(6)
+		column = calculatecolumnposition(boxwidth, hoffset, origintimedate, currentmarker, erasize)
+		if column >= horizontaloffset + 2:
+
+			if (currentmarker.gettimevalue() % 86400) == 0:
+				markerheight = 4
+				texttype = "biglabels"
+				textoffset = 16
+			else:
+				markerheight = 2
+				texttype = "littlelabels"
+				textoffset = 12
+
+			outcome[texttype].append(printtext(column, firsttop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
+			outcome[texttype].append(printtext(column, secondtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
+			outcome["axeslines"].append(printline(column, firsttop, 0, markerheight))
+			outcome["axeslines"].append(printline(column, secondtop, 0, markerheight))
+
+	return outcome
+
 
 
 

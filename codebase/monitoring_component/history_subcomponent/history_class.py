@@ -53,14 +53,17 @@ class DefineHistory:
 		longorigintimedate = DateTime.createfromobject(origintimedate)
 		origintimedate.adjusthours(-42)
 		longorigintimedate.adjustdays(-7)
-		outcome.update(Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
-												self.graphhorizontaloffset, self.graphupperverticaloffset,
-												self.graphlowerverticaloffset, self.graphwidth, self.graphheight))
+#		outcome.update(Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
+#												self.graphhorizontaloffset, self.graphupperverticaloffset,
+#												self.graphlowerverticaloffset, self.graphwidth, self.graphheight))
 #		outcome.update(Functions.getgraphblocks(origintimedate, self.erasize, self.graphcolumnwidth,
 #												self.graphhorizontaloffset, self.graphupperverticaloffset,
 #												self.graphlowerverticaloffset, self.graphheight,
 #												self.monitorhistory, self.graphblockheight))
 
+		outcome.update(Functions.getlonggraphaxes(longorigintimedate, self.longerasize, self.graphcolumnwidth,
+												self.graphhorizontaloffset, self.graphupperverticaloffset,
+												self.graphlowerverticaloffset, self.graphwidth, self.graphheight))
 		outcome.update(Functions.getlonggraphblocks(longorigintimedate, self.longerasize, self.graphcolumnwidth,
 												self.graphhorizontaloffset, self.graphupperverticaloffset,
 												self.graphlowerverticaloffset, self.graphheight,
