@@ -90,7 +90,7 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		if column >= horizontaloffset + 2:
-			print(historyitem.getdatetime(), " = Column ", column)
+			print(historyitem.getdatetime().getiso(), " = Column ", column)
 			# Add Torrent Status Blocks
 			datalist = historyitem.getlonggraphdata()
 			baseline = 0
