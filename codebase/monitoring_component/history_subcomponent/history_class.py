@@ -21,8 +21,8 @@ class DefineHistory:
 		self.graphhorizontaloffset = 5
 		self.graphupperverticaloffset = 150   #    17 for heading
 		self.graphlowerverticaloffset = 320   #   187 for heading
-		self.graphthreeverticaloffset = 490   #   ??? for heading
-		self.graphfourverticaloffset = 660   #   ??? for heading
+		self.graphthreeverticaloffset = 510   #   377 for heading
+		self.graphfourverticaloffset = 680   #   547 for heading
 		self.graphwidth = 1020
 		self.graphheight = 125
 		self.graphblockheight = 5
