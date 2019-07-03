@@ -2,9 +2,7 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
-def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight):
-
-	outcome = {"axeslines": [], "biglabels": [], "littlelabels": []}
+def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight, outcome):
 
 	#horizontal axes
 	outcome["axeslines"].append(printline(horizontaloffset, firsttop, graphwidth, 0))
@@ -47,9 +45,8 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, 
 	return outcome
 
 
-def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history, boxheight):
+def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history, boxheight, outcome):
 
-	outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": []}
 	previousuploaded = 0
 
 	for historyitem in history:
@@ -81,16 +78,14 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 
 
 
-def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history):
+def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history, outcome):
 
-	outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": []}
 	previousuploaded = 0
 
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		if column >= horizontaloffset + 2:
-			print(historyitem.getdatetime().getiso(), " = Column ", column)
 			# Add Torrent Status Blocks
 			datalist = historyitem.getlonggraphdata()
 			baseline = 0
@@ -119,9 +114,7 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 
 
 
-def getlonggraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight):
-
-	outcome = {"axeslines": [], "biglabels": [], "littlelabels": []}
+def getlonggraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight, outcome):
 
 	#horizontal axes
 	outcome["axeslines"].append(printline(horizontaloffset, firsttop, graphwidth, 0))
