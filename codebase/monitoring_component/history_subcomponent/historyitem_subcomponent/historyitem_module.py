@@ -25,3 +25,13 @@ def createfromfile(monitordata):
 	return HistoryItemClass.DefineItem(DateTime.createfromiso(dataarray[0]), sessiondata, vpnstatus)
 
 
+def createblank(datetime):
+	sessiondata = {}
+	sessiondata['uploadedtotal'] = 0
+	sessiondata['redcount'] = 0
+	sessiondata['orangecount'] = 0
+	sessiondata['ambercount'] = 0
+	sessiondata['yellowcount'] = 0
+	sessiondata['greencount'] = 0
+
+	return HistoryItemClass.DefineItem(datetime, sessiondata, 1)

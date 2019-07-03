@@ -4,7 +4,6 @@ from .network_subcomponent import network_module as Network
 from .history_subcomponent import history_module as History
 
 
-
 class DefineMonitor:
 
 	def __init__(self):

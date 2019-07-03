@@ -70,6 +70,7 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 				barheight = calculatebarheight(graphheight - 5, uploadeddelta)
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 
+
 			# Add VPN Down Warning Bar
 			if historyitem.getvpnstatus() != 1:
 				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
@@ -77,6 +78,47 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 		previousuploaded = historyitem.getuploaded()
 
 	return outcome
+
+
+
+def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history):
+
+	outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": []}
+	previousuploaded = 0
+	indexmax = 20 * 6
+
+	for historyitem in history:
+
+		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
+		if column >= horizontaloffset + 2:
+
+			# Add Torrent Status Blocks
+			datalist = historyitem.getlonggraphdata()
+			baseline = 0
+			for colourindex in ['red', 'orange', 'amber', 'yellow', 'green']:
+				if datalist[colourindex] > 0:
+					outcome[colourindex].append(printrectangle(column, calculaterowposition(datalist[colourindex], firsttop,
+																						baseline), boxwidth, datalist[colourindex]))
+					baseline = baseline + datalist[colourindex]
+
+			# Add Uploaded Delta Bar
+#			uploadeddelta = historyitem.getuploaded() - previousuploaded
+#			if uploadeddelta > 0:
+#				barheight = calculatebarheight(graphheight - 5, uploadeddelta)
+#				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
+
+
+			# Add VPN Down Warning Bar
+#			if historyitem.getvpnstatus() != 1:
+#				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
+
+#		previousuploaded = historyitem.getuploaded()
+
+	return outcome
+
+
+
+
 
 
 def printrectangle(x, y, w, h):
