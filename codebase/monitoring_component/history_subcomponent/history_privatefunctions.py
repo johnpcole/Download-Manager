@@ -85,13 +85,12 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 
 	outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": []}
 	previousuploaded = 0
-	indexmax = 20 * 6
 
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		if column >= horizontaloffset + 2:
-
+			print(historyitem.getdatetime(), " = Column ", column)
 			# Add Torrent Status Blocks
 			datalist = historyitem.getlonggraphdata()
 			baseline = 0
@@ -100,21 +99,21 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 				if barheight + baseline > 120:
 					barheight = 120 - baseline
 				if barheight > 0:
-					outcome[colourindex].append(printrectangle(column, firsttop - (baseline + barheight + 1), boxwidth, barheight))
-					baseline = baseline + barheight + 1
+					outcome[colourindex].append(printrectangle(column, firsttop - (baseline + barheight + 2), boxwidth, barheight))
+					baseline = baseline + barheight
 
 			# Add Uploaded Delta Bar
-#			uploadeddelta = historyitem.getuploaded() - previousuploaded
-#			if uploadeddelta > 0:
-#				barheight = calculatebarheight(graphheight - 5, uploadeddelta)
-#				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
+			uploadeddelta = historyitem.getuploaded() - previousuploaded
+			if uploadeddelta > 0:
+				barheight = calculatebarheight(graphheight - 5, uploadeddelta / 6.0)
+				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 
 
 			# Add VPN Down Warning Bar
-#			if historyitem.getvpnstatus() != 1:
-#				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
+			if historyitem.getvpnstatus() != 1:
+				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
 
-#		previousuploaded = historyitem.getuploaded()
+		previousuploaded = historyitem.getuploaded()
 
 	return outcome
 
