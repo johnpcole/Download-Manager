@@ -96,9 +96,12 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 			datalist = historyitem.getlonggraphdata()
 			baseline = 0
 			for colourindex in ['red', 'orange', 'amber', 'yellow', 'green']:
-				if datalist[colourindex] > 0:
-					outcome[colourindex].append(printrectangle(column, firsttop - (baseline + datalist[colourindex] + 1), boxwidth, datalist[colourindex]))
-					baseline = baseline + datalist[colourindex]
+				barheight = datalist[colourindex]
+				if barheight + baseline > 120:
+					barheight = 120 - baseline
+				if barheight > 0:
+					outcome[colourindex].append(printrectangle(column, firsttop - (baseline + barheight + 1), boxwidth, barheight))
+					baseline = baseline + barheight + 1
 
 			# Add Uploaded Delta Bar
 #			uploadeddelta = historyitem.getuploaded() - previousuploaded
