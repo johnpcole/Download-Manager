@@ -22,6 +22,8 @@ class DefineHistory:
 		self.graphhorizontaloffset = 5
 		self.graphupperverticaloffset = 150   #    17 for heading
 		self.graphlowerverticaloffset = 320   #   187 for heading
+		self.graphthreeverticaloffset = 490   #   ??? for heading
+		self.graphfourverticaloffset = 660   #   ??? for heading
 		self.graphwidth = 1020
 		self.graphheight = 125
 		self.graphblockheight = 5
@@ -49,7 +51,9 @@ class DefineHistory:
 
 		outcome = {}
 		origintimedate = DateTime.getnow()
+		longorigintimedate = DateTime.createfromobject(origintimedate)
 		origintimedate.adjusthours(-42)
+		longorigintimedate.adjustdays(-7)
 		outcome.update(Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
 												self.graphhorizontaloffset, self.graphupperverticaloffset,
 												self.graphlowerverticaloffset, self.graphwidth, self.graphheight))
@@ -58,7 +62,7 @@ class DefineHistory:
 #												self.graphlowerverticaloffset, self.graphheight,
 #												self.monitorhistory, self.graphblockheight))
 
-		outcome.update(Functions.getlonggraphblocks(origintimedate, self.longerasize, self.longgraphcolumnwidth,
+		outcome.update(Functions.getlonggraphblocks(longorigintimedate, self.longerasize, self.longgraphcolumnwidth,
 												self.graphhorizontaloffset, self.graphupperverticaloffset,
 												self.graphlowerverticaloffset, self.graphheight,
 												self.getlonghistory()))
@@ -73,7 +77,7 @@ class DefineHistory:
 		if currentdatetime.gettimevalue() < 600:
 			print("Before clean up: ", len(self.monitorhistory))
 			threshold = DateTime.createfromobject(currentdatetime)
-			threshold.adjustdays(-5)
+			threshold.adjustdays(-8)
 			newhistorylist = []
 			for historyitem in self.monitorhistory:
 				if DateTime.isfirstlaterthansecond(historyitem.getdatetime(), threshold) == True:
