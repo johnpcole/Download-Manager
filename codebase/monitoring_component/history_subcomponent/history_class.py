@@ -18,7 +18,6 @@ class DefineHistory:
 
 		# Screen metrics
 		self.graphcolumnwidth = 3
-		self.longgraphcolumnwidth = 2
 		self.graphhorizontaloffset = 5
 		self.graphupperverticaloffset = 150   #    17 for heading
 		self.graphlowerverticaloffset = 320   #   187 for heading
@@ -62,7 +61,7 @@ class DefineHistory:
 #												self.graphlowerverticaloffset, self.graphheight,
 #												self.monitorhistory, self.graphblockheight))
 
-		outcome.update(Functions.getlonggraphblocks(longorigintimedate, self.longerasize, self.longgraphcolumnwidth,
+		outcome.update(Functions.getlonggraphblocks(longorigintimedate, self.longerasize, self.graphcolumnwidth,
 												self.graphhorizontaloffset, self.graphupperverticaloffset,
 												self.graphlowerverticaloffset, self.graphheight,
 												self.getlonghistory()))

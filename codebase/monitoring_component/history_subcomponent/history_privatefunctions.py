@@ -97,8 +97,7 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 			baseline = 0
 			for colourindex in ['red', 'orange', 'amber', 'yellow', 'green']:
 				if datalist[colourindex] > 0:
-					outcome[colourindex].append(printrectangle(column, calculaterowposition(datalist[colourindex], firsttop,
-																						baseline), boxwidth, datalist[colourindex]))
+					outcome[colourindex].append(printrectangle(column, firsttop - baseline - datalist[colourindex] - 1), boxwidth, datalist[colourindex]))
 					baseline = baseline + datalist[colourindex]
 
 			# Add Uploaded Delta Bar
