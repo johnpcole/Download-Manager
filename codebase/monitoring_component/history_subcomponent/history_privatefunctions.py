@@ -2,49 +2,6 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
-def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight, outcome):
-
-	#horizontal axes
-	outcome["axeslines"].append(printline(horizontaloffset, firsttop, graphwidth, 0))
-	outcome["axeslines"].append(printline(horizontaloffset, secondtop, graphwidth, 0))
-
-	#vertical axes
-	outcome["axeslines"].append(printline(horizontaloffset + 2, firsttop, 0, 0 - graphheight))
-	outcome["axeslines"].append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
-
-	#vertical markers
-	for indexer in [31, 61, 91, 121]:
-		outcome["axeslines"].append(printline(horizontaloffset, firsttop - indexer, 2, 0))
-		outcome["axeslines"].append(printline(horizontaloffset, secondtop - indexer, 2, 0))
-
-	#horizontal markers
-
-	currentmarker = EraFunctions.geteraasobject(origintimedate, 5)
-	currentmarker.adjusthours(-1)
-	column = 0
-	hoffset = horizontaloffset + (boxwidth / 2.0)
-	while column < 1000:
-		currentmarker.adjusthours(1)
-		column = calculatecolumnposition(boxwidth, hoffset, origintimedate, currentmarker, erasize)
-		if column >= horizontaloffset + 2:
-
-			if (currentmarker.gettimevalue() % 10800) == 0:
-				markerheight = 4
-				texttype = "biglabels"
-				textoffset = 16
-			else:
-				markerheight = 2
-				texttype = "littlelabels"
-				textoffset = 12
-
-			outcome[texttype].append(printtext(column, firsttop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome[texttype].append(printtext(column, secondtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome["axeslines"].append(printline(column, firsttop, 0, markerheight))
-			outcome["axeslines"].append(printline(column, secondtop, 0, markerheight))
-
-	return outcome
-
-
 def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history, boxheight, outcome):
 
 	previousuploaded = 0
@@ -64,7 +21,7 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 			# Add Uploaded Delta Bar
 			uploadeddelta = historyitem.getuploaded() - previousuploaded
 			if uploadeddelta > 0:
-				barheight = calculatebarheight(graphheight - 5, uploadeddelta)
+				barheight = calculateuploadbarheight(graphheight - 5, uploadeddelta)
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 
 
@@ -100,7 +57,7 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 			# Add Uploaded Delta Bar
 			uploadeddelta = historyitem.getuploaded() - previousuploaded
 			if uploadeddelta > 0:
-				barheight = calculatebarheight(graphheight - 5, uploadeddelta / 6.0)
+				barheight = calculateuploadbarheight(graphheight - 5, uploadeddelta / 6.0)
 				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
 
 
@@ -113,34 +70,61 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 	return outcome
 
 
+def gettempgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, graphheight, history, outcome):
 
-def getlonggraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight, outcome):
+	for historyitem in history:
+
+		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
+		if column >= horizontaloffset + 2:
+
+			blockcount = historyitem.gettemp() - 10.0
+			for colourindex in ['amber', 'orange', 'red']:
+				blockcount = blockcount - 10.0
+				if blockcount > 0.0:
+					barheight = calculatetempbarheight(graphheight, blockcount, 10.0)
+					outcome[colourindex].append(printrectangle(column, firsttop - barheight, boxwidth, barheight))
+
+	return outcome
+
+
+
+
+def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, graphwidth, graphheight, outcome):
 
 	#horizontal axes
-	outcome["axeslines"].append(printline(horizontaloffset, firsttop, graphwidth, 0))
-	outcome["axeslines"].append(printline(horizontaloffset, secondtop, graphwidth, 0))
+	outcome["axeslines"].append(printline(horizontaloffset, graphtop, graphwidth, 0))
 
 	#vertical axes
-	outcome["axeslines"].append(printline(horizontaloffset + 2, firsttop, 0, 0 - graphheight))
-	outcome["axeslines"].append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
+	outcome["axeslines"].append(printline(horizontaloffset + 2, graphtop, 0, 0 - graphheight))
 
 	#vertical markers
 	for indexer in [31, 61, 91, 121]:
-		outcome["axeslines"].append(printline(horizontaloffset, firsttop - indexer, 2, 0))
-		outcome["axeslines"].append(printline(horizontaloffset, secondtop - indexer, 2, 0))
+		outcome["axeslines"].append(printline(horizontaloffset, graphtop - indexer, 2, 0))
 
 	#horizontal markers
+	if erasize == 4:
+		baselineerasize = 5
+		baselineadjuster = -1
+		bigmarkergap = 10800
+		littlemarkergap = 1
+	elif erasize == 5:
+		baselineerasize = 7
+		baselineadjuster = -24
+		bigmarkergap = 86400
+		littlemarkergap = 6
+	else:
+		x = 1/0
 
-	currentmarker = EraFunctions.geteraasobject(origintimedate, 7)
-	currentmarker.adjustdays(-1)
+	currentmarker = EraFunctions.geteraasobject(origintimedate, baselineerasize)
+	currentmarker.adjusthours(baselineadjuster)
 	column = 0
 	hoffset = horizontaloffset + (boxwidth / 2.0)
 	while column < 1000:
-		currentmarker.adjusthours(6)
+		currentmarker.adjusthours(littlemarkergap)
 		column = calculatecolumnposition(boxwidth, hoffset, origintimedate, currentmarker, erasize)
 		if column >= horizontaloffset + 2:
 
-			if (currentmarker.gettimevalue() % 86400) == 0:
+			if (currentmarker.gettimevalue() % bigmarkergap) == 0:
 				markerheight = 4
 				texttype = "biglabels"
 				textoffset = 16
@@ -149,12 +133,15 @@ def getlonggraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firstt
 				texttype = "littlelabels"
 				textoffset = 12
 
-			outcome[texttype].append(printtext(column, firsttop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome[texttype].append(printtext(column, secondtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome["axeslines"].append(printline(column, firsttop, 0, markerheight))
-			outcome["axeslines"].append(printline(column, secondtop, 0, markerheight))
+			outcome[texttype].append(printtext(column, graphtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
+			outcome["axeslines"].append(printline(column, graphtop, 0, markerheight))
 
 	return outcome
+
+
+
+
+
 
 
 
@@ -191,7 +178,8 @@ def calculatecolumnposition(boxwidth, horizontaloffset, origindatetime, bardatet
 def calculaterowposition(boxheight, verticaloffset, previousboxes):
 	return (verticaloffset - ((boxheight + 1) * (previousboxes + 1)) - 1)
 
-def calculatebarheight(graphheight, dataamount):
+def calculateuploadbarheight(graphheight, dataamount):
 	return ((graphheight * min(dataamount, 1000000000)) / 1000000000)
 
-
+def calculatetempbarheight(graphheight, temperature, temperaturerange):
+	return ((graphheight * min(temperature, temperaturerange)) / temperaturerange)

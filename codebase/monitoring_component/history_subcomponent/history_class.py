@@ -23,16 +23,17 @@ class DefineHistory:
 		self.graphlowerverticaloffset = 325
 		self.graphthreeverticaloffset = 502
 		self.graphfourverticaloffset = 679
+		self.graphfiveverticaloffset = 856
 		self.graphwidth = 1020
 		self.graphheight = 125
 		self.graphblockheight = 5
 
 # =========================================================================================
 
-	def addhistoryentry(self, monitordata, networkstatus):
+	def addhistoryentry(self, monitordata, networkstatus, temperature):
 
 		currentdatetime = DateTime.getnow()
-		newhistoryitem = HistoryItem.createhistoryitem(currentdatetime, monitordata, networkstatus)
+		newhistoryitem = HistoryItem.createhistoryitem(currentdatetime, monitordata, networkstatus, temperature)
 		self.monitorhistory.append(newhistoryitem)
 		self.clearuphistory(currentdatetime)
 		return newhistoryitem.getsavedata()
@@ -54,25 +55,32 @@ class DefineHistory:
 		longorigintimedate.adjustdays(-10)
 		longorigintimedate.adjusthours(-12)
 
-		outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [], "axeslines": [], "biglabels": [], "littlelabels": []}
+		outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
+																"axeslines": [], "biglabels": [], "littlelabels": []}
 
-		outcome = Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
-											self.graphhorizontaloffset, self.graphupperverticaloffset,
-											self.graphlowerverticaloffset, self.graphwidth, self.graphheight, outcome)
+		for graphtop in [self.graphupperverticaloffset, self.graphlowerverticaloffset]:
+			outcome = Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
+													self.graphhorizontaloffset, graphtop, self.graphwidth,
+													self.graphheight, outcome)
+
+		for graphtop in [self.graphthreeverticaloffset, self.graphfourverticaloffset, self.graphfiveverticaloffset]:
+			outcome = Functions.getgraphaxes(longorigintimedate, self.longerasize, self.graphcolumnwidth,
+													self.graphhorizontaloffset, graphtop, self.graphwidth,
+													self.graphheight, outcome)
 
 		outcome = Functions.getgraphblocks(origintimedate, self.erasize, self.graphcolumnwidth,
 											self.graphhorizontaloffset, self.graphupperverticaloffset,
 											self.graphlowerverticaloffset, self.graphheight,
 											self.monitorhistory, self.graphblockheight, outcome)
 
-		outcome = Functions.getlonggraphaxes(longorigintimedate, self.longerasize, self.graphcolumnwidth,
-											self.graphhorizontaloffset, self.graphthreeverticaloffset,
-											self.graphfourverticaloffset, self.graphwidth, self.graphheight, outcome)
-
 		outcome = Functions.getlonggraphblocks(longorigintimedate, self.longerasize, self.graphcolumnwidth,
 											self.graphhorizontaloffset, self.graphthreeverticaloffset,
 											self.graphfourverticaloffset, self.graphheight,
 											self.getlonghistory(), outcome)
+
+		outcome = Functions.gettempgraphblocks(longorigintimedate, self.longerasize, self.graphcolumnwidth,
+											self.graphhorizontaloffset, self.graphfiveverticaloffset,
+											self.graphheight, self.getlonghistory(), outcome)
 
 		return outcome
 

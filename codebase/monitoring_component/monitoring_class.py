@@ -25,7 +25,7 @@ class DefineMonitor:
 
 	def refreshsessionmeters(self, sessiondata):
 
-		self.sessionmeters.updatesessiondata(sessiondata, PiThermometer.gettemperature())
+		self.sessionmeters.updatesessiondata(sessiondata, PiThermometer.getoveralltemperature())
 		self.networkstatus = Network.getvpnstatus()
 
 # =========================================================================================
@@ -45,7 +45,7 @@ class DefineMonitor:
 
 	def addtohistory(self, monitordata):
 
-		return self.monitorhistory.addhistoryentry(monitordata, Network.getvpnstatus())
+		return self.monitorhistory.addhistoryentry(monitordata, Network.getvpnstatus(), PiThermometer.getoveralltemperature())
 
 # =========================================================================================
 
