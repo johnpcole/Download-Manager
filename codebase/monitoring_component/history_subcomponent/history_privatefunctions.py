@@ -2,10 +2,7 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
-def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history,
-																									boxheight, outcome):
-
-#	previousuploaded = 0
+def getstatusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, history, boxheight, outcome):
 
 	for historyitem in history:
 
@@ -16,37 +13,20 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 			colourlist = historyitem.getgraphdata()
 			indexmax = min(len(colourlist), 21)
 			for index in range(0, indexmax):
-				row = calculaterowposition(boxheight, firsttop, index)
+				row = calculaterowposition(boxheight, graphtop, index)
 				outcome[colourlist[index]].append(printrectangle(column, row, boxwidth, boxheight))
-
-#			# Add Uploaded Delta Bar
-#			uploadeddelta = historyitem.getuploaded() - previousuploaded
-#			if uploadeddelta > 0:
-#				barheight = calculateuploadbarheight(graphheight - 5, uploadeddelta)
-#				row = secondtop - barheight - 2
-#				outcome['blue'].append(printrectangle(column, row, boxwidth, barheight))
-
-
-#			# Add VPN Down Warning Bar
-#			if historyitem.getvpnstatus() != 1:
-#				barheight = graphheight - 2
-#				row = firsttop - graphheight + 1
-#				outcome['brightred'].append(printrectangle(column - 1, row, boxwidth + 2, barheight))
-
-#		previousuploaded = historyitem.getuploaded()
 
 	return outcome
 
 
 
-def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history, outcome):
-
-#	previousuploaded = 0
+def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, history, outcome):
 
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		if column >= horizontaloffset + 2:
+
 			# Add Torrent Status Blocks
 			datalist = historyitem.getlonggraphdata()
 			baseline = 0
@@ -55,30 +35,15 @@ def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 				if barheight + baseline > 120:
 					barheight = 120 - baseline
 				if barheight > 0:
-					row = firsttop - (baseline + barheight + 2)
+					row = graphtop - (baseline + barheight + 2)
 					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
 					baseline = baseline + barheight
-
-#			# Add Uploaded Delta Bar
-#			uploadeddelta = historyitem.getuploaded() - previousuploaded
-#			if uploadeddelta > 0:
-#				barheight = calculateuploadbarheight(graphheight - 5, uploadeddelta / 6.0)
-#				row = secondtop - barheight - 2
-#				outcome['blue'].append(printrectangle(column, row, boxwidth, barheight))
-
-
-#			# Add VPN Down Warning Bar
-#			if historyitem.getvpnstatus() != 1:
-#				barheight = graphheight - 2
-#				row = firsttop - graphheight + 1
-#				outcome['brightred'].append(printrectangle(column - 1, row, boxwidth + 2, barheight))
-
-#		previousuploaded = historyitem.getuploaded()
 
 	return outcome
 
 
-def gettempgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, graphheight, history, outcome):
+
+def gettempgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, graphheight, history, outcome):
 
 	for historyitem in history:
 
@@ -90,11 +55,10 @@ def gettempgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firs
 				blockcount = blockcount - 10.0
 				if blockcount > 0.0:
 					barheight = calculatetempbarheight(graphheight, blockcount, 10.0)
-					row = firsttop - barheight
+					row = graphtop # - barheight
 					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
 
 	return outcome
-
 
 
 
@@ -146,8 +110,6 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, 
 			outcome["axeslines"].append(printline(column, graphtop, 0, markerheight))
 
 	return outcome
-
-
 
 
 

@@ -82,16 +82,17 @@ class DefineHistory:
 													self.graphfourverticaloffset, self.graphheight,
 													self.getlonghistory(), outcome)
 
-		outcome = Functions.getgraphblocks(origintimedate, self.erasize, self.graphcolumnwidth,
+		# Status blocks for top graph
+		outcome = Functions.getstatusblocks(origintimedate, self.erasize, self.graphcolumnwidth,
 											self.graphhorizontaloffset, self.graphupperverticaloffset,
-											self.graphlowerverticaloffset, self.graphheight,
 											self.monitorhistory, self.graphblockheight, outcome)
 
-		outcome = Functions.getlonggraphblocks(longorigintimedate, self.longerasize, self.graphcolumnwidth,
+		# Status bars for third graph
+		outcome = Functions.getstatusbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
 											self.graphhorizontaloffset, self.graphthreeverticaloffset,
-											self.graphfourverticaloffset, self.graphheight,
 											self.getlonghistory(), outcome)
 
+		# Temp bars for bottom graph
 		outcome = Functions.gettempgraphblocks(longorigintimedate, self.longerasize, self.graphcolumnwidth,
 											self.graphhorizontaloffset, self.graphfiveverticaloffset,
 											self.graphheight, self.getlonghistory(), outcome)
