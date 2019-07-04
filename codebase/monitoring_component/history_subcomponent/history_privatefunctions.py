@@ -55,7 +55,7 @@ def gettempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom
 		if column >= horizontaloffset + 2:
 
 			baseline = -10
-			for colourindex in ['darkred', 'orange', 'red']:
+			for colourindex in ['tempamber', 'temporange', 'red']:
 				baseline = baseline + 10
 				blockcount = historyitem.gettemp() - baseline - 10
 				if blockcount > 0.0:
