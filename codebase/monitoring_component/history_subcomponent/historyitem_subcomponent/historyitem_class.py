@@ -40,7 +40,7 @@ class DefineItem:
 
 		outcome = self.datetime.getiso() + "|" + str(self.uploaded) + "|" + str(self.green) + "|"
 		outcome = outcome + str(self.yellow) + "|" + str(self.amber) + "|" + str(self.orange) + "|"
-		outcome = outcome + str(self.red) + "|" + str(self.vpnstatus) + str(self.temperature)
+		outcome = outcome + str(self.red) + "|" + str(self.vpnstatus) + "|" + str(self.temperature)
 		return outcome
 
 	def getgraphdata(self):
