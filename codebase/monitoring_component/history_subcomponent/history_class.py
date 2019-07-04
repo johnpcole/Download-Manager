@@ -58,15 +58,29 @@ class DefineHistory:
 		outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
 																"axeslines": [], "biglabels": [], "littlelabels": []}
 
+		# Axes for top two graphs
 		for graphtop in [self.graphupperverticaloffset, self.graphlowerverticaloffset]:
 			outcome = Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
 													self.graphhorizontaloffset, graphtop, self.graphwidth,
 													self.graphheight, outcome)
 
+		# Axes for bottom three graphs
 		for graphtop in [self.graphthreeverticaloffset, self.graphfourverticaloffset, self.graphfiveverticaloffset]:
 			outcome = Functions.getgraphaxes(longorigintimedate, self.longerasize, self.graphcolumnwidth,
 													self.graphhorizontaloffset, graphtop, self.graphwidth,
 													self.graphheight, outcome)
+
+		# Upload & VPN Bars for top two graphs
+		outcome = Functions.getuploadandvpnbars(origintimedate, self.erasize, self.graphcolumnwidth,
+													self.graphhorizontaloffset, self.graphupperverticaloffset,
+													self.graphlowerverticaloffset, self.graphheight,
+													self.monitorhistory, outcome)
+
+		# Upload & VPN Bars for lower two graphs
+		outcome = Functions.getuploadandvpnbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
+													self.graphhorizontaloffset, self.graphthreeverticaloffset,
+													self.graphfourverticaloffset, self.graphheight,
+													self.getlonghistory(), outcome)
 
 		outcome = Functions.getgraphblocks(origintimedate, self.erasize, self.graphcolumnwidth,
 											self.graphhorizontaloffset, self.graphupperverticaloffset,
