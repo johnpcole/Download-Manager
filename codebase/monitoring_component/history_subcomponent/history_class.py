@@ -93,7 +93,8 @@ class DefineHistory:
 											self.getlonghistory(), outcome)
 
 		# Temp bars for bottom graph
-		outcome = Functions.gettempbars.graphhorizontaloffset, self.graphfiveverticaloffset,
+		outcome = Functions.gettempbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
+											self.graphhorizontaloffset, self.graphfiveverticaloffset,
 											self.graphheight, self.getlonghistory(), outcome)
 
 		return outcome
