@@ -2,7 +2,7 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
-def getstatusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, history, boxheight, outcome):
+def getstatusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, boxheight, outcome):
 
 	for historyitem in history:
 
@@ -13,14 +13,14 @@ def getstatusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphto
 			colourlist = historyitem.getgraphdata()
 			indexmax = min(len(colourlist), 21)
 			for index in range(0, indexmax):
-				row = calculaterowposition(boxheight, graphtop, index)
+				row = calculaterowposition(boxheight, graphbottom, index)
 				outcome[colourlist[index]].append(printrectangle(column, row, boxwidth, boxheight))
 
 	return outcome
 
 
 
-def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, history, outcome):
+def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, outcome):
 
 	for historyitem in history:
 
@@ -35,7 +35,7 @@ def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphtop,
 				if barheight + baseline > 120:
 					barheight = 120 - baseline
 				if barheight > 0:
-					row = graphtop - (baseline + barheight + 2)
+					row = graphbottom - (baseline + barheight + 2)
 					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
 					baseline = baseline + barheight
 
@@ -43,38 +43,38 @@ def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphtop,
 
 
 
-def gettempgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, graphheight, history, outcome):
+def gettempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
 
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		if column >= horizontaloffset + 2:
 
-			blockcount = historyitem.gettemp() - 10.0
+			baseline = -10
 			print("===================")
 			for colourindex in ['darkred', 'orange', 'red']:
-				blockcount = blockcount - 10.0
-				print(colourindex, blockcount)
+				baseline = baseline + 10
+				blockcount = historyitem.gettemp() - baseline - 20
 				if blockcount > 0.0:
-					barheight = calculatetempbarheight(graphheight, blockcount, 10.0)
-					row = graphtop # - barheight
+					barheight = calculatetempbarheight(graphheight / 3, blockcount, 10.0)
+					row = graphbottom - calculatetempbarheight(graphheight, baseline, 30)
 					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
 
 	return outcome
 
 
 
-def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, graphwidth, graphheight, outcome):
+def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphwidth, graphheight, outcome):
 
 	#horizontal axes
-	outcome["axeslines"].append(printline(horizontaloffset, graphtop, graphwidth, 0))
+	outcome["axeslines"].append(printline(horizontaloffset, graphbottom, graphwidth, 0))
 
 	#vertical axes
-	outcome["axeslines"].append(printline(horizontaloffset + 2, graphtop, 0, 0 - graphheight))
+	outcome["axeslines"].append(printline(horizontaloffset + 2, graphbottom, 0, 0 - graphheight))
 
 	#vertical markers
 	for indexer in [31, 61, 91, 121]:
-		outcome["axeslines"].append(printline(horizontaloffset, graphtop - indexer, 2, 0))
+		outcome["axeslines"].append(printline(horizontaloffset, graphbottom - indexer, 2, 0))
 
 	#horizontal markers
 	if erasize == 4:
@@ -108,8 +108,8 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphtop, 
 				texttype = "littlelabels"
 				textoffset = 12
 
-			outcome[texttype].append(printtext(column, graphtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome["axeslines"].append(printline(column, graphtop, 0, markerheight))
+			outcome[texttype].append(printtext(column, graphbottom + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
+			outcome["axeslines"].append(printline(column, graphbottom, 0, markerheight))
 
 	return outcome
 

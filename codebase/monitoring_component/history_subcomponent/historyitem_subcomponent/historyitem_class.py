@@ -18,7 +18,6 @@ class DefineItem:
 		self.green = green
 		self.vpnstatus = vpnstatus
 		self.temperature = temperature
-		print("Registered Temperature ", self.temperature)
 
 	def getdatetime(self):
 
@@ -75,7 +74,6 @@ class DefineItem:
 		if anotherhistoryitem.vpnstatus != 1:
 			self.vpnstatus = 0
 		self.temperature = max(anotherhistoryitem.temperature, self.temperature)
-		print("Cumulated Temperature ", self.temperature)
 
 
 
