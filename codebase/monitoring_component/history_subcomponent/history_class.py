@@ -129,6 +129,7 @@ class DefineHistory:
 				currentlonghistoryitem.cumulate(historyitem)
 			else:
 				outcome.append(currentlonghistoryitem)
+				print("Cumulated temp ", currentlonghistoryitem.gettemp())
 				currentlonghistoryitem = HistoryItem.createblank(EraFunctions.geteraasobject(newhour, 5))
 				currentlonghistoryitem.cumulate(historyitem)
 		if EraFunctions.compareeras(currentlonghistoryitem.getdatetime(), DateTime.getnow(), 5) == False:
