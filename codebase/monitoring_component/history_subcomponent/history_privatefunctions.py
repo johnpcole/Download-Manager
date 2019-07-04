@@ -60,8 +60,8 @@ def gettempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom
 				blockcount = historyitem.gettemp() - baseline - 10
 				if blockcount > 0.0:
 					barheight = calculatetempbarheight(barmax / 3, blockcount, 10.0)
-					row = graphbottom - calculatetempbarheight(barmax, baseline, 30) - barheight
-					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
+					row = graphbottom - calculatetempbarheight(barmax, baseline, 30) - barheight - 2
+					outcome[colourindex].append(printrectangle(column - baseline, row, boxwidth, barheight))
 
 	return outcome
 
