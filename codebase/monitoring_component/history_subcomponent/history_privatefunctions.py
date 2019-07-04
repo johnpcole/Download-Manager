@@ -54,10 +54,10 @@ def gettempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom
 			print("===================")
 			for colourindex in ['darkred', 'orange', 'red']:
 				baseline = baseline + 10
-				blockcount = historyitem.gettemp() - baseline - 20
+				blockcount = historyitem.gettemp() - baseline - 10
 				if blockcount > 0.0:
 					barheight = calculatetempbarheight(graphheight / 3, blockcount, 10.0)
-					row = graphbottom - calculatetempbarheight(graphheight, baseline, 30)
+					row = graphbottom - calculatetempbarheight(graphheight, baseline, 30) - barheight
 					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
 
 	return outcome
