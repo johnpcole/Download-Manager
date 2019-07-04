@@ -48,20 +48,25 @@ def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbott
 def gettempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
 
 	barmax = graphheight - 5
+	tempmin = 20
+	tempmax = 50
+	temprange = tempmax - tempmin
+	tempstep = temprange / 6
+	minibarmax = barmax / 6
 
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		if column >= horizontaloffset + 2:
 
-			baseline = -10
-			for colourindex in ['tempamber', 'temporange', 'red']:
-				baseline = baseline + 10
-				blockcount = historyitem.gettemp() - baseline - 10
+			baseline = 0 - tempstep
+			for colourindex in ['tempe', 'tempd', 'tempc', 'tempb', 'tempa', 'red']:
+				baseline = baseline + tempstep
+				blockcount = historyitem.gettemp() - baseline - tempmin
 				if blockcount > 0.0:
-					barheight = calculatetempbarheight(barmax / 3, blockcount, 10.0)
-					row = graphbottom - calculatetempbarheight(barmax, baseline, 30) - barheight - 2
-					outcome[colourindex].append(printrectangle(column - baseline, row, boxwidth, barheight))
+					barheight = calculatetempbarheight(minibarmax, blockcount, tempstep)
+					row = graphbottom - calculatetempbarheight(barmax, baseline, temprange) - barheight - 2
+					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
 
 	return outcome
 
