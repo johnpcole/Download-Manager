@@ -2,52 +2,7 @@ from ...common_components.datetime_datatypes import eras_module as EraFunctions
 
 
 
-def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight, outcome):
-
-	#horizontal axes
-	outcome["axeslines"].append(printline(horizontaloffset, firsttop, graphwidth, 0))
-	outcome["axeslines"].append(printline(horizontaloffset, secondtop, graphwidth, 0))
-
-	#vertical axes
-	outcome["axeslines"].append(printline(horizontaloffset + 2, firsttop, 0, 0 - graphheight))
-	outcome["axeslines"].append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
-
-	#vertical markers
-	for indexer in [31, 61, 91, 121]:
-		outcome["axeslines"].append(printline(horizontaloffset, firsttop - indexer, 2, 0))
-		outcome["axeslines"].append(printline(horizontaloffset, secondtop - indexer, 2, 0))
-
-	#horizontal markers
-
-	currentmarker = EraFunctions.geteraasobject(origintimedate, 5)
-	currentmarker.adjusthours(-1)
-	column = 0
-	hoffset = horizontaloffset + (boxwidth / 2.0)
-	while column < 1000:
-		currentmarker.adjusthours(1)
-		column = calculatecolumnposition(boxwidth, hoffset, origintimedate, currentmarker, erasize)
-		if column >= horizontaloffset + 2:
-
-			if (currentmarker.gettimevalue() % 10800) == 0:
-				markerheight = 4
-				texttype = "biglabels"
-				textoffset = 16
-			else:
-				markerheight = 2
-				texttype = "littlelabels"
-				textoffset = 12
-
-			outcome[texttype].append(printtext(column, firsttop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome[texttype].append(printtext(column, secondtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome["axeslines"].append(printline(column, firsttop, 0, markerheight))
-			outcome["axeslines"].append(printline(column, secondtop, 0, markerheight))
-
-	return outcome
-
-
-def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history, boxheight, outcome):
-
-	previousuploaded = 0
+def getstatusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, boxheight, outcome):
 
 	for historyitem in history:
 
@@ -58,89 +13,101 @@ def getgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop
 			colourlist = historyitem.getgraphdata()
 			indexmax = min(len(colourlist), 21)
 			for index in range(0, indexmax):
-				outcome[colourlist[index]].append(printrectangle(column, calculaterowposition(boxheight, firsttop,
-																						index), boxwidth, boxheight))
-
-			# Add Uploaded Delta Bar
-			uploadeddelta = historyitem.getuploaded() - previousuploaded
-			if uploadeddelta > 0:
-				barheight = calculatebarheight(graphheight - 5, uploadeddelta)
-				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
-
-
-			# Add VPN Down Warning Bar
-			if historyitem.getvpnstatus() != 1:
-				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
-
-		previousuploaded = historyitem.getuploaded()
+				row = calculaterowposition(boxheight, graphbottom, index)
+				outcome[colourlist[index]].append(printrectangle(column, row, boxwidth, boxheight))
 
 	return outcome
 
 
 
-def getlonggraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight, history, outcome):
+def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
 
-	previousuploaded = 0
+	barmax = graphheight - 5
 
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		if column >= horizontaloffset + 2:
+
 			# Add Torrent Status Blocks
 			datalist = historyitem.getlonggraphdata()
 			baseline = 0
 			for colourindex in ['red', 'orange', 'amber', 'yellow', 'green']:
 				barheight = datalist[colourindex]
-				if barheight + baseline > 120:
-					barheight = 120 - baseline
+				if barheight + baseline > barmax:
+					barheight = barmax - baseline
 				if barheight > 0:
-					outcome[colourindex].append(printrectangle(column, firsttop - (baseline + barheight + 2), boxwidth, barheight))
+					row = graphbottom - (baseline + barheight + 2)
+					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
 					baseline = baseline + barheight
-
-			# Add Uploaded Delta Bar
-			uploadeddelta = historyitem.getuploaded() - previousuploaded
-			if uploadeddelta > 0:
-				barheight = calculatebarheight(graphheight - 5, uploadeddelta / 6.0)
-				outcome['blue'].append(printrectangle(column, secondtop - barheight - 2, boxwidth, barheight))
-
-
-			# Add VPN Down Warning Bar
-			if historyitem.getvpnstatus() != 1:
-				outcome['brightred'].append(printrectangle(column - 1, firsttop - graphheight + 1, boxwidth + 2, graphheight - 2))
-
-		previousuploaded = historyitem.getuploaded()
 
 	return outcome
 
 
 
-def getlonggraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphwidth, graphheight, outcome):
+def gettempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
+
+	barmax = graphheight - 5
+	tempmin = 20
+	tempmax = 50
+	temprange = tempmax - tempmin
+	tempstep = temprange / 6
+	minibarmax = barmax / 6
+
+	for historyitem in history:
+
+		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
+		if column >= horizontaloffset + 2:
+
+			baseline = 0 - tempstep
+			for colourindex in ['tempe', 'tempd', 'tempc', 'tempb', 'tempa', 'red']:
+				baseline = baseline + tempstep
+				blockcount = historyitem.gettemp() - baseline - tempmin
+				if blockcount > 0.0:
+					barheight = calculatetempbarheight(minibarmax, blockcount, tempstep)
+					row = graphbottom - calculatetempbarheight(barmax, baseline, temprange) - barheight - 2
+					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
+
+	return outcome
+
+
+
+def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphwidth, graphheight, outcome):
 
 	#horizontal axes
-	outcome["axeslines"].append(printline(horizontaloffset, firsttop, graphwidth, 0))
-	outcome["axeslines"].append(printline(horizontaloffset, secondtop, graphwidth, 0))
+	outcome["axeslines"].append(printline(horizontaloffset, graphbottom, graphwidth, 0))
 
 	#vertical axes
-	outcome["axeslines"].append(printline(horizontaloffset + 2, firsttop, 0, 0 - graphheight))
-	outcome["axeslines"].append(printline(horizontaloffset + 2, secondtop, 0, 0 - graphheight))
+	outcome["axeslines"].append(printline(horizontaloffset + 2, graphbottom, 0, 0 - graphheight))
 
 	#vertical markers
 	for indexer in [31, 61, 91, 121]:
-		outcome["axeslines"].append(printline(horizontaloffset, firsttop - indexer, 2, 0))
-		outcome["axeslines"].append(printline(horizontaloffset, secondtop - indexer, 2, 0))
+		outcome["axeslines"].append(printline(horizontaloffset, graphbottom - indexer, 2, 0))
 
 	#horizontal markers
+	if erasize == 4:
+		baselineerasize = 5
+		baselineadjuster = -1
+		bigmarkergap = 10800
+		littlemarkergap = 1
+	elif erasize == 5:
+		baselineerasize = 7
+		baselineadjuster = -24
+		bigmarkergap = 86400
+		littlemarkergap = 6
+	else:
+		x = 1/0
 
-	currentmarker = EraFunctions.geteraasobject(origintimedate, 7)
-	currentmarker.adjustdays(-1)
+	currentmarker = EraFunctions.geteraasobject(origintimedate, baselineerasize)
+	currentmarker.adjusthours(baselineadjuster)
 	column = 0
 	hoffset = horizontaloffset + (boxwidth / 2.0)
 	while column < 1000:
-		currentmarker.adjusthours(6)
+		currentmarker.adjusthours(littlemarkergap)
 		column = calculatecolumnposition(boxwidth, hoffset, origintimedate, currentmarker, erasize)
 		if column >= horizontaloffset + 2:
 
-			if (currentmarker.gettimevalue() % 86400) == 0:
+			if (currentmarker.gettimevalue() % bigmarkergap) == 0:
 				markerheight = 4
 				texttype = "biglabels"
 				textoffset = 16
@@ -149,12 +116,48 @@ def getlonggraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, firstt
 				texttype = "littlelabels"
 				textoffset = 12
 
-			outcome[texttype].append(printtext(column, firsttop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome[texttype].append(printtext(column, secondtop + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
-			outcome["axeslines"].append(printline(column, firsttop, 0, markerheight))
-			outcome["axeslines"].append(printline(column, secondtop, 0, markerheight))
+			outcome[texttype].append(printtext(column, graphbottom + textoffset, EraFunctions.geteralabel(currentmarker, erasize)))
+			outcome["axeslines"].append(printline(column, graphbottom, 0, markerheight))
 
 	return outcome
+
+
+
+def getuploadandvpnbars(origintimedate, erasize, boxwidth, horizontaloffset, firstbottom, secondbottom, graphheight,
+																									history, outcome):
+
+	previousuploaded = 0
+
+	if erasize == 4:
+		divisor = 1.0
+	elif erasize == 5:
+		divisor = 6.0
+	else:
+		x = 1/0
+
+	for historyitem in history:
+
+		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
+		if column >= horizontaloffset + 2:
+
+			# Add Uploaded Delta Bar
+			uploadeddelta = historyitem.getuploaded() - previousuploaded
+			if uploadeddelta > 0:
+				barheight = calculateuploadbarheight(graphheight - 5, uploadeddelta / divisor)
+				row = secondbottom - barheight - 2
+				outcome['blue'].append(printrectangle(column, row, boxwidth, barheight))
+
+			# Add VPN Down Warning Bar
+			if historyitem.getvpnstatus() != 1:
+				barheight = graphheight - 2
+				row = firstbottom - graphheight + 1
+				outcome['brightred'].append(printrectangle(column - 1, row, boxwidth + 2, barheight))
+
+		previousuploaded = historyitem.getuploaded()
+
+	return outcome
+
+
 
 
 
@@ -191,7 +194,8 @@ def calculatecolumnposition(boxwidth, horizontaloffset, origindatetime, bardatet
 def calculaterowposition(boxheight, verticaloffset, previousboxes):
 	return (verticaloffset - ((boxheight + 1) * (previousboxes + 1)) - 1)
 
-def calculatebarheight(graphheight, dataamount):
+def calculateuploadbarheight(graphheight, dataamount):
 	return ((graphheight * min(dataamount, 1000000000)) / 1000000000)
 
-
+def calculatetempbarheight(graphheight, temperature, temperaturerange):
+	return ((graphheight * min(temperature, temperaturerange)) / temperaturerange)

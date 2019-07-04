@@ -8,16 +8,33 @@ import os as OperatingSystem
 # or 35.0 if the system is not unix
 # =========================================================================================
 
-def gettemperature():
+def getoveralltemperature():
 
-	if FileSystem.concatenatepaths(" ", " ") == " / ":
-		result = OperatingSystem.popen('vcgencmd measure_temp').readline()
-		outcome = float(result[5:-3])
-		result = OperatingSystem.popen('cat /sys/class/thermal/thermal_zone0/temp').readline()
-		outcome2 = float(result) / 1000.0
-		if outcome2 > outcome:
-			outcome = outcome2
-	else:
-		outcome = 35.0
+	templist = gettemperatures()
+
+	outcome = -999.9
+
+	for tempitem in templist:
+
+		outcome = max(outcome, tempitem)
+
 	return outcome
 
+
+def gettemperatures():
+
+	outcome = []
+
+	if FileSystem.concatenatepaths(" ", " ") == " / ":
+
+		result = OperatingSystem.popen('vcgencmd measure_temp').readline()
+		outcome.append(float(result[5:-3]))
+
+		result = OperatingSystem.popen('cat /sys/class/thermal/thermal_zone0/temp').readline()
+		outcome.append(float(result) / 1000.0)
+
+	else:
+		outcome.append(-999.9)
+		outcome.append(-999.9)
+
+	return outcome

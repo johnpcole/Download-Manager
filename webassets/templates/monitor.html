@@ -45,7 +45,7 @@ Banner Content
 {% block content %}
 
      --><div class="monitor">
-            <svg width="1030" height="706">
+            <svg width="1030" height="883">
 
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
@@ -70,6 +70,16 @@ Banner Content
                 {{ graphblocksandbars(monitoroutput.green, "#00CC00") }}
 <!-- Light Blue -->
                 {{ graphblocksandbars(monitoroutput.blue, "#6688FF") }}
+<!-- Temp 1 -->
+                {{ graphblocksandbars(monitoroutput.tempa, "#EE2200") }}
+<!-- Temp 2 -->
+                {{ graphblocksandbars(monitoroutput.tempb, "#DD4400") }}
+<!-- Temp 3 -->
+                {{ graphblocksandbars(monitoroutput.tempc, "#CC6600") }}
+<!-- Temp 4 -->
+                {{ graphblocksandbars(monitoroutput.tempd, "#BB8800") }}
+<!-- Temp 5 -->
+                {{ graphblocksandbars(monitoroutput.tempe, "#AAAA00") }}
 <!-- Axes Lines-->
                 {{ graphlines(monitoroutput.axeslines, "#DDDDDD") }}
 <!-- Axes Labels -->
@@ -80,12 +90,14 @@ Banner Content
                 <text text-anchor="start" class="graphheadings" x="15" y="194">Latest Upload Rates</text>
                 <text text-anchor="start" class="graphheadings" x="15" y="371">Recent Tracker Statuses</text>
                 <text text-anchor="start" class="graphheadings" x="15" y="548">Recent Upload Rates</text>
+                <text text-anchor="start" class="graphheadings" x="15" y="725">Recent Temperature</text>
                 <g stroke-linecap="round" stroke="#DDDDEE" stroke-width="5">
                     <line x1="-50" y1="-2" x2="2000" y2="-2"></line>
                     <line x1="-50" y1="175" x2="2000" y2="175"></line>
                     <line x1="-50" y1="352" x2="2000" y2="352"></line>
                     <line x1="-50" y1="529" x2="2000" y2="529"></line>
                     <line x1="-50" y1="706" x2="2000" y2="706"></line>
+                    <line x1="-50" y1="883" x2="2000" y2="883"></line>
                 </g>
             </svg>
         </div><!--
