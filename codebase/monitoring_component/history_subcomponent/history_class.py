@@ -56,7 +56,7 @@ class DefineHistory:
 		longorigintimedate.adjusthours(-12)
 
 		outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
-																"axeslines": [], "biglabels": [], "littlelabels": []}
+													"darkred": [], "axeslines": [], "biglabels": [], "littlelabels": []}
 
 		# Axes for top two graphs
 		for graphtop in [self.graphupperverticaloffset, self.graphlowerverticaloffset]:

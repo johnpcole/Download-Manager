@@ -51,8 +51,10 @@ def gettempgraphblocks(origintimedate, erasize, boxwidth, horizontaloffset, grap
 		if column >= horizontaloffset + 2:
 
 			blockcount = historyitem.gettemp() - 10.0
-			for colourindex in ['amber', 'orange', 'red']:
+			print("===================")
+			for colourindex in ['darkred', 'orange', 'red']:
 				blockcount = blockcount - 10.0
+				print(colourindex, blockcount)
 				if blockcount > 0.0:
 					barheight = calculatetempbarheight(graphheight, blockcount, 10.0)
 					row = graphtop # - barheight
