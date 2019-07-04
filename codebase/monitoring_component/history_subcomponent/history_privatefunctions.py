@@ -20,7 +20,9 @@ def getstatusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbo
 
 
 
-def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, outcome):
+def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
+
+	barmax = graphheight - 5
 
 	for historyitem in history:
 
@@ -32,8 +34,8 @@ def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbott
 			baseline = 0
 			for colourindex in ['red', 'orange', 'amber', 'yellow', 'green']:
 				barheight = datalist[colourindex]
-				if barheight + baseline > 120:
-					barheight = 120 - baseline
+				if barheight + baseline > barmax:
+					barheight = barmax - baseline
 				if barheight > 0:
 					row = graphbottom - (baseline + barheight + 2)
 					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
@@ -45,19 +47,20 @@ def getstatusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbott
 
 def gettempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
 
+	barmax = graphheight - 5
+
 	for historyitem in history:
 
 		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
 		if column >= horizontaloffset + 2:
 
 			baseline = -10
-			print("===================")
 			for colourindex in ['darkred', 'orange', 'red']:
 				baseline = baseline + 10
 				blockcount = historyitem.gettemp() - baseline - 10
 				if blockcount > 0.0:
-					barheight = calculatetempbarheight(graphheight / 3, blockcount, 10.0)
-					row = graphbottom - calculatetempbarheight(graphheight, baseline, 30) - barheight
+					barheight = calculatetempbarheight(barmax / 3, blockcount, 10.0)
+					row = graphbottom - calculatetempbarheight(barmax, baseline, 30) - barheight
 					outcome[colourindex].append(printrectangle(column, row, boxwidth, barheight))
 
 	return outcome
@@ -115,7 +118,7 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbotto
 
 
 
-def getuploadandvpnbars(origintimedate, erasize, boxwidth, horizontaloffset, firsttop, secondtop, graphheight,
+def getuploadandvpnbars(origintimedate, erasize, boxwidth, horizontaloffset, firstbottom, secondbottom, graphheight,
 																									history, outcome):
 
 	previousuploaded = 0
@@ -136,13 +139,13 @@ def getuploadandvpnbars(origintimedate, erasize, boxwidth, horizontaloffset, fir
 			uploadeddelta = historyitem.getuploaded() - previousuploaded
 			if uploadeddelta > 0:
 				barheight = calculateuploadbarheight(graphheight - 5, uploadeddelta / divisor)
-				row = secondtop - barheight - 2
+				row = secondbottom - barheight - 2
 				outcome['blue'].append(printrectangle(column, row, boxwidth, barheight))
 
 			# Add VPN Down Warning Bar
 			if historyitem.getvpnstatus() != 1:
 				barheight = graphheight - 2
-				row = firsttop - graphheight + 1
+				row = firstbottom - graphheight + 1
 				outcome['brightred'].append(printrectangle(column - 1, row, boxwidth + 2, barheight))
 
 		previousuploaded = historyitem.getuploaded()

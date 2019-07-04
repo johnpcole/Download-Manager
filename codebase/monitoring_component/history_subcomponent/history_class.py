@@ -90,7 +90,7 @@ class DefineHistory:
 		# Status bars for third graph
 		outcome = Functions.getstatusbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
 											self.graphhorizontaloffset, self.graphthreeverticaloffset,
-											self.getlonghistory(), outcome)
+											self.graphheight, self.getlonghistory(), outcome)
 
 		# Temp bars for bottom graph
 		outcome = Functions.gettempbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
@@ -129,7 +129,6 @@ class DefineHistory:
 				currentlonghistoryitem.cumulate(historyitem)
 			else:
 				outcome.append(currentlonghistoryitem)
-				print("Cumulated temp ", currentlonghistoryitem.gettemp())
 				currentlonghistoryitem = HistoryItem.createblank(EraFunctions.geteraasobject(newhour, 5))
 				currentlonghistoryitem.cumulate(historyitem)
 		if EraFunctions.compareeras(currentlonghistoryitem.getdatetime(), DateTime.getnow(), 5) == False:
