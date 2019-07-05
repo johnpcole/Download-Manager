@@ -44,12 +44,10 @@ Banner Content
 
 {% block content %}
 
-{% for thisgraph in monitoroutput %}
+{% for thisgraphindex, thisgraph in monitoroutput.items() %}
 
      --><div id="MonitorChart{{ thisgraph }}">
-     {{ thisgraph.amber }}
             <svg width="1038" height="883">
-
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
                     .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal; }
