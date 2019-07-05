@@ -47,7 +47,7 @@ Banner Content
 {% for thisgraphindex, thisgraph in monitoroutput.items() %}
 
      --><div class="MonitorChart">
-            <svg width="1038" height="883">
+            <svg width="1038" height="383">
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
                     .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal; }
@@ -55,7 +55,7 @@ Banner Content
                 </style>
 <!-- Graph Background -->
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
-                    <rect height="1200" width="2000" x="-50" y="-50"/>
+                    <rect height="500" width="1500" x="-50" y="-50"/>
                 </g>
 <!-- Bright Red -->
                 {{ graphblocksandbars(thisgraph.brightred, "#FF0000") }}

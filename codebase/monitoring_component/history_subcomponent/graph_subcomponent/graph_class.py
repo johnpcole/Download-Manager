@@ -33,58 +33,58 @@ class DefineGraph:
 		graph = self.startblankcanvass(5)
 
 		# Axes
-		for graphindex in [1, 2, 3, 4, 5]:
-			graph[graphindex] = Compose.graphaxes(
-												self.determineorigintimedate(currentdatetime, graphindex),
-												self.determinecorrecterasize(graphindex),
-												self.graphcolumnwidth,
-												self.graphhorizontaloffset,
-												self.determinegraphbottom(1),
-												self.graphwidth,
-												self.graphheight,
-												graph[graphindex])
+#		for graphindex in [1, 2, 3, 4, 5]:
+#			graph[graphindex] = Compose.graphaxes(
+#												self.determineorigintimedate(currentdatetime, graphindex),
+#												self.determinecorrecterasize(graphindex),
+#												self.graphcolumnwidth,
+#												self.graphhorizontaloffset,
+#												self.determinegraphbottom(1),
+#												self.graphwidth,
+#												self.graphheight,
+#												graph[graphindex])
 
 		# Upload & VPN Bars for top two graphs
-		for graphindex in [1, 3]:
-			graph[graphindex] = Compose.vpnbars(
-												self.determineorigintimedate(currentdatetime, graphindex),
-												self.determinecorrecterasize(graphindex),
-												self.graphcolumnwidth,
-												self.graphhorizontaloffset,
-												self.determinegraphbottom(1),
-												self.graphheight,
-												self.determinehistorytype(shorthistory, longhistory, graphindex),
-												graph[graphindex])
+#		for graphindex in [1, 3]:
+#			graph[graphindex] = Compose.vpnbars(
+#												self.determineorigintimedate(currentdatetime, graphindex),
+#												self.determinecorrecterasize(graphindex),
+#												self.graphcolumnwidth,
+#												self.graphhorizontaloffset,
+#												self.determinegraphbottom(1),
+#												self.graphheight,
+#												self.determinehistorytype(shorthistory, longhistory, graphindex),
+#												graph[graphindex])
 												
-			graph[graphindex + 1] = Compose.uploadedbars(
-												self.determineorigintimedate(currentdatetime, graphindex + 1),
-												self.determinecorrecterasize(graphindex + 1),
-												self.graphcolumnwidth,
-												self.graphhorizontaloffset,
-												self.determinegraphbottom(1),
-												self.graphheight,
-												self.determinehistorytype(shorthistory, longhistory, graphindex + 1),
-												graph[graphindex + 1])
+#			graph[graphindex + 1] = Compose.uploadedbars(
+#												self.determineorigintimedate(currentdatetime, graphindex + 1),
+#												self.determinecorrecterasize(graphindex + 1),
+#												self.graphcolumnwidth,
+#												self.graphhorizontaloffset,
+#												self.determinegraphbottom(1),
+#												self.graphheight,
+#												self.determinehistorytype(shorthistory, longhistory, graphindex + 1),
+#												graph[graphindex + 1])
 
 		# Status blocks for top graph
-		graph[1] = Compose.statusblocks(		self.determineorigintimedate(currentdatetime, 1),
-												self.determinecorrecterasize(1),
-												self.graphcolumnwidth,
-												self.graphhorizontaloffset,
-												self.determinegraphbottom(1),
-												self.determinehistorytype(shorthistory, longhistory, 1),
-												self.graphblockheight,
-												graph[1])
+#		graph[1] = Compose.statusblocks(		self.determineorigintimedate(currentdatetime, 1),
+#												self.determinecorrecterasize(1),
+#												self.graphcolumnwidth,
+#												self.graphhorizontaloffset,
+#												self.determinegraphbottom(1),
+#												self.determinehistorytype(shorthistory, longhistory, 1),
+#												self.graphblockheight,
+#												graph[1])
 
 		# Status bars for third graph
-		graph[3] = Compose.statusbars(		self.determineorigintimedate(currentdatetime, 3),
-												self.determinecorrecterasize(3),
-												self.graphcolumnwidth,
-												self.graphhorizontaloffset,
-												self.determinegraphbottom(1),
-												self.graphheight,
-												self.determinehistorytype(shorthistory, longhistory, 3),
-												graph[3])
+#		graph[3] = Compose.statusbars(		self.determineorigintimedate(currentdatetime, 3),
+#												self.determinecorrecterasize(3),
+#												self.graphcolumnwidth,
+#												self.graphhorizontaloffset,
+#												self.determinegraphbottom(1),
+#												self.graphheight,
+#												self.determinehistorytype(shorthistory, longhistory, 3),
+#												graph[3])
 
 		# Temp bars for bottom graph
 		graph[5] = Compose.tempbars(			self.determineorigintimedate(currentdatetime, 5),
@@ -138,13 +138,13 @@ class DefineGraph:
 
 	def startblankcanvass(self, setsize):
 
-		newdictionaryset  = {}
+		newdictionaryset = {}
 		newdictionary = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
 												"tempa": [], "tempb": [], "tempc": [], "tempd": [], "tempe": [],
 												"axeslines": [], "biglabels": [], "littlelabels": [], "graphtitles": []}
 
 		for x in range(1, setsize + 1):
-			newdictionaryset[x] = newdictionary
+			newdictionaryset[x] = newdictionary.copy()
 
 		return newdictionaryset
 
