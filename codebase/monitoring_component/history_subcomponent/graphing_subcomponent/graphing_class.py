@@ -77,14 +77,13 @@ class DefineGraphing:
 #												graph[1])
 
 		# Status bars for third graph
-#		graph[3] = Compose.statusbars(		self.determineorigintimedate(currentdatetime, 3),
-#												self.determinecorrecterasize(3),
-#												self.graphcolumnwidth,
-#												self.graphhorizontaloffset,
-#												self.determinegraphbottom(1),
-#												self.graphheight,
-#												self.determinehistorytype(shorthistory, longhistory, 3),
-#												graph[3])
+		graphset[3].mergein(Compose.statusbars(	self.determineorigintimedate(currentdatetime, 3),
+												self.determinecorrecterasize(3),
+												self.graphcolumnwidth,
+												self.graphhorizontaloffset,
+												self.determinegraphbottom(1),
+												self.graphheight,
+												self.determinehistorytype(shorthistory, longhistory, 3)))
 
 		# Temp bars for bottom graph
 		graphset[5].mergein(Compose.tempbars(	self.determineorigintimedate(currentdatetime, 5),
