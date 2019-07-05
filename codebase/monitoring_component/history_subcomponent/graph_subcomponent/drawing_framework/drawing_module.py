@@ -3,7 +3,9 @@ from . import drawelements_privatefunctions as Draw
 from . import calculatemetrics_privatefunctions as Calculate
 
 
-def statusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, boxheight, outcome):
+def statusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, boxheight, originalgraph):
+
+	outcome = originalgraph.copy()
 
 	for historyitem in history:
 
@@ -21,7 +23,9 @@ def statusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbotto
 
 
 
-def statusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
+def statusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, originalgraph):
+
+	outcome = originalgraph.copy()
 
 	barmax = graphheight - 5
 
@@ -46,7 +50,9 @@ def statusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom,
 
 
 
-def tempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
+def tempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, originalgraph):
+
+	outcome = originalgraph.copy()
 
 	barmax = graphheight - 5
 	tempmin = 20
@@ -73,7 +79,9 @@ def tempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, g
 
 
 
-def graphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphwidth, graphheight, outcome):
+def graphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphwidth, graphheight, originalgraph):
+
+	outcome = originalgraph.copy()
 
 	#horizontal axes
 	outcome["axeslines"].append(Draw.line(horizontaloffset, graphbottom, graphwidth, 0))
@@ -112,7 +120,9 @@ def graphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, 
 
 
 
-def uploadedbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
+def uploadedbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, originalgraph):
+
+	outcome = originalgraph.copy()
 
 	previousuploaded = 0
 	divisor = Calculate.barscaling(erasize)
@@ -134,7 +144,9 @@ def uploadedbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbotto
 	return outcome
 
 
-def vpnbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
+def vpnbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, originalgraph):
+
+	outcome = originalgraph.copy()
 
 	for historyitem in history:
 
@@ -151,7 +163,9 @@ def vpnbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, gr
 
 
 
-def titles(horizontaloffset, verticaloffset, verticalspacing, outcome):
+def titles(horizontaloffset, verticaloffset, verticalspacing, originalgraph):
+
+	outcome = originalgraph.copy()
 
 	horizontalposition = horizontaloffset + 10
 	verticalposition = verticalspacing + verticaloffset - 131

@@ -30,12 +30,7 @@ class DefineGraph:
 
 		currentdatetime = DateTime.getnow()
 
-		graph = {}
-		graph[1] = self.startblankcanvass()
-		graph[2] = self.startblankcanvass()
-		graph[3] = self.startblankcanvass()
-		graph[4] = self.startblankcanvass()
-		graph[5] = self.startblankcanvass()
+		graph = self.startblankcanvass(5)
 
 		# Axes
 		for graphindex in [1, 2, 3, 4, 5]:
@@ -142,12 +137,17 @@ class DefineGraph:
 		return history
 
 
-	def startblankcanvass(self):
+	def startblankcanvass(self, setsize):
 
+		newdictionaryset  = {}
 		newdictionary = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
 												"tempa": [], "tempb": [], "tempc": [], "tempd": [], "tempe": [],
 												"axeslines": [], "biglabels": [], "littlelabels": [], "graphtitles": []}
-		return newdictionary
+
+		for x in range(1, setsize + 1):
+			newdictionaryset[x] = newdictionary
+
+		return newdictionaryset
 
 
 
