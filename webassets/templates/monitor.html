@@ -47,6 +47,7 @@ Banner Content
 {% for thisgraph in monitoroutput %}
 
      --><div id="MonitorChart{{ thisgraph }}">
+     {{ thisgraph.amber }}
             <svg width="1038" height="883">
 
                 <style>
