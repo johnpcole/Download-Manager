@@ -31,7 +31,7 @@ class DefineGraph:
 
 # =========================================================================================
 
-	def gethistorygraphics(self, shorthistory, longhistory):
+	def getgraph(self, shorthistory, longhistory):
 
 		currentdatetime = DateTime.getnow()
 
