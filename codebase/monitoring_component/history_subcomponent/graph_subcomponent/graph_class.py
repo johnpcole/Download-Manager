@@ -1,6 +1,6 @@
 from ....common_components.datetime_datatypes import datetime_module as DateTime
 from .drawing_framework import drawing_module as Compose
-
+from  ....common_components.webserver_framework  import webserver_module as Web
 
 
 class DefineGraph:
@@ -43,7 +43,8 @@ class DefineGraph:
 												self.graphwidth,
 												self.graphheight,
 												graph[graphindex])
-
+		print("==================")
+		print(Web.makejson(graph))
 		# Upload & VPN Bars for top two graphs
 		for graphindex in [1, 3]:
 			graph[graphindex] = Compose.vpnbars(
