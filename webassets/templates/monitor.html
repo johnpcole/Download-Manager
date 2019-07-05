@@ -86,11 +86,12 @@ Banner Content
                 {{ graphtext(monitoroutput.biglabels, "graphtext", "middle") }}
                 {{ graphtext(monitoroutput.littlelabels, "littlegraphtext", "middle") }}
 <!-- Chart Headings -->
-                <text text-anchor="start" class="graphheadings" x="15" y="17">Latest Tracker Statuses</text>
+                {{ graphtext(monitoroutput.graphtitles, "graphheadings", "start") }}
+<!--                <text text-anchor="start" class="graphheadings" x="15" y="17">Latest Tracker Statuses</text>
                 <text text-anchor="start" class="graphheadings" x="15" y="194">Latest Upload Rates</text>
                 <text text-anchor="start" class="graphheadings" x="15" y="371">Recent Tracker Statuses</text>
                 <text text-anchor="start" class="graphheadings" x="15" y="548">Recent Upload Rates</text>
-                <text text-anchor="start" class="graphheadings" x="15" y="725">Recent Temperature</text>
+                <text text-anchor="start" class="graphheadings" x="15" y="725">Recent Temperature</text> -->
                 <g stroke-linecap="round" stroke="#DDDDEE" stroke-width="5">
                     <line x1="-50" y1="-2" x2="2000" y2="-2"></line>
                     <line x1="-50" y1="175" x2="2000" y2="175"></line>

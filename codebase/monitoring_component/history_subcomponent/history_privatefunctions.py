@@ -123,17 +123,10 @@ def getgraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbotto
 
 
 
-def getuploadandvpnbars(origintimedate, erasize, boxwidth, horizontaloffset, firstbottom, secondbottom, graphheight,
-																									history, outcome):
+def getuploadedbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
 
 	previousuploaded = 0
-
-	if erasize == 4:
-		divisor = 1.0
-	elif erasize == 5:
-		divisor = 6.0
-	else:
-		x = 1/0
+	divisor = calculatedivisor(erasize)
 
 	for historyitem in history:
 
@@ -144,22 +137,41 @@ def getuploadandvpnbars(origintimedate, erasize, boxwidth, horizontaloffset, fir
 			uploadeddelta = historyitem.getuploaded() - previousuploaded
 			if uploadeddelta > 0:
 				barheight = calculateuploadbarheight(graphheight - 5, uploadeddelta / divisor)
-				row = secondbottom - barheight - 2
+				row = graphbottom - barheight - 2
 				outcome['blue'].append(printrectangle(column, row, boxwidth, barheight))
-
-			# Add VPN Down Warning Bar
-			if historyitem.getvpnstatus() != 1:
-				barheight = graphheight - 2
-				row = firstbottom - graphheight + 1
-				outcome['brightred'].append(printrectangle(column - 1, row, boxwidth + 2, barheight))
 
 		previousuploaded = historyitem.getuploaded()
 
 	return outcome
 
 
+def getvpnbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, outcome):
+
+	for historyitem in history:
+
+		column = calculatecolumnposition(boxwidth, horizontaloffset, origintimedate, historyitem.getdatetime(), erasize)
+		if column >= horizontaloffset + 2:
+
+			# Add VPN Down Warning Bar
+			if historyitem.getvpnstatus() != 1:
+				barheight = graphheight - 2
+				row = graphbottom - graphheight + 1
+				outcome['brightred'].append(printrectangle(column - 1, row, boxwidth + 2, barheight))
+
+	return outcome
 
 
+
+def gettitles(horizontaloffset, verticaloffset, verticalspacing, outcome):
+
+	horizontalposition = horizontaloffset + 10
+	verticalposition = verticaloffset - 131
+	for label in ['Latest Tracker Statuses', 'Latest Upload Rates', 'Recent Tracker Statuses', 'Recent Upload Rates',
+																								'Recent Temperature']:
+		verticalposition = verticalposition + verticalspacing
+		outcome['graphtitles'].append(printtext(horizontalposition, verticalposition, label))
+
+	return outcome
 
 
 def printrectangle(x, y, w, h):
@@ -199,3 +211,15 @@ def calculateuploadbarheight(graphheight, dataamount):
 
 def calculatetempbarheight(graphheight, temperature, temperaturerange):
 	return ((graphheight * min(temperature, temperaturerange)) / temperaturerange)
+
+def calculatedivisor(erasize):
+
+	if erasize == 4:
+		divisor = 1.0
+	elif erasize == 5:
+		divisor = 6.0
+	else:
+		divisor = 1/0
+	return divisor
+
+
