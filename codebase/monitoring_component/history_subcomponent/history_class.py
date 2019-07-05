@@ -1,8 +1,7 @@
 from .historyitem_subcomponent import historyitem_module as HistoryItem
 from ...common_components.datetime_datatypes import datetime_module as DateTime
-from . import history_privatefunctions as Functions
 from ...common_components.datetime_datatypes import eras_module as EraFunctions
-
+from .graph_subcomponent import graph_module as Graph
 
 
 class DefineHistory:
@@ -16,19 +15,8 @@ class DefineHistory:
 		self.erasize = 4        # Ten minute intervals
 		self.longerasize = 5    # Hour intervals
 
-		# Screen metrics
-		self.graphcolumnwidth = 3
-		self.graphhorizontaloffset = 5
-		self.graphverticaloffset = -29
-		self.graphverticalspacing = 177
-		#self.graphupperverticaloffset = 148
-		#self.graphlowerverticaloffset = 325
-		#self.graphthreeverticaloffset = 502
-		#self.graphfourverticaloffset = 679
-		#self.graphfiveverticaloffset = 856
-		self.graphwidth = 1020
-		self.graphheight = 125
-		self.graphblockheight = 5
+		# Graphing module
+		self.graphs = Graph.creategraph(self.erasize, self.longerasize)
 
 # =========================================================================================
 
@@ -51,74 +39,7 @@ class DefineHistory:
 
 	def gethistorygraphics(self):
 
-		shortorigintimedate = DateTime.getnow()
-		longorigintimedate = DateTime.createfromobject(shortorigintimedate)
-		shortorigintimedate.adjusthours(-42)
-		longorigintimedate.adjustdays(-10)
-		longorigintimedate.adjusthours(-12)
-
-		outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
-												"tempa": [], "tempb": [], "tempc": [], "tempd": [], "tempe": [],
-												"axeslines": [], "biglabels": [], "littlelabels": [], "graphtitles": []}
-
-		longhistory = self.getlonghistory()
-		shorthistory = self.history
-
-		# Axes
-		for graphindex in [1, 2, 3, 4, 5]:
-			if graphindex < 3:
-				origintimedate = shortorigintimedate
-				erasize = self.erasize
-			else:
-				origintimedate = longorigintimedate
-				erasize = self.longerasize
-			graphbottom = self.graphverticaloffset + (self.graphverticalspacing * graphindex)
-			outcome = Functions.getgraphaxes(origintimedate, erasize, self.graphcolumnwidth, self.graphhorizontaloffset,
-													graphbottom, self.graphwidth, self.graphheight, outcome)
-
-
-		# Upload & VPN Bars for top two graphs
-		for graphindex in [1, 3]:
-			if graphindex < 3:
-				origintimedate = shortorigintimedate
-				erasize = self.erasize
-				history = shorthistory
-			else:
-				origintimedate = longorigintimedate
-				erasize = self.longerasize
-				history = longhistory
-			graphbottom = self.graphverticaloffset + (self.graphverticalspacing * graphindex)
-			outcome = Functions.getvpnbars(origintimedate, erasize, self.graphcolumnwidth, self.graphhorizontaloffset,
-													graphbottom, self.graphheight, history, outcome)
-			outcome = Functions.getuploadedbars(origintimedate, erasize, self.graphcolumnwidth,
-													self.graphhorizontaloffset, graphbottom + self.graphverticalspacing,
-													self.graphheight, history, outcome)
-
-
-		# Status blocks for top graph
-		outcome = Functions.getstatusblocks(shortorigintimedate, self.erasize, self.graphcolumnwidth,
-													self.graphhorizontaloffset,
-													self.graphverticaloffset + (self.graphverticalspacing * 1),
-													shorthistory, self.graphblockheight, outcome)
-
-		# Status bars for third graph
-		outcome = Functions.getstatusbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
-													self.graphhorizontaloffset,
-													self.graphverticaloffset + (self.graphverticalspacing * 3),
-													self.graphheight, longhistory, outcome)
-
-		# Temp bars for bottom graph
-		outcome = Functions.gettempbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
-													self.graphhorizontaloffset,
-													self.graphverticaloffset + (self.graphverticalspacing * 5),
-													self.graphheight, longhistory, outcome)
-
-		# Graph headings
-		outcome = Functions.gettitles(self.graphhorizontaloffset, self.graphverticaloffset, self.graphverticalspacing,
-													outcome)
-
-		return outcome
-
+		return self.graphs.getgraph(self.monitorhistory, self.getlonghistory())
 
 
 
