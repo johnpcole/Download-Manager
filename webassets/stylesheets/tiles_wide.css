@@ -125,7 +125,7 @@ div.indexbannercontent {
 }
 
 
-#MonitorChart {
+div.MonitorChart {
     height: auto;
     width: 1038px;
     padding: 0px;

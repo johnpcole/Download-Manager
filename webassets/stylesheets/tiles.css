@@ -14,7 +14,7 @@ div.tilesgroup {
 }
 
 /* Generic Tile object, covers banner tiles and torrent & file tiles */
-div.bannertile, div.contenttile, a.contenttile, #FixedIndexBanner, #MonitorChart {
+div.bannertile, div.contenttile, a.contenttile, #FixedIndexBanner, div.MonitorChart {
     display: inline-block;
     overflow: hidden;
     margin: 7px;
