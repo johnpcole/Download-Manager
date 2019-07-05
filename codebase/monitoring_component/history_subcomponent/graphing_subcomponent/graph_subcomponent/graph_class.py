@@ -24,7 +24,7 @@ class DefineGraph:
 		return self.dictionary
 
 
-	def add(self, elementtype, instructionobject):
+	def additem(self, elementtype, instructionobject):
 
 		self.dictionary[elementtype].append(instructionobject)
 

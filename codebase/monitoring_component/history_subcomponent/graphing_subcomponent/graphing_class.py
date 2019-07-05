@@ -33,66 +33,63 @@ class DefineGraphing:
 								4: Graph.creategraph(), 5: Graph.creategraph()}
 
 		# Axes
-#		for graphindex in [1, 2, 3, 4, 5]:
-#			graph[graphindex] = Compose.graphaxes(
-#												self.determineorigintimedate(currentdatetime, graphindex),
-#												self.determinecorrecterasize(graphindex),
-#												self.graphcolumnwidth,
-#												self.graphhorizontaloffset,
-#												self.determinegraphbottom(1),
-#												self.graphwidth,
-#												self.graphheight,
-#												graph[graphindex])
+		for graphindex in [1, 2, 3, 4, 5]:
+			graphset[graphindex].mergein(Compose.graphaxes(
+														self.determineorigintimedate(currentdatetime, graphindex),
+														self.determinecorrecterasize(graphindex),
+														self.graphcolumnwidth,
+														self.graphhorizontaloffset,
+														self.determinegraphbottom(1),
+														self.graphwidth,
+														self.graphheight))
 
 		# Upload & VPN Bars for top two graphs
-#		for graphindex in [1, 3]:
-#			graph[graphindex] = Compose.vpnbars(
-#												self.determineorigintimedate(currentdatetime, graphindex),
-#												self.determinecorrecterasize(graphindex),
-#												self.graphcolumnwidth,
-#												self.graphhorizontaloffset,
-#												self.determinegraphbottom(1),
-#												self.graphheight,
-#												self.determinehistorytype(shorthistory, longhistory, graphindex),
-#												graph[graphindex])
+		for graphindex in [1, 3]:
+			historytype = self.determinehistorytype(shorthistory, longhistory, graphindex)
+			graphset[graphindex].mergein(Compose.vpnbars(
+														self.determineorigintimedate(currentdatetime, graphindex),
+														self.determinecorrecterasize(graphindex),
+														self.graphcolumnwidth,
+														self.graphhorizontaloffset,
+														self.determinegraphbottom(1),
+														self.graphheight,
+														historytype))
 												
-#			graph[graphindex + 1] = Compose.uploadedbars(
-#												self.determineorigintimedate(currentdatetime, graphindex + 1),
-#												self.determinecorrecterasize(graphindex + 1),
-#												self.graphcolumnwidth,
-#												self.graphhorizontaloffset,
-#												self.determinegraphbottom(1),
-#												self.graphheight,
-#												self.determinehistorytype(shorthistory, longhistory, graphindex + 1),
-#												graph[graphindex + 1])
+			graphset[graphindex + 1].mergein(Compose.uploadedbars(
+														self.determineorigintimedate(currentdatetime, graphindex + 1),
+														self.determinecorrecterasize(graphindex + 1),
+														self.graphcolumnwidth,
+														self.graphhorizontaloffset,
+														self.determinegraphbottom(1),
+														self.graphheight,
+														historytype))
 
 		# Status blocks for top graph
-#		graph[1] = Compose.statusblocks(		self.determineorigintimedate(currentdatetime, 1),
-#												self.determinecorrecterasize(1),
-#												self.graphcolumnwidth,
-#												self.graphhorizontaloffset,
-#												self.determinegraphbottom(1),
-#												self.determinehistorytype(shorthistory, longhistory, 1),
-#												self.graphblockheight,
-#												graph[1])
+		graphset[1].mergein(Compose.statusblocks(		self.determineorigintimedate(currentdatetime, 1),
+														self.determinecorrecterasize(1),
+														self.graphcolumnwidth,
+														self.graphhorizontaloffset,
+														self.determinegraphbottom(1),
+														self.determinehistorytype(shorthistory, longhistory, 1),
+														self.graphblockheight))
 
 		# Status bars for third graph
-		graphset[3].mergein(Compose.statusbars(	self.determineorigintimedate(currentdatetime, 3),
-												self.determinecorrecterasize(3),
-												self.graphcolumnwidth,
-												self.graphhorizontaloffset,
-												self.determinegraphbottom(1),
-												self.graphheight,
-												self.determinehistorytype(shorthistory, longhistory, 3)))
+		graphset[3].mergein(Compose.statusbars(			self.determineorigintimedate(currentdatetime, 3),
+														self.determinecorrecterasize(3),
+														self.graphcolumnwidth,
+														self.graphhorizontaloffset,
+														self.determinegraphbottom(1),
+														self.graphheight,
+														self.determinehistorytype(shorthistory, longhistory, 3)))
 
 		# Temp bars for bottom graph
-		graphset[5].mergein(Compose.tempbars(	self.determineorigintimedate(currentdatetime, 5),
-												self.determinecorrecterasize(5),
-												self.graphcolumnwidth,
-												self.graphhorizontaloffset,
-												self.determinegraphbottom(1),
-												self.graphheight,
-												self.determinehistorytype(shorthistory, longhistory, 5)))
+		graphset[5].mergein(Compose.tempbars(			self.determineorigintimedate(currentdatetime, 5),
+														self.determinecorrecterasize(5),
+														self.graphcolumnwidth,
+														self.graphhorizontaloffset,
+														self.determinegraphbottom(1),
+														self.graphheight,
+														self.determinehistorytype(shorthistory, longhistory, 5)))
 
 		# Graph headings
 #		graph = Compose.titles(				self.graphhorizontaloffset,
