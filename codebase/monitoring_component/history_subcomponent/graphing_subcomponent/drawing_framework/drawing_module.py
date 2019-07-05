@@ -1,11 +1,12 @@
 from .....common_components.datetime_datatypes import eras_module as EraFunctions
 from . import drawelements_privatefunctions as Draw
 from . import calculatemetrics_privatefunctions as Calculate
+from ..graph_subcomponent import graph_module as Graph
 
 
-def statusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, boxheight, originalgraph):
+def statusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, boxheight):
 
-	outcome = originalgraph.copy()
+	outcome = Graph.creategraph()
 
 	for historyitem in history:
 
@@ -17,15 +18,15 @@ def statusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbotto
 			indexmax = min(len(colourlist), 21)
 			for index in range(0, indexmax):
 				row = Calculate.rowposition(boxheight, graphbottom, index)
-				outcome[colourlist[index]].append(Draw.rectangle(column, row, boxwidth, boxheight))
+				outcome.add(colourlist[index], Draw.rectangle(column, row, boxwidth, boxheight))
 
 	return outcome
 
 
 
-def statusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, originalgraph):
+def statusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history):
 
-	outcome = originalgraph.copy()
+	outcome = Graph.creategraph()
 
 	barmax = graphheight - 5
 
@@ -43,16 +44,16 @@ def statusbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom,
 					barheight = barmax - baseline
 				if barheight > 0:
 					row = graphbottom - (baseline + barheight + 2)
-					outcome[colourindex].append(Draw.rectangle(column, row, boxwidth, barheight))
+					outcome.add(colourindex, Draw.rectangle(column, row, boxwidth, barheight))
 					baseline = baseline + barheight
 
 	return outcome
 
 
 
-def tempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, originalgraph):
+def tempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history):
 
-	outcome = originalgraph.copy()
+	outcome = Graph.creategraph()
 
 	barmax = graphheight - 5
 	tempmin = 20
@@ -73,25 +74,25 @@ def tempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, g
 				if blockcount > 0.0:
 					barheight = Calculate.barheight(minibarmax, blockcount, tempstep)
 					row = graphbottom - Calculate.barheight(barmax, baseline, temprange) - barheight - 2
-					outcome[colourindex].append(Draw.rectangle(column, row, boxwidth, barheight))
+					outcome.add(colourindex, Draw.rectangle(column, row, boxwidth, barheight))
 
 	return outcome
 
 
 
-def graphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphwidth, graphheight, originalgraph):
+def graphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphwidth, graphheight):
 
-	outcome = originalgraph.copy()
+	outcome = Graph.creategraph()
 
 	#horizontal axes
-	outcome["axeslines"].append(Draw.line(horizontaloffset, graphbottom, graphwidth, 0))
+	outcome.add("axeslines", Draw.line(horizontaloffset, graphbottom, graphwidth, 0))
 
 	#vertical axes
-	outcome["axeslines"].append(Draw.line(horizontaloffset + 2, graphbottom, 0, 0 - graphheight))
+	outcome.add("axeslines", Draw.line(horizontaloffset + 2, graphbottom, 0, 0 - graphheight))
 
 	#vertical markers
 	for indexer in [31, 61, 91, 121]:
-		outcome["axeslines"].append(Draw.line(horizontaloffset, graphbottom - indexer, 2, 0))
+		outcome.add("axeslines", Draw.line(horizontaloffset, graphbottom - indexer, 2, 0))
 
 	#horizontal markers & labels
 	littlemarkergapsize = Calculate.markergapsize(erasize)
@@ -113,16 +114,16 @@ def graphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, 
 				textoffset = 12
 
 			markerlabel = EraFunctions.geteralabel(currentmarker, erasize)
-			outcome[texttype].append(Draw.text(column, graphbottom + textoffset, markerlabel))
-			outcome["axeslines"].append(Draw.line(column, graphbottom, 0, markerheight))
+			outcome.add(texttype, Draw.text(column, graphbottom + textoffset, markerlabel))
+			outcome.add("axeslines", Draw.line(column, graphbottom, 0, markerheight))
 
 	return outcome
 
 
 
-def uploadedbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, originalgraph):
+def uploadedbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history):
 
-	outcome = originalgraph.copy()
+	outcome = Graph.creategraph()
 
 	previousuploaded = 0
 	divisor = Calculate.barscaling(erasize)
@@ -137,16 +138,16 @@ def uploadedbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbotto
 			if uploadeddelta > 0:
 				barheight = Calculate.barheight(graphheight - 5, uploadeddelta / divisor, 1000000000)
 				row = graphbottom - barheight - 2
-				outcome['blue'].append(Draw.rectangle(column, row, boxwidth, barheight))
+				outcome.add('blue', Draw.rectangle(column, row, boxwidth, barheight))
 
 		previousuploaded = historyitem.getuploaded()
 
 	return outcome
 
 
-def vpnbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history, originalgraph):
+def vpnbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, graphheight, history):
 
-	outcome = originalgraph.copy()
+	outcome = Graph.creategraph()
 
 	for historyitem in history:
 
@@ -157,7 +158,7 @@ def vpnbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, gr
 			if historyitem.getvpnstatus() != 1:
 				barheight = graphheight - 2
 				row = graphbottom - graphheight + 1
-				outcome['brightred'].append(Draw.rectangle(column - 1, row, boxwidth + 2, barheight))
+				outcome.add('brightred', Draw.rectangle(column - 1, row, boxwidth + 2, barheight))
 
 	return outcome
 

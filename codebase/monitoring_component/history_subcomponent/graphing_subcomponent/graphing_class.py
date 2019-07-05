@@ -1,9 +1,8 @@
 from ....common_components.datetime_datatypes import datetime_module as DateTime
 from .drawing_framework import drawing_module as Compose
-from  ....common_components.webserver_framework  import webserver_module as Test
+from .graph_subcomponent import graph_module as Graph
 
-
-class DefineGraph:
+class DefineGraphing:
 
 	def __init__(self, smallera, largeera):
 
@@ -30,7 +29,8 @@ class DefineGraph:
 
 		currentdatetime = DateTime.getnow()
 
-		graph = self.startblankcanvass(5)
+		graphset = {1: Graph.creategraph(), 2: Graph.creategraph(), 3: Graph.creategraph(),
+								4: Graph.creategraph(), 5: Graph.creategraph()}
 
 		# Axes
 #		for graphindex in [1, 2, 3, 4, 5]:
@@ -87,22 +87,23 @@ class DefineGraph:
 #												graph[3])
 
 		# Temp bars for bottom graph
-		graph[5] = Compose.tempbars(			self.determineorigintimedate(currentdatetime, 5),
+		graphset[5].mergein(Compose.tempbars(	self.determineorigintimedate(currentdatetime, 5),
 												self.determinecorrecterasize(5),
 												self.graphcolumnwidth,
 												self.graphhorizontaloffset,
 												self.determinegraphbottom(1),
 												self.graphheight,
-												self.determinehistorytype(shorthistory, longhistory, 5),
-												graph[5])
+												self.determinehistorytype(shorthistory, longhistory, 5)))
 
 		# Graph headings
-		graph = Compose.titles(				self.graphhorizontaloffset,
-												self.graphverticaloffset,
-												self.graphverticalspacing,
-												graph)
+#		graph = Compose.titles(				self.graphhorizontaloffset,
+#												self.graphverticaloffset,
+#												self.graphverticalspacing,
+#												graph)
 
-		return graph
+		graphoutput = {1: graphset[1].get(), 2: graphset[2].get(), 3: graphset[3].get(),
+																			4: graphset[4].get(), 5: graphset[5].get()}
+		return graphoutput
 
 
 	def determinegraphbottom(self, graphindex):
@@ -134,20 +135,4 @@ class DefineGraph:
 		else:
 			history = longhistory
 		return history
-
-
-	def startblankcanvass(self, setsize):
-
-		newdictionaryset = {}
-		newdictionary = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
-												"tempa": [], "tempb": [], "tempc": [], "tempd": [], "tempe": [],
-												"axeslines": [], "biglabels": [], "littlelabels": [], "graphtitles": []}
-
-		for x in range(1, setsize + 1):
-			newdictionaryset[x] = newdictionary.copy()
-
-		return newdictionaryset
-
-
-
 

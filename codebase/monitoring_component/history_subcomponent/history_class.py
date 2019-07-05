@@ -1,7 +1,7 @@
 from .historyitem_subcomponent import historyitem_module as HistoryItem
 from ...common_components.datetime_datatypes import datetime_module as DateTime
 from ...common_components.datetime_datatypes import eras_module as EraFunctions
-from .graph_subcomponent import graph_module as Graph
+from .graphing_subcomponent import graphing_module as Graphing
 
 
 class DefineHistory:
@@ -16,7 +16,7 @@ class DefineHistory:
 		self.longerasize = 5    # Hour intervals
 
 		# Graphing module
-		self.graphs = Graph.creategraph(self.erasize, self.longerasize)
+		self.graphs = Graphing.creategraphing(self.erasize, self.longerasize)
 
 # =========================================================================================
 
