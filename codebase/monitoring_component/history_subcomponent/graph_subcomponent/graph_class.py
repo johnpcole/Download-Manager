@@ -17,11 +17,6 @@ class DefineGraph:
 		self.graphhorizontaloffset = 5
 		self.graphverticaloffset = -29
 		self.graphverticalspacing = 177
-		#self.graphupperverticaloffset = 148
-		#self.graphlowerverticaloffset = 325
-		#self.graphthreeverticaloffset = 502
-		#self.graphfourverticaloffset = 679
-		#self.graphfiveverticaloffset = 856
 		self.graphwidth = 1020
 		self.graphheight = 125
 		self.graphblockheight = 5

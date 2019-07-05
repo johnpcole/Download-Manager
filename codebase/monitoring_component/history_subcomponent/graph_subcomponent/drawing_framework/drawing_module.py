@@ -50,7 +50,7 @@ def tempbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, g
 
 	barmax = graphheight - 5
 	tempmin = 20
-	tempmax = 50
+	tempmax = 30 #50
 	temprange = tempmax - tempmin
 	tempstep = temprange / 6
 	minibarmax = barmax / 6

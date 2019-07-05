@@ -80,3 +80,54 @@ div.bannersubtitleright {
     }
 }
 
+
+
+/* ===============================================================================*/
+
+div.indexbannertitle {
+    height: 48px;
+    line-height: 40px;
+}
+
+div.indexbannercontent {
+    height: 68px;
+    display: inline-block;
+    text-align: center;
+    font-size: 28pt;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+}
+
+@media screen and (min-width: 1070px) {
+    div.indexbannercontent {
+        left: 260px;
+        right: 260px;
+    }
+}
+
+#IndexBanner {
+    position: relative;
+    height: 144px;
+}
+
+@media screen and (min-width: 1070px) {
+    #IndexBanner {
+        height: 72px;
+    }
+}
+
+#FixedIndexBanner, #MonitorChart {
+    position: relative;
+    width: 1018px;
+}
+
+#FixedIndexBanner {
+    height: 72px;
+}
+
+#MonitorChart {
+    height: auto;
+
+}
