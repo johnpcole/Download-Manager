@@ -245,7 +245,7 @@ def displaymonitor():
 
 
 @website.route('/MonitorTest')
-def displaymonitor():
+def displaymonitortest():
 
 	Logging.printinvocation("Creating Deluge Monitor History Test", "")
 	return WebServer.makejson(monitoroutput=monitormanager.gethistorygraphics())
