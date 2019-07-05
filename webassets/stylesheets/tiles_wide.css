@@ -118,16 +118,15 @@ div.indexbannercontent {
     }
 }
 
-#FixedIndexBanner, #MonitorChart {
+#FixedIndexBanner {
     position: relative;
     width: 1018px;
-}
-
-#FixedIndexBanner {
     height: 72px;
 }
 
+
 #MonitorChart {
     height: auto;
-
+    width: 1038px;
+    padding: 0px;
 }
