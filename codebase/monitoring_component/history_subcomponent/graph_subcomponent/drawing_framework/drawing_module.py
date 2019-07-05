@@ -154,11 +154,13 @@ def vpnbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, gr
 def titles(horizontaloffset, verticaloffset, verticalspacing, outcome):
 
 	horizontalposition = horizontaloffset + 10
-	verticalposition = verticaloffset - 131
+	verticalposition = verticalspacing + verticaloffset - 131
+	graphindex = 0
 	for label in ['Latest Tracker Statuses', 'Latest Upload Rates', 'Recent Tracker Statuses', 'Recent Upload Rates',
 																								'Recent Temperature']:
-		verticalposition = verticalposition + verticalspacing
-		outcome['graphtitles'].append(Draw.text(horizontalposition, verticalposition, label))
+		#verticalposition = verticalposition + verticalspacing
+		graphindex = graphindex + 1
+		outcome[graphindex]['graphtitles'].append(Draw.text(horizontalposition, verticalposition, label))
 
 	return outcome
 

@@ -30,78 +30,85 @@ class DefineGraph:
 
 		currentdatetime = DateTime.getnow()
 
-		outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
-												"tempa": [], "tempb": [], "tempc": [], "tempd": [], "tempe": [],
-												"axeslines": [], "biglabels": [], "littlelabels": [], "graphtitles": []}
+		graph = {}
+		graph[1] = self.startblankcanvass()
+		graph[2] = self.startblankcanvass()
+		graph[3] = self.startblankcanvass()
+		graph[4] = self.startblankcanvass()
+		graph[5] = self.startblankcanvass()
 
 		# Axes
 		for graphindex in [1, 2, 3, 4, 5]:
-			outcome = Compose.graphaxes(		self.determineorigintimedate(currentdatetime, graphindex),
+			graph[graphindex] = Compose.graphaxes(
+												self.determineorigintimedate(currentdatetime, graphindex),
 												self.determinecorrecterasize(graphindex),
 												self.graphcolumnwidth,
 												self.graphhorizontaloffset,
-												self.determinegraphbottom(graphindex),
+												self.determinegraphbottom(1),
 												self.graphwidth,
 												self.graphheight,
-												outcome)
+												graph[graphindex])
 
 		# Upload & VPN Bars for top two graphs
 		for graphindex in [1, 3]:
-			outcome = Compose.vpnbars(			self.determineorigintimedate(currentdatetime, graphindex),
+			graph[graphindex] = Compose.vpnbars(
+												self.determineorigintimedate(currentdatetime, graphindex),
 												self.determinecorrecterasize(graphindex),
 												self.graphcolumnwidth,
 												self.graphhorizontaloffset,
-												self.determinegraphbottom(graphindex),
+												self.determinegraphbottom(1),
 												self.graphheight,
 												self.determinehistorytype(shorthistory, longhistory, graphindex),
-												outcome)
-			outcome = Compose.uploadedbars(		self.determineorigintimedate(currentdatetime, graphindex + 1),
+												graph[graphindex])
+												
+			graph[graphindex + 1] = Compose.uploadedbars(
+												self.determineorigintimedate(currentdatetime, graphindex + 1),
 												self.determinecorrecterasize(graphindex + 1),
 												self.graphcolumnwidth,
 												self.graphhorizontaloffset,
-												self.determinegraphbottom(graphindex + 1),
+												self.determinegraphbottom(1),
 												self.graphheight,
 												self.determinehistorytype(shorthistory, longhistory, graphindex + 1),
-												outcome)
+												graph[graphindex + 1])
 
 
 		# Status blocks for top graph
-		outcome = Compose.statusblocks(			self.determineorigintimedate(currentdatetime, 1),
+		graph[1] = Compose.statusblocks(		self.determineorigintimedate(currentdatetime, 1),
 												self.determinecorrecterasize(1),
 												self.graphcolumnwidth,
 												self.graphhorizontaloffset,
 												self.determinegraphbottom(1),
 												self.determinehistorytype(shorthistory, longhistory, 1),
 												self.graphblockheight,
-												outcome)
+												graph[1])
 
 		# Status bars for third graph
-		outcome = Compose.statusbars(			self.determineorigintimedate(currentdatetime, 3),
+		graph[3] = Compose.statusbars(		self.determineorigintimedate(currentdatetime, 3),
 												self.determinecorrecterasize(3),
 												self.graphcolumnwidth,
 												self.graphhorizontaloffset,
-												self.determinegraphbottom(3),
+												self.determinegraphbottom(1),
 												self.graphheight,
 												self.determinehistorytype(shorthistory, longhistory, 3),
-												outcome)
+												graph[3])
 
 		# Temp bars for bottom graph
-		outcome = Compose.tempbars(				self.determineorigintimedate(currentdatetime, 5),
+		graph[5] = Compose.tempbars(			self.determineorigintimedate(currentdatetime, 5),
 												self.determinecorrecterasize(5),
 												self.graphcolumnwidth,
 												self.graphhorizontaloffset,
-												self.determinegraphbottom(5),
+												self.determinegraphbottom(1),
 												self.graphheight,
 												self.determinehistorytype(shorthistory, longhistory, 5),
-												outcome)
+												graph[5])
 
 		# Graph headings
-		outcome = Compose.titles(				self.graphhorizontaloffset,
+		graph = Compose.titles(				self.graphhorizontaloffset,
 												self.graphverticaloffset,
 												self.graphverticalspacing,
-												outcome)
+												graph)
 
-		return outcome
+		return graph
 
 
 	def determinegraphbottom(self, graphindex):
@@ -111,20 +118,20 @@ class DefineGraph:
 	def determinecorrecterasize(self, graphindex):
 	
 		if graphindex < 3:
-			outcome = self.shorterasize
+			graph = self.shorterasize
 		else:
-			outcome = self.longerasize
+			graph = self.longerasize
 		
-		return outcome
+		return graph
 
 	def determineorigintimedate(self, currenttimedate, graphindex):
 
-		outcome = DateTime.createfromobject(currenttimedate)
+		graph = DateTime.createfromobject(currenttimedate)
 		if graphindex < 3:
-			outcome.adjusthours(0 - self.shortoriginoffset)
+			graph.adjusthours(0 - self.shortoriginoffset)
 		else:
-			outcome.adjusthours(0 - self.longoriginoffset)
-		return outcome
+			graph.adjusthours(0 - self.longoriginoffset)
+		return graph
 
 	def determinehistorytype(self, shorthistory, longhistory, graphindex):
 
@@ -134,6 +141,13 @@ class DefineGraph:
 			history = longhistory
 		return history
 
+
+	def startblankcanvass(self):
+
+		newdictionary = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
+												"tempa": [], "tempb": [], "tempc": [], "tempd": [], "tempe": [],
+												"axeslines": [], "biglabels": [], "littlelabels": [], "graphtitles": []}
+		return newdictionary
 
 
 

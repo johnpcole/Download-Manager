@@ -44,6 +44,8 @@ Banner Content
 
 {% block content %}
 
+{% for graph in monitoroutput %}
+
      --><div id="MonitorChart">
             <svg width="1038" height="883">
 
@@ -57,53 +59,48 @@ Banner Content
                     <rect height="1200" width="2000" x="-50" y="-50"/>
                 </g>
 <!-- Bright Red -->
-                {{ graphblocksandbars(monitoroutput.brightred, "#FF0000") }}
+                {{ graphblocksandbars(graph.brightred, "#FF0000") }}
 <!-- Red -->
-                {{ graphblocksandbars(monitoroutput.red, "#CC0000") }}
+                {{ graphblocksandbars(graph.red, "#CC0000") }}
 <!-- Orange -->
-                {{ graphblocksandbars(monitoroutput.orange, "#FF6600") }}
+                {{ graphblocksandbars(graph.orange, "#FF6600") }}
 <!-- Amber -->
-                {{ graphblocksandbars(monitoroutput.amber, "#FFBB11") }}
+                {{ graphblocksandbars(graph.amber, "#FFBB11") }}
 <!-- Yellow -->
-                {{ graphblocksandbars(monitoroutput.yellow, "#EEEE11") }}
+                {{ graphblocksandbars(graph.yellow, "#EEEE11") }}
 <!-- Green -->
-                {{ graphblocksandbars(monitoroutput.green, "#00CC00") }}
+                {{ graphblocksandbars(graph.green, "#00CC00") }}
 <!-- Light Blue -->
-                {{ graphblocksandbars(monitoroutput.blue, "#6688FF") }}
+                {{ graphblocksandbars(graph.blue, "#6688FF") }}
 <!-- Temp 1 -->
-                {{ graphblocksandbars(monitoroutput.tempa, "#EE2200") }}
+                {{ graphblocksandbars(graph.tempa, "#EE2200") }}
 <!-- Temp 2 -->
-                {{ graphblocksandbars(monitoroutput.tempb, "#DD4400") }}
+                {{ graphblocksandbars(graph.tempb, "#DD4400") }}
 <!-- Temp 3 -->
-                {{ graphblocksandbars(monitoroutput.tempc, "#CC6600") }}
+                {{ graphblocksandbars(graph.tempc, "#CC6600") }}
 <!-- Temp 4 -->
-                {{ graphblocksandbars(monitoroutput.tempd, "#BB8800") }}
+                {{ graphblocksandbars(graph.tempd, "#BB8800") }}
 <!-- Temp 5 -->
-                {{ graphblocksandbars(monitoroutput.tempe, "#AAAA00") }}
+                {{ graphblocksandbars(graph.tempe, "#AAAA00") }}
 <!-- Axes Lines-->
-                {{ graphlines(monitoroutput.axeslines, "#DDDDDD") }}
+                {{ graphlines(graph.axeslines, "#DDDDDD") }}
 <!-- Axes Labels -->
-                {{ graphtext(monitoroutput.biglabels, "graphtext", "middle") }}
-                {{ graphtext(monitoroutput.littlelabels, "littlegraphtext", "middle") }}
+                {{ graphtext(graph.biglabels, "graphtext", "middle") }}
+                {{ graphtext(graph.littlelabels, "littlegraphtext", "middle") }}
 <!-- Chart Headings -->
-                {{ graphtext(monitoroutput.graphtitles, "graphheadings", "start") }}
-<!--                <text text-anchor="start" class="graphheadings" x="15" y="17">Latest Tracker Statuses</text>
-                <text text-anchor="start" class="graphheadings" x="15" y="194">Latest Upload Rates</text>
-                <text text-anchor="start" class="graphheadings" x="15" y="371">Recent Tracker Statuses</text>
-                <text text-anchor="start" class="graphheadings" x="15" y="548">Recent Upload Rates</text>
-                <text text-anchor="start" class="graphheadings" x="15" y="725">Recent Temperature</text> -->
-                <g stroke-linecap="round" stroke="#DDDDEE" stroke-width="5">
+                {{ graphtext(graph.graphtitles, "graphheadings", "start") }}
+ <!--               <g stroke-linecap="round" stroke="#DDDDEE" stroke-width="5">
                     <line x1="-50" y1="-2" x2="2000" y2="-2"></line>
                     <line x1="-50" y1="175" x2="2000" y2="175"></line>
                     <line x1="-50" y1="352" x2="2000" y2="352"></line>
                     <line x1="-50" y1="529" x2="2000" y2="529"></line>
                     <line x1="-50" y1="706" x2="2000" y2="706"></line>
                     <line x1="-50" y1="883" x2="2000" y2="883"></line>
-                </g>
+                </g> -->
             </svg>
         </div><!--
 
-
+{% end for %}
 
 {% endblock %}
 
