@@ -99,7 +99,7 @@ class DefineGraphing:
 														self.determinehistorytype(shorthistory, longhistory, 5)))
 
 		graphset.addto(1, Graph.createstatuslegend(		self.graphhorizontaloffset,
-														self.determinegraphbottom(1))
+														self.determinegraphbottom(1)))
 
 		return graphset.printout()
 
