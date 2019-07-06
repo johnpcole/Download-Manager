@@ -19,7 +19,10 @@ def createstatuslegend(horizontaloffset, graphbottom):
 
 	outcome = createblank()
 
-	outcome.additem('graphlegends', Draw.text(horizontaloffset, graphbottom, '12345'))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 50, graphbottom - 131, 'Timed-Out   Invalid-Argument   Other-Error'))
+	outcome.additem('amber', Draw.rectangle(horizontaloffset + 45, graphbottom - 131, 3, 5))
+	outcome.additem('orange', Draw.rectangle(horizontaloffset + 245, graphbottom - 131, 3, 5))
+	outcome.additem('red', Draw.rectangle(horizontaloffset + 345, graphbottom - 131, 3, 5))
 
 	return outcome
 
@@ -193,7 +196,7 @@ def createtitles(horizontaloffset, verticaloffset, verticalspacing, graphindex):
 	horizontalposition = horizontaloffset + 10
 	verticalposition = verticalspacing + verticaloffset - 131
 	labellist = {1: 'Latest Tracker Statuses', 2: 'Latest Upload Rates', 3: 'Recent Tracker Statuses',
-									4: 'Recent Upload Rates', 5: 'Recent Temperature'}
+																	4: 'Recent Upload Rates', 5: 'Recent Temperature'}
 
 	outcome.additem('graphtitles', Draw.text(horizontalposition, verticalposition, labellist[graphindex]))
 
