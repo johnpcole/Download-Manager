@@ -4,8 +4,8 @@ class DefineGraph:
 	def __init__(self):
 
 		self.dictionary = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
-												"tempa": [], "tempb": [], "tempc": [], "tempd": [], "tempe": [],
-												"axeslines": [], "biglabels": [], "littlelabels": [], "graphtitles": []}
+							"tempa": [], "tempb": [], "tempc": [], "tempd": [], "tempe": [],
+							"axeslines": [], "biglabels": [], "littlelabels": [], "graphtitles": [], "graphlegends": []}
 
 
 
@@ -22,6 +22,7 @@ class DefineGraph:
 	def get(self):
 
 		return self.dictionary
+
 
 
 	def additem(self, elementtype, instructionobject):

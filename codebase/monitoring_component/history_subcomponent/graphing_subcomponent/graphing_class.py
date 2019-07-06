@@ -31,8 +31,8 @@ class DefineGraphing:
 		currentdatetime = DateTime.getnow()
 		graphset = Graph.creategraphset(self.graphsetsize)
 
-		# Axes
 		for graphindex in [1, 2, 3, 4, 5]:
+		# Axes
 			graphset.addto(graphindex, Graph.creategraphaxes(
 														self.determineorigintimedate(currentdatetime, graphindex),
 														self.determinecorrecterasize(graphindex),
@@ -50,9 +50,9 @@ class DefineGraphing:
 														graphindex))
 
 
-		# Upload & VPN Bars for top two graphs
 		for graphindex in [1, 3]:
 			historytype = self.determinehistorytype(shorthistory, longhistory, graphindex)
+		# VPN Bars for graphs 1 & 3
 			graphset.addto(graphindex, Graph.createvpnbars(
 														self.determineorigintimedate(currentdatetime, graphindex),
 														self.determinecorrecterasize(graphindex),
@@ -62,6 +62,7 @@ class DefineGraphing:
 														self.graphheight,
 														historytype))
 
+		# Upload Bars for graphs 2 & 4
 			graphset.addto(graphindex + 1, Graph.createuploadedbars(
 														self.determineorigintimedate(currentdatetime, graphindex + 1),
 														self.determinecorrecterasize(graphindex + 1),
@@ -70,6 +71,12 @@ class DefineGraphing:
 														self.determinegraphbottom(1),
 														self.graphheight,
 														historytype))
+
+		# Legends
+			graphset.addto(graphindex, Graph.createstatuslegend(
+														self.graphhorizontaloffset,
+														self.determinegraphbottom(1)))
+
 
 		# Status blocks for top graph
 		graphset.addto(1, Graph.createstatusblocks(		self.determineorigintimedate(currentdatetime, 1),
@@ -89,7 +96,7 @@ class DefineGraphing:
 														self.graphheight,
 														self.determinehistorytype(shorthistory, longhistory, 3)))
 
-		# Temp bars for bottom graph
+		# Temp bars for fifth graph
 		graphset.addto(5, Graph.createtempbars(			self.determineorigintimedate(currentdatetime, 5),
 														self.determinecorrecterasize(5),
 														self.graphcolumnwidth,
