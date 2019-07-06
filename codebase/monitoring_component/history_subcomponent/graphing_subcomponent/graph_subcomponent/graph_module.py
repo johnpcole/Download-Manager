@@ -15,6 +15,17 @@ def createblank():
 	return GraphClass.DefineGraph()
 
 
+def createstatuslegend(horizontaloffset, graphbottom):
+
+	outcome = createblank()
+
+	outcome.additem('graphlegends', Draw.text(horizontaloffset, graphbottom, '12345'))
+
+	return outcome
+
+
+
+
 def createstatusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, boxheight):
 
 	outcome = createblank()

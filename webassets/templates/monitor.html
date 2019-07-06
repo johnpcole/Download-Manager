@@ -52,6 +52,7 @@ Banner Content
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
                     .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal; }
                     .graphheadings { font: 12px 'Open Sans', sans-serif; fill: #FFFFFF; font-weight: normal; }
+                    .graphlegends { font: 8px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
                 </style>
 <!-- Graph Background -->
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
@@ -86,8 +87,9 @@ Banner Content
 <!-- Axes Labels -->
                 {{ graphtext(thisgraph.biglabels, "graphtext", "middle") }}
                 {{ graphtext(thisgraph.littlelabels, "littlegraphtext", "middle") }}
-<!-- Chart Headings -->
+<!-- Chart Headings & Legends -->
                 {{ graphtext(thisgraph.graphtitles, "graphheadings", "start") }}
+                {{ graphtext(thisgraph.graphlegends, "graphlegends", "start") }}
             </svg>
         </div><!--
 
