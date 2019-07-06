@@ -25,7 +25,7 @@ class DefineGraphSet:
 
 		graphoutput = {}
 		for i in range(1, self.size + 1):
-			graphoutput[i] = self.graphset[i]
+			graphoutput[i] = self.graphset[i].get()
 
 		return graphoutput
 
