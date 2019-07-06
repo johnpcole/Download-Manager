@@ -39,7 +39,7 @@ class DefineHistory:
 
 	def gethistorygraphics(self):
 
-		return self.graphs.getgraph(self.monitorhistory, self.getlonghistory())
+		return self.graphs.drawgraphs(self.monitorhistory, self.getlonghistory())
 
 
 
