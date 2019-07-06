@@ -19,10 +19,14 @@ def createstatuslegend(horizontaloffset, graphbottom):
 
 	outcome = createblank()
 
-	outcome.additem('graphlegends', Draw.text(horizontaloffset + 50, graphbottom - 131, 'Timed-Out   Invalid-Argument   Other-Error'))
-	outcome.additem('amber', Draw.rectangle(horizontaloffset + 45, graphbottom - 131, 3, 5))
-	outcome.additem('orange', Draw.rectangle(horizontaloffset + 245, graphbottom - 131, 3, 5))
 	outcome.additem('red', Draw.rectangle(horizontaloffset + 345, graphbottom - 131, 3, 5))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 900, graphbottom - 131, 'Other-Error'))
+
+	outcome.additem('orange', Draw.rectangle(horizontaloffset + 245, graphbottom - 131, 3, 5))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 800, graphbottom - 131, 'Invalid-Argument'))
+
+	outcome.additem('amber', Draw.rectangle(horizontaloffset + 45, graphbottom - 131, 3, 5))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 700, graphbottom - 131, 'Timed-Out'))
 
 	return outcome
 
