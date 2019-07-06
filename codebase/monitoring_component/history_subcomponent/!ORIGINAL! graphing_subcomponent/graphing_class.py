@@ -1,12 +1,11 @@
 from ....common_components.datetime_datatypes import datetime_module as DateTime
-from .graph_subcomponent import graph_module as Graph
+from .drawing_framework import drawing_module as Compose
+from .graphset_subcomponent import graphset_module as GraphSet
 
 class DefineGraphing:
 
 	def __init__(self, smallera, largeera):
 
-		# Define graphset  size
-		self.graphsetsize = 5
 
 		# Defines the granularity of display of monitor data
 		self.shorterasize = smallera
@@ -24,16 +23,17 @@ class DefineGraphing:
 		self.shortoriginoffset = 42             # Hours from origin to now
 		self.longoriginoffset = 12 + (10 * 24)  # Hours from origin to now
 
-	# =========================================================================================
+# =========================================================================================
 
-	def drawgraphs(self, shorthistory, longhistory):
+	def getgraph(self, shorthistory, longhistory):
 
 		currentdatetime = DateTime.getnow()
-		graphset = Graph.creategraphset(self.graphsetsize)
+
+		graphset = GraphSet.creategraphset(5)
 
 		# Axes
 		for graphindex in [1, 2, 3, 4, 5]:
-			graphset.addto(graphindex, Graph.creategraphaxes(
+			graphset.addto(graphindex, Compose.graphaxes(
 														self.determineorigintimedate(currentdatetime, graphindex),
 														self.determinecorrecterasize(graphindex),
 														self.graphcolumnwidth,
@@ -43,8 +43,7 @@ class DefineGraphing:
 														self.graphheight))
 
 		# Graph Headings
-			graphset.addto(graphindex, Graph.createtitles(
-														self.graphhorizontaloffset,
+			graphset.addto(graphindex, Compose.titles(	self.graphhorizontaloffset,
 														self.graphverticaloffset,
 														self.graphverticalspacing,
 														graphindex))
@@ -53,16 +52,15 @@ class DefineGraphing:
 		# Upload & VPN Bars for top two graphs
 		for graphindex in [1, 3]:
 			historytype = self.determinehistorytype(shorthistory, longhistory, graphindex)
-			graphset.addto(graphindex, Graph.createvpnbars(
-														self.determineorigintimedate(currentdatetime, graphindex),
+			graphset.addto(graphindex, Compose.vpnbars(	self.determineorigintimedate(currentdatetime, graphindex),
 														self.determinecorrecterasize(graphindex),
 														self.graphcolumnwidth,
 														self.graphhorizontaloffset,
 														self.determinegraphbottom(1),
 														self.graphheight,
 														historytype))
-
-			graphset.addto(graphindex + 1, Graph.createuploadedbars(
+												
+			graphset.addto(graphindex + 1, Compose.uploadedbars(
 														self.determineorigintimedate(currentdatetime, graphindex + 1),
 														self.determinecorrecterasize(graphindex + 1),
 														self.graphcolumnwidth,
@@ -72,7 +70,7 @@ class DefineGraphing:
 														historytype))
 
 		# Status blocks for top graph
-		graphset.addto(1, Graph.createstatusblocks(		self.determineorigintimedate(currentdatetime, 1),
+		graphset.addto(1, Compose.statusblocks(			self.determineorigintimedate(currentdatetime, 1),
 														self.determinecorrecterasize(1),
 														self.graphcolumnwidth,
 														self.graphhorizontaloffset,
@@ -81,7 +79,7 @@ class DefineGraphing:
 														self.graphblockheight))
 
 		# Status bars for third graph
-		graphset.addto(3, Graph.createstatusbars(		self.determineorigintimedate(currentdatetime, 3),
+		graphset.addto(3, Compose.statusbars(			self.determineorigintimedate(currentdatetime, 3),
 														self.determinecorrecterasize(3),
 														self.graphcolumnwidth,
 														self.graphhorizontaloffset,
@@ -90,7 +88,7 @@ class DefineGraphing:
 														self.determinehistorytype(shorthistory, longhistory, 3)))
 
 		# Temp bars for bottom graph
-		graphset.addto(5, Graph.createtempbars(			self.determineorigintimedate(currentdatetime, 5),
+		graphset.addto(5, Compose.tempbars(				self.determineorigintimedate(currentdatetime, 5),
 														self.determinecorrecterasize(5),
 														self.graphcolumnwidth,
 														self.graphhorizontaloffset,
@@ -98,7 +96,7 @@ class DefineGraphing:
 														self.graphheight,
 														self.determinehistorytype(shorthistory, longhistory, 5)))
 
-		return graphset.printout()
+		return graphset.get()
 
 
 	def determinegraphbottom(self, graphindex):
