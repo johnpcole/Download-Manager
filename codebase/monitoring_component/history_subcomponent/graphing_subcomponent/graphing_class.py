@@ -43,6 +43,13 @@ class DefineGraphing:
 														self.graphwidth,
 														self.graphheight))
 
+		# Graph Headings
+			graphset[graphindex].mergein(Compose.titles(self.graphhorizontaloffset,
+														self.graphverticaloffset,
+														self.graphverticalspacing,
+														graphindex))
+
+
 		# Upload & VPN Bars for top two graphs
 		for graphindex in [1, 3]:
 			historytype = self.determinehistorytype(shorthistory, longhistory, graphindex)
@@ -91,11 +98,6 @@ class DefineGraphing:
 														self.graphheight,
 														self.determinehistorytype(shorthistory, longhistory, 5)))
 
-		# Graph headings
-#		graph = Compose.titles(				self.graphhorizontaloffset,
-#												self.graphverticaloffset,
-#												self.graphverticalspacing,
-#												graph)
 
 		graphoutput = {1: graphset[1].get(), 2: graphset[2].get(), 3: graphset[3].get(),
 																			4: graphset[4].get(), 5: graphset[5].get()}

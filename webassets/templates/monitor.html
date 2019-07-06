@@ -47,7 +47,7 @@ Banner Content
 {% for thisgraphindex, thisgraph in monitoroutput.items() %}
 
      --><div class="MonitorChart">
-            <svg width="1038" height="383">
+            <svg width="1038" height="175">
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
                     .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal; }
@@ -88,14 +88,6 @@ Banner Content
                 {{ graphtext(thisgraph.littlelabels, "littlegraphtext", "middle") }}
 <!-- Chart Headings -->
                 {{ graphtext(thisgraph.graphtitles, "graphheadings", "start") }}
- <!--               <g stroke-linecap="round" stroke="#DDDDEE" stroke-width="5">
-                    <line x1="-50" y1="-2" x2="2000" y2="-2"></line>
-                    <line x1="-50" y1="175" x2="2000" y2="175"></line>
-                    <line x1="-50" y1="352" x2="2000" y2="352"></line>
-                    <line x1="-50" y1="529" x2="2000" y2="529"></line>
-                    <line x1="-50" y1="706" x2="2000" y2="706"></line>
-                    <line x1="-50" y1="883" x2="2000" y2="883"></line>
-                </g> -->
             </svg>
         </div><!--
 
