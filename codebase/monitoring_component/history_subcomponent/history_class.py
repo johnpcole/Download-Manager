@@ -1,8 +1,7 @@
 from .historyitem_subcomponent import historyitem_module as HistoryItem
 from ...common_components.datetime_datatypes import datetime_module as DateTime
-from . import history_privatefunctions as Functions
 from ...common_components.datetime_datatypes import eras_module as EraFunctions
-
+from .graphing_subcomponent import graphing_module as Graphing
 
 
 class DefineHistory:
@@ -16,17 +15,8 @@ class DefineHistory:
 		self.erasize = 4        # Ten minute intervals
 		self.longerasize = 5    # Hour intervals
 
-		# Screen metrics
-		self.graphcolumnwidth = 3
-		self.graphhorizontaloffset = 5
-		self.graphupperverticaloffset = 148
-		self.graphlowerverticaloffset = 325
-		self.graphthreeverticaloffset = 502
-		self.graphfourverticaloffset = 679
-		self.graphfiveverticaloffset = 856
-		self.graphwidth = 1020
-		self.graphheight = 125
-		self.graphblockheight = 5
+		# Graphing module
+		self.graphs = Graphing.creategraphing(self.erasize, self.longerasize)
 
 # =========================================================================================
 
@@ -49,57 +39,7 @@ class DefineHistory:
 
 	def gethistorygraphics(self):
 
-		origintimedate = DateTime.getnow()
-		longorigintimedate = DateTime.createfromobject(origintimedate)
-		origintimedate.adjusthours(-42)
-		longorigintimedate.adjustdays(-10)
-		longorigintimedate.adjusthours(-12)
-
-		outcome = {"brightred": [], "red": [], "orange": [], "amber": [], "yellow": [], "green": [], "blue": [],
-													"tempa": [], "tempb": [], "tempc": [], "tempd": [], "tempe": [],
-													"axeslines": [], "biglabels": [], "littlelabels": []}
-
-		# Axes for top two graphs
-		for graphtop in [self.graphupperverticaloffset, self.graphlowerverticaloffset]:
-			outcome = Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
-													self.graphhorizontaloffset, graphtop, self.graphwidth,
-													self.graphheight, outcome)
-
-		# Axes for bottom three graphs
-		for graphtop in [self.graphthreeverticaloffset, self.graphfourverticaloffset, self.graphfiveverticaloffset]:
-			outcome = Functions.getgraphaxes(longorigintimedate, self.longerasize, self.graphcolumnwidth,
-													self.graphhorizontaloffset, graphtop, self.graphwidth,
-													self.graphheight, outcome)
-
-		# Upload & VPN Bars for top two graphs
-		outcome = Functions.getuploadandvpnbars(origintimedate, self.erasize, self.graphcolumnwidth,
-													self.graphhorizontaloffset, self.graphupperverticaloffset,
-													self.graphlowerverticaloffset, self.graphheight,
-													self.monitorhistory, outcome)
-
-		# Upload & VPN Bars for lower two graphs
-		outcome = Functions.getuploadandvpnbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
-													self.graphhorizontaloffset, self.graphthreeverticaloffset,
-													self.graphfourverticaloffset, self.graphheight,
-													self.getlonghistory(), outcome)
-
-		# Status blocks for top graph
-		outcome = Functions.getstatusblocks(origintimedate, self.erasize, self.graphcolumnwidth,
-											self.graphhorizontaloffset, self.graphupperverticaloffset,
-											self.monitorhistory, self.graphblockheight, outcome)
-
-		# Status bars for third graph
-		outcome = Functions.getstatusbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
-											self.graphhorizontaloffset, self.graphthreeverticaloffset,
-											self.graphheight, self.getlonghistory(), outcome)
-
-		# Temp bars for bottom graph
-		outcome = Functions.gettempbars(longorigintimedate, self.longerasize, self.graphcolumnwidth,
-											self.graphhorizontaloffset, self.graphfiveverticaloffset,
-											self.graphheight, self.getlonghistory(), outcome)
-
-		return outcome
-
+		return self.graphs.drawgraphs(self.monitorhistory, self.getlonghistory())
 
 
 
