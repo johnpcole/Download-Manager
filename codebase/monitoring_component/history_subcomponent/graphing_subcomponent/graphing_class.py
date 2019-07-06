@@ -13,8 +13,8 @@ class DefineGraphing:
 
 		# Screen metrics
 		self.graphcolumnwidth = 3
-		self.graphhorizontaloffset = 5
-		self.graphverticaloffset = -29
+		self.graphhorizontaloffset = 9
+		self.graphverticaloffset = -28
 		self.graphverticalspacing = 177
 		self.graphwidth = 1020
 		self.graphheight = 125
