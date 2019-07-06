@@ -25,8 +25,8 @@ def createstatuslegend(horizontaloffset, graphbottom):
 	outcome.additem('orange', Draw.rectangle(horizontaloffset + 810, graphbottom - 141, 5, 7))
 	outcome.additem('graphlegends', Draw.text(horizontaloffset + 820, graphbottom - 134, 'Invalid-Argument'))
 
-	outcome.additem('amber', Draw.rectangle(horizontaloffset + 745, graphbottom - 141, 5, 7))
-	outcome.additem('graphlegends', Draw.text(horizontaloffset + 755, graphbottom - 134, 'Timed-Out'))
+	outcome.additem('amber', Draw.rectangle(horizontaloffset + 746, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 756, graphbottom - 134, 'Timed-Out'))
 
 	return outcome
 
