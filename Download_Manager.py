@@ -240,6 +240,7 @@ def displayverboselogs():
 @website.route('/Monitor')
 def displaymonitor():
 
+	Logging.printinvocation("Creating Deluge Monitor History Page", "")
 	return WebServer.makehtml('monitor.html', monitoroutput=monitormanager.gethistorygraphics())
 
 

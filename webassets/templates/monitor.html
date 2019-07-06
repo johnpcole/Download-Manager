@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+{% from 'graphing.html' import graphblocksandbars %}
+{% from 'graphing.html' import graphlines %}
+{% from 'graphing.html' import graphtext %}
+
 
 {% block bodycontext %} class="fixed"{% endblock %}
 
@@ -40,76 +44,54 @@ Banner Content
 
 {% block content %}
 
-     --><div class="monitor">
-            <svg width="1030" height="298">
+{% for thisgraphindex, thisgraph in monitoroutput.items() %}
 
+     --><div class="MonitorChart">
+            <svg width="1038" height="175">
                 <style>
-                    .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal;}
-                    .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal;}
+                    .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
+                    .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal; }
+                    .graphheadings { font: 12px 'Open Sans', sans-serif; fill: #FFFFFF; font-weight: normal; }
                 </style>
-<!-- Blocks -->
+<!-- Graph Background -->
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
-                    <rect height="318" width="1050" x="-10" y="-10"/>
+                    <rect height="500" width="1500" x="-50" y="-50"/>
                 </g>
 <!-- Bright Red -->
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FF0000">
-{% for logentry in monitoroutput.brightred %}
-                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
-{% endfor %}
-                </g>
+                {{ graphblocksandbars(thisgraph.brightred, "#FF0000") }}
 <!-- Red -->
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#CC0000">
-{% for logentry in monitoroutput.red %}
-                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
-{% endfor %}
-                </g>
+                {{ graphblocksandbars(thisgraph.red, "#CC0000") }}
 <!-- Orange -->
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FF6600">
-{% for logentry in monitoroutput.orange %}
-                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
-{% endfor %}
-                </g>
+                {{ graphblocksandbars(thisgraph.orange, "#FF6600") }}
 <!-- Amber -->
-               <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#FFBB11">
-{% for logentry in monitoroutput.amber %}
-                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
-{% endfor %}
-                </g>
+                {{ graphblocksandbars(thisgraph.amber, "#FFBB11") }}
 <!-- Yellow -->
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#EEEE11">
-{% for logentry in monitoroutput.yellow %}
-                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
-{% endfor %}
-                </g>
- <!-- Green -->
-               <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#00CC00">
-{% for logentry in monitoroutput.green %}
-                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
-{% endfor %}
-                </g>
+                {{ graphblocksandbars(thisgraph.yellow, "#EEEE11") }}
+<!-- Green -->
+                {{ graphblocksandbars(thisgraph.green, "#00CC00") }}
 <!-- Light Blue -->
-                <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#6688FF">
-{% for logentry in monitoroutput.blue %}
-                    <rect x="{{ logentry.x }}" y="{{ logentry.y }}" height="{{ logentry.h }}" width="{{ logentry.w }}" />
-{% endfor %}
-                </g>
+                {{ graphblocksandbars(thisgraph.blue, "#6688FF") }}
+<!-- Temp 1 -->
+                {{ graphblocksandbars(thisgraph.tempa, "#EE2200") }}
+<!-- Temp 2 -->
+                {{ graphblocksandbars(thisgraph.tempb, "#DD4400") }}
+<!-- Temp 3 -->
+                {{ graphblocksandbars(thisgraph.tempc, "#CC6600") }}
+<!-- Temp 4 -->
+                {{ graphblocksandbars(thisgraph.tempd, "#BB8800") }}
+<!-- Temp 5 -->
+                {{ graphblocksandbars(thisgraph.tempe, "#AAAA00") }}
 <!-- Axes Lines-->
-                <g stroke-linecap="round" stroke="#DDDDDD" stroke-width="1">
-{% for logentry in monitoroutput.axeslines %}
-                    <line x1="{{ logentry.xa }}" y1="{{ logentry.ya }}" x2="{{ logentry.xb }}" y2="{{ logentry.yb }}" />
-{% endfor %}
-                </g>
+                {{ graphlines(thisgraph.axeslines, "#DDDDDD") }}
 <!-- Axes Labels -->
-{% for logentry in monitoroutput.biglabels %}
-                <text text-anchor="middle" class="graphtext" x="{{ logentry.x }}" y="{{ logentry.y }}">{{ logentry.t }}</text>
-{% endfor %}
-{% for logentry in monitoroutput.littlelabels %}
-                <text text-anchor="middle" class="littlegraphtext" x="{{ logentry.x }}" y="{{ logentry.y }}">{{ logentry.t }}</text>
-{% endfor %}
+                {{ graphtext(thisgraph.biglabels, "graphtext", "middle") }}
+                {{ graphtext(thisgraph.littlelabels, "littlegraphtext", "middle") }}
+<!-- Chart Headings -->
+                {{ graphtext(thisgraph.graphtitles, "graphheadings", "start") }}
             </svg>
         </div><!--
 
-
+{% endfor %}
 
 {% endblock %}
 

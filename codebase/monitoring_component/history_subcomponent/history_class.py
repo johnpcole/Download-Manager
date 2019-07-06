@@ -1,7 +1,7 @@
 from .historyitem_subcomponent import historyitem_module as HistoryItem
 from ...common_components.datetime_datatypes import datetime_module as DateTime
-from . import history_privatefunctions as Functions
-
+from ...common_components.datetime_datatypes import eras_module as EraFunctions
+from .graphing_subcomponent import graphing_module as Graphing
 
 
 class DefineHistory:
@@ -12,23 +12,18 @@ class DefineHistory:
 		self.monitorhistory = []
 
 		# Defines the granularity of display of monitor data
-		self.erasize = 4 # Ten minute intervals
+		self.erasize = 4        # Ten minute intervals
+		self.longerasize = 5    # Hour intervals
 
-		# Screen metrics
-		self.graphcolumnwidth = 3
-		self.graphhorizontaloffset = 5
-		self.graphupperverticaloffset = 130
-		self.graphlowerverticaloffset = 275
-		self.graphwidth = 1020
-		self.graphheight = 125
-		self.graphblockheight = 5
+		# Graphing module
+		self.graphs = Graphing.creategraphing(self.erasize, self.longerasize)
 
 # =========================================================================================
 
-	def addhistoryentry(self, monitordata, networkstatus):
+	def addhistoryentry(self, monitordata, networkstatus, temperature):
 
 		currentdatetime = DateTime.getnow()
-		newhistoryitem = HistoryItem.createhistoryitem(currentdatetime, monitordata, networkstatus)
+		newhistoryitem = HistoryItem.createhistoryitem(currentdatetime, monitordata, networkstatus, temperature)
 		self.monitorhistory.append(newhistoryitem)
 		self.clearuphistory(currentdatetime)
 		return newhistoryitem.getsavedata()
@@ -44,19 +39,7 @@ class DefineHistory:
 
 	def gethistorygraphics(self):
 
-		outcome = {}
-		origintimedate = DateTime.getnow()
-		origintimedate.adjusthours(-42)
-		outcome.update(Functions.getgraphaxes(origintimedate, self.erasize, self.graphcolumnwidth,
-												self.graphhorizontaloffset, self.graphupperverticaloffset,
-												self.graphlowerverticaloffset, self.graphwidth, self.graphheight))
-		outcome.update(Functions.getgraphblocks(origintimedate, self.erasize, self.graphcolumnwidth,
-												self.graphhorizontaloffset, self.graphupperverticaloffset,
-												self.graphlowerverticaloffset, self.graphheight,
-												self.monitorhistory, self.graphblockheight))
-
-		return outcome
-
+		return self.graphs.getgraph(self.monitorhistory, self.getlonghistory())
 
 
 
@@ -65,7 +48,7 @@ class DefineHistory:
 		if currentdatetime.gettimevalue() < 600:
 			print("Before clean up: ", len(self.monitorhistory))
 			threshold = DateTime.createfromobject(currentdatetime)
-			threshold.adjustdays(-5)
+			threshold.adjustdays(-11)
 			newhistorylist = []
 			for historyitem in self.monitorhistory:
 				if DateTime.isfirstlaterthansecond(historyitem.getdatetime(), threshold) == True:
@@ -74,6 +57,24 @@ class DefineHistory:
 			self.monitorhistory = newhistorylist.copy()
 			print("After clean up: ", len(self.monitorhistory))
 
+
+
+
+	def getlonghistory(self):
+
+		outcome = []
+		currentlonghistoryitem = HistoryItem.createblank(DateTime.createfromiso("20100101000000"))
+		for historyitem in self.monitorhistory:
+			newhour = historyitem.getdatetime()
+			if EraFunctions.compareeras(newhour, currentlonghistoryitem.getdatetime(), 5) == True:
+				currentlonghistoryitem.cumulate(historyitem)
+			else:
+				outcome.append(currentlonghistoryitem)
+				currentlonghistoryitem = HistoryItem.createblank(EraFunctions.geteraasobject(newhour, 5))
+				currentlonghistoryitem.cumulate(historyitem)
+		if EraFunctions.compareeras(currentlonghistoryitem.getdatetime(), DateTime.getnow(), 5) == False:
+			outcome.append(currentlonghistoryitem)
+		return outcome
 
 
 
