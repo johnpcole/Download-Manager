@@ -15,6 +15,24 @@ def createblank():
 	return GraphClass.DefineGraph()
 
 
+def createstatuslegend(horizontaloffset, graphbottom):
+
+	outcome = createblank()
+
+	outcome.additem('red', Draw.rectangle(horizontaloffset + 940, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 950, graphbottom - 134, 'Other-Error'))
+
+	outcome.additem('orange', Draw.rectangle(horizontaloffset + 860, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 870, graphbottom - 134, 'Invalid-Argument'))
+
+	outcome.additem('amber', Draw.rectangle(horizontaloffset + 796, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 806, graphbottom - 134, 'Timed-Out'))
+
+	return outcome
+
+
+
+
 def createstatusblocks(origintimedate, erasize, boxwidth, horizontaloffset, graphbottom, history, boxheight):
 
 	outcome = createblank()
@@ -182,7 +200,7 @@ def createtitles(horizontaloffset, verticaloffset, verticalspacing, graphindex):
 	horizontalposition = horizontaloffset + 10
 	verticalposition = verticalspacing + verticaloffset - 131
 	labellist = {1: 'Latest Tracker Statuses', 2: 'Latest Upload Rates', 3: 'Recent Tracker Statuses',
-									4: 'Recent Upload Rates', 5: 'Recent Temperature'}
+																	4: 'Recent Upload Rates', 5: 'Recent Temperature'}
 
 	outcome.additem('graphtitles', Draw.text(horizontalposition, verticalposition, labellist[graphindex]))
 
