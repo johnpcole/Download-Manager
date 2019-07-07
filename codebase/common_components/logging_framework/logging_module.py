@@ -56,11 +56,11 @@ def processlog(loggingoutput, loggingmode):
 				instructionset.extend(outcome)
 				outcome = instructionset.copy()
 				instructionset = []
-				linecounter = linecounter + 1
-				sublinecounter = 0
 				if logtype == "RESTART":
 					outcome.insert(0, {"lineindex": " ", "entrytype": "restart", "content": "Restarting Service"})
 				else:
+					sublinecounter = 0
+					linecounter = linecounter + 1
 					instructionset.append(Functions.extractdownloadmanagerinstruction(logentry, linecounter, sublinecounter))
 			elif logtype == "DOWNLOAD-MANAGER-LOG":
 				sublinecounter = sublinecounter + 1
