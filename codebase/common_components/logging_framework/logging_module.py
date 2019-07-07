@@ -52,25 +52,22 @@ def processlog(loggingoutput, loggingmode):
 				sublinecounter = sublinecounter + 1
 				instructionset.append(Functions.extractotheroutput(cache, linecounter, sublinecounter))
 				cache = []
-			if logtype == "DOWNLOAD-MANAGER-INSTRUCTION":
+			if (logtype == "DOWNLOAD-MANAGER-INSTRUCTION") or (logtype == "RESTART"):
 				instructionset.extend(outcome)
 				outcome = instructionset.copy()
 				instructionset = []
 				linecounter = linecounter + 1
 				sublinecounter = 0
-				instructionset.append(Functions.extractdownloadmanagerinstruction(logentry, linecounter, sublinecounter))
+				if logtype == "RESTART":
+					outcome.insert(0, {"lineindex": " ", "entrytype": "restart", "content": "Restarting Service"})
+				else:
+					instructionset.append(Functions.extractdownloadmanagerinstruction(logentry, linecounter, sublinecounter))
 			elif logtype == "DOWNLOAD-MANAGER-LOG":
 				sublinecounter = sublinecounter + 1
 				instructionset.append(Functions.extractdownloadmanagerlog(logentry, linecounter, sublinecounter))
 			elif logtype == "FLASK":
 				sublinecounter = sublinecounter + 1
 				instructionset.append(Functions.extractflaskoutput(logentry, linecounter, sublinecounter))
-			elif logtype == "RESTART":
-				instructionset.extend(outcome)
-				outcome = instructionset.copy()
-				instructionset = []
-				linecounter = linecounter + 1
-				outcome.insert(0, {"lineindex": " ", "entrytype": "restart", "content": "Restarting Service"})
 
 #	if len(cache) > 0:
 #		linecounter = linecounter + 1
