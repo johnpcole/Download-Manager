@@ -21,8 +21,10 @@ website = WebServer.createwebsite()
 @website.route('/')
 def initialiselistpage():
 
-	outputdata = manager.initialiselistpage()
-	return WebServer.makehtml('index.html', outputdata)
+	result = manager.initialiselistpage()
+	return WebServer.makehtml(	'index.html',
+								torrentlist=result['torrentlist'],
+								stats=result['stats'])
 
 
 
@@ -34,8 +36,9 @@ def initialiselistpage():
 def updatelistpage():
 
 	inputdata = WebServer.getrequestdata()
-	outputdata = manager.updatelistpage(inputdata["bulkcation"])
-	return WebServer.makejson(outputdata)
+	result = manager.updatelistpage(inputdata["bulkcation"])
+	return WebServer.makejson(	torrents=result['torrents'],
+								stats=result['stats'])
 
 
 
@@ -46,8 +49,9 @@ def updatelistpage():
 @website.route('/Torrent=<torrentid>')
 def initialisetorrentpage(torrentid):
 
-	outputdata = manager.initialisetorrentpage(torrentid)
-	return WebServer.makehtml('torrent.html', outputdata)
+	result = manager.initialisetorrentpage(torrentid)
+	return WebServer.makehtml(	'torrent.html',
+								selectedtorrend=result['selectedtorrent'])
 
 
 
@@ -62,8 +66,8 @@ def initialisetorrentpage(torrentid):
 @website.route('/TriggerDelugeMonitor')
 def triggermonitor():
 
-	manager.triggermonitor()
-	return WebServer.makejson(message='deluge data captured')
+	result = manager.triggermonitor()
+	return WebServer.makejson(	message=result['message'])
 
 
 
