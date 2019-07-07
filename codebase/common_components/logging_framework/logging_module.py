@@ -53,11 +53,11 @@ def processlog(loggingoutput, loggingmode):
 				instructionset.append(Functions.extractotheroutput(cache, linecounter, sublinecounter))
 				cache = []
 			if logtype == "DOWNLOAD-MANAGER-INSTRUCTION":
+				instructionset.extend(outcome)
 				outcome = instructionset.copy()
 				instructionset = []
 				linecounter = linecounter + 1
 				sublinecounter = 0
-				instructionset.extend(outcome)
 				instructionset.append(Functions.extractdownloadmanagerinstruction(logentry, linecounter, sublinecounter))
 			elif logtype == "DOWNLOAD-MANAGER-LOG":
 				sublinecounter = sublinecounter + 1
