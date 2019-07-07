@@ -6,7 +6,7 @@ from codebase import manager_module as Manager
 Logging.printinvocation("Starting Download-Manager Application", "")
 
 manager = Manager.createmanager("Public Daemon")
-website = WebServer.createwebsite()
+website = WebServer.createwebsite(__name__)
 
 
 
