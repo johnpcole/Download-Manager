@@ -213,10 +213,13 @@ def triggermonitor():
 #===============================================================================================
 
 
-Logging.printinvocation("Starting Web Server", "")
-
-if manager.determinewebmode() == True:
-	website.run(debug=False, host='0.0.0.0')
+if __name__ == "__main__":
+	Logging.printinvocation("Starting Web Server (as standalone application)", "")
+	if manager.determinewebmode() == True:
+		website.run(debug=False, host='0.0.0.0')
+	else:
+		website.run(debug=True)
 else:
-	website.run(debug=True)
+	Logging.printinvocation("Starting Web Server (as embedded application)", "")
+
 
