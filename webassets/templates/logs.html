@@ -39,8 +39,7 @@ Banner Content
 
 
 {% block content %}
-
- --><table>
+ --><div class="MonitorChart"><table>
 {% for logentry in loggingoutput %}
         <tr class="{{ logentry.entrytype }}">
         <td class="counter">{{ logentry.lineindex }}</td>
@@ -65,7 +64,7 @@ Banner Content
 {% endif %}
         </tr>
 {% endfor %}
-    </table><!--
+</table></div><!--
 
 {% endblock %}
 
