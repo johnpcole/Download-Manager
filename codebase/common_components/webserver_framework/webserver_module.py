@@ -4,7 +4,7 @@ import flask as FlaskApplication
 
 
 def createwebsite(websitename):
-	return FlaskApplication.Flask(websitename, template_folder='../../../webassets/templates', static_folder='../../../webassets')
+	return FlaskApplication.Flask(websitename, template_folder='webassets/templates', static_folder='webassets')
 
 
 
