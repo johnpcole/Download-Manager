@@ -2,16 +2,16 @@ from .torrenting_component import torrenting_module as TorrentManager
 from .fileprocessing_component import fileprocessing_module as FileManager
 from .monitoring_component import monitoring_module as MonitorManager
 from .common_components.logging_framework import logging_module as Logging
-from . import manager_privatefunctions as Waste
+from . import torrentset_privatefunctions as Waste
 
 
-class DefineManager:
+class DefineTorrentSet:
 
-	def __init__(self, managername):
+	def __init__(self, torrentsetname):
 
-		Logging.printinvocation("Initialising Manager for " + managername, "")
+		Logging.printinvocation("Initialising Manager for " + torrentsetname, "")
 
-		self.managername = managername
+		self.managername = torrentsetname
 		self.librarymanager = FileManager.createmanager(FileManager.getlibraryconnectionconfig())
 		self.torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
 		self.torrentmanager.setconfigs(FileManager.loadconfigs())

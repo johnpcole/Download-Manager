@@ -1,11 +1,11 @@
 from codebase.common_components.logging_framework import logging_module as Logging
 from codebase.common_components.webserver_framework import webserver_module as WebServer
-from codebase import manager_module as Manager
+from codebase import torrentset_module as TorrentSet
 
 
 Logging.printinvocation("Starting Download-Manager Application", "")
 
-manager = Manager.createmanager("Public Daemon")
+torrentset = TorrentSet.createtorrentset("Public Daemon")
 website = WebServer.createwebsite(__name__)
 
 
@@ -17,7 +17,7 @@ website = WebServer.createwebsite(__name__)
 @website.route('/')
 def initialiselistpage():
 
-	result = manager.initialiselistpage()
+	result = torrentset.initialiselistpage()
 
 	return WebServer.makehtml('index.html',
 								torrentlist=result['torrentlist'],
@@ -33,7 +33,7 @@ def initialiselistpage():
 def updatelistpage():
 
 	inputdata = WebServer.getrequestdata()
-	result = manager.updatelistpage(inputdata["bulkaction"])
+	result = torrentset.updatelistpage(inputdata["bulkaction"])
 
 	return WebServer.makejson(torrents=result['torrents'],
 								stats=result['stats'])
@@ -47,7 +47,7 @@ def updatelistpage():
 @website.route('/Torrent=<torrentid>')
 def initialisetorrentpage(torrentid):
 
-	result = manager.initialisetorrentpage(torrentid)
+	result = torrentset.initialisetorrentpage(torrentid)
 
 	return WebServer.makehtml('torrent.html',
 								selectedtorrent=result['selectedtorrent'])
@@ -62,7 +62,7 @@ def initialisetorrentpage(torrentid):
 def updatetorrentpage():
 
 	inputdata = WebServer.getrequestdata()
-	result = manager.updatetorrentpage(inputdata['torrentid'], inputdata['torrentaction'])
+	result = torrentset.updatetorrentpage(inputdata['torrentid'], inputdata['torrentaction'])
 
 	return WebServer.makejson(selectedtorrent=result['selectedtorrent'])
 
@@ -76,7 +76,7 @@ def updatetorrentpage():
 def copytorrent():
 
 	inputdata = WebServer.getrequestdata()
-	result = manager.copytorrent(inputdata['copyinstruction'])
+	result = torrentset.copytorrent(inputdata['copyinstruction'])
 
 	return WebServer.makejson(copydata=result['copydata'],
 								refreshmode=result['refreshmode'])
@@ -91,7 +91,7 @@ def copytorrent():
 def deletetorrent():
 
 	inputdata = WebServer.getrequestdata()
-	result = manager.deletetorrent(inputdata['deleteinstruction'])
+	result = torrentset.deletetorrent(inputdata['deleteinstruction'])
 
 	return WebServer.makejson(deletedata=result['deletedata'])
 
@@ -105,7 +105,7 @@ def deletetorrent():
 def reconfiguretorrentconfiguration():
 
 	inputdata = WebServer.getrequestdata()
-	result = manager.reconfiguretorrentconfiguration(inputdata['torrentid'], inputdata['newconfiguration'])
+	result = torrentset.reconfiguretorrentconfiguration(inputdata['torrentid'], inputdata['newconfiguration'])
 
 	return WebServer.makejson(selectedtorrent=result['selectedtorrent'])
 
@@ -119,7 +119,7 @@ def reconfiguretorrentconfiguration():
 def edittorrentconfiguration():
 
 	inputdata = WebServer.getrequestdata()
-	result = manager.edittorrentconfiguration(inputdata['torrentid'])
+	result = torrentset.edittorrentconfiguration(inputdata['torrentid'])
 
 	return WebServer.makejson(selectedtorrent=result['selectedtorrent'],
 								listitems=result['listitems'])
@@ -134,7 +134,7 @@ def edittorrentconfiguration():
 def updatetvshowseasonslist():
 
 	inputdata = WebServer.getrequestdata()
-	result = manager.updatetvshowseasonslist(inputdata['tvshow'])
+	result = torrentset.updatetvshowseasonslist(inputdata['tvshow'])
 
 	return WebServer.makejson(seasons=result['seasons'])
 
@@ -148,7 +148,7 @@ def updatetvshowseasonslist():
 def addnewtorrent():
 
 	inputdata = WebServer.getrequestdata()
-	result = manager.addnewtorrent(inputdata['newurl'])
+	result = torrentset.addnewtorrent(inputdata['newurl'])
 
 	return WebServer.makejson(newtorrentid=result['newtorrentid'])
 
@@ -161,7 +161,7 @@ def addnewtorrent():
 @website.route('/Logs')
 def displaylogs():
 
-	result = manager.displaylogs(False)
+	result = torrentset.displaylogs(False)
 
 	return WebServer.makehtml('logs.html',
 								loggingoutput=result['loggingoutput'])
@@ -170,7 +170,7 @@ def displaylogs():
 @website.route('/VerboseLogs')
 def displayverboselogs():
 
-	result = manager.displaylogs(True)
+	result = torrentset.displaylogs(True)
 
 	return WebServer.makehtml('logs.html',
 								loggingoutput=result['loggingoutput'])
@@ -184,7 +184,7 @@ def displayverboselogs():
 @website.route('/Monitor')
 def displaymonitor():
 
-	result = manager.displaymonitor()
+	result = torrentset.displaymonitor()
 
 	return WebServer.makehtml('monitor.html',
 								monitoroutput=result['monitoroutput'])
@@ -201,7 +201,7 @@ def displaymonitor():
 @website.route('/TriggerDelugeMonitor')
 def triggermonitor():
 
-	result = manager.triggermonitor()
+	result = torrentset.triggermonitor()
 
 	return WebServer.makejson(	message=result['message'])
 
@@ -215,7 +215,7 @@ def triggermonitor():
 
 if __name__ == "__main__":
 	Logging.printinvocation("Starting Web Server (as standalone application)", "")
-	if manager.determinewebmode() == True:
+	if torrentset.determinewebmode() == True:
 		website.run(debug=False, host='0.0.0.0')
 	else:
 		website.run(debug=True)

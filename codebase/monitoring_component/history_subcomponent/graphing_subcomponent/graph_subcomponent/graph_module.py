@@ -28,6 +28,12 @@ def createstatuslegend(horizontaloffset, graphbottom):
 	outcome.additem('amber', Draw.rectangle(horizontaloffset + 796, graphbottom - 141, 5, 7))
 	outcome.additem('graphlegends', Draw.text(horizontaloffset + 806, graphbottom - 134, 'Timed-Out'))
 
+	outcome.additem('yellow', Draw.rectangle(horizontaloffset + 696, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 706, graphbottom - 134, 'Unknown'))
+
+	outcome.additem('green', Draw.rectangle(horizontaloffset + 596, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 606, graphbottom - 134, 'Good'))
+
 	return outcome
 
 
