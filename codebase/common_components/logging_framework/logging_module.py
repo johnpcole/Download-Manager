@@ -66,6 +66,10 @@ def processlog(loggingoutput, loggingmode):
 				sublinecounter = sublinecounter + 1
 				instructionset.append(Functions.extractflaskoutput(logentry, linecounter, sublinecounter))
 			elif logtype == "RESTART":
+				instructionset.extend(outcome)
+				outcome = instructionset.copy()
+				instructionset = []
+				linecounter = linecounter + 1
 				outcome.insert(0, {"lineindex": " ", "entrytype": "restart", "content": "Restarting Service"})
 
 #	if len(cache) > 0:

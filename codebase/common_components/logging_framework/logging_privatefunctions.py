@@ -86,8 +86,11 @@ def determineoutputtype(outputstring, loggingmode):
 
 def formlinecounter(linecounter, sublinecounter):
 
-	outcome = "00000" + str(sublinecounter)
-	outcome = str(linecounter) + "." + outcome[-2:]
+	if sublinecounter == 0:
+		outcome = str(linecounter) + "&nbsp;"
+	else:
+		outcome = "00000" + str(sublinecounter)
+		outcome = str(linecounter) + "." + outcome[-2:]
 	return outcome
 
 
