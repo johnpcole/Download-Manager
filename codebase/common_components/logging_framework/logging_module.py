@@ -41,6 +41,7 @@ def processlog(loggingoutput, loggingmode):
 	linecounter = 0
 
 	cache = []
+	instructionset = []
 	for logentry in loggingoutput:
 		logtype = Functions.determineoutputtype(logentry, loggingmode)
 		if logtype == "OTHER":
@@ -48,23 +49,26 @@ def processlog(loggingoutput, loggingmode):
 		else:
 			if len(cache) > 0:
 				linecounter = linecounter + 1
-				outcome.insert(0, Functions.extractotheroutput(cache, linecounter))
+				instructionset.append(Functions.extractotheroutput(cache, linecounter))
 				cache = []
 			if logtype == "DOWNLOAD-MANAGER-INSTRUCTION":
 				linecounter = linecounter + 1
-				outcome.insert(0, Functions.extractdownloadmanagerinstruction(logentry, linecounter))
+				instructionset.insert(0, Functions.extractdownloadmanagerinstruction(logentry, linecounter))
+				instructionset.extend(outcome)
+				outcome = instructionset.copy()
+				instructionset = []
 			elif logtype == "DOWNLOAD-MANAGER-LOG":
 				linecounter = linecounter + 1
-				outcome.insert(0, Functions.extractdownloadmanagerlog(logentry, linecounter))
+				instructionset.extend(Functions.extractdownloadmanagerlog(logentry, linecounter))
 			elif logtype == "FLASK":
 				linecounter = linecounter + 1
-				outcome.insert(0, Functions.extractflaskoutput(logentry, linecounter))
+				instructionset.extend(Functions.extractflaskoutput(logentry, linecounter))
 			elif logtype == "RESTART":
 				outcome.insert(0, {"lineindex": " ", "entrytype": "restart", "content": "Restarting Service"})
 
-	if len(cache) > 0:
-		linecounter = linecounter + 1
-		outcome.insert(0, Functions.extractotheroutput(cache, linecounter))
+#	if len(cache) > 0:
+#		linecounter = linecounter + 1
+#		instructionset.extend(Functions.extractotheroutput(cache, linecounter))
 
 	return outcome
 
