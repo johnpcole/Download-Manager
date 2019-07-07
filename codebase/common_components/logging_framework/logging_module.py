@@ -44,6 +44,12 @@ def processlog(loggingoutput, loggingmode):
 	instructionset = []
 	for logentry in loggingoutput:
 		logtype = Functions.determineoutputtype(logentry, loggingmode)
+		print("=======================================================================================================")
+		print("outcome ", outcome)
+		print("-------------------------------------------------------------------------------------------------------")
+		print("instructionset ", instructionset)
+		print("-------------------------------------------------------------------------------------------------------")
+		print("cache ", cache)
 		if logtype == "OTHER":
 			cache.append(logentry)
 		else:
