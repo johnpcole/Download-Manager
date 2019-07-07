@@ -59,16 +59,16 @@ def processlog(loggingoutput, loggingmode):
 				cache = []
 			if logtype == "DOWNLOAD-MANAGER-INSTRUCTION":
 				linecounter = linecounter + 1
-				instructionset.insert(0, Functions.extractdownloadmanagerinstruction(logentry, linecounter))
 				instructionset.extend(outcome)
 				outcome = instructionset.copy()
 				instructionset = []
+				instructionset.append(Functions.extractdownloadmanagerinstruction(logentry, linecounter))
 			elif logtype == "DOWNLOAD-MANAGER-LOG":
 				linecounter = linecounter + 1
-				instructionset.extend(Functions.extractdownloadmanagerlog(logentry, linecounter))
+				instructionset.append(Functions.extractdownloadmanagerlog(logentry, linecounter))
 			elif logtype == "FLASK":
 				linecounter = linecounter + 1
-				instructionset.extend(Functions.extractflaskoutput(logentry, linecounter))
+				instructionset.append(Functions.extractflaskoutput(logentry, linecounter))
 			elif logtype == "RESTART":
 				outcome.insert(0, {"lineindex": " ", "entrytype": "restart", "content": "Restarting Service"})
 
