@@ -53,6 +53,23 @@ def initialisetorrentpage(torrentid):
 
 
 
+
+
+#===============================================================================================
+# Generate a Monitor History Item
+#===============================================================================================
+
+@website.route('/TriggerDelugeMonitor')
+def triggermonitor():
+
+	manager.triggermonitor()
+	return WebServer.makejson(message='deluge data captured')
+
+
+
+
+
+
 if webmode == True:
 	website.run(debug=False, host='0.0.0.0')
 else:

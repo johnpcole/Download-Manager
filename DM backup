@@ -167,18 +167,5 @@ def displaymonitor():
 
 
 
-#===============================================================================================
-# Generate a Monitor History Item
-#===============================================================================================
-
-@website.route('/TriggerDelugeMonitor')
-def triggermonitor():
-
-	Logging.printinvocation("Triggering Monitor", "")
-	torrentmanager.refreshtorrentlist("Deluge-Monitor")
-	FileManager.savemonitor(monitormanager.addtohistory(torrentmanager.getsessiondata()))
-	return WebServer.makejson(message='deluge data captured')
-
-
 
 
