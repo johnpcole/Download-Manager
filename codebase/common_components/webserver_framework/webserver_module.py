@@ -3,8 +3,8 @@ import flask as FlaskApplication
 
 
 
-def createwebsite(websitename):
-	return FlaskApplication.Flask(websitename, template_folder='webassets/templates', static_folder='webassets')
+def createwebsite(applicationroot):
+	return FlaskApplication.Flask(applicationroot, template_folder='webassets/templates', static_folder='webassets')
 
 
 
