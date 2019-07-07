@@ -6,7 +6,6 @@ from codebase import manager_module as Manager
 Logging.printinvocation("Starting Download-Manager Application", "")
 
 manager = Manager.createmanager("Public Daemon")
-
 website = WebServer.createwebsite()
 
 
@@ -209,7 +208,12 @@ def triggermonitor():
 
 
 
+#===============================================================================================
+# Start the web server
+#===============================================================================================
 
+
+Logging.printinvocation("Starting Web Server", "")
 
 if manager.determinewebmode() == True:
 	website.run(debug=False, host='0.0.0.0')
