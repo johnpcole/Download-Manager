@@ -36,7 +36,7 @@ def initialiselistpage():
 def updatelistpage():
 
 	inputdata = WebServer.getrequestdata()
-	result = manager.updatelistpage(inputdata["bulkcation"])
+	result = manager.updatelistpage(inputdata["bulkaction"])
 	return WebServer.makejson(	torrents=result['torrents'],
 								stats=result['stats'])
 
@@ -51,8 +51,20 @@ def initialisetorrentpage(torrentid):
 
 	result = manager.initialisetorrentpage(torrentid)
 	return WebServer.makehtml(	'torrent.html',
-								selectedtorrend=result['selectedtorrent'])
+								selectedtorrent=result['selectedtorrent'])
 
+
+
+#===============================================================================================
+# Refresh an existing Torrent page with Network Data, after performing an action if required
+#===============================================================================================
+
+@website.route('/UpdateTorrent', methods=['POST'])
+def updatetorrentpage():
+
+	inputdata = WebServer.getrequestdata()
+	result = manager.updatetorrentpage(inputdata['torrentid'], inputdata['torrentaction'])
+	return WebServer.makejson(	selectedtorrent=result['selectedtorrent'])
 
 
 

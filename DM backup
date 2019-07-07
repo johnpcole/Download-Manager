@@ -1,30 +1,5 @@
 
 #===============================================================================================
-# Refresh an existing Torrent page with Network Data, after performing an action if required
-#===============================================================================================
-
-@website.route('/UpdateTorrent', methods=['POST'])
-def updatetorrentpage():
-
-	rawdata = WebServer.getrequestdata()
-	torrentid = rawdata['torrentid']
-	if torrentmanager.validatetorrentid(torrentid) == True:
-		torrentaction = rawdata['torrentaction']
-		if (torrentaction == "Start") or (torrentaction == "Stop"):
-			Logging.printinvocation(torrentaction + "ing Torrent", torrentid )
-			torrentmanager.processonetorrent(torrentid, torrentaction)
-		elif torrentaction == "Refresh":
-			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
-		else:
-			Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
-		torrentmanager.refreshtorrentdata(torrentid)
-		return WebServer.makejson(selectedtorrent=torrentmanager.gettorrentdata(torrentid, "refresh"))
-	else:
-		Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
-
-
-
-#===============================================================================================
 # Copies Files
 #===============================================================================================
 
