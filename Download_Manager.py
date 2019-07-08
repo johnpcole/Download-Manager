@@ -161,15 +161,6 @@ def addnewtorrent():
 @website.route('/Logs')
 def displaylogs():
 
-	result = torrentset.displaylogs(False)
-
-	return WebServer.makehtml('logs.html',
-								loggingoutput=result['loggingoutput'])
-
-
-@website.route('/VerboseLogs')
-def displayverboselogs():
-
 	result = torrentset.displaylogs(True)
 
 	return WebServer.makehtml('logs.html',
