@@ -22,7 +22,7 @@ function showHideRows(rowNumber)
         var areaObject = document.getElementById(subRowId);
         if (areaObject != null) {
             var baseClass = areaObject.className
-            var baseClass = baseClass.substring(4, currentclass.length);
+            var baseClass = baseClass.substring(4, baseClass.length);
             if (currentStatus == 'collapsed_indicator') {
                 changeAreaClass(areaObject, "show".concat(baseClass));
             } else {
