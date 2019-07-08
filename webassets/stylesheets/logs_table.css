@@ -85,3 +85,7 @@ tr:hover {color:#000000;}
 tr.hiddensuccess, tr.hiddeninformation {
   display: none;
 }
+
+tr:first-of-type {
+  border-top: 0px;
+}
