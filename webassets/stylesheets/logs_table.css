@@ -83,5 +83,5 @@ tr.restart {
 tr:hover {color:#000000;}
 
 tr.hiddensuccess, tr.hiddeninformation {
-  display: hidden;
+  display: none;
 }
