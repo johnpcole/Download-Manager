@@ -100,7 +100,7 @@ tr > td:first-of-type {
   padding: 0px;
 }
 
-.td img {
+td img {
     display: inline-block;
     margin: -2px 0px -1px 0px;
     -webkit-filter: brightness(9) saturate(9);
