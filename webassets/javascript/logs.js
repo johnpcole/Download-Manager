@@ -34,11 +34,11 @@ function showHideRows(rowNumber)
 
 
 
-function getSubRowId(row, subrow)
+function getSubRowId(mainRow, subRow)
 {
-    var subrowfractionid = "000".concat(subrow.toString());
-    subrowfractionid = subrowfractionid.substring(subrowfractionid.length - 2, 999)
-    var subrowid = rowNumber.toString()
-    subrowid = subrowid.concat(".", subrowfractionid)
-    return subrowid;
+    var subRowFractionId = "000".concat(subRow.toString());
+    subRowFractionId = subRowFractionId.substring(subRowFractionId.length - 2, 999)
+    var subRowId = mainRow.toString()
+    subRowId = subRowId.concat(".", subRowFractionId)
+    return subRowId;
 };
