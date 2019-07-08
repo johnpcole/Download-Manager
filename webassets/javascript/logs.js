@@ -19,9 +19,9 @@ function showHideRows(rownumber)
         var areaobject = document.getElementById(subrowid);
         if (areaobject != null) {
             if (areaobject.style.display == 'none') {
-                areaobject.style.display = "none";
-            } else {
                 areaobject.style.display = "";
+            } else {
+                areaobject.style.display = "none";
             };
         };
     };
