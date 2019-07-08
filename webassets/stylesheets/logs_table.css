@@ -44,6 +44,7 @@ td.post {
 tr.success {
   font-size: 55%;
   background-color: #009600;
+  display: none;
 }
 
 tr.failure {
@@ -64,6 +65,7 @@ tr.other {
 tr.information {
   font-size: 55%;
   background-color: #454545;
+  display: none;
 }
 
 tr.invocation {

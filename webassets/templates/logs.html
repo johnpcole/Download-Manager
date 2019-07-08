@@ -50,7 +50,7 @@ Banner Content
 {% elif logentry.entrytype == "restart" %}
         <td colspan="5">{{ logentry.content|safe }}</td>
 {% elif logentry.entrytype == "invocation" %}
-        <td colspan="3">{{ logentry.instruction }}</td>
+        <td colspan="3"><button type="button" onclick="javascript:showHideRows({{ logentry.lineindex }});">{{ logentry.instruction }}</button></td>
         <td class="torrentid"><small>{{ logentry.torrentid }}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <td></td>
 {% elif logentry.entrytype == "error" %}
