@@ -95,7 +95,7 @@ tr:last-of-type {
 }
 
 tr > td:first-of-type {
-  text-align: center;
+  text-align: right;
   vertical-align: middle;
   width: 15px;
   padding: 0px;
@@ -106,4 +106,6 @@ td img {
     margin: 0px;
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
+    height: 6px;
+    width: 6px;
 }
