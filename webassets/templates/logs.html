@@ -43,31 +43,30 @@ Banner Content
 {% for logentry in loggingoutput %}
 
 {% if (logentry.entrytype == "information") or (logentry.entrytype == "success") %}
-        <tr class="hidden{{ logentry.entrytype }}" id="{{ logentry.lineindex }}">
+        <tr class="hidden{{ logentry.entrytype }}" id="{{ logentry.lineindex }}"><td></td>
 {% elif logentry.entrytype == "invocation" %}
-        <tr class="{{ logentry.entrytype }}" onclick="showHideRows({{ logentry.lineindex }})">
+        <tr class="{{ logentry.entrytype }}" onclick="showHideRows({{ logentry.lineindex }})"><td>+</td>
 {% else %}
-        <tr class="{{ logentry.entrytype }}">
+        <tr class="{{ logentry.entrytype }}"><td></td>
 {% endif %}
 
 
 {% if logentry.entrytype == "other" %}
-        <td colspan="2" class="counter">{{ logentry.lineindex }}</td>
+        <td class="counter">{{ logentry.lineindex }}</td>
         <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
 {% elif (logentry.entrytype == "information") or (logentry.entrytype == "restart") %}
-        <td colspan="2" class="counter">{{ logentry.lineindex }}</td>
+        <td class="counter">{{ logentry.lineindex }}</td>
         <td colspan="5">{{ logentry.content|safe }}</td>
 {% elif logentry.entrytype == "invocation" %}
-        <td class="plusorminus">+</td>
         <td class="counter">{{ logentry.lineindex }}</td>
         <td colspan="3">{{ logentry.instruction }}</td>
         <td class="torrentid"><small>{{ logentry.torrentid }}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <td></td>
 {% elif logentry.entrytype == "error" %}
-        <td colspan="2" class="counter">{{ logentry.lineindex }}</td>
+        <td class="counter">{{ logentry.lineindex }}</td>
         <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
 {% else %}
-        <td colspan="2" class="counter">{{ logentry.lineindex }}</td>
+        <td class="counter">{{ logentry.lineindex }}</td>
         <td class="datetime">{{ logentry.datetime }}</td>
         <td class="ipaddress">{{ logentry.requestipaddress }}</td>
         <td class="post">{{ logentry.method }}</td>

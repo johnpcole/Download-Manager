@@ -17,11 +17,6 @@ td {
   vertical-align: top;
 }
 
-td.plusorminus {
-  text-align: center;
-  width: 20px;
-}
-
 td.counter {
   text-align: right;
   width: 50px;
@@ -97,4 +92,9 @@ tr:first-of-type {
 
 tr:last-of-type {
   border-bottom: 0px;
+}
+
+tr > td:first-of-type {
+  text-align: center;
+  width: 15px;
 }
