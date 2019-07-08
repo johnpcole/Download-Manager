@@ -10,7 +10,7 @@ $(document).ready(function ()
 
 function showHideRows(rownumber)
 {
-    for( var subrow = 0; subrow < 1000; subrow++ ) {
+    for( var subrow = 0; subrow < 100; subrow++ ) {
         var subrowfractionid = "000";
         subrowfractionid = subrowfractionid.concat(subrow.toString());
         subrowfractionid = subrowfractionid.substring(subrowfractionid.length - 2, 999)
