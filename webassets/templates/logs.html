@@ -46,7 +46,7 @@ Banner Content
         <td class="counter">{{ logentry.lineindex }}</td>
         <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
 {% elif logentry.entrytype == "information" %}
-        <tr class="{{ logentry.entrytype }}" id="{{logentry.lineindex }}" style="display:none;">
+        <tr class="hidden{{ logentry.entrytype }}" id="{{ logentry.lineindex }}">
         <td class="counter">{{ logentry.lineindex }}</td>
         <td colspan="5">{{ logentry.content|safe }}</td>
 {% elif logentry.entrytype == "restart" %}
@@ -64,7 +64,7 @@ Banner Content
         <td class="counter">{{ logentry.lineindex }}</td>
         <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
 {% else %}
-        <tr class="{{ logentry.entrytype }}" id="{{logentry.lineindex }}" style="display:none;">
+        <tr class="hidden{{ logentry.entrytype }}" id="{{ logentry.lineindex }}">
         <td class="counter">{{ logentry.lineindex }}</td>
         <td class="datetime">{{ logentry.datetime }}</td>
         <td class="ipaddress">{{ logentry.requestipaddress }}</td>

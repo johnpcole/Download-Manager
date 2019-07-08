@@ -18,10 +18,11 @@ function showHideRows(rownumber)
         subrowid = subrowid.concat(".", subrowfractionid)
         var areaobject = document.getElementById(subrowid);
         if (areaobject != null) {
-            if (areaobject.style.display == 'none') {
-                areaobject.style.display = "";
+            var currentclass = areaobject.className
+            if (currentclass.substring(0, 6) == 'hidden') {
+                areaobject.className = currentclass.substring(6, currentclass.length);
             } else {
-                areaobject.style.display = "none";
+                areaobject.className = "hidden".concat(areaobject.className);
             };
         };
     };
