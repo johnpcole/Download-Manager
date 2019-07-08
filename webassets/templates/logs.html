@@ -41,7 +41,7 @@ Banner Content
 {% block content %}
  --><div class="MonitorChart"><table>
 {% for logentry in loggingoutput %}
-        <tr class="{{ logentry.entrytype }}">
+        <tr class="{{ logentry.entrytype }}" id="{{logentry.lineindex }}">
         <td class="counter">{{ logentry.lineindex }}</td>
 {% if logentry.entrytype == "other" %}
         <td colspan="5">{% for contentline in logentry.content %}{{ contentline|safe }}</br>{% endfor %}</td>
