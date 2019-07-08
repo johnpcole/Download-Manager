@@ -24,9 +24,9 @@ function showHideRows(rowNumber)
             var baseClass = areaObject.className
             var baseClass = baseClass.substring(4, baseClass.length);
             if (currentStatus == 'collapsed_indicator') {
-                changeAreaClass(areaObject, "show".concat(baseClass));
+                changeAreaClass(subRowId, "show".concat(baseClass));
             } else {
-                changeAreaClass(areaObject, "hide".concat(baseClass));
+                changeAreaClass(subRowId, "hide".concat(baseClass));
             };
         };
     };
