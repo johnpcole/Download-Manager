@@ -39,32 +39,39 @@ def processlog(loggingoutput, loggingmode):
 
 	outcome = []
 	linecounter = 0
+	sublinecounter = 0
 
 	cache = []
+	instructionset = []
 	for logentry in loggingoutput:
 		logtype = Functions.determineoutputtype(logentry, loggingmode)
 		if logtype == "OTHER":
 			cache.append(logentry)
 		else:
 			if len(cache) > 0:
-				linecounter = linecounter + 1
-				outcome.insert(0, Functions.extractotheroutput(cache, linecounter))
+				sublinecounter = sublinecounter + 1
+				instructionset.append(Functions.extractotheroutput(cache, linecounter, sublinecounter))
 				cache = []
-			if logtype == "DOWNLOAD-MANAGER-INSTRUCTION":
-				linecounter = linecounter + 1
-				outcome.insert(0, Functions.extractdownloadmanagerinstruction(logentry, linecounter))
+			if (logtype == "DOWNLOAD-MANAGER-INSTRUCTION") or (logtype == "RESTART"):
+				instructionset.extend(outcome)
+				outcome = instructionset.copy()
+				instructionset = []
+				if logtype == "RESTART":
+					outcome.insert(0, {"lineindex": " ", "entrytype": "restart", "content": "Restarting Service"})
+				else:
+					sublinecounter = 0
+					linecounter = linecounter + 1
+					instructionset.append(Functions.extractdownloadmanagerinstruction(logentry, linecounter, sublinecounter))
 			elif logtype == "DOWNLOAD-MANAGER-LOG":
-				linecounter = linecounter + 1
-				outcome.insert(0, Functions.extractdownloadmanagerlog(logentry, linecounter))
+				sublinecounter = sublinecounter + 1
+				instructionset.append(Functions.extractdownloadmanagerlog(logentry, linecounter, sublinecounter))
 			elif logtype == "FLASK":
-				linecounter = linecounter + 1
-				outcome.insert(0, Functions.extractflaskoutput(logentry, linecounter))
-			elif logtype == "RESTART":
-				outcome.insert(0, {"lineindex": " ", "entrytype": "restart", "content": "Restarting Service"})
+				sublinecounter = sublinecounter + 1
+				instructionset.append(Functions.extractflaskoutput(logentry, linecounter, sublinecounter))
 
-	if len(cache) > 0:
-		linecounter = linecounter + 1
-		outcome.insert(0, Functions.extractotheroutput(cache, linecounter))
+#	if len(cache) > 0:
+#		linecounter = linecounter + 1
+#		instructionset.extend(Functions.extractotheroutput(cache, linecounter))
 
 	return outcome
 

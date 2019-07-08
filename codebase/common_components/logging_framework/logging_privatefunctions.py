@@ -1,6 +1,6 @@
-def extractflaskoutput(logentry, linecounter):
+def extractflaskoutput(logentry, linecounter, sublinecounter):
 	outcome = {}
-	outcome["lineindex"] = linecounter
+	outcome["lineindex"] = formlinecounter(linecounter, sublinecounter)
 	datetimestart = logentry.find("[")
 	datetimeend = logentry.find("]")
 	datetime = logentry[datetimeend - 8:datetimeend] + " - " + logentry[datetimestart + 1:datetimeend - 9]
@@ -20,9 +20,9 @@ def extractflaskoutput(logentry, linecounter):
 
 
 
-def extractdownloadmanagerinstruction(logentry, linecounter):
+def extractdownloadmanagerinstruction(logentry, linecounter, sublinecounter):
 	outcome = {}
-	outcome["lineindex"] = linecounter
+	outcome["lineindex"] = formlinecounter(linecounter, sublinecounter)
 	outcome["entrytype"] = "invocation"
 	content = logentry[21:]
 	if content.find(" | ") == -1:
@@ -36,9 +36,9 @@ def extractdownloadmanagerinstruction(logentry, linecounter):
 
 
 
-def extractdownloadmanagerlog(logentry, linecounter):
+def extractdownloadmanagerlog(logentry, linecounter, sublinecounter):
 	outcome = {}
-	outcome["lineindex"] = linecounter
+	outcome["lineindex"] = formlinecounter(linecounter, sublinecounter)
 	outcome["entrytype"] = "information"
 	logcontent = logentry[19:]
 	if logcontent[:2] == "- ":
@@ -49,9 +49,9 @@ def extractdownloadmanagerlog(logentry, linecounter):
 
 
 
-def extractotheroutput(cache, linecounter):
+def extractotheroutput(cache, linecounter, sublinecounter):
 	outcome = {}
-	outcome["lineindex"] = linecounter
+	outcome["lineindex"] = formlinecounter(linecounter, sublinecounter)
 	startingline = cache[0]
 	if startingline.find("] ERROR in app:") != -1:
 		outcome["entrytype"] = "error"
@@ -81,4 +81,21 @@ def determineoutputtype(outputstring, loggingmode):
 					outcome = "IGNORE"
 
 	return outcome
+
+
+
+def formlinecounter(linecounter, sublinecounter):
+
+	if sublinecounter == 0:
+		outcome = str(linecounter)
+	else:
+		outcome = "00000" + str(sublinecounter)
+		outcome = str(linecounter) + "." + outcome[-2:]
+	return outcome
+
+
+
+
+
+
 
