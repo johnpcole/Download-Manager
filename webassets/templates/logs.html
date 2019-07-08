@@ -45,7 +45,8 @@ Banner Content
 {% if (logentry.entrytype == "information") or (logentry.entrytype == "success") %}
         <tr class="hidden{{ logentry.entrytype }}" id="{{ logentry.lineindex }}"><td></td>
 {% elif logentry.entrytype == "invocation" %}
-        <tr class="{{ logentry.entrytype }}" onclick="showHideRows({{ logentry.lineindex }})"><td>+</td>
+        <tr class="{{ logentry.entrytype }}" onclick="showHideRows({{ logentry.lineindex }})">
+            <td><img id="Entry{{ logentry.lineindex }}" src="{{ url_for('static', filename='images/collapsed_indicator.png') }}" /></td>
 {% else %}
         <tr class="{{ logentry.entrytype }}"><td></td>
 {% endif %}
@@ -108,6 +109,8 @@ Banner Content
 {% block hiddendata %}
 
  --><div class="hidden">
+         <img src="{{ url_for('static', filename='images/collapsed_indicator.png') }}" />
+         <img src="{{ url_for('static', filename='images/expanded_indicator.png') }}" />
     </div><!--
 
 {% endblock %}
