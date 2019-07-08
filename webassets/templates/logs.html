@@ -43,7 +43,7 @@ Banner Content
 {% for logentry in loggingoutput %}
 
 {% if (logentry.entrytype == "information") or (logentry.entrytype == "success") %}
-        <tr class="hidden{{ logentry.entrytype }}" id="{{ logentry.lineindex }}"><td></td>
+        <tr class="hide{{ logentry.entrytype }}" id="{{ logentry.lineindex }}"><td></td>
 {% elif logentry.entrytype == "invocation" %}
         <tr class="{{ logentry.entrytype }}" onclick="showHideRows({{ logentry.lineindex }})">
             <td><img id="Entry{{ logentry.lineindex }}" src="{{ url_for('static', filename='images/collapsed_indicator.png') }}" /></td>

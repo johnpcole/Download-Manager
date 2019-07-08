@@ -41,7 +41,7 @@ td.post {
   width: 60px;
 }
 
-tr.success {
+tr.showsuccess {
   font-size: 55%;
   background-color: #009600;
 }
@@ -61,7 +61,7 @@ tr.other {
   background-color: #DC6E00;
 }
 
-tr.information {
+tr.showinformation {
   font-size: 55%;
   background-color: #454545;
 }
@@ -82,7 +82,7 @@ tr.restart {
 
 tr:hover {color:#000000;}
 
-tr.hiddensuccess, tr.hiddeninformation {
+tr.hidesuccess, tr.hideinformation {
   display: none;
 }
 
@@ -96,13 +96,14 @@ tr:last-of-type {
 
 tr > td:first-of-type {
   text-align: center;
+  vertical-align: middle;
   width: 15px;
   padding: 0px;
 }
 
 td img {
     display: inline-block;
-    margin: -2px 0px -1px 0px;
+    margin: 0px;
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
 }
