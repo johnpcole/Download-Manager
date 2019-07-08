@@ -45,7 +45,7 @@ Banner Content
 {% if (logentry.entrytype == "information") or (logentry.entrytype == "success") %}
         <tr class="hidden{{ logentry.entrytype }}" id="{{ logentry.lineindex }}">
 {% elif logentry.entrytype == "invocation" %}
-        <tr class="{{ logentry.entrytype }}" onclick="showHideRows({{ logentry.lineindex }})"></tr>
+        <tr class="{{ logentry.entrytype }}" onclick="showHideRows({{ logentry.lineindex }})">
 {% else %}
         <tr class="{{ logentry.entrytype }}">
 {% endif %}
