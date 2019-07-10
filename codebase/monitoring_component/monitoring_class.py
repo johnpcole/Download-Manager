@@ -36,9 +36,9 @@ class DefineMonitor:
 
 		outcome = self.sessionmeters.getstats()
 		if self.networkstatus == 1:
-			outcome['networkstatus'] = "indexbanner_good"
+			outcome['networkstatus'] = "vpn_up"
 		else:
-			outcome['networkstatus'] = "indexbanner_bad"
+			outcome['networkstatus'] = "vpn_down"
 		return outcome
 
 # =========================================================================================

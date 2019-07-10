@@ -63,7 +63,7 @@ function updateTorrentTile(dataitem)
 
 function updateStats(stats)
 {
-    updateBannerTileColour(stats.networkstatus);
+    updateIndexBannerTileColour(stats.networkstatus);
     rerenderText('downloadneedle', '<line x1="'+stats.downloadspeed.ho+'" y1="'+stats.downloadspeed.vo+'" x2="'+stats.downloadspeed.hf+'" y2="'+stats.downloadspeed.vf+'" />');
     rerenderText('uploadneedle', '<line x1="'+stats.uploadspeed.ho+'" y1="'+stats.uploadspeed.vo+'" x2="'+stats.uploadspeed.hf+'" y2="'+stats.uploadspeed.vf+'" />');
     rerenderText('spaceneedle', '<line x1="'+stats.space.ho+'" y1="'+stats.space.vo+'" x2="'+stats.space.hf+'" y2="'+stats.space.vf+'" />');

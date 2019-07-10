@@ -1,3 +1,7 @@
+/* ===============================================================================
+   TILE GROUP
+   =============================================================================== */
+
 div.tilesgroup {
     margin: 0;
     padding: 0;
@@ -13,8 +17,12 @@ div.tilesgroup {
     }
 }
 
-/* Generic Tile object, covers banner tiles and torrent & file tiles */
-div.bannertile, div.contenttile, a.contenttile, #FixedIndexBanner, div.MonitorChart {
+
+/* ===============================================================================
+   Generic Tile object, covers banner tiles and torrent & file tiles
+   =============================================================================== */
+
+div.indexbannertile, div.torrentbannertile, div.auditbannertile, div.contenttile, a.contenttile, div.monitorchart {
     display: inline-block;
     overflow: hidden;
     margin: 7px;
@@ -25,6 +33,11 @@ div.bannertile, div.contenttile, a.contenttile, #FixedIndexBanner, div.MonitorCh
     outline: 0;
 }
 
+
+/* ===============================================================================
+   CLICKABLE TILE BEHAVOUR
+   =============================================================================== */
+
 a.contenttile {
     text-decoration: none;
 }
@@ -33,61 +46,12 @@ a.contenttile:hover {
     background-color: #222222;
 }
 
-.torrent_seeding_active {
-    background-color: #009600;
-}
-
-.torrent_seeding_queued {
-    background-color: #009600;
-}
-
-.torrent_seeding_paused {
-    background-color: #000096;
-}
-
-.torrent_downloading_active {
-    background-color: #DC6E00;
-}
-
-.torrent_downloading_queued {
-    background-color: #DC6E00;
-}
-
-.torrent_downloading_paused {
-    background-color: #AF0000;
-}
-
-.torrent_checking {
-    background-color: #000000;
-}
-
-.torrent_error {
-    background-color: #000000;
-}
-
-.indexbanner_bad {
-    background-color: #FF0000;
-}
-
-.file_video_copy, .file_video_ignore, .indexbanner_good {
-    background-color: #7D7D00;
-}
-
-.file_subtitle_copy, .file_subtitle_ignore {
-    background-color: #640032;
-}
-
-.file_none_ignore, .file_none_copy {
-    background-color: #141414;
-}
-
-
 /* ===============================================================================
    TILE TITLE ROW
    =============================================================================== */
 
 /* Title Boxes */
-div.indexbannertitle, div.contenttitleleft, div.contenttitleright, div.bannertitleleft, div.bannertitleright, div.contenttitlefull {
+div.contenttitleleft, div.contenttitleright, div.bannertitleleft, div.bannertitleright, div.bannertitlefull, div.contenttitlefull {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -96,7 +60,7 @@ div.indexbannertitle, div.contenttitleleft, div.contenttitleright, div.bannertit
 }
 
 /* Title Box Images */
-.indexbannertitle img, .contenttitleleft img , .contenttitleright img, .bannertitleleft img, .bannertitleright img, .contenttitlefull img {
+.contenttitleleft img, .contenttitleright img, .bannertitleleft img, .bannertitleright img, .bannertitlefull img, .contenttitlefull img {
     display: inline-block;
     height: 18px;
     width: 18px;
