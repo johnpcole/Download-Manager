@@ -1,0 +1,35 @@
+.torrent_seeding_active, .torrent_seeding_queued {
+    background-color: #009600;
+}
+
+.torrent_seeding_paused {
+    background-color: #000096;
+}
+
+.torrent_downloading_active, .torrent_downloading_queued {
+    background-color: #DC6E00;
+}
+
+.torrent_downloading_paused {
+    background-color: #AF0000;
+}
+
+.torrent_checking, .torrent_error  {
+    background-color: #000000;
+}
+
+.vpn_down {
+    background-color: #FF0000;
+}
+
+.file_video_copy, .file_video_ignore, .vpn_up, .auditbannertile {
+    background-color: #7D7D00;
+}
+
+.file_subtitle_copy, .file_subtitle_ignore {
+    background-color: #640032;
+}
+
+.file_none_ignore, .file_none_copy {
+    background-color: #141414;
+}

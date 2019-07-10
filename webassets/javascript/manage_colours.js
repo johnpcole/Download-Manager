@@ -12,8 +12,8 @@ function updateFileTileColour(tileid, filetype, fileoutcome)
 };
 
 
-function updateBannerTileColour(networkstatus)
+function updateIndexBannerTileColour(networkstatus)
 {
-    var newclassname = "bannertile " + networkstatus;
-    changeAreaClass("IndexBanner", newclassname);
+    var newclassname = "indexbannertile " + networkstatus;
+    changeAreaClass("Banner", newclassname);
 };

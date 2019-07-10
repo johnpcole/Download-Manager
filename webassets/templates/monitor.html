@@ -21,13 +21,13 @@
 
 {% block banner %}
 
- --><div id="FixedIndexBanner" class="indexbanner_good"><!--
+ --><div class="auditbannertile"><!--
 
 
 Banner Content
 
-     --><div class="indexbannercontent">
-            <div class="indexbannertitle">
+     --><div class="bannercontent">
+            <div class="bannertitlefull">
                 <span>Deluge-Monitor</span>
             </div><!--
          --><div class="contentsplitter"></div>
@@ -46,7 +46,7 @@ Banner Content
 
 {% for thisgraphindex, thisgraph in monitoroutput.items() %}
 
-     --><div class="MonitorChart">
+     --><div class="monitorchart">
             <svg width="1038" height="175">
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
