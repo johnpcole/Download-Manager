@@ -3,6 +3,7 @@
    =============================================================================== */
 
 div.indexbannertile, div.torrentbannertile  {
+    position: relative;
     width: 524px;
 }
 
@@ -13,7 +14,6 @@ div.indexbannertile, div.torrentbannertile  {
 }
 
 div.indexbannertile {
-    position: relative;
     height: 144px;
 }
 
