@@ -55,12 +55,12 @@ div.contentsubtitlefull {
     text-align: left;
 }
 
-div.filesubtitleleft, div.filesubtitleleftlong {
+div.filesubtitleleft, div.filesubtitleleftmultiline {
     width: 353px;
     text-align: left;
 }
 
-div.filesubtitleleftlong {
+div.filesubtitleleftmultiline {
     background-color: #FF0000 !important;
     overflow-wrap: break-word;
 }
