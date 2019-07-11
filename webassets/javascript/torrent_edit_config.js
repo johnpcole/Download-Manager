@@ -54,6 +54,7 @@ function updateTorrentConfigFields(editinfo, listitems)
                 setDropDownValue('subtitleselector-'+currentfile.fileid, currentfile.subtitleselector);
             };
         };
+        changeAreaClass('Filename-'+currentfile.fileid, 'filesubtitleleftmultiline')
     });
 };
 
