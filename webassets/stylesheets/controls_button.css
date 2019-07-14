@@ -30,7 +30,7 @@ div.buttongroup {
     overflow: hidden;
 }
 
-.buttongroup > button {
+.buttongroup button {
     width: 28px;
     height: 28px;
     background-color: #999999;
@@ -38,13 +38,13 @@ div.buttongroup {
     box-shadow: none;
 }
 
-.buttongroup > button > img {
+.buttongroup button > img {
     width: 24px;
     height: 24px;
     margin: auto;
 }
 
-div.buttongroup > button:disabled > img {
+div.buttongroup button:disabled > img {
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
 }
@@ -65,7 +65,7 @@ div.actionbuttonsgroup {
     /*background-color: #000000*/;
 }
 
-.actionbuttonsgroup > button {
+.actionbuttonsgroup button {
     width: 50px;
     height: 50px;
     background-color: #999999;
@@ -75,18 +75,18 @@ div.actionbuttonsgroup {
     display: inline-block;
 }
 
-.actionbuttonsgroup > button:hover:enabled {
+.actionbuttonsgroup button:hover:enabled {
     background-color: #777777;
 }
 
-.actionbuttonsgroup > button > img {
+.actionbuttonsgroup button > img {
     width: 36px;
     height: 36px;
     margin: auto;
     display: inline-block;
 }
 
-.actionbuttonsgroup > button:disabled > img {
+.actionbuttonsgroup button:disabled > img {
     -webkit-filter: brightness(3) saturate(9);
     filter: brightness(3) saturate(9);
 }

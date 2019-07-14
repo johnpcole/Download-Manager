@@ -64,7 +64,7 @@ div.indexbannertile, div.torrentbannertile, div.auditbannertile, .tilesgroup > d
     display: inline-block;
     height: 18px;
     width: 18px;
-    margin: -2px 0px -2px 0px;
+    margin: 0px 0px -2px 0px;
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
 }
