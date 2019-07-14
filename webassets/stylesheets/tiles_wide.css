@@ -2,8 +2,11 @@
    TILE CONTAINER
    =============================================================================== */
 
-#IndexBanner, #TorrentBanner {
+#IndexBanner, #TorrentBanner #
     position: relative;
+}
+
+#IndexBanner, #TorrentBanner {
     width: 524px;
 }
 
@@ -24,7 +27,6 @@
 }
 
 div.auditbannertile {
-    position: relative;
     width: 1018px;
     height: 72px;
 }
@@ -33,7 +35,7 @@ div.auditbannertile {
    INDEX/MONITOR/LOG BIG BANNER HEADING
    =============================================================================== */
 
-div.bannerbigheading {
+div.oldbannerbigheading {
     height: 68px;
     display: inline-block;
     text-align: center;
@@ -46,18 +48,18 @@ div.bannerbigheading {
 }
 
 @media screen and (min-width: 1070px) {
-    div.bannerbigheading {
+    div.oldbannerbigheading {
         left: 260px;
         right: 260px;
     }
 }
 
-.newbannerbigheading {
+.bannerbigheading {
     display: inline-block;
     text-align: center;
     font-size: 28pt;
-    margin: auto;
-    width: 360px;
+    line-height: 175%;
+    width: 500px;
 }
 
 /* ===============================================================================
