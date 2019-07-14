@@ -59,6 +59,7 @@ div.bannercontent {
 .bannerupperrow > div:first-of-type {
     width: 492px;
     text-align: left;
+    float: left;
 }
 
 @media screen and (min-width: 1070px) {
@@ -70,6 +71,7 @@ div.bannercontent {
 .bannerupperrow > div:last-of-type {
     width: 20px;
     text-align: right;
+    float: right;
 }
 
 div.bannertitlefull {
@@ -84,6 +86,7 @@ div.bannertitlefull {
 .bannerlowerrow > div:first-of-type {
     width: 516px;
     text-align: left;
+    float: left;
 }
 
 @media screen and (min-width: 1070px) {
@@ -95,6 +98,7 @@ div.bannertitlefull {
 .bannerlowerrow > div:last-of-type {
     width: 516px;
     text-align: right;
+    float: right;
 }
 
 @media screen and (min-width: 1070px) {

@@ -51,7 +51,7 @@ div.indexbannertile, #TorrentBanner, div.auditbannertile, .tilesgroup > div, .ti
    =============================================================================== */
 
 /* Title Boxes */
-.tileupperrow > div, .bannerupperrow > div, div.bannertitleleft, div.bannertitleright, div.bannertitlefull, div.contenttitlefull {
+.tileupperrow > div, .bannerupperrow > div, div.bannertitlefull, div.contenttitlefull {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -60,7 +60,7 @@ div.indexbannertile, #TorrentBanner, div.auditbannertile, .tilesgroup > div, .ti
 }
 
 /* Title Box Images */
-.tileupperrow > div > img, .bannerupperrow > div > img, .bannertitleleft img, .bannertitleright img, .bannertitlefull img, .contenttitlefull img {
+.tileupperrow > div > img, .bannerupperrow > div > img, .bannertitlefull img, .contenttitlefull img {
     display: inline-block;
     height: 18px;
     width: 18px;
@@ -74,7 +74,7 @@ div.indexbannertile, #TorrentBanner, div.auditbannertile, .tilesgroup > div, .ti
    =============================================================================== */
 
 /* Separator Bars */
-div.contentsplitter, div.bannersplitter, div.tilesplitter {
+div.tilesplitter {
     height: 2px;
     border-style: solid;
     border-width: 0px 0px 1px 0px;
