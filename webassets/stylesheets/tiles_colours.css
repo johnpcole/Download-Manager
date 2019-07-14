@@ -22,7 +22,7 @@
     background-color: #FF0000;
 }
 
-.file_video_copy, .file_video_ignore, .vpn_up, .auditbannertile {
+.file_video_copy, .file_video_ignore, .vpn_up, #AuditBanner {
     background-color: #7D7D00;
 }
 
