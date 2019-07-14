@@ -9,10 +9,12 @@ div.tilesgroup {
     overflow: hidden;
     width: 496px;
     vertical-align: top;
+    position: sticky;
+    top: 10px;
 }
 
 @media screen and (min-width: 1070px) {
-    div.tilesgroup{
+    div.tilesgroup {
         width: 990px;
     }
 }
@@ -22,7 +24,7 @@ div.tilesgroup {
    Generic Tile object, covers banner tiles and torrent & file tiles
    =============================================================================== */
 
-div.indexbannertile, #TorrentBanner, div.auditbannertile, .tilesgroup > div, .tilesgroup > a, div.monitorchart {
+#IndexBanner, #TorrentBanner, div.auditbannertile, .tilesgroup > div, .tilesgroup > a, div.monitorchart {
     display: inline-block;
     overflow: hidden;
     margin: 7px;
@@ -51,7 +53,7 @@ div.indexbannertile, #TorrentBanner, div.auditbannertile, .tilesgroup > div, .ti
    =============================================================================== */
 
 /* Title Boxes */
-.tileupperrow > div, .bannerupperrow > div, div.bannertitlefull, div.contenttitlefull {
+.tileupperrow > div, .bannerupperrow > div, .bannerbigheading > div, div.contenttitlefull {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -60,7 +62,7 @@ div.indexbannertile, #TorrentBanner, div.auditbannertile, .tilesgroup > div, .ti
 }
 
 /* Title Box Images */
-.tileupperrow > div > img, .bannerupperrow > div > img, .bannertitlefull img, .contenttitlefull img {
+.tileupperrow > div > img, .bannerupperrow > div > img, .contenttitlefull img {
     display: inline-block;
     height: 18px;
     width: 18px;
