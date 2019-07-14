@@ -31,24 +31,17 @@
 
 {% block banner %}
 
- --><div id="Torrent" class="torrentbannertile torrent_{{ selectedtorrent.status }}"><!--
+ --><div id="TorrentBanner" class="torrent_{{ selectedtorrent.status }}"><!--
 
 Section: Configured-Title & Type Read-Only-View
 
-     --><div class="readonlyfields"><!--
-
-Subsection: Configured-Title
-
-          --><div class="bannertitleleft" id="TorrentTitle">
-                <span>{{ selectedtorrent.torrenttitle }}</span>
+     --><div class="readonlyfields bannerupperrow"><!--
+          --><div>
+                <span id="TorrentTitle">{{ selectedtorrent.torrenttitle }}</span>
             </div><!--
-
-Subsection: Type
-
-         --><div class="bannertitleright">
+         --><div>
                 <img id="TorrentType" src="{{ url_for('static', filename='images/type_' + selectedtorrent.torrenttype + '.png') }}" alt="{{ selectedtorrent.torrenttype }}" />
             </div><!--
-
      --></div><!--
 
 Section: Configured-Title & Type Edit-Mode-View
@@ -100,21 +93,19 @@ Subsection: Movie-Type-Fields
 
 Section: Horizontal-Line
 
-     --><div class="bannersplitter"></div><!--
+     --><div class="tilesplitter"></div><!--
 
-Section: Raw-Title
+Section: Raw-Title, Progress and Status
 
-     --><div class="bannersubtitleleft">
-            <span>{{ selectedtorrent.torrentname }}</span>
-        </div><!--
-
-Section: Progress and Status
-
-     --><div class="bannersubtitleright"><!--
-         --><img id="Status" src="{{ url_for('static', filename='images/status_' + selectedtorrent.status + '.png') }}" alt="{{ selectedtorrent.status }}" /><!--
-         --><span id="Progress">{{ selectedtorrent.progress }}</span><!--
+     --><div class="bannerlowerrow"><!--
+         --><div>
+                <span>{{ selectedtorrent.torrentname }}</span>
+            </div><!--
+         --><div><!--
+             --><img id="Status" src="{{ url_for('static', filename='images/status_' + selectedtorrent.status + '.png') }}" alt="{{ selectedtorrent.status }}" /><!--
+             --><span id="Progress">{{ selectedtorrent.progress }}</span><!--
+         --></div><!--
      --></div><!--
-
  --></div><!--
 
 {% endblock %}
@@ -135,8 +126,8 @@ File {{ fileitem.filetitle }}
 
 Section: Configured-Filename & Type Read-Only-View
          --><div class="readonlyfields tileupperrow"><!--
-             --><div id="filetitle-{{ fileitem.fileid }}">
-                    <span>{{ fileitem.filetitle }}</span>
+             --><div>
+                    <span id="filetitle-{{ fileitem.fileid }}">{{ fileitem.filetitle }}</span>
                 </div><!--
              --><div>
                     <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileaction_' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />

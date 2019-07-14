@@ -89,7 +89,7 @@ div.contentsplitter, div.bannersplitter, div.tilesplitter {
    =============================================================================== */
 
 /* Subtitle Boxes */
-.filetilelowerrow > div, .torrenttilelowerrow > div, div.bannersubtitleleft, div.bannersubtitleright {
+.filetilelowerrow > div, .torrenttilelowerrow > div, .bannerlowerrow > div {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -99,7 +99,7 @@ div.contentsplitter, div.bannersplitter, div.tilesplitter {
 }
 
 /* Subtitle Box Images */
-.filetilelowerrow > div > img, .torrenttilelowerrow > div > img, .bannersubtitleleft img, .bannersubtitleright img {
+.filetilelowerrow > div > img, .torrenttilelowerrow > div > img, .bannerlowerrow > div > img {
     display: inline-block;
     height: 13px;
     width: 13px;
@@ -116,7 +116,7 @@ div.multilinemode {
     overflow-wrap: break-word;
 }
 
-div.tileupperrow, div.torrenttilelowerrow, div.filetilelowerrow {
+div.tileupperrow, div.torrenttilelowerrow, div.filetilelowerrow, div.bannerupperrow, div.bannerlowerrow {
     margin: 0;
     padding: 0;
     display: inline-block;

@@ -2,13 +2,13 @@
    TILE CONTAINER
    =============================================================================== */
 
-div.indexbannertile, div.torrentbannertile  {
+div.indexbannertile, #TorrentBanner {
     position: relative;
     width: 524px;
 }
 
 @media screen and (min-width: 1070px) {
-    div.indexbannertile, div.torrentbannertile  {
+    div.indexbannertile, #TorrentBanner  {
         width: 1018px;
     }
 }
@@ -56,18 +56,18 @@ div.bannercontent {
    TILE TITLE ROW
    =============================================================================== */
 
-div.bannertitleleft {
+.bannerupperrow > div:first-of-type {
     width: 492px;
     text-align: left;
 }
 
 @media screen and (min-width: 1070px) {
-    div.bannertitleleft {
+    .bannerupperrow > div:first-of-type {
         width: 986px;
     }
 }
 
-div.bannertitleright {
+.bannerupperrow > div:last-of-type {
     width: 20px;
     text-align: right;
 }
@@ -77,49 +77,34 @@ div.bannertitlefull {
     line-height: 40px;
 }
 
-
-/* ===============================================================================
-   TITLE SEPARATOR LINE
-   =============================================================================== */
-
-div.bannersplitter {
-    width: 516px;
-}
-
-@media screen and (min-width: 1070px) {
-    div.bannersplitter {
-        width: 1010px;
-    }
-}
-
 /* ===============================================================================
    TILE SUBTILE ROW
    =============================================================================== */
 
-div.bannersubtitleleft {
+.bannerlowerrow > div:first-of-type {
     width: 516px;
     text-align: left;
 }
 
 @media screen and (min-width: 1070px) {
-    div.bannersubtitleleft {
+    .bannerlowerrow > div:first-of-type {
         width: 822px;
     }
 }
 
-div.bannersubtitleright {
+.bannerlowerrow > div:last-of-type {
     width: 516px;
     text-align: right;
 }
 
 @media screen and (min-width: 1070px) {
-    div.bannersubtitleright {
+    .bannerlowerrow > div:last-of-type {
         width: 180px;
     }
 }
 
 @media screen and (max-width: 1069px) {
-    div.bannersubtitleright {
+    .bannerlowerrow > div:last-of-type {
         padding-top: 0px;
     }
 }
