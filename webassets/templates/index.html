@@ -93,7 +93,7 @@ Torrent {{ torrent.torrentid }}
      --><a id="Torrent-{{ torrent.torrentid }}" class="contenttile torrent_{{ torrent.status }}" href="/Torrent={{ torrent.torrentid }}"><!--
 
 Configured-Title
-
+--><div class="titlerow"><!--
          --><div class="contenttitleleft">
                 <span>{{ torrent.torrenttitle }}</span>
             </div><!--
@@ -103,14 +103,14 @@ Type
          --><div class="contenttitleright">
                 <img src="{{ url_for('static', filename='images/type_' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
             </div><!--
-
+--></div><!--
 Horizontal-Bar
 
          --><div class="contentsplitter">
             </div><!--
 
 Raw-Title
-
+--><div class="subtitlerow"><!--
          --><div class="torrentsubtitleleft">
                 <span>{{ torrent.torrentname }}</span>
             </div><!--
@@ -121,7 +121,7 @@ Progress and Status
                 <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
              --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
             </div><!--
-
+--></div><!--
      --></a><!--
 
 {% endfor %}

@@ -110,3 +110,15 @@ div.torrentsubtitleleft, div.torrentsubtitleright, div.bannersubtitleleft, div.b
 }
 
 
+/* ========================================================== */
+
+div.multilinemode {
+    background-color: #FF0000 !important;
+    overflow-wrap: break-word;
+}
+
+div.titlerow, div.subtitlerow {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
