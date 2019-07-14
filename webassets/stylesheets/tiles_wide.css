@@ -30,7 +30,7 @@ div.auditbannertile {
 }
 
 /* ===============================================================================
-   INDEX/MONITOR/LOG TILE SUB-CONTAINER
+   INDEX/MONITOR/LOG BIG BANNER HEADING
    =============================================================================== */
 
 div.bannerbigheading {
@@ -42,6 +42,7 @@ div.bannerbigheading {
     top: 8px;
     left: 8px;
     right: 8px;
+    line-height: 40px;
 }
 
 @media screen and (min-width: 1070px) {
@@ -72,11 +73,6 @@ div.bannerbigheading {
     width: 20px;
     text-align: right;
     float: right;
-}
-
-.bannerbigheading > div:first-of-type {
-    height: 48px;
-    line-height: 40px;
 }
 
 /* ===============================================================================
