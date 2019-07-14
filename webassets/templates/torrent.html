@@ -218,17 +218,14 @@ Subsection: Do-Copy-Filemode
 
 Section: Horizontal-Line
 §
-         --><div class="contentsplitter">
+         --><div class="tilesplitter">
             </div><!--
 
-Section: Raw-Filename
+Section: Raw-Filename, File-Type & File-Size
          --><div class="filetilelowerrow"><!--
               --><div id="Filename-{{ fileitem.fileid }}">
                     <span>{{ fileitem.filename }}</span>
                 </div><!--
-
-Section: File-Type & File-Size
-
              --><div>
                     <img id="filetype-{{ fileitem.fileid }}" src="{{ url_for('static', filename='images/filetype_' + fileitem.filetype + '.png') }}" alt="{{ fileitem.filetype }}" /><!--
                  --><span>{{ fileitem.size }}</span>

@@ -21,7 +21,7 @@ button:disabled {
 /* Button in buttongroup                               */
 /* =================================================== */
 
-.buttongroup {
+div.buttongroup {
     border: 0px solid #000000;
     background-color: #000000;
     margin: 0;
@@ -30,7 +30,7 @@ button:disabled {
     overflow: hidden;
 }
 
-div.buttongroup button {
+.buttongroup > button {
     width: 28px;
     height: 28px;
     background-color: #999999;
@@ -38,13 +38,13 @@ div.buttongroup button {
     box-shadow: none;
 }
 
-div.buttongroup img {
+.buttongroup > button > img {
     width: 24px;
     height: 24px;
     margin: auto;
 }
 
-div.buttongroup button:disabled img {
+div.buttongroup > button:disabled > img {
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
 }
@@ -54,7 +54,7 @@ div.buttongroup button:disabled img {
 /* Button in actiongroup                               */
 /* =================================================== */
 
-.actionbuttonsgroup {
+div.actionbuttonsgroup {
     box-shadow: none;
     width: 64px;
     padding: 0;
@@ -65,7 +65,7 @@ div.buttongroup button:disabled img {
     /*background-color: #000000*/;
 }
 
-div.actionbuttonsgroup button {
+.actionbuttonsgroup > button {
     width: 50px;
     height: 50px;
     background-color: #999999;
@@ -75,18 +75,18 @@ div.actionbuttonsgroup button {
     display: inline-block;
 }
 
-div.actionbuttonsgroup button:hover:enabled {
+.actionbuttonsgroup > button:hover:enabled {
     background-color: #777777;
 }
 
-div.actionbuttonsgroup img {
+.actionbuttonsgroup > button > img {
     width: 36px;
     height: 36px;
     margin: auto;
     display: inline-block;
 }
 
-div.actionbuttonsgroup button:disabled img {
+.actionbuttonsgroup > button:disabled > img {
     -webkit-filter: brightness(3) saturate(9);
     filter: brightness(3) saturate(9);
 }

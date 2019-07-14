@@ -70,11 +70,11 @@ div.indexbannertile, div.torrentbannertile, div.auditbannertile, .tilesgroup > d
 }
 
 /* ===============================================================================
-   TITLE SEPARATOR LINE
+   TILE SEPARATOR LINE
    =============================================================================== */
 
 /* Separator Bars */
-div.contentsplitter, div.bannersplitter {
+div.contentsplitter, div.bannersplitter, div.tilesplitter {
     height: 2px;
     border-style: solid;
     border-width: 0px 0px 1px 0px;
