@@ -134,21 +134,13 @@ File {{ fileitem.filetitle }}
      --><div id="File-{{ fileitem.fileid }}" class="contenttile file_{{ fileitem.filetype }}_{{ fileitem.outcome }}"><!--
 
 Section: Configured-Filename & Type Read-Only-View
-
          --><div class="readonlyfields tileupperrow"><!--
-
-Subsection: Configured-Filename
-
              --><div id="filetitle-{{ fileitem.fileid }}">
                     <span>{{ fileitem.filetitle }}</span>
                 </div><!--
-
-Subsection: Type
-
              --><div>
                     <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileaction_' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />
                 </div><!--
-
          --></div><!--
 
 Section: Configured-Filename & Type Edit-Mode-View

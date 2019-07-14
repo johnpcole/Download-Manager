@@ -116,7 +116,7 @@ div.multilinemode {
     overflow-wrap: break-word;
 }
 
-div.titlerow, div.subtitlerow {
+div.tileupperrow, div.torrenttilelowerrow, div.filetilelowerrow {
     margin: 0;
     padding: 0;
     display: inline-block;

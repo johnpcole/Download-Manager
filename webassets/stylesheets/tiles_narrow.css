@@ -2,7 +2,7 @@
    TILE CONTAINER
    =============================================================================== */
 
-a.contenttile, div.contenttile {
+.tilesgroup > a, .tilesgroup > div {
     width: 460px;
 }
 
