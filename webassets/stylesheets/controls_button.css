@@ -62,7 +62,10 @@ div.actionbuttonsgroup {
     overflow: hidden;
     display: inline-block;
     vertical-align: top;
-    /*background-color: #000000*/;
+    /* Sticky Positioning */
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 10px;
 }
 
 .actionbuttonsgroup button {
