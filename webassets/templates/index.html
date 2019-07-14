@@ -90,38 +90,33 @@ Count Meter
 
 Torrent {{ torrent.torrentid }}
 
-     --><a id="Torrent-{{ torrent.torrentid }}" class="contenttile torrent_{{ torrent.status }}" href="/Torrent={{ torrent.torrentid }}"><!--
-
+     --><a id="Torrent-{{ torrent.torrentid }}" class="torrent_{{ torrent.status }}" href="/Torrent={{ torrent.torrentid }}"><!--
+FIRST ROW = Title
+         --><div class="titlerow"><!--
 Configured-Title
---><div class="titlerow"><!--
-         --><div>
-                <span>{{ torrent.torrenttitle }}</span>
-            </div><!--
-
+             --><div>
+                    <span>{{ torrent.torrenttitle }}</span>
+                </div><!--
 Type
-
-         --><div>
-                <img src="{{ url_for('static', filename='images/type_' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
-            </div><!--
---></div><!--
-Horizontal-Bar
-
+             --><div>
+                    <img src="{{ url_for('static', filename='images/type_' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
+                </div><!--
+         --></div><!--
+SECOND ROW = Horizontal-Bar
          --><div class="contentsplitter">
             </div><!--
-
+THIRD ROW = Subtitle
+         --><div class="subtitlerow"><!--
 Raw-Title
---><div class="subtitlerow"><!--
-         --><div>
-                <span>{{ torrent.torrentname }}</span>
-            </div><!--
-
+             --><div>
+                    <span>{{ torrent.torrentname }}</span>
+                </div><!--
 Progress and Status
-
-         --><div>
-                <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
-             --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
-            </div><!--
---></div><!--
+             --><div>
+                    <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
+                 --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
+                </div><!--
+         --></div><!--
      --></a><!--
 
 {% endfor %}

@@ -22,7 +22,7 @@ div.tilesgroup {
    Generic Tile object, covers banner tiles and torrent & file tiles
    =============================================================================== */
 
-div.indexbannertile, div.torrentbannertile, div.auditbannertile, div.contenttile, a.contenttile, div.monitorchart {
+div.indexbannertile, div.torrentbannertile, div.auditbannertile, .tilesgroup > div, .tilesgroup > a, div.monitorchart {
     display: inline-block;
     overflow: hidden;
     margin: 7px;
@@ -38,11 +38,11 @@ div.indexbannertile, div.torrentbannertile, div.auditbannertile, div.contenttile
    CLICKABLE TILE BEHAVOUR
    =============================================================================== */
 
-a.contenttile {
+.tilesgroup > a, {
     text-decoration: none;
 }
 
-a.contenttile:hover {
+.tilesgroup > a:hover {
     background-color: #222222;
 }
 
@@ -51,7 +51,7 @@ a.contenttile:hover {
    =============================================================================== */
 
 /* Title Boxes */
-.titlerow > div, div.contenttitleleft, div.contenttitleright, div.bannertitleleft, div.bannertitleright, div.bannertitlefull, div.contenttitlefull {
+.titlerow > div, div.bannertitleleft, div.bannertitleright, div.bannertitlefull, div.contenttitlefull {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -60,7 +60,7 @@ a.contenttile:hover {
 }
 
 /* Title Box Images */
-.titlerow > div > img, .contenttitleleft img, .contenttitleright img, .bannertitleleft img, .bannertitleright img, .bannertitlefull img, .contenttitlefull img {
+.titlerow > div img, .bannertitleleft img, .bannertitleright img, .bannertitlefull img, .contenttitlefull img {
     display: inline-block;
     height: 18px;
     width: 18px;
@@ -90,7 +90,7 @@ div.contentsplitter, div.bannersplitter {
    =============================================================================== */
 
 /* Subtitle Boxes */
-.subtitlerow > div, div.torrentsubtitleleft, div.torrentsubtitleright, div.bannersubtitleleft, div.bannersubtitleright, div.filesubtitleleft, div.filesubtitleright {
+.subtitlerow > div, div.bannersubtitleleft, div.bannersubtitleright, div.filesubtitleleft, div.filesubtitleright {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -100,7 +100,7 @@ div.contentsplitter, div.bannersplitter {
 }
 
 /* Subtitle Box Images */
-.subtitlerow > div > img, .torrentsubtitleleft img, .torrentsubtitleright img, .bannersubtitleleft img, .bannersubtitleright img, .filesubtitleleft img, .filesubtitleright img {
+.subtitlerow > div img, .bannersubtitleleft img, .bannersubtitleright img, .filesubtitleleft img, .filesubtitleright img {
     display: inline-block;
     height: 13px;
     width: 13px;
@@ -121,4 +121,5 @@ div.titlerow, div.subtitlerow {
     margin: 0;
     padding: 0;
     display: inline-block;
+    width: 100%;
 }
