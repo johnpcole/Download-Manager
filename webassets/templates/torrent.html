@@ -135,17 +135,17 @@ File {{ fileitem.filetitle }}
 
 Section: Configured-Filename & Type Read-Only-View
 
-         --><div class="readonlyfields"><!--
+         --><div class="readonlyfields tileupperrow"><!--
 
 Subsection: Configured-Filename
 
-             --><div class="contenttitleleft" id="filetitle-{{ fileitem.fileid }}">
+             --><div id="filetitle-{{ fileitem.fileid }}">
                     <span>{{ fileitem.filetitle }}</span>
                 </div><!--
 
 Subsection: Type
 
-             --><div class="contenttitleright">
+             --><div>
                     <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileaction_' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />
                 </div><!--
 
@@ -230,18 +230,18 @@ Section: Horizontal-Line
             </div><!--
 
 Section: Raw-Filename
-
-         --><div id="Filename-{{ fileitem.fileid }}" class="filesubtitleleft">
-                <span>{{ fileitem.filename }}</span>
-            </div><!--
+         --><div class=<"filetilelowerrow">
+              --><div id="Filename-{{ fileitem.fileid }}">
+                    <span>{{ fileitem.filename }}</span>
+                </div><!--
 
 Section: File-Type & File-Size
 
-         --><div class="filesubtitleright">
-                <img id="filetype-{{ fileitem.fileid }}" src="{{ url_for('static', filename='images/filetype_' + fileitem.filetype + '.png') }}" alt="{{ fileitem.filetype }}" /><!--
-             --><span>{{ fileitem.size }}</span>
-            </div><!--
-
+             --><div>
+                    <img id="filetype-{{ fileitem.fileid }}" src="{{ url_for('static', filename='images/filetype_' + fileitem.filetype + '.png') }}" alt="{{ fileitem.filetype }}" /><!--
+                 --><span>{{ fileitem.size }}</span>
+                </div><!--
+         --></div><!--
      --></div><!--
 
 {% endfor %}

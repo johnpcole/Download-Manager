@@ -51,7 +51,7 @@ div.indexbannertile, div.torrentbannertile, div.auditbannertile, .tilesgroup > d
    =============================================================================== */
 
 /* Title Boxes */
-.titlerow > div, div.bannertitleleft, div.bannertitleright, div.bannertitlefull, div.contenttitlefull {
+.tiletitlerow > div, div.bannertitleleft, div.bannertitleright, div.bannertitlefull, div.contenttitlefull {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -60,12 +60,11 @@ div.indexbannertile, div.torrentbannertile, div.auditbannertile, .tilesgroup > d
 }
 
 /* Title Box Images */
-.titlerow > div img, .bannertitleleft img, .bannertitleright img, .bannertitlefull img, .contenttitlefull img {
+.tiletitlerow > div img, .bannertitleleft img, .bannertitleright img, .bannertitlefull img, .contenttitlefull img {
     display: inline-block;
     height: 18px;
     width: 18px;
-    /*margin: -2px 5px -2px 5px;*/
-    margin: -2px 0px -1px 0px;
+    margin: -2px 0px -2px 0px;
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
 }
@@ -90,7 +89,7 @@ div.contentsplitter, div.bannersplitter {
    =============================================================================== */
 
 /* Subtitle Boxes */
-.subtitlerow > div, div.bannersubtitleleft, div.bannersubtitleright, div.filesubtitleleft, div.filesubtitleright {
+.torrenttilelowerrow > div, .filetilelowerrow > div, div.bannersubtitleleft, div.bannersubtitleright, div.filesubtitleleft, div.filesubtitleright {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -100,7 +99,7 @@ div.contentsplitter, div.bannersplitter {
 }
 
 /* Subtitle Box Images */
-.subtitlerow > div img, .bannersubtitleleft img, .bannersubtitleright img, .filesubtitleleft img, .filesubtitleright img {
+.filetilelowerrow > div img, .torrenttilelowerrow > div img, .bannersubtitleleft img, .bannersubtitleright img, .filesubtitleleft img, .filesubtitleright img {
     display: inline-block;
     height: 13px;
     width: 13px;

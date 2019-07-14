@@ -11,12 +11,12 @@ a.contenttile, div.contenttile {
    TILE TITLE ROW
    =============================================================================== */
 
-.titlerow > div:first-of-type, div.contenttitleleft {
+.tileupperrow > div:first-of-type {
     width: 427px;
     text-align: left;
 }
 
-.titlerow > div:last-of-type, div.contenttitleright {
+.tileupperrow > div:last-of-type {
     width: 20px;
     text-align: right;
 }
@@ -40,12 +40,12 @@ div.contentsplitter {
    TILE SUBTILE ROW
    =============================================================================== */
 
-.subtitlerow > div:first-of-type, div.torrentsubtitleleft {
+.torrenttilelowerrow > div:first-of-type {
     width: 387px;
     text-align: left;
 }
 
-.subtitlerow > div:last-of-type, div.torrentsubtitleright {
+.torrenttilelowerrow > div:last-of-type {
     width: 56px;
     text-align: right;
 }
@@ -55,12 +55,12 @@ div.contentsubtitlefull {
     text-align: left;
 }
 
-div.filesubtitleleft {
+.filetilelowerrow > div:first-of-type {
     width: 353px;
     text-align: left;
 }
 
-div.filesubtitleright {
+.filetilelowerrow > div:last-of-type {
     width: 90px;
     text-align: right;
 }
