@@ -56,8 +56,8 @@ div.newbannerbigheading {
     display: inline-block;
     text-align: center;
     font-size: 28pt;
-    margin: auto;
     position: absolute;
+    margin: auto;
     top: 0; left: 0; bottom: 0; right: 0;
 }
 
