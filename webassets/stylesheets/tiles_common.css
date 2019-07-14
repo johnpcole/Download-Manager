@@ -50,7 +50,7 @@ div.tilesgroup {
 }
 
 /* ===============================================================================
-   TILE TITLE ROW
+   TILE UPPER ROW
    =============================================================================== */
 
 /* Title Boxes */
@@ -60,6 +60,16 @@ div.tilesgroup {
     white-space: nowrap;
     display: inline-block;
     padding: 2px 3px 6px 3px;
+}
+
+.tileupperrow > div:first-of-type, .bannerupperrow > div:first-of-type {
+    text-align: left;
+    float: left;
+}
+
+.tileupperrow > div:last-of-type, .bannerupperrow > div:last-of-type {
+    text-align: right;
+    float: right;
 }
 
 /* Title Box Images */
@@ -88,7 +98,7 @@ div.tilesplitter {
 
 
 /* ===============================================================================
-   TILE SUBTILE ROW
+   TILE LOWER ROW
    =============================================================================== */
 
 /* Subtitle Boxes */
@@ -99,6 +109,16 @@ div.tilesplitter {
     display: inline-block;
     font-size: 75%;
     padding: 5px 4px 4px 4px;
+}
+
+.torrenttilelowerrow > div:first-of-type, .filetilelowerrow > div:first-of-type, .bannerlowerrow > div:first-of-type {
+    text-align: left;
+    float: left;
+}
+
+.torrenttilelowerrow > div:last-of-type, .filetilelowerrow > div:last-of-type, .bannerlowerrow > div:last-of-type {
+    text-align: right;
+    float: right;
 }
 
 /* Subtitle Box Images */
@@ -125,3 +145,6 @@ div.tileupperrow, div.torrenttilelowerrow, div.filetilelowerrow, div.bannerupper
     display: inline-block;
     width: 100%;
 }
+
+
+

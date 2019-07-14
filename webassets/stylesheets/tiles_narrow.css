@@ -8,19 +8,15 @@
 
 
 /* ===============================================================================
-   TILE TITLE ROW
+   TILE UPPER ROW
    =============================================================================== */
 
 .tileupperrow > div:first-of-type {
     width: 427px;
-    text-align: left;
-    float: left;
 }
 
 .tileupperrow > div:last-of-type {
     width: 20px;
-    text-align: right;
-    float: right;
 }
 
 div.contenttitlefull {
@@ -29,19 +25,15 @@ div.contenttitlefull {
 }
 
 /* ===============================================================================
-   TILE SUBTILE ROW
+   TILE LOWER ROW
    =============================================================================== */
 
 .torrenttilelowerrow > div:first-of-type {
     width: 387px;
-    text-align: left;
-    float: left;
 }
 
 .torrenttilelowerrow > div:last-of-type {
     width: 56px;
-    text-align: right;
-    float: right;
 }
 
 div.contentsubtitlefull {
@@ -51,12 +43,8 @@ div.contentsubtitlefull {
 
 .filetilelowerrow > div:first-of-type {
     width: 353px;
-    text-align: left;
-    float: left;
 }
 
 .filetilelowerrow > div:last-of-type {
     width: 90px;
-    text-align: right;
-    float: right;
 }

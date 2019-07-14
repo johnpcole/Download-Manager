@@ -44,13 +44,11 @@
 }
 
 /* ===============================================================================
-   TILE TITLE ROW
+   TILE UPPER ROW
    =============================================================================== */
 
 .bannerupperrow > div:first-of-type {
     width: 492px;
-    text-align: left;
-    float: left;
 }
 
 @media screen and (min-width: 1070px) {
@@ -61,18 +59,14 @@
 
 .bannerupperrow > div:last-of-type {
     width: 20px;
-    text-align: right;
-    float: right;
 }
 
 /* ===============================================================================
-   TILE SUBTILE ROW
+   TILE LOWER ROW
    =============================================================================== */
 
 .bannerlowerrow > div:first-of-type {
     width: 516px;
-    text-align: left;
-    float: left;
 }
 
 @media screen and (min-width: 1070px) {
@@ -83,8 +77,6 @@
 
 .bannerlowerrow > div:last-of-type {
     width: 516px;
-    text-align: right;
-    float: right;
 }
 
 @media screen and (min-width: 1070px) {
