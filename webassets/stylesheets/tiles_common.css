@@ -24,7 +24,7 @@ div.tilesgroup {
    Generic Tile object, covers banner tiles and torrent & file tiles
    =============================================================================== */
 
-#IndexBanner, #TorrentBanner, div.auditbannertile, .tilesgroup > div, .tilesgroup > a, div.monitorchart {
+#IndexBanner, #TorrentBanner, #AuditBanner, .tilesgroup > div, .tilesgroup > a, div.monitorchart {
     display: inline-block;
     overflow: hidden;
     margin: 7px;
