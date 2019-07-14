@@ -18,6 +18,7 @@
 
 #IndexBanner {
     height: 144px;
+    text-align: center;
 }
 
 @media screen and (min-width: 1070px) {
@@ -29,6 +30,7 @@
 #AuditBanner {
     width: 1018px;
     height: 72px;
+    text-align: center;
 }
 
 /* ===============================================================================
