@@ -107,14 +107,14 @@ div.dialogtitle button {
     right: 2px;
 }
 
-div.dialogtitle button img {
+div.dialogtitle button > img {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-div.dialogtitle button:disabled img {
+div.dialogtitle button:disabled > img {
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
 }
@@ -132,14 +132,14 @@ div.dialogactions button:disabled {
     border: 1px solid #FFFFFF;
 }
 
-div.dialogactions button img {
+div.dialogactions button > img {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-div.dialogactions button:disabled img {
+div.dialogactions button:disabled > img {
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
 }

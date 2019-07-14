@@ -7,7 +7,7 @@ function updateTorrentTileColour(tileid, tiletype, torrentstatus)
 
 function updateFileTileColour(tileid, filetype, fileoutcome)
 {
-    var newclassname = "contenttile file_" + filetype + "_" + fileoutcome;
+    var newclassname = "file_" + filetype + "_" + fileoutcome;
     changeAreaClass(tileid, newclassname);
 };
 

@@ -28,7 +28,7 @@ function updateCopyButton(torrentstate, torrenttype)
 
 function updateEditButton()
 {
-    var areaobjectlist = document.getElementsByClassName('contenttile');
+    var areaobjectlist = document.getElementsByClassName('filetilelowerrow');
     var areaindex = areaobjectlist.length;
     if (areaindex > 0) {
         changeButtonState('Edit', 'Enable');
