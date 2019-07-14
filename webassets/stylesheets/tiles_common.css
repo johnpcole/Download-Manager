@@ -35,6 +35,16 @@ div.tilesgroup {
     outline: 0;
 }
 
+/* ===============================================================================
+   Tile Rows
+   =============================================================================== */
+
+div.tileupperrow, div.torrenttilelowerrow, div.filetilelowerrow, div.bannerupperrow, div.bannerlowerrow {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+}
 
 /* ===============================================================================
    CLICKABLE TILE BEHAVOUR
@@ -130,19 +140,10 @@ div.tilesplitter {
     filter: brightness(9) saturate(9);
 }
 
-
-/* ========================================================== */
-
 div.multilinemode {
-    background-color: #FF0000 !important;
     overflow-wrap: break-word;
-}
-
-div.tileupperrow, div.torrenttilelowerrow, div.filetilelowerrow, div.bannerupperrow, div.bannerlowerrow {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    width: 100%;
+    white-space: normal;
+    height: 32px;
 }
 
 
