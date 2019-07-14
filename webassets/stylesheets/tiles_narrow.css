@@ -11,12 +11,12 @@ a.contenttile, div.contenttile {
    TILE TITLE ROW
    =============================================================================== */
 
-div.contenttitleleft {
+.titlerow > div:first-of-type, div.contenttitleleft {
     width: 427px;
     text-align: left;
 }
 
-div.contenttitleright {
+.titlerow > div:last-of-type, div.contenttitleright {
     width: 20px;
     text-align: right;
 }
@@ -40,12 +40,12 @@ div.contentsplitter {
    TILE SUBTILE ROW
    =============================================================================== */
 
-div.torrentsubtitleleft {
+.subtitlerow > div:first-of-type, div.torrentsubtitleleft {
     width: 387px;
     text-align: left;
 }
 
-div.torrentsubtitleright {
+.subtitlerow > div:last-of-type, div.torrentsubtitleright {
     width: 56px;
     text-align: right;
 }

@@ -94,13 +94,13 @@ Torrent {{ torrent.torrentid }}
 
 Configured-Title
 --><div class="titlerow"><!--
-         --><div class="contenttitleleft">
+         --><div>
                 <span>{{ torrent.torrenttitle }}</span>
             </div><!--
 
 Type
 
-         --><div class="contenttitleright">
+         --><div>
                 <img src="{{ url_for('static', filename='images/type_' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
             </div><!--
 --></div><!--
@@ -111,13 +111,13 @@ Horizontal-Bar
 
 Raw-Title
 --><div class="subtitlerow"><!--
-         --><div class="torrentsubtitleleft">
+         --><div>
                 <span>{{ torrent.torrentname }}</span>
             </div><!--
 
 Progress and Status
 
-         --><div class="torrentsubtitleright">
+         --><div>
                 <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
              --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
             </div><!--

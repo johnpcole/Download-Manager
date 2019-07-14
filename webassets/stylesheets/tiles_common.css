@@ -51,7 +51,7 @@ a.contenttile:hover {
    =============================================================================== */
 
 /* Title Boxes */
-div.contenttitleleft, div.contenttitleright, div.bannertitleleft, div.bannertitleright, div.bannertitlefull, div.contenttitlefull {
+.titlerow > div, div.contenttitleleft, div.contenttitleright, div.bannertitleleft, div.bannertitleright, div.bannertitlefull, div.contenttitlefull {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -60,7 +60,7 @@ div.contenttitleleft, div.contenttitleright, div.bannertitleleft, div.bannertitl
 }
 
 /* Title Box Images */
-.contenttitleleft img, .contenttitleright img, .bannertitleleft img, .bannertitleright img, .bannertitlefull img, .contenttitlefull img {
+.titlerow > div > img, .contenttitleleft img, .contenttitleright img, .bannertitleleft img, .bannertitleright img, .bannertitlefull img, .contenttitlefull img {
     display: inline-block;
     height: 18px;
     width: 18px;
@@ -90,7 +90,7 @@ div.contentsplitter, div.bannersplitter {
    =============================================================================== */
 
 /* Subtitle Boxes */
-div.torrentsubtitleleft, div.torrentsubtitleright, div.bannersubtitleleft, div.bannersubtitleright, div.filesubtitleleft, div.filesubtitleright {
+.subtitlerow > div, div.torrentsubtitleleft, div.torrentsubtitleright, div.bannersubtitleleft, div.bannersubtitleright, div.filesubtitleleft, div.filesubtitleright {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -100,7 +100,7 @@ div.torrentsubtitleleft, div.torrentsubtitleright, div.bannersubtitleleft, div.b
 }
 
 /* Subtitle Box Images */
-.torrentsubtitleleft img, .torrentsubtitleright img, .bannersubtitleleft img, .bannersubtitleright img, .filesubtitleleft img, .filesubtitleright img {
+.subtitlerow > div > img, .torrentsubtitleleft img, .torrentsubtitleright img, .bannersubtitleleft img, .bannersubtitleright img, .filesubtitleleft img, .filesubtitleright img {
     display: inline-block;
     height: 13px;
     width: 13px;
