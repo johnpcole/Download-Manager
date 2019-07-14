@@ -52,6 +52,14 @@ div.bannerbigheading {
     }
 }
 
+div.newbannerbigheading {
+    display: inline-block;
+    text-align: center;
+    font-size: 28pt;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
 
 /* ===============================================================================
    TILE TITLE ROW
