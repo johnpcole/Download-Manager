@@ -56,7 +56,7 @@ function updateTorrentConfigDisplay(dataitem)
         rerenderImage("outcome-"+filelist[index].fileid, "fileaction_"+filelist[index].outcome);
         var filetypelabel = getImageName("filetype-"+filelist[index].fileid)
         updateFileTileColour("File-"+filelist[index].fileid, filetypelabel.substr(9), filelist[index].outcome);
-        changeAreaClass('Filename-'+filelist[index].fileid, 'filesubtitleleft')
+        changeAreaClass('Filename-'+filelist[index].fileid, '')
     });
 
 };
