@@ -33,3 +33,16 @@
 .file_none_ignore, .file_none_copy {
     background-color: #141414;
 }
+
+/* ===============================================================================
+   CLICKABLE TILE BEHAVOUR
+   =============================================================================== */
+
+.tilesgroup > a, {
+    text-decoration: none;
+}
+
+.tilesgroup > a:hover {
+    background-color: #222222;
+}
+

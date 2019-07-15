@@ -1,26 +1,4 @@
 /* ===============================================================================
-   TILE GROUP
-   =============================================================================== */
-
-div.tilesgroup {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    overflow: hidden;
-    width: 496px;
-    vertical-align: top;
-    position: sticky;
-    top: 10px;
-}
-
-@media screen and (min-width: 1070px) {
-    div.tilesgroup {
-        width: 990px;
-    }
-}
-
-
-/* ===============================================================================
    Generic Tile object, covers banner tiles and torrent & file tiles
    =============================================================================== */
 
@@ -46,16 +24,11 @@ div.tileupperrow, div.torrenttilelowerrow, div.filetilelowerrow, div.bannerupper
     width: 100%;
 }
 
-/* ===============================================================================
-   CLICKABLE TILE BEHAVOUR
-   =============================================================================== */
-
-.tilesgroup > a, {
-    text-decoration: none;
-}
-
-.tilesgroup > a:hover {
-    background-color: #222222;
+div.editupperrow {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
 }
 
 /* ===============================================================================
