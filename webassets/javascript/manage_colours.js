@@ -1,6 +1,6 @@
-function updateTorrentTileColour(tileid, tiletype, torrentstatus)
+function updateTorrentTileColour(tileid, torrentstatus)
 {
-    var newclassname = tiletype + " torrent_" + torrentstatus;
+    var newclassname = "torrent_" + torrentstatus;
     changeAreaClass(tileid, newclassname);
 };
 

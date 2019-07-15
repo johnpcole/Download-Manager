@@ -32,3 +32,32 @@ body.editview div.actionbuttonsgroup > div:first-of-type, body.readview div.acti
 }
 
 
+\* ====================================================================== *\
+
+
+div.tvshowonlyfields, div.movieonlyfields, div.unknownonlyfields {
+    margin: 0;
+    padding: 0;
+    display: none;
+    overflow: hidden;
+}
+
+div.ignoreonlyfields, div.copyonlyfields {
+    margin: 0;
+    padding: 0;
+    display: none;
+    overflow: hidden;
+}
+
+
+div.narrowspacer {
+    width: 100%;
+    height: 5px;
+    /*background-color: #ff0000;*/
+    display: inline-block;
+}
+@media screen and (min-width: 1070px) {
+    div.narrowspacer {
+        display: none;
+    }
+}

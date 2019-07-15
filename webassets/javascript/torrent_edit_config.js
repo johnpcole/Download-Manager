@@ -76,8 +76,4 @@ function populateFileDropDownLists(filetype, fileindex, listitems)
 function displayEditMode()
 {
     changeAreaClass('Page', 'editview');
-//    changeAreasState('readonlyfields', 'Hide');
-//    changeAreasState('editmodefields', 'Show');
-//    changeAreasState('readmodebuttons', 'Hide');
-//    changeAreasState('editmodebuttons', 'Show');
 };

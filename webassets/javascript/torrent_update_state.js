@@ -59,7 +59,7 @@ function updateTorrentState(action)
 function updateTorrentStateDisplay(dataitem)
 {
     rerenderImage("Status", "status_"+dataitem.status);
-    updateTorrentTileColour("TorrentBanner", "", dataitem.status);
+    updateTorrentTileColour("TorrentBanner", dataitem.status);
     rerenderText("Progress", dataitem.progress);
     updateStartStopButtons(dataitem.status);
     updateCopyButton(dataitem.status, getImageName('TorrentType').substr(5));
