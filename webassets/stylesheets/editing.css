@@ -1,9 +1,9 @@
-body.readview div.tileupperrow, body.readview div.bannerupperrow, body.editview div.editupperrow {
-    display: inline-block;
-}
-
 body.editview div.tileupperrow, body.editview div.bannerupperrow, body.readview div.editupperrow {
     display: none;
+}
+
+body.readview div.tileupperrow, body.readview div.bannerupperrow, body.editview div.editupperrow {
+    display: inline-block;
 }
 
 
@@ -22,15 +22,14 @@ body.editview div.filetilelowerrow > div:first-of-type {
 
 \* ====================================================================== *\
 
+body.editview div.actionbuttonsgroup > div:first-of-type, body.readview div.actionbuttonsgroup > div:last-of-type {
+    display: none;
+}
 
 body.readview div.actionbuttonsgroup > div:first-of-type, body.editview div.actionbuttonsgroup > div:last-of-type {
     display: inline-block;
     color: #FF00FF;
     background-color: #FFFF00;
-}
-
-body.editview div.actionbuttonsgroup > div:first-of-type, body.readview div.actionbuttonsgroup > div:last-of-type {
-    display: none;
 }
 
 
