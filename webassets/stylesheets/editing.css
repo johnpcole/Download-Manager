@@ -22,11 +22,11 @@ body.editview div.filetilelowerrow > div:first-of-type {
 
 \* ====================================================================== *\
 
-body.editview div.actionbuttonsgroup > div:first-of-type, body.readview div.actionbuttonsgroup > div:last-of-type {
+body.editview > div.actionbuttonsgroup > div:first-of-type, body.readview > div.actionbuttonsgroup > div:last-of-type {
     display: none;
 }
 
-body.readview div.actionbuttonsgroup > div:first-of-type, body.editview div.actionbuttonsgroup > div:last-of-type {
+body.readview > div.actionbuttonsgroup > div:first-of-type, body.editview > div.actionbuttonsgroup > div:last-of-type {
     display: inline-block;
     color: #FF00FF;
     background-color: #FFFF00;
