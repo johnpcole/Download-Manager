@@ -1,8 +1,8 @@
-body.readview > div.tilesgroup > div > div.tileupperrow, body.readview > div.tilesgroup > div > div.bannerupperrow {
+body.readview > div.tilesgroup > div > div.tileupperrow, body.readview > #TorrentBanner > div.bannerupperrow {
     display: inline-block;
 }
 
-body.editview > div.tilesgroup > div > div.tileupperrow, body.editview > div.tilesgroup > div > div.bannerupperrow {
+body.editview > div.tilesgroup > div > div.tileupperrow, body.editview > #TorrentBanner > div.bannerupperrow {
     display: none;
 }
 
