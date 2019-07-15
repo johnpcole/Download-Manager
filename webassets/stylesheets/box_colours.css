@@ -38,7 +38,7 @@
    CLICKABLE TILE BEHAVOUR
    =============================================================================== */
 
-.tilesgroup > a, {
+.tilesgroup > a {
     text-decoration: none;
 }
 

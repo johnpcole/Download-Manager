@@ -7,10 +7,10 @@ body.readview div.tileupperrow, body.readview div.bannerupperrow, body.editview 
 }
 
 
-\* ====================================================================== *\
+/* ====================================================================== */
 
 
-body.readview div.filetilelowerrow > div:first-of-type  {
+body.readview div.filetilelowerrow > div:first-of-type {
 }
 
 body.editview div.filetilelowerrow > div:first-of-type {
@@ -20,20 +20,20 @@ body.editview div.filetilelowerrow > div:first-of-type {
 }
 
 
-\* ====================================================================== *\
+/* ====================================================================== */
 
-body.editview > div.actionbuttonsgroup > div:first-of-type, body.readview > div.actionbuttonsgroup > div:last-of-type {
+body.editview  div.actionbuttonsgroup > div:first-of-type, body.readview  div.actionbuttonsgroup > div:last-of-type {
     display: none;
 }
 
-body.readview > div.actionbuttonsgroup > div:first-of-type, body.editview > div.actionbuttonsgroup > div:last-of-type {
+body.readview  div.actionbuttonsgroup > div:first-of-type, body.editview  div.actionbuttonsgroup > div:last-of-type {
     display: inline-block;
     color: #FF00FF;
     background-color: #FFFF00;
 }
 
 
-\* ====================================================================== *\
+/* ====================================================================== */
 
 
 div.tvshowonlyfields, div.movieonlyfields, div.unknownonlyfields {
