@@ -1,125 +1,94 @@
 /* ===============================================================================
-   TILE CONTAINER
+   BANNER CONTAINER
    =============================================================================== */
 
-div.indexbannertile, div.torrentbannertile  {
+#IndexBanner, #TorrentBanner, #AuditBanner {
     position: relative;
+}
+
+#IndexBanner, #TorrentBanner {
     width: 524px;
 }
 
 @media screen and (min-width: 1070px) {
-    div.indexbannertile, div.torrentbannertile  {
+    #IndexBanner, #TorrentBanner  {
         width: 1018px;
     }
 }
 
-div.indexbannertile {
+#IndexBanner {
     height: 144px;
+    text-align: center;
 }
 
 @media screen and (min-width: 1070px) {
-    div.indexbannertile {
+    #IndexBanner {
         height: 72px;
     }
 }
 
-div.auditbannertile {
-    position: relative;
+#AuditBanner {
     width: 1018px;
     height: 72px;
+    text-align: center;
 }
 
 /* ===============================================================================
-   INDEX/MONITOR/LOG TILE SUB-CONTAINER
+   INDEX/MONITOR/LOG BIG BANNER HEADING
    =============================================================================== */
 
-div.bannercontent {
-    height: 68px;
+.bannerbigheading {
     display: inline-block;
     text-align: center;
     font-size: 28pt;
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
+    line-height: 175%;
+    width: 500px;
 }
-
-@media screen and (min-width: 1070px) {
-    div.bannercontent {
-        left: 260px;
-        right: 260px;
-    }
-}
-
 
 /* ===============================================================================
-   TILE TITLE ROW
+   BANNER UPPER ROW
    =============================================================================== */
 
-div.bannertitleleft {
+.bannerupperrow > div:first-of-type {
     width: 492px;
-    text-align: left;
 }
 
 @media screen and (min-width: 1070px) {
-    div.bannertitleleft {
+    .bannerupperrow > div:first-of-type {
         width: 986px;
     }
 }
 
-div.bannertitleright {
+.bannerupperrow > div:last-of-type {
     width: 20px;
-    text-align: right;
 }
-
-div.bannertitlefull {
-    height: 48px;
-    line-height: 40px;
-}
-
 
 /* ===============================================================================
-   TITLE SEPARATOR LINE
+   BANNER LOWER ROW
    =============================================================================== */
 
-div.bannersplitter {
+.bannerlowerrow > div:first-of-type {
     width: 516px;
 }
 
 @media screen and (min-width: 1070px) {
-    div.bannersplitter {
-        width: 1010px;
-    }
-}
-
-/* ===============================================================================
-   TILE SUBTILE ROW
-   =============================================================================== */
-
-div.bannersubtitleleft {
-    width: 516px;
-    text-align: left;
-}
-
-@media screen and (min-width: 1070px) {
-    div.bannersubtitleleft {
+    .bannerlowerrow > div:first-of-type {
         width: 822px;
     }
 }
 
-div.bannersubtitleright {
+.bannerlowerrow > div:last-of-type {
     width: 516px;
-    text-align: right;
 }
 
 @media screen and (min-width: 1070px) {
-    div.bannersubtitleright {
+    .bannerlowerrow > div:last-of-type {
         width: 180px;
     }
 }
 
 @media screen and (max-width: 1069px) {
-    div.bannersubtitleright {
+    .bannerlowerrow > div:last-of-type {
         padding-top: 0px;
     }
 }

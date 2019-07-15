@@ -1,28 +1,8 @@
 /* ===============================================================================
-   TILE GROUP
-   =============================================================================== */
-
-div.tilesgroup {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    overflow: hidden;
-    width: 496px;
-    vertical-align: top;
-}
-
-@media screen and (min-width: 1070px) {
-    div.tilesgroup{
-        width: 990px;
-    }
-}
-
-
-/* ===============================================================================
    Generic Tile object, covers banner tiles and torrent & file tiles
    =============================================================================== */
 
-div.indexbannertile, div.torrentbannertile, div.auditbannertile, div.contenttile, a.contenttile, div.monitorchart {
+#IndexBanner, #TorrentBanner, #AuditBanner, .tilesgroup > div, .tilesgroup > a, div.monitorchart {
     display: inline-block;
     overflow: hidden;
     margin: 7px;
@@ -33,25 +13,30 @@ div.indexbannertile, div.torrentbannertile, div.auditbannertile, div.contenttile
     outline: 0;
 }
 
-
 /* ===============================================================================
-   CLICKABLE TILE BEHAVOUR
+   Tile Rows
    =============================================================================== */
 
-a.contenttile {
-    text-decoration: none;
+div.tileupperrow, div.torrenttilelowerrow, div.filetilelowerrow, div.bannerupperrow, div.bannerlowerrow {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
 }
 
-a.contenttile:hover {
-    background-color: #222222;
+div.editupperrow {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
 }
 
 /* ===============================================================================
-   TILE TITLE ROW
+   TILE UPPER ROW
    =============================================================================== */
 
 /* Title Boxes */
-div.contenttitleleft, div.contenttitleright, div.bannertitleleft, div.bannertitleright, div.bannertitlefull, div.contenttitlefull {
+.tileupperrow > div, .bannerupperrow > div, .bannerbigheading > div, div.contenttitlefull {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -59,38 +44,47 @@ div.contenttitleleft, div.contenttitleright, div.bannertitleleft, div.bannertitl
     padding: 2px 3px 6px 3px;
 }
 
+.tileupperrow > div:first-of-type, .bannerupperrow > div:first-of-type {
+    text-align: left;
+    float: left;
+}
+
+.tileupperrow > div:last-of-type, .bannerupperrow > div:last-of-type {
+    text-align: right;
+    float: right;
+}
+
 /* Title Box Images */
-.contenttitleleft img, .contenttitleright img, .bannertitleleft img, .bannertitleright img, .bannertitlefull img, .contenttitlefull img {
+.tileupperrow > div > img, .bannerupperrow > div > img, .contenttitlefull img {
     display: inline-block;
     height: 18px;
     width: 18px;
-    /*margin: -2px 5px -2px 5px;*/
-    margin: -2px 0px -1px 0px;
+    margin: 0px 0px -2px 0px;
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
 }
 
 /* ===============================================================================
-   TITLE SEPARATOR LINE
+   TILE SEPARATOR LINE
    =============================================================================== */
 
 /* Separator Bars */
-div.contentsplitter, div.bannersplitter {
+div.tilesplitter {
     height: 2px;
     border-style: solid;
     border-width: 0px 0px 1px 0px;
     border-color: #FFFFFF;
-    margin: 0 auto;
+    margin: 0px 5px;
     padding: 0;
 }
 
 
 /* ===============================================================================
-   TILE SUBTILE ROW
+   TILE LOWER ROW
    =============================================================================== */
 
 /* Subtitle Boxes */
-div.torrentsubtitleleft, div.torrentsubtitleright, div.bannersubtitleleft, div.bannersubtitleright, div.filesubtitleleft, div.filesubtitleright {
+.filetilelowerrow > div, .torrenttilelowerrow > div, .bannerlowerrow > div {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -99,8 +93,18 @@ div.torrentsubtitleleft, div.torrentsubtitleright, div.bannersubtitleleft, div.b
     padding: 5px 4px 4px 4px;
 }
 
+.torrenttilelowerrow > div:first-of-type, .filetilelowerrow > div:first-of-type, .bannerlowerrow > div:first-of-type {
+    text-align: left;
+    float: left;
+}
+
+.torrenttilelowerrow > div:last-of-type, .filetilelowerrow > div:last-of-type, .bannerlowerrow > div:last-of-type {
+    text-align: right;
+    float: right;
+}
+
 /* Subtitle Box Images */
-.torrentsubtitleleft img, .torrentsubtitleright img, .bannersubtitleleft img, .bannersubtitleright img, .filesubtitleleft img, .filesubtitleright img {
+.filetilelowerrow > div > img, .torrenttilelowerrow > div > img, .bannerlowerrow > div > img {
     display: inline-block;
     height: 13px;
     width: 13px;
@@ -108,5 +112,6 @@ div.torrentsubtitleleft, div.torrentsubtitleright, div.bannersubtitleleft, div.b
     -webkit-filter: brightness(9) saturate(9);
     filter: brightness(9) saturate(9);
 }
+
 
 

@@ -19,7 +19,7 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/index_update_torrents.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index_update_torrentlist.js') }}"></script>
     <script src="{{ url_for('static', filename='javascript/index_add_torrent.js') }}"></script>
 
 {% endblock %}
@@ -30,7 +30,7 @@
 
 {% block banner %}
 
- --><div id="Banner" class="indexbannertile {{ stats.networkstatus }}"><!--
+ --><div id="IndexBanner" class="{{ stats.networkstatus }}"><!--
 
 Space Meter
 
@@ -51,11 +51,8 @@ Thermometer
 
 Banner Content
 
-     --><div class="bannercontent">
-            <div class="bannertitlefull">
-                <span>Download-Manager</span>
-            </div><!--
-         --><div class="contentsplitter"></div>
+     --><div class="bannerbigheading">
+            <span>Download-Manager</span>
         </div><!--
 
 Speed Meter
@@ -90,38 +87,28 @@ Count Meter
 
 Torrent {{ torrent.torrentid }}
 
-     --><a id="Torrent-{{ torrent.torrentid }}" class="contenttile torrent_{{ torrent.status }}" href="/Torrent={{ torrent.torrentid }}"><!--
-
-Configured-Title
-
-         --><div class="contenttitleleft">
-                <span>{{ torrent.torrenttitle }}</span>
-            </div><!--
-
-Type
-
-         --><div class="contenttitleright">
-                <img src="{{ url_for('static', filename='images/type_' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
-            </div><!--
-
-Horizontal-Bar
-
-         --><div class="contentsplitter">
-            </div><!--
-
-Raw-Title
-
-         --><div class="torrentsubtitleleft">
-                <span>{{ torrent.torrentname }}</span>
-            </div><!--
-
-Progress and Status
-
-         --><div class="torrentsubtitleright">
-                <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
-             --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
-            </div><!--
-
+     --><a id="Torrent-{{ torrent.torrentid }}" class="torrent_{{ torrent.status }}" href="/Torrent={{ torrent.torrentid }}"><!--
+FIRST ROW = Title (Configured-Title & Type)
+         --><div class="tileupperrow"><!--
+             --><div>
+                    <span>{{ torrent.torrenttitle }}</span>
+                </div><!--
+             --><div>
+                    <img src="{{ url_for('static', filename='images/type_' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
+                </div><!--
+         --></div><!--
+SECOND ROW = Horizontal-Bar
+         --><div class="tilesplitter"></div><!--
+THIRD ROW = Subtitle (Raw-Title & Progress/Status)
+         --><div class="torrenttilelowerrow"><!--
+             --><div>
+                    <span>{{ torrent.torrentname }}</span>
+                </div><!--
+             --><div>
+                    <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
+                 --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
+                </div><!--
+         --></div><!--
      --></a><!--
 
 {% endfor %}

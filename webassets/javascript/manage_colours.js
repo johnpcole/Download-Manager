@@ -1,19 +1,19 @@
-function updateTorrentTileColour(tileid, tiletype, torrentstatus)
+function updateTorrentTileColour(tileid, torrentstatus)
 {
-    var newclassname = tiletype + " torrent_" + torrentstatus;
+    var newclassname = "torrent_" + torrentstatus;
     changeAreaClass(tileid, newclassname);
 };
 
 
 function updateFileTileColour(tileid, filetype, fileoutcome)
 {
-    var newclassname = "contenttile file_" + filetype + "_" + fileoutcome;
+    var newclassname = "file_" + filetype + "_" + fileoutcome;
     changeAreaClass(tileid, newclassname);
 };
 
 
 function updateIndexBannerTileColour(networkstatus)
 {
-    var newclassname = "indexbannertile " + networkstatus;
-    changeAreaClass("Banner", newclassname);
+    var newclassname = networkstatus;
+    changeAreaClass("IndexBanner", newclassname);
 };
