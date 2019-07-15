@@ -164,7 +164,7 @@ function getUnknownTorrentFileInstructions()
 
 function displayReadMode()
 {
-    changeAreaClass('Body', 'readview');
+    changeAreaClass('Page', 'readview');
 //    changeAreasState('editmodefields', 'Hide');
 //    changeAreasState('readonlyfields', 'Show');
 //    changeAreasState('editmodebuttons', 'Hide');
