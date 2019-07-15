@@ -1,0 +1,41 @@
+body.readview > div.tilesgroup > div > div.tileupperrow, body.readview > div.tilesgroup > div > div.bannerupperrow {
+    display: inline-block;
+}
+
+body.editview > div.tilesgroup > div > div.tileupperrow, body.editview > div.tilesgroup > div > div.bannerupperrow {
+    display: none;
+}
+
+
+\* ====================================================================== *\
+
+
+body.readview > div.tilesgroup > div > div.filetilelowerrow > div:first-of-type  {
+}
+
+body.editview > div.tilesgroup > div > div.filetilelowerrow > div:first-of-type {
+    overflow-wrap: break-word;
+    white-space: normal;
+    height: 32px;
+}
+
+
+\* ====================================================================== *\
+
+
+body.readview > div.actionbuttonsgroup > div:first-of-type  {
+    display: inline-block;
+}
+
+body.editview > div.actionbuttonsgroup > div:first-of-type {
+    display: none;
+}
+
+body.readview > div.actionbuttonsgroup > div:last-of-type  {
+    display: none;
+}
+
+body.editview > div.actionbuttonsgroup > div:last-of-type {
+    display: inline-block;
+}
+

@@ -140,11 +140,5 @@ div.tilesplitter {
     filter: brightness(9) saturate(9);
 }
 
-div.multilinemode {
-    overflow-wrap: break-word;
-    white-space: normal;
-    height: 32px;
-}
-
 
 

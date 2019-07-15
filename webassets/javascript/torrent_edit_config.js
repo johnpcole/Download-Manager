@@ -54,7 +54,6 @@ function updateTorrentConfigFields(editinfo, listitems)
                 setDropDownValue('subtitleselector-'+currentfile.fileid, currentfile.subtitleselector);
             };
         };
-        changeAreaClass('Filename-'+currentfile.fileid, 'multilinemode')
     });
 };
 
@@ -76,8 +75,9 @@ function populateFileDropDownLists(filetype, fileindex, listitems)
 
 function displayEditMode()
 {
-    changeAreasState('readonlyfields', 'Hide');
-    changeAreasState('editmodefields', 'Show');
-    changeAreasState('readmodebuttons', 'Hide');
-    changeAreasState('editmodebuttons', 'Show');
+    changeAreaClass('Body', 'editview');
+//    changeAreasState('readonlyfields', 'Hide');
+//    changeAreasState('editmodefields', 'Show');
+//    changeAreasState('readmodebuttons', 'Hide');
+//    changeAreasState('editmodebuttons', 'Show');
 };

@@ -5,7 +5,7 @@
 {% from 'dialog.html' import dialogtoptemplate %}
 {% from 'dialog.html' import dialogbottomtemplate %}
 
-{% block bodycontext %}{% endblock %}
+{% block bodycontext %}id="Page" class="readview"{% endblock %}
 
 <!-- ------------------------------------------------------------------------------------------------ -->
 
@@ -35,7 +35,7 @@
 
 Section: Configured-Title & Type Read-Only-View
 
-     --><div class="readonlyfields bannerupperrow"><!--
+     --><div class="bannerupperrow"><!--
           --><div>
                 <span id="TorrentTitle">{{ selectedtorrent.torrenttitle }}</span>
             </div><!--
@@ -125,7 +125,7 @@ File {{ fileitem.filetitle }}
      --><div id="File-{{ fileitem.fileid }}" class="file_{{ fileitem.filetype }}_{{ fileitem.outcome }}"><!--
 
 Section: Configured-Filename & Type Read-Only-View
-         --><div class="readonlyfields tileupperrow"><!--
+         --><div class="tileupperrow"><!--
              --><div>
                     <span id="filetitle-{{ fileitem.fileid }}">{{ fileitem.filetitle }}</span>
                 </div><!--
@@ -214,7 +214,7 @@ Section: Horizontal-Line
 
 Section: Raw-Filename, File-Type & File-Size
          --><div class="filetilelowerrow"><!--
-              --><div id="Filename-{{ fileitem.fileid }}">
+              --><div>
                     <span>{{ fileitem.filename }}</span>
                 </div><!--
              --><div>
