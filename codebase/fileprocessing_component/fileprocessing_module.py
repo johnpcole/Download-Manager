@@ -114,7 +114,7 @@ def getloggingdata(loggingmode):
 def savemonitor(monitordata):
 
 	datestamp = monitordata[:8]
-	filename = './data/monitor_history/monitor_' + datestamp + '.db'
+	filename = './data/monitor_history/history_' + datestamp + '.db'
 
 	if FileSystem.doesexist(filename) == True:
 		appendflag = "Append"
@@ -131,7 +131,7 @@ def getmonitor(filenamelist):
 	outcome = []
 
 	for filenameitem in filenamelist:
-		filename = './data/monitor_history/monitor_' + filenameitem + '.db'
+		filename = './data/monitor_history/history_' + filenameitem + '.db'
 
 		if FileSystem.doesexist(filename) == True:
 			loggingitems = FileSystem.readfromdisk(filename)
