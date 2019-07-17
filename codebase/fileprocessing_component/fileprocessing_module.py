@@ -21,7 +21,7 @@ def createmanager(connectioncredentials):
 
 def gettorrentconnectionconfig():
 	Logging.printout("Loading Deluge Daemon Connection Data")
-	credentials = FileSystem.readfromdisk('./data/torrentconnection.cfg')
+	credentials = FileSystem.readfromdisk('./data/application_config/torrent_connection.cfg')
 	outcome = { 'Address': credentials[0],
 				'Port': int(credentials[1]),
 				'Username': credentials[2],
@@ -36,7 +36,7 @@ def gettorrentconnectionconfig():
 
 def getlibraryconnectionconfig():
 	Logging.printout("Loading File-Server Connection Data")
-	credentials = FileSystem.readfromdisk('./data/libraryconnection.cfg')
+	credentials = FileSystem.readfromdisk('./data/application_config/library_connection.cfg')
 	outcome = { 'Mountpoint': credentials[0],
 				'Address': credentials[1],
 				'Username': credentials[2],
@@ -51,7 +51,7 @@ def getlibraryconnectionconfig():
 
 def saveconfigs(outputlist):
 	Logging.printout("Saving Torrents Configuration Data")
-	FileSystem.writetodisk('./data/torrentconfigs.db', outputlist, "Overwrite")
+	FileSystem.writetodisk('./data/torrent_configs.db', outputlist, "Overwrite")
 
 # =========================================================================================
 # Reads the current torrent config information, from a file
@@ -59,7 +59,7 @@ def saveconfigs(outputlist):
 
 def loadconfigs():
 	Logging.printout("Loading Torrents Configuration Data")
-	return FileSystem.readfromdisk('./data/torrentconfigs.db')
+	return FileSystem.readfromdisk('./data/torrent_configs.db')
 
 
 
@@ -68,13 +68,13 @@ def loadconfigs():
 # =========================================================================================
 
 def getwebhostconfig():
-	Logging.printout("Loading Web-Hosting Configuration Data")
-	publicmode = FileSystem.readfromdisk('./data/webhost.cfg')
-	if publicmode[0] == "Public":
-		outcome = True
-	else:
-		outcome = False
-	return outcome
+	#Logging.printout("Loading Web-Hosting Configuration Data")
+	#publicmode = FileSystem.readfromdisk('./data/webhost.cfg')
+	#if publicmode[0] == "Public":
+	#	outcome = True
+	#else:
+	#	outcome = False
+	return True
 
 
 # =========================================================================================
@@ -98,7 +98,7 @@ def getloggingdata(loggingmode):
 	Logging.printout("Loading Logs")
 	loggingoutput = []
 	for filename in ['9', '8', '7', '6', '5', '4', '3', '2', '1', '0']:
-		logcontents = FileSystem.readfromdisk('./data/logging-' + filename + '.log')
+		logcontents = FileSystem.readfromdisk('./data/application_logs/manager_' + filename + '.log')
 		if len(logcontents) > 0:
 			if filename != '9':
 				loggingoutput.append('--- RESTART SERVICE ---')
@@ -114,7 +114,7 @@ def getloggingdata(loggingmode):
 def savemonitor(monitordata):
 
 	datestamp = monitordata[:8]
-	filename = './data/monitor-' + datestamp + '.db'
+	filename = './data/monitor_history/monitor_' + datestamp + '.db'
 
 	if FileSystem.doesexist(filename) == True:
 		appendflag = "Append"
@@ -131,7 +131,7 @@ def getmonitor(filenamelist):
 	outcome = []
 
 	for filenameitem in filenamelist:
-		filename = './data/monitor-' + filenameitem + '.db'
+		filename = './data/monitor_history/monitor_' + filenameitem + '.db'
 
 		if FileSystem.doesexist(filename) == True:
 			loggingitems = FileSystem.readfromdisk(filename)
