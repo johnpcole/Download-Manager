@@ -84,7 +84,7 @@ div.dialogitemmax {
     /*background-color: #ffffaa;*/
 }
 
-.dialog > div:nth-of-type(3) img {
+.dialog img {
     display: inline-block;
     height: 16px;
     width: 16px;
