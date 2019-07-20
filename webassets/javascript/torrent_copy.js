@@ -21,6 +21,7 @@ function confirmCopy()
         },
         success: function(data){
             closeCopyDialog();
+            $('#ajaxloader').hide();
         }
     });
 };
