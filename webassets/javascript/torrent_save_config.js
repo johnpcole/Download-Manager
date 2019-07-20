@@ -58,6 +58,7 @@ function updateTorrentConfigDisplay(dataitem)
         updateFileTileColour("File-"+filelist[index].fileid, filetypelabel.substr(9), filelist[index].outcome);
     });
 
+    populateCopyDialog(dataitem.copyinfo);
 };
 
 

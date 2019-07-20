@@ -1,11 +1,11 @@
-from codebase.common_components.logging_framework import logging_module as Logging
-from codebase.common_components.webserver_framework import webserver_module as WebServer
-from codebase import torrentset_module as TorrentSet
+from common_components.logging_framework import logging_module as Logging
+from common_components.webserver_framework import webserver_module as WebServer
+from manager_component import manager_module as TorrentSet
 
 
 Logging.printinvocation("Starting Download-Manager Application", "")
 
-torrentset = TorrentSet.createtorrentset("Public Daemon")
+torrentset = TorrentSet.createmanager("Public Daemon")
 website = WebServer.createwebsite(__name__)
 
 
@@ -18,10 +18,7 @@ website = WebServer.createwebsite(__name__)
 def initialiselistpage():
 
 	result = torrentset.initialiselistpage()
-
-	return WebServer.makehtml('index.html',
-								torrentlist=result['torrentlist'],
-								stats=result['stats'])
+	return WebServer.makehtml('index.html', **result)
 
 
 
@@ -34,9 +31,7 @@ def updatelistpage():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.updatelistpage(inputdata["bulkaction"])
-
-	return WebServer.makejson(torrents=result['torrents'],
-								stats=result['stats'])
+	return WebServer.makejson(**result)
 
 
 
@@ -48,9 +43,7 @@ def updatelistpage():
 def initialisetorrentpage(torrentid):
 
 	result = torrentset.initialisetorrentpage(torrentid)
-
-	return WebServer.makehtml('torrent.html',
-								selectedtorrent=result['selectedtorrent'])
+	return WebServer.makehtml('torrent.html', **result)
 
 
 
@@ -63,8 +56,7 @@ def updatetorrentpage():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.updatetorrentpage(inputdata['torrentid'], inputdata['torrentaction'])
-
-	return WebServer.makejson(selectedtorrent=result['selectedtorrent'])
+	return WebServer.makejson(**result)
 
 
 
@@ -77,9 +69,7 @@ def copytorrent():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.copytorrent(inputdata['copyinstruction'])
-
-	return WebServer.makejson(copydata=result['copydata'],
-								refreshmode=result['refreshmode'])
+	return WebServer.makejson(**result)
 
 
 
@@ -92,8 +82,7 @@ def deletetorrent():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.deletetorrent(inputdata['deleteinstruction'])
-
-	return WebServer.makejson(deletedata=result['deletedata'])
+	return WebServer.makejson(**result)
 
 
 
@@ -106,8 +95,7 @@ def reconfiguretorrentconfiguration():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.reconfiguretorrentconfiguration(inputdata['torrentid'], inputdata['newconfiguration'])
-
-	return WebServer.makejson(selectedtorrent=result['selectedtorrent'])
+	return WebServer.makejson(**result)
 
 
 
@@ -120,9 +108,7 @@ def edittorrentconfiguration():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.edittorrentconfiguration(inputdata['torrentid'])
-
-	return WebServer.makejson(selectedtorrent=result['selectedtorrent'],
-								listitems=result['listitems'])
+	return WebServer.makejson(**result)
 
 
 
@@ -135,8 +121,7 @@ def updatetvshowseasonslist():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.updatetvshowseasonslist(inputdata['tvshow'])
-
-	return WebServer.makejson(seasons=result['seasons'])
+	return WebServer.makejson(**result)
 
 
 
@@ -149,8 +134,7 @@ def addnewtorrent():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.addnewtorrent(inputdata['newurl'])
-
-	return WebServer.makejson(newtorrentid=result['newtorrentid'])
+	return WebServer.makejson(**result)
 
 
 
@@ -162,9 +146,7 @@ def addnewtorrent():
 def displaylogs():
 
 	result = torrentset.displaylogs(True)
-
-	return WebServer.makehtml('logs.html',
-								loggingoutput=result['loggingoutput'])
+	return WebServer.makehtml('logs.html', **result)
 
 
 
@@ -176,9 +158,7 @@ def displaylogs():
 def displaymonitor():
 
 	result = torrentset.displaymonitor()
-
-	return WebServer.makehtml('monitor.html',
-								monitoroutput=result['monitoroutput'])
+	return WebServer.makehtml('monitor.html', **result)
 
 
 
@@ -193,8 +173,7 @@ def displaymonitor():
 def triggermonitor():
 
 	result = torrentset.triggermonitor()
-
-	return WebServer.makejson(	message=result['message'])
+	return WebServer.makejson(**result)
 
 
 

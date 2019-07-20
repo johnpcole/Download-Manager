@@ -7,14 +7,11 @@
 
 Dialog-Title and Cancel-Button
 
-         --><div class="dialogtitle">
-                <span>{{ dialogtitle }}...</span><!--
-                {{ buttontemplate(cancelbuttonid, canceljsaction, "dialog_close", "close") }}
-         --></div><!--
+         --><div><span>{{ dialogtitle }}...</span>{{ buttontemplate(cancelbuttonid, canceljsaction, "dialog_close", "close") }}</div><!--
 
 Horizontal-Bar
 
-         --><div class="dialogsplitter"></div><!--
+         --><div></div><!--
 
 {% endmacro %}
 
@@ -26,9 +23,7 @@ Horizontal-Bar
 
 Ok-Button
 
-         --><div class="dialogactions"><!--
-                {{ buttontemplate(id, jsaction, "dialog_go", "go") }}
-         --></div><!--
+         --><div>{{ buttontemplate(id, jsaction, "dialog_go", "go") }}</div><!--
 
      --></div>
     </div><!--
