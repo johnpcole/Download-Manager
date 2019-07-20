@@ -1,4 +1,4 @@
-from ...fileprocessing_component.filesystem_subcomponent import filesystem_module as FileSystem
+from ..filesystem_framework import filesystem_module as FileSystem
 import os as OperatingSystem
 
 
