@@ -1,5 +1,5 @@
 import os as OperatingSystem
-from ....common_components.logging_framework import logging_module as Logging
+from ...common_components.logging_framework import logging_module as Logging
 
 
 def mountnetworkdrive(mountpoint, networkpath, username, password, reason):
