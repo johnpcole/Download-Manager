@@ -185,7 +185,7 @@ class DefineTorrentItem:
 
 # =========================================================================================
 
-	def getcopyactions(self):
+	def gettorrentcopyactions(self):
 		if self.torrentstatus.getfinished() == 'Completed':
 			outcome = self.torrentfiles.buildcopyactions(self.torrentid,
 														self.torrentcategory.gettype(),
@@ -202,7 +202,7 @@ class DefineTorrentItem:
 
 	def getcopydestinationlist(self):
 		outcome = []
-		copylist = self.getcopyactions()
+		copylist = self.gettorrentcopyactions()
 		for action in copylist:
 			newdestination = ""
 			for pathnode in action['target']:

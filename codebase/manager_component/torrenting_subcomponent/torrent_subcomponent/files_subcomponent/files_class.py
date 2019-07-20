@@ -142,7 +142,7 @@ class DefineFiles:
 		for file in self.files:
 			filedestination = file.getcopydestination(torrenttype, destinationfolder, moviename, movieyear, tvseason)
 			if filedestination != []:
-				instruction = {'torrent': torrentid,
+				instruction = {'torrentid': torrentid,
 									'source': self.location + file.getpath(),
 									'target': filedestination}
 				outcome.append(instruction)

@@ -213,7 +213,7 @@ class DefineTorrentManager:
 	def getcopyactions(self, torrentid):
 
 		torrentobject = self.gettorrentobject(torrentid)
-		return torrentobject.getcopyactions()
+		return torrentobject.gettorrentcopyactions()
 
 
 
