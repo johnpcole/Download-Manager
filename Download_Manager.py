@@ -1,6 +1,6 @@
-from common_components.logging_framework import logging_module as Logging
-from common_components.webserver_framework import webserver_module as WebServer
-from manager_component import manager_module as TorrentSet
+from codebase.common_components.logging_framework import logging_module as Logging
+from codebase.common_components.webserver_framework import webserver_module as WebServer
+from codebase.manager_component import manager_module as TorrentSet
 
 
 Logging.printinvocation("Starting Download-Manager Application", "")

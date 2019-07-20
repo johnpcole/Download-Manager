@@ -1,5 +1,5 @@
-from common_components.logging_framework import logging_module as Logging
-from common_components.delayer_framework import delayer_module as Delayer
+from codebase.common_components.logging_framework import logging_module as Logging
+from codebase.common_components.delayer_framework import delayer_module as Delayer
 
 
 

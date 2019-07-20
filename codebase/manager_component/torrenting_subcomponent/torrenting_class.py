@@ -1,7 +1,7 @@
-from common_components.deluge_framework import deluge_module as DelugeClient
+from ...common_components.deluge_framework import deluge_module as DelugeClient
 from .torrent_subcomponent import torrent_module as TorrentData
-from common_components.dataconversion_framework import dataconversion_module as Functions
-from common_components.logging_framework import logging_module as Logging
+from ...common_components.dataconversion_framework import dataconversion_module as Functions
+from ...common_components.logging_framework import logging_module as Logging
 
 
 class DefineTorrentManager:

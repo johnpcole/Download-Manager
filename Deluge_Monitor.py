@@ -1,5 +1,5 @@
-from common_components.logging_framework import logging_module as Logging
-from monitor_component import monitor_module as Trigger
+from codebase.common_components.logging_framework import logging_module as Logging
+from codebase.monitor_component import monitor_module as Trigger
 
 
 
