@@ -203,7 +203,7 @@ class DefineTorrentSet:
 	def displaycopier(self):
 
 		Logging.printinvocation("Loading Copier Page", "")
-		return {'copyactions': self.monitormanager.gethistorygraphics()}
+		return {'copyactions': self.librarymanager.getcopierpagedata()}
 
 
 

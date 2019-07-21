@@ -39,10 +39,10 @@ Banner Content
  --><div class="MonitorChart"><table>
 {% for copyentry in copyactions %}
         <tr id="CopyItem_{{ copyentry.copyid }}">
-            <td>copyentry.copyid</td>
-            <td>copyentry.torrentid</td>
-            <td>copyentry.target</td>
-            <td>copyentry.status</td>
+            <td>{{ copyentry.copyid }}</td>
+            <td>{{ copyentry.torrentid }}</td>
+            <td>{{ copyentry.target }}</td>
+            <td>{{ copyentry.status }}</td>
         </tr>
 {% endfor %}
 </table></div><!--
