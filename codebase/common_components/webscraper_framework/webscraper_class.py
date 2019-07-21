@@ -29,7 +29,6 @@ class DefineScraper:
 
 		while tries < self.webcalltries:
 			try:
-				webresponse = {}
 				if datadictionary is None:
 					rawwebresponse = GetWebPage(self.webaddress, context=self.securitycontext).read(1000)
 				else:
@@ -37,7 +36,7 @@ class DefineScraper:
 					rawwebresponse = GetWebPage(self.webaddress, context=self.securitycontext, data=postdata).read(1000)
 				webresponse = rawwebresponse.decode("utf-8")
 				tries = 99999
-				self.latestresult = webresponse.copy()
+				self.latestresult = webresponse
 				self.latestdatetime = DateTime.getnow()
 			except WebError as errorobject:
 				tries = tries + 1
