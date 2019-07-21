@@ -105,7 +105,7 @@ class DefineTorrentManager:
 
 		dummyoutcome = self.delugeclient.openconnection("Refresh Torrent " + torrentid)
 		torrentobject = self.gettorrentobject(torrentid)
-		torrentdata = self.delugeclient.retrievetorrentdata(torrentid, "Download-Manager")
+		torrentdata = self.delugeclient.retrievetorrentdata(torrentid, "Manager")
 		torrentobject.updateinfo(torrentdata)
 		dummyoutcome = self.delugeclient.closeconnection()
 		#print("Connection closure attempted - Connection State = ", outcome)
