@@ -21,9 +21,16 @@ class DefineCopier:
 		longwait = False
 
 		if self.shouldcalldownloadmanager() == True:
+			print("====================================")
+			print("=====result sent to manager=========")
+			print(self.lastinstruction.getstatus())
+			print("====================================")
 			self.scraper.posttourl(self.lastinstruction.getstatus())
 			newinstruction = self.scraper.getwebresult()
+			print("====================================")
+			print("=====instruction from manager=======")
 			print(newinstruction)
+			print("====================================")
 
 			if CopyInstruction.isalldone(newinstruction['copyid']) == True:
 				longwait = self.performafinish()
