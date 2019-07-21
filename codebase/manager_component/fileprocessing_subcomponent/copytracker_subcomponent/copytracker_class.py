@@ -42,6 +42,8 @@ class DefineCopyTracker:
 
 		nextactionid = self.findnextqueuedaction()
 
+		Logging.printout(self.getactiondescription(nextactionid))
+
 		outcome = {'copyid': nextactionid, 'overwrite': False}
 
 		if nextactionid != self.noaction:
@@ -56,6 +58,8 @@ class DefineCopyTracker:
 
 	def updatecopyaction(self, copyid, newstatus):
 
+		Logging.printout(self.getresultdescription(copyid, newstatus))
+
 		refreshdata = False
 		if copyid == self.noaction:
 			refreshdata = False
@@ -66,7 +70,7 @@ class DefineCopyTracker:
 			if copyid in self.copyactions.keys():
 				self.copyactions[copyid].updatestatus(newstatus)
 			else:
-				Logging.printout("Cannot find copy action to update: " + copyid)
+				Logging.printrawline("Cannot find copy action to update: " + copyid)
 
 		return refreshdata
 
@@ -92,8 +96,6 @@ class DefineCopyTracker:
 		return queuetest
 
 
-
-
 	def findnextqueuedaction(self):
 
 		inprogressflag = False
@@ -108,15 +110,40 @@ class DefineCopyTracker:
 
 		if inprogressflag == True:
 			nextactionid = self.noaction
-			Logging.printout("Looking for a new item in queue, but there is already an In Progress item")
+			Logging.printrawline("Looking for a new item in queue, but there is already an In Progress item")
 
 		return nextactionid
 
 
 
+	def getactiondescription(self, copyid):
+
+		if copyid == self.noaction:
+			outcome = "No Requests in queue"
+
+		elif copyid == self.refreshfolders:
+			outcome = "Request to scrape TV Show folders"
+
+		else:
+			outcome = "Request " + copyid + " to Copy File:</br>"
+			action = self.copyactions[copyid]
+			outcome = outcome + action.getdescription()
+
+		return outcome
 
 
+	def getresultdescription(self, copyid, result):
 
+		if copyid == self.noaction:
+			outcome = "Empty Request Queue Processed"
+
+		elif copyid == self.refreshfolders:
+			outcome = "Scraped TV Show folders - " + result
+
+		else:
+			outcome = "Request " + copyid + " to Copy File - " + result
+
+		return outcome
 
 
 

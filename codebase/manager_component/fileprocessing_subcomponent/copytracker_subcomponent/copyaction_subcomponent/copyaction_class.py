@@ -32,3 +32,12 @@ class DefineActionItem:
 
 		return {'source': self.source, 'target': self.target}
 
+
+	def getdescription(self):
+
+		space = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+		arrows = space + space + "&darr;"
+		indent = space + space + space + space + space
+		lineofarrows = arrows + arrows + arrows + arrows + arrows
+		outcome = "</br>" + indent + self.source + "</br>" + indent + lineofarrows + "</br>" + indent + self.target
+		return outcome

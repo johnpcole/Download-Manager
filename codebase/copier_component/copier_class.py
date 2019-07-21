@@ -24,10 +24,6 @@ class DefineCopier:
 			self.delayer.wait(5)
 			self.scraper.posttourl(self.lastinstruction.getstatus())
 			newinstruction = self.scraper.getjsonresult()
-			print("====================================")
-			print("=====instruction from manager=======")
-			print(newinstruction)
-			print("====================================")
 			if CopyInstruction.isvalidinstruction(newinstruction) == True:
 				if CopyInstruction.isalldone(newinstruction['copyid']) == True:
 					longwait = self.performafinish()
@@ -38,7 +34,9 @@ class DefineCopier:
 						self.performacopy(newinstruction['copyid'], newinstruction['source'],
 														newinstruction['target'], newinstruction['overwrite'])
 			else:
-				print("Invalid response from Download-Manager")
+				print("Invalid response from Download-Manager:")
+				print(newinstruction)
+				print("====================================")
 
 		if longwait == True:
 			self.delayer.waitlong()
