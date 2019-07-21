@@ -30,7 +30,6 @@ def initialiselistpage():
 def updatelistpage():
 
 	inputdata = WebServer.getrequestdata()
-	print("INPUT DATA: ", inputdata)
 	result = torrentset.updatelistpage(inputdata["bulkaction"])
 	return WebServer.makejson(**result)
 

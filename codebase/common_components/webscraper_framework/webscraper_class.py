@@ -1,10 +1,14 @@
 from urllib.request import urlopen as GetWebPage
 from urllib.request import Request as GenerateWebRequest
 from urllib.request import URLError as WebError
-from urllib.parse import urlencode as GeneratePostData
+#from urllib.parse import urlencode as GeneratePostData
 import ssl as Security
 from ...common_components.logging_framework import logging_module as Logging
 from ..datetime_datatypes import datetime_module as DateTime
+#from json import loads as ReadJson
+from json import dumps as MakeJson
+
+
 
 class DefineScraper:
 
@@ -32,7 +36,7 @@ class DefineScraper:
 				if datadictionary is None:
 					rawwebresponse = GetWebPage(self.webaddress, context=self.securitycontext).read(1000)
 				else:
-					unencodedpostdata = GeneratePostData(datadictionary)
+					unencodedpostdata = MakeJson(datadictionary)
 					postdata = unencodedpostdata.encode("ascii")
 					print("====================================")
 					print("=====result sent to manager=========")
