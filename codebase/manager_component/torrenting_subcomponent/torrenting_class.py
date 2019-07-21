@@ -168,7 +168,7 @@ class DefineTorrentManager:
 		Logging.printout("New Raw Torrent ID: " + newid)
 		newobject = self.registertorrentobject(newid)
 		#TO-DO = change newobject to be success/error outcome, allowing for graceful failure
-		self.refreshtorrentobjectsdata([newobject], "Download-Manager")
+		self.refreshtorrentobjectsdata([newobject], "Manager")
 		outcome = self.delugeclient.closeconnection()
 
 		return newid
