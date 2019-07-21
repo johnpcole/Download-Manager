@@ -5,7 +5,7 @@ from urllib.request import URLError as WebError
 import ssl as Security
 from ...common_components.logging_framework import logging_module as Logging
 from ..datetime_datatypes import datetime_module as DateTime
-#from json import loads as ReadJson
+from json import loads as ReadJson
 from json import dumps as MakeJson
 
 
@@ -70,4 +70,8 @@ class DefineScraper:
 	def getwebresult(self):
 
 		return self.latestresult
+
+	def getjsonresult(self):
+
+		return ReadJson(self.latestresult)
 
