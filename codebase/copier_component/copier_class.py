@@ -35,7 +35,8 @@ class DefineCopier:
 				if CopyInstruction.isfolderrefresh(newinstruction['copyid']) == True:
 					self.performafolderrefresh()
 				else:
-					self.performacopy(newinstruction['copyid'], newinstruction['source'], newinstruction['target'])
+					self.performacopy(newinstruction['copyid'], newinstruction['source'],
+													newinstruction['target'], newinstruction['overwrite'])
 
 		if longwait == True:
 			self.delayer.waitlong()
@@ -46,8 +47,8 @@ class DefineCopier:
 
 	def performafolderrefresh(self):
 		self.lastinstruction.setrefreshfolders()
-		copyoutcome = self.filemanager.discovertvshows()
-		self.lastinstruction.updatestatus(copyoutcome)
+		copyoutcome = self.filemanager.scrapetvshows()
+		self.lastinstruction.updatenotes(copyoutcome)
 
 
 
@@ -60,9 +61,9 @@ class DefineCopier:
 		return longwait
 
 
-	def performacopy(self, copyid, source, target):
+	def performacopy(self, copyid, source, target, forcemode):
 		self.lastinstruction.settonew(copyid)
-		copyoutcome = self.filemanager.performcopy(source, target)
+		copyoutcome = self.filemanager.performcopy(source, target, forcemode)
 		self.lastinstruction.updatestatus(copyoutcome)
 
 

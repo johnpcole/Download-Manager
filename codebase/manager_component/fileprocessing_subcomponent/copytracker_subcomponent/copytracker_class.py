@@ -12,7 +12,9 @@ class DefineCopyTracker:
 
 		self.noaction = "00000000000000000"
 
-		self.copyactions[self.noaction] = CopyAction.createblankcopyaction()
+		self.refreshfolders = "-----------------"
+
+		self.copyactions[self.refreshfolders] = CopyAction.createblankcopyaction()
 
 # =========================================================================================
 
@@ -28,6 +30,11 @@ class DefineCopyTracker:
 				self.copyactions[self.generateindex()] = CopyAction.createcopyaction(copysource, copytarget,
 																								newaction['torrentid'])
 
+# =========================================================================================
+
+	def queuefolderrefresh(self):
+
+		self.copyactions[self.refreshfolders] = CopyAction.createblankcopyaction()
 
 # =========================================================================================
 
@@ -37,35 +44,41 @@ class DefineCopyTracker:
 		nextactionid = self.noaction
 
 		for actionid in self.copyactions.keys():
-			if actionid != self.noaction:
-				if self.copyactions[actionid].confirmstatus("In Progress"):
-					inprogressflag = True
-				elif self.copyactions[actionid].confirmstatus("Queued"):
-					if nextactionid == self.noaction:
-						nextactionid = actionid
+			if self.copyactions[actionid].confirmstatus("In Progress"):
+				inprogressflag = True
+			elif self.copyactions[actionid].confirmstatus("Queued"):
+				if nextactionid == self.noaction:
+					nextactionid = actionid
 
 		if inprogressflag == True:
 			nextactionid = self.noaction
+			Logging.printout("Looking for a new item in queue, but there is already an In Progress item")
 
 		if nextactionid != self.noaction:
 			self.copyactions[nextactionid].updatestatus("In Progress")
 
-		outcome = {'copyid': nextactionid}
+		outcome = {'copyid': nextactionid, 'overwrite': False}
 		outcome.update(self.copyactions[nextactionid].getinstruction())
 		return outcome
 
 # =========================================================================================
 
-	def updateactionstatus(self, copyid, newstatus):
+	def importcopieroutcome(self, copyid, newstatus):
 
-		foundflag = False
-		if copyid in self.copyactions.keys():
+		refreshdata = False
+		if copyid == self.noaction:
+			if self.isqueuealldone() == False:
+				Logging.printout("Copier thinks is was finished, but there are more queued items")
+		elif copyid == self.refreshfolders:
 			self.copyactions[copyid].updatestatus(newstatus)
-			foundflag = True
+			refreshdata = True
 		else:
-			Logging.printout("Cannot find copy action to update: " + copyid)
+			if copyid in self.copyactions.keys():
+				self.copyactions[copyid].updatestatus(newstatus)
+			else:
+				Logging.printout("Cannot find copy action to update: " + copyid)
 
-		return foundflag
+		return refreshdata
 
 	# =========================================================================================
 
@@ -79,8 +92,14 @@ class DefineCopyTracker:
 
 
 
+	def isqueuealldone(self):
 
+		queuetest = True
+		for actionid in self.copyactions.keys():
+			if self.copyactions[actionid].confirmstatus("Queued") == True:
+				queuetest = False
 
+		return queuetest
 
 
 

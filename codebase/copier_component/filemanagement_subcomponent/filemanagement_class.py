@@ -69,20 +69,27 @@ class DefineFileManager:
 
 
 
-	def performcopy(self, sourcelocation, targetsublocation):
+	def performcopy(self, sourcelocation, targetsublocation, forcemode):
 
 		outcome = "Failed"
 		targetlocation = FileSystem.concatenatepaths(self.mountpoint, targetsublocation)
 		connectionoutcome = self.connecttofileserver("Copy Files")
+		proceedwithcopy = False
+
 		if connectionoutcome == True:
 
 			if FileSystem.doesexist(targetlocation) == True:
-				outcome = "Confirm"
-
+				if forcemode == True:
+					proceedwithcopy = True
+				else:
+					outcome = "Confirm"
 			else:
-				actionoutcome = self.copyafile(sourcelocation, targetlocation)
-				if actionoutcome == True:
-					outcome = "Succeeded"
+				proceedwithcopy = True
+
+		if proceedwithcopy == True:
+			actionoutcome = self.copyafile(sourcelocation, targetlocation)
+			if actionoutcome == True:
+				outcome = "Succeeded"
 
 		return outcome
 
@@ -106,11 +113,11 @@ class DefineFileManager:
 
 
 
-	def discovertvshows(self):
+	def scrapetvshows(self):
 
 		tvshows = {}
 
-		connectionoutcome = self.connecttofileserver("Discover TV Shows")
+		connectionoutcome = self.connecttofileserver("Scrape TV Shows")
 		if connectionoutcome == True:
 			rootfolder = FileSystem.concatenatepaths(self.mountpoint, "TV Shows")
 			rootlisting = FileSystem.getfolderlisting(rootfolder)

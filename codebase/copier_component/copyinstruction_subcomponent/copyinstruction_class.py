@@ -7,6 +7,7 @@ class DefineInstruction:
 
 		self.status = "All Done"
 
+		self.notes = ""
 
 # =========================================================================================
 
@@ -14,11 +15,20 @@ class DefineInstruction:
 
 		self.status = newstatus
 
+
+	def updatenotes(self, newnotes):
+
+		self.notes = newnotes
+
+		self.status = "Succeeded"
+
 	def settonew(self, copyid):
 
 		self.copyid = copyid
 
 		self.status = "In Progress"
+
+		self.notes = {}
 
 	def setalldone(self):
 
@@ -26,11 +36,16 @@ class DefineInstruction:
 
 		self.status = "All Done"
 
+		self.notes = {}
+
 	def setrefreshfolders(self):
 
 		self.copyid = "-----------------"
 
-		self.status = {}
+		self.status = "In Progress"
+
+		self.notes = {}
+
 
 	def isalldone(self):
 
@@ -42,5 +57,5 @@ class DefineInstruction:
 
 	def getstatus(self):
 
-		return {'copyid': self.copyid, 'outcome': self.status}
+		return {'copyid': self.copyid, 'outcome': self.status, 'notes': self.notes}
 

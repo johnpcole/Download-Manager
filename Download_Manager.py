@@ -186,8 +186,7 @@ def triggermonitor():
 def triggercopier():
 
 	inputdata = WebServer.getrequestdata()
-	print("INPUT DATA: ", inputdata)
-	result = torrentset.triggercopier(inputdata['copyid'], inputdata['outcome'])
+	result = torrentset.triggercopier(inputdata['copyid'], inputdata['outcome'], inputdata['notes'])
 	return WebServer.makejson(**result)
 
 

@@ -25,7 +25,7 @@ class DefineScraper:
 		self.latestdatetime = DateTime.getnow()
 
 
-	def performwebcall(self, datadictionary):
+	def performwebcall(self, webaddress, datadictionary):
 
 		tries = 0
 
@@ -34,15 +34,11 @@ class DefineScraper:
 		while tries < self.webcalltries:
 			try:
 				if datadictionary is None:
-					rawwebresponse = GetWebPage(self.webaddress, context=self.securitycontext).read(1000)
+					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext).read(1000)
 				else:
 					unencodedpostdata = MakeJson(datadictionary)
 					postdata = unencodedpostdata.encode("ascii")
-					print("====================================")
-					print("=====result sent to manager=========")
-					print(postdata)
-					print("====================================")
-					rawwebresponse = GetWebPage(self.jsonwebaddress(), context=self.securitycontext, data=postdata).read(1000)
+					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext, data=postdata).read(1000)
 				webresponse = rawwebresponse.decode("utf-8")
 				tries = 99999
 				self.latestresult = webresponse
@@ -62,18 +58,16 @@ class DefineScraper:
 
 	def retrievewebpage(self):
 
-		self.performwebcall(None)
+		self.performwebcall(self.webaddress, None)
 
 	def posttourl(self, datadictionary):
 
-		self.performwebcall(datadictionary)
+		addresswithheader = self.webaddress
+		addresswithheader.add_header('Content-Type', 'application/json')
+
+		self.performwebcall(addresswithheader, datadictionary)
 
 	def getwebresult(self):
 
 		return self.latestresult
 
-	def jsonwebaddress(self):
-
-		outcome = self.webaddress
-		outcome.add_header('Content-Type', 'application/json')
-		return outcome

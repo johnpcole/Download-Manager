@@ -10,7 +10,6 @@ class DefineTVShows:
 
 		self.subtitles = []
 
-		self.discovertvshows()
 		self.discoverepisodes()
 		self.discoversubtitles()
 
@@ -18,31 +17,9 @@ class DefineTVShows:
 # Connects to the file server, and compiles a list of tv shows and seasons to store locally
 # =========================================================================================
 
-	def discovertvshows(self):
+	def importtvshows(self, newdictionary):
 
-		# self.tvshows = {}
-		# FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username, self.password, "Discover TV Shows")
-		# rootfolder = FileSystem.concatenatepaths(self.mountpoint, "TV Shows")
-		# rootlisting = FileSystem.getfolderlisting(rootfolder)
-		# for rootitem in rootlisting:
-		# 	if rootlisting[rootitem] == "Folder":
-		# 		subfolder = FileSystem.concatenatepaths(rootfolder, rootitem)
-		# 		sublisting = FileSystem.getfolderlisting(subfolder)
-		# 		seasonlist = {}
-		# 		for subitem in sublisting:
-		# 			if sublisting[subitem] == "Folder":
-		# 				if subitem[:7] == "Season ":
-		# 					seasonindex = ("000" + subitem[7:])[-2:]
-		# 					seasonlist[seasonindex] = subitem
-		# 				elif subitem[:7] == "Special":
-		# 					seasonlist["000"] = subitem
-		# 		orderedlist = []
-		# 		for key in sorted(seasonlist, reverse = True):
-		# 			orderedlist.append(seasonlist[key])
-		# 		self.tvshows[rootitem] = orderedlist
-		# FileSystem.unmountnetworkdrive(self.mountpoint)
-		print("do stuff")
-
+		self.tvshows = newdictionary
 
 # =========================================================================================
 # Returns the list of tv show names

@@ -225,10 +225,10 @@ class DefineTorrentSet:
 	# Process Copy Queue
 	#===============================================================================================
 
-	def triggercopier(self, latestcopyid, copyoutcome):
+	def triggercopier(self, latestcopyid, copyoutcome, notes):
 
 		Logging.printinvocation("Triggering Copier", "")
-		self.librarymanager.updatecopyactionstatus(latestcopyid, copyoutcome)
+		self.librarymanager.importcopieroutcome(latestcopyid, copyoutcome, notes)
 		return self.librarymanager.processnextcopyaction()
 
 

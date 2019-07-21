@@ -17,7 +17,7 @@ class DefineLibraryManager:
 
 	def discovertvshows(self):
 
-		return self.tvshows.discovertvshows()
+		self.copytracker.queuefolderrefresh()
 
 
 # =========================================================================================
@@ -55,9 +55,9 @@ class DefineLibraryManager:
 
 # =========================================================================================
 
-	def updatecopyactionstatus(self, copyid, newstatus):
+	def importcopieroutcome(self, copyid, newstatus, notes):
 
-		self.copytracker.updateactionstatus(copyid, newstatus)
-
-
+		refreshdata = self.copytracker.updateactionstatus(copyid, newstatus)
+		if refreshdata is True:
+			self.tvshows.importtvshows(notes)
 
