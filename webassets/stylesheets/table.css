@@ -101,7 +101,7 @@ tr > td:first-of-type {
   padding: 0px;
 }
 
-td img {
+tr.invocation img {
     display: inline-block;
     margin: 0px;
     -webkit-filter: brightness(9) saturate(9);
@@ -109,3 +109,35 @@ td img {
     height: 6px;
     width: 6px;
 }
+
+
+/* =================================================== */
+
+tr.copystate_succeeded {
+    background-color: #009600;
+}
+
+tr.copystate_failed {
+    background-color: #AF0000;
+}
+
+tr.copystate_queued {
+    background-color: #454545;
+}
+
+tr.copystate_inprogress {
+    background-color: #000096;
+}
+
+tr.copystate_confirm {
+    background-color: #DC6E00;
+}
+
+tr.copystate_succeeded img, tr.copystate_failed img, tr.copystate_queued img, tr.copystate_inprogress img, tr.copystate_confirm img {
+    display: inline-block;
+    margin: 0px;
+    height: 20px;
+    width: 20px;
+}
+
+

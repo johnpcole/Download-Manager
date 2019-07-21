@@ -47,5 +47,8 @@ class DefineActionItem:
 
 	def getcopierpagedata(self):
 
+		statuslabel = self.status.displaycurrent()
+		if statuslabel == "In Progress":
+			statuslabel = "InProgress"
 		return {'source': self.source, 'target': self.target, 'torrentid': self.torrentid,
-																'status': self.status.displaycurrent()}
+																						'status': statuslabel.lower()}
