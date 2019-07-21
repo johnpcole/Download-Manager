@@ -57,7 +57,7 @@ class DefineLibraryManager:
 
 	def importcopieroutcome(self, copyid, newstatus, notes):
 
-		refreshdata = self.copytracker.updateactionstatus(copyid, newstatus)
+		refreshdata = self.copytracker.updatecopyaction(copyid, newstatus)
 		if refreshdata is True:
 			self.tvshows.importtvshows(notes)
 

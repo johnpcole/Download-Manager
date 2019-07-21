@@ -63,7 +63,7 @@ class DefineCopyTracker:
 
 # =========================================================================================
 
-	def importcopieroutcome(self, copyid, newstatus):
+	def updatecopyaction(self, copyid, newstatus):
 
 		refreshdata = False
 		if copyid == self.noaction:
