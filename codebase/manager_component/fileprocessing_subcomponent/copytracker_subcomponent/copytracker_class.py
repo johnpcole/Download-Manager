@@ -10,7 +10,9 @@ class DefineCopyTracker:
 
 		self.copyactions = {}
 
-		self.copyactions["00000000000000000"] = CopyAction.createblankcopyaction()
+		self.noaction = "00000000000000000"
+
+		self.copyactions[self.noaction] = CopyAction.createblankcopyaction()
 
 # =========================================================================================
 
@@ -32,19 +34,20 @@ class DefineCopyTracker:
 	def startnextaction(self):
 
 		inprogressflag = False
-		nextactionid = "00000000000000000"
+		nextactionid = self.noaction
 
 		for actionid in self.copyactions.keys():
-			if self.copyactions[actionid].confirmstatus("In Progress"):
-				inprogressflag = True
-			elif self.copyactions[actionid].confirmstatus("Queued"):
-				if nextactionid == "00000000000000000":
-					nextactionid = actionid
+			if actionid != self.noaction:
+				if self.copyactions[actionid].confirmstatus("In Progress"):
+					inprogressflag = True
+				elif self.copyactions[actionid].confirmstatus("Queued"):
+					if nextactionid == self.noaction:
+						nextactionid = actionid
 
 		if inprogressflag == True:
-			nextactionid = "00000000000000000"
+			nextactionid = self.noaction
 
-		if nextactionid != "00000000000000000":
+		if nextactionid != self.noaction:
 			self.copyactions[nextactionid].updatestatus("In Progress")
 
 		outcome = {'copyid': nextactionid}
