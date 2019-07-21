@@ -23,7 +23,7 @@ class DefineCopier:
 		if self.shouldcalldownloadmanager() == True:
 			self.delayer.wait(5)
 			self.scraper.posttourl(self.lastinstruction.getstatus())
-			newinstruction = self.scraper.getwebresult()
+			newinstruction = self.scraper.getjsonresult()
 			print("====================================")
 			print("=====instruction from manager=======")
 			print(newinstruction)
