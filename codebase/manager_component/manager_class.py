@@ -26,7 +26,7 @@ class DefineTorrentSet:
 	def initialiselistpage(self):
 
 		Logging.printinvocation("Loading All Torrents List Page", "")
-		self.torrentmanager.refreshtorrentlist("Download-Manager")
+		self.torrentmanager.refreshtorrentlist("Manager")
 		self.monitormanager.refreshsessionmeters(self.torrentmanager.getsessiondata())
 		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 				'stats': self.monitormanager.getsessionmeters()}
@@ -49,7 +49,7 @@ class DefineTorrentSet:
 			Logging.printinvocation("Refreshing All Torrents List Page", "")
 		else:
 			Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
-		self.torrentmanager.refreshtorrentlist("Download-Manager")
+		self.torrentmanager.refreshtorrentlist("Manager")
 		self.monitormanager.refreshsessionmeters(self.torrentmanager.getsessiondata())
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
 				'stats': self.monitormanager.getsessionmeters()}
@@ -202,7 +202,7 @@ class DefineTorrentSet:
 
 	def displaymonitor(self):
 
-		Logging.printinvocation("Creating Deluge Monitor History Page", "")
+		Logging.printinvocation("Creating Monitor History Page", "")
 		return {'monitoroutput': self.monitormanager.gethistorygraphics()}
 
 
@@ -214,9 +214,23 @@ class DefineTorrentSet:
 	def triggermonitor(self):
 
 		Logging.printinvocation("Triggering Monitor", "")
-		self.torrentmanager.refreshtorrentlist("Deluge-Monitor")
-		FileManager.savemonitor(self.monitormanager.addtohistory(self.torrentmanager.getsessiondata()))
-		return {'message': 'deluge data captured'}
+		self.torrentmanager.refreshtorrentlist("Monitor")
+		outcome = self.monitormanager.addtohistory(self.torrentmanager.getsessiondata())
+		FileManager.savemonitor(outcome)
+		return {'monitordata': outcome}
+
+
+
+	#===============================================================================================
+	# Process Copy Queue
+	#===============================================================================================
+
+	def triggercopier(self, latestcopyid, copyoutcome):
+
+		Logging.printinvocation("Triggering Copier", "")
+		self.librarymanager.updatecopyactionstatus(latestcopyid, copyoutcome)
+		return self.librarymanager.processnextcopyaction()
+
 
 
 

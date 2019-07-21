@@ -1,6 +1,6 @@
-from ...common_components.filesystem_framework import filesystem_module as FileSystem
+from .filesystem_subcomponent import filesystem_module as FileSystem
 from .copyaction_subcomponent import copyaction_module as CopyAction
-from ...common_components.dataconversion_framework import dataconversion_module as Functions
+from ..common_components.dataconversion_framework import dataconversion_module as Functions
 
 class DefineLibraryManager:
 

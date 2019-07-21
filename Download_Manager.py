@@ -169,12 +169,25 @@ def displaymonitor():
 # Generate a Monitor History Item
 #===============================================================================================
 
-@website.route('/TriggerDelugeMonitor')
+@website.route('/TriggerDownloadMonitor')
 def triggermonitor():
 
 	result = torrentset.triggermonitor()
 	return WebServer.makejson(**result)
 
+
+
+
+#===============================================================================================
+# Generate a Monitor History Item
+#===============================================================================================
+
+@website.route('/TriggerDownloadCopier')
+def triggercopier():
+
+	inputdata = WebServer.getrequestdata()
+	result = torrentset.triggercopier(inputdata['copyid'], inputdata['outcome'])
+	return WebServer.makejson(**result)
 
 
 

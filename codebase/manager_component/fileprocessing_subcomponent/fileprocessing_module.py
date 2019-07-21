@@ -32,15 +32,15 @@ def gettorrentconnectionconfig():
 # Reads the configuration data for connecting to the file server, from a file
 # =========================================================================================
 
-def getlibraryconnectionconfig():
-	Logging.printout("Loading File-Server Connection Data")
-	credentials = FileSystem.readfromdisk('./data/application_config/library_connection.cfg')
-	outcome = { 'Mountpoint': credentials[0],
-				'Address': credentials[1],
-				'Username': credentials[2],
-				'Password': credentials[3]}
-	return outcome
-
+# def getlibraryconnectionconfig():
+# 	Logging.printout("Loading File-Server Connection Data")
+# 	credentials = FileSystem.readfromdisk('./data/application_config/library_connection.cfg')
+# 	outcome = { 'Mountpoint': credentials[0],
+# 				'Address': credentials[1],
+# 				'Username': credentials[2],
+# 				'Password': credentials[3]}
+# 	return outcome
+#
 
 
 # =========================================================================================
@@ -79,12 +79,12 @@ def loadconfigs():
 # Creates a filepath from a list of nodes, using the appropriate filesystem symbol
 # =========================================================================================
 
-def buildpath(nodelist):
-	outcome = "-"
-	for node in nodelist:
-		outcome = FileSystem.concatenatepaths(outcome, node)
-
-	return outcome[2:]
+# def buildpath(nodelist):
+# 	outcome = "-"
+# 	for node in nodelist:
+# 		outcome = FileSystem.concatenatepaths(outcome, node)
+#
+# 	return outcome[2:]
 
 
 

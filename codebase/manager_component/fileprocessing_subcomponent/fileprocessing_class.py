@@ -48,16 +48,16 @@ class DefineLibraryManager:
 
 # =========================================================================================
 
-	def getnextcopyaction(self):
+	def processnextcopyaction(self):
 
-		return self.copytracker.getnextaction()
+		return self.copytracker.startnextaction()
 
 
 # =========================================================================================
 
-	def updatecopyactionstatus(self, newstatus):
+	def updatecopyactionstatus(self, copyid, newstatus):
 
-		self.copytracker.updateactionstatus(newstatus)
+		self.copytracker.updateactionstatus(copyid, newstatus)
 
 
 

@@ -92,9 +92,9 @@ class DefineDelugeInterface:
 
 	def retrievetorrentdata(self, torrentid, datamode):
 
-		if datamode == "Download-Manager":
+		if datamode == "Manager":
 			dataset = self.delugekeysfortorrentinfo
-		elif datamode == "Deluge-Monitor":
+		elif datamode == "Monitor":
 			dataset = self.delugekeysformonitorinfo
 		else:
 			assert 1 == 0, "Inappropriate GetTorrentData Mode: " + datamode

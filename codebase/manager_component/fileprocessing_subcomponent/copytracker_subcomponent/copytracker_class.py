@@ -1,13 +1,16 @@
 from ....common_components.filesystem_framework import filesystem_module as FileSystem
 from .copyaction_subcomponent import copyaction_module as CopyAction
-
+from ....common_components.datetime_datatypes import datetime_module as DateTime
+from ....common_components.logging_framework import logging_module as Logging
 
 
 class DefineCopyTracker:
 
 	def __init__(self):
 
-		self.copyactions = []
+		self.copyactions = {}
+
+		self.copyactions["00000000000000000"] = CopyAction.createblankcopyaction()
 
 # =========================================================================================
 
@@ -20,50 +23,56 @@ class DefineCopyTracker:
 			for newaction in newcopyactions:
 				copysource = FileSystem.createpathfromlist(newaction['source'])
 				copytarget = FileSystem.createpathfromlist(newaction['target'])
-				queuesize = len(self.copyactions) + 1
-				self.copyactions.append(CopyAction.createcopyaction(copysource, copytarget, queuesize,
-																								newaction['torrentid']))
+				self.copyactions[self.generateindex()] = CopyAction.createcopyaction(copysource, copytarget,
+																								newaction['torrentid'])
 
 
 # =========================================================================================
 
-	def getnextaction(self):
+	def startnextaction(self):
 
 		inprogressflag = False
-		nextaction = None
+		nextactionid = "00000000000000000"
 
-		for action in self.copyactions:
-			if action.confirmstatus("In Progress"):
+		for actionid in self.copyactions.keys():
+			if self.copyactions[actionid].confirmstatus("In Progress"):
 				inprogressflag = True
-			elif action.confirmstatus("Queued"):
-				if nextaction is None:
-					nextaction = action
+			elif self.copyactions[actionid].confirmstatus("Queued"):
+				if nextactionid == "00000000000000000":
+					nextactionid = actionid
 
 		if inprogressflag == True:
-			nextaction = None
+			nextactionid = "00000000000000000"
 
-		if nextaction is not None:
-			nextaction.updatestatus("In Progress")
+		if nextactionid != "00000000000000000":
+			self.copyactions[nextactionid].updatestatus("In Progress")
 
-		return nextaction
+		outcome = {'copyid': nextactionid}
+		outcome.update(self.copyactions[nextactionid].getinstruction())
+		return outcome
 
 # =========================================================================================
 
-	def updateactionstatus(self, torrentid, newstatus):
+	def updateactionstatus(self, copyid, newstatus):
 
 		foundflag = False
-		for action in self.copyactions:
-			if action.getid() == torrentid:
-				action.updatestatus(newstatus)
-				foundflag = True
+		if copyid in self.copyactions.keys():
+			self.copyactions[copyid].updatestatus(newstatus)
+			foundflag = True
+		else:
+			Logging.printout("Cannot find copy action to update: " + copyid)
 
 		return foundflag
 
+	# =========================================================================================
 
+	def generateindex(self):
 
+		currentdatetime = DateTime.getnow()
+		indexstring = "0000" + str(len(self.copyactions) % 1000)
+		outcome = currentdatetime.getiso() + indexstring[-3:]
 
-
-
+		return outcome
 
 
 
