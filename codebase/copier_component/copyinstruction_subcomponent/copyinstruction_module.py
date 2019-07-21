@@ -19,3 +19,16 @@ def isfolderrefresh(copyid):
 		outcome = False
 	return outcome
 
+def isvalidinstruction(newinstructionset):
+
+	outcome = True
+	if "copyid" not in newinstructionset.keys():
+		outcome = False
+	if "source" not in newinstructionset.keys():
+		outcome = False
+	if "target" not in newinstructionset.keys():
+		outcome = False
+	if "overwrite" not in newinstructionset.keys():
+		outcome = False
+	return outcome
+

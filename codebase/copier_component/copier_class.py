@@ -28,15 +28,17 @@ class DefineCopier:
 			print("=====instruction from manager=======")
 			print(newinstruction)
 			print("====================================")
-
-			if CopyInstruction.isalldone(newinstruction['copyid']) == True:
-				longwait = self.performafinish()
-			else:
-				if CopyInstruction.isfolderrefresh(newinstruction['copyid']) == True:
-					self.performafolderrefresh()
+			if CopyInstruction.isvalidinstruction(newinstruction) == True:
+				if CopyInstruction.isalldone(newinstruction['copyid']) == True:
+					longwait = self.performafinish()
 				else:
-					self.performacopy(newinstruction['copyid'], newinstruction['source'],
-													newinstruction['target'], newinstruction['overwrite'])
+					if CopyInstruction.isfolderrefresh(newinstruction['copyid']) == True:
+						self.performafolderrefresh()
+					else:
+						self.performacopy(newinstruction['copyid'], newinstruction['source'],
+														newinstruction['target'], newinstruction['overwrite'])
+			else:
+				print("Invalid response from Download-Manager")
 
 		if longwait == True:
 			self.delayer.waitlong()
