@@ -51,6 +51,9 @@ echo "==========================================================================
 echo "rewriting launch-monitor.sh"
 sed -i "s+/mnt/Torrents-Disk/Download-Manager+/home/pi/$2+g" /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/launch_monitor.sh
 echo "============================================================================================"
+echo "rewriting launch-copier.sh"
+sed -i "s+/mnt/Torrents-Disk/Download-Manager+/home/pi/$2+g" /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/launch_copier.sh
+echo "============================================================================================"
 echo "turning .sh files into executables"
 chmod --verbose 744 /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/*.sh
 echo "============================================================================================"
