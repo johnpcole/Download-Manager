@@ -32,7 +32,8 @@ class DefineScraper:
 				if datadictionary is None:
 					rawwebresponse = GetWebPage(self.webaddress, context=self.securitycontext).read(1000)
 				else:
-					postdata = GeneratePostData(datadictionary)
+					unencodedpostdata = GeneratePostData(datadictionary)
+					postdata = unencodedpostdata.encode("ascii")
 					rawwebresponse = GetWebPage(self.webaddress, context=self.securitycontext, data=postdata).read(1000)
 				webresponse = rawwebresponse.decode("utf-8")
 				tries = 99999
