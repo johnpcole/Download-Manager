@@ -136,8 +136,8 @@ tr.copystate_confirm {
 tr.copystate_succeeded img, tr.copystate_failed img, tr.copystate_queued img, tr.copystate_inprogress img, tr.copystate_confirm img {
     display: inline-block;
     margin: 0px;
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
 }
 
 
