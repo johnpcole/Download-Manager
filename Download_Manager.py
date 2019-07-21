@@ -182,7 +182,7 @@ def triggermonitor():
 # Generate a Monitor History Item
 #===============================================================================================
 
-@website.route('/TriggerDownloadCopier')
+@website.route('/TriggerDownloadCopier', methods=['POST'])
 def triggercopier():
 
 	inputdata = WebServer.getrequestdata()
