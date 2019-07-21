@@ -17,7 +17,7 @@ class DefineTorrentManager:
 		# The dictionary of session data
 		self.sessiondata = {}
 
-		self.refreshtorrentlist("Download-Manager")
+		self.refreshtorrentlist("Manager")
 
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
