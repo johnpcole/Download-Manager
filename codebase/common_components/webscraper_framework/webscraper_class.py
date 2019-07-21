@@ -42,7 +42,7 @@ class DefineScraper:
 					print("=====result sent to manager=========")
 					print(postdata)
 					print("====================================")
-					rawwebresponse = GetWebPage(self.webaddress, context=self.securitycontext, data=postdata).read(1000)
+					rawwebresponse = GetWebPage(self.jsonwebaddress(), context=self.securitycontext, data=postdata).read(1000)
 				webresponse = rawwebresponse.decode("utf-8")
 				tries = 99999
 				self.latestresult = webresponse
@@ -71,3 +71,9 @@ class DefineScraper:
 	def getwebresult(self):
 
 		return self.latestresult
+
+	def jsonwebaddress(self):
+
+		outcome = self.webaddress
+		outcome.add_header('Content-Type', 'application/json')
+		return outcome
