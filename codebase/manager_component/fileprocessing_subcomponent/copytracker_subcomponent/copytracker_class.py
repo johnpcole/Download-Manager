@@ -40,25 +40,16 @@ class DefineCopyTracker:
 
 	def startnextaction(self):
 
-		inprogressflag = False
-		nextactionid = self.noaction
+		nextactionid = self.findnextqueuedaction()
 
-		for actionid in self.copyactions.keys():
-			if self.copyactions[actionid].confirmstatus("In Progress"):
-				inprogressflag = True
-			elif self.copyactions[actionid].confirmstatus("Queued"):
-				if nextactionid == self.noaction:
-					nextactionid = actionid
-
-		if inprogressflag == True:
-			nextactionid = self.noaction
-			Logging.printout("Looking for a new item in queue, but there is already an In Progress item")
+		outcome = {'copyid': nextactionid, 'overwrite': False}
 
 		if nextactionid != self.noaction:
 			self.copyactions[nextactionid].updatestatus("In Progress")
+			outcome.update(self.copyactions[nextactionid].getinstruction())
+		else:
+			outcome.update({'source': "", 'target': ""})
 
-		outcome = {'copyid': nextactionid, 'overwrite': False}
-		outcome.update(self.copyactions[nextactionid].getinstruction())
 		return outcome
 
 # =========================================================================================
@@ -67,8 +58,7 @@ class DefineCopyTracker:
 
 		refreshdata = False
 		if copyid == self.noaction:
-			if self.isqueuealldone() == False:
-				Logging.printout("Copier thinks is was finished, but there are more queued items")
+			refreshdata = False
 		elif copyid == self.refreshfolders:
 			self.copyactions[copyid].updatestatus(newstatus)
 			refreshdata = True
@@ -104,10 +94,23 @@ class DefineCopyTracker:
 
 
 
+	def findnextqueuedaction(self):
 
+		inprogressflag = False
+		nextactionid = self.noaction
 
+		for actionid in self.copyactions.keys():
+			if self.copyactions[actionid].confirmstatus("In Progress"):
+				inprogressflag = True
+			elif self.copyactions[actionid].confirmstatus("Queued"):
+				if nextactionid == self.noaction:
+					nextactionid = actionid
 
+		if inprogressflag == True:
+			nextactionid = self.noaction
+			Logging.printout("Looking for a new item in queue, but there is already an In Progress item")
 
+		return nextactionid
 
 
 
