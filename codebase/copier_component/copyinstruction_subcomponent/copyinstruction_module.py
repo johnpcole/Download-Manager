@@ -21,14 +21,17 @@ def isfolderrefresh(copyid):
 
 def isvalidinstruction(newinstructionset):
 
-	outcome = True
-	if "copyid" not in newinstructionset.keys():
-		outcome = False
-	if "source" not in newinstructionset.keys():
-		outcome = False
-	if "target" not in newinstructionset.keys():
-		outcome = False
-	if "overwrite" not in newinstructionset.keys():
+	if isinstance(newinstructionset, dict):
+		outcome = True
+		if "copyid" not in newinstructionset.keys():
+			outcome = False
+		if "source" not in newinstructionset.keys():
+			outcome = False
+		if "target" not in newinstructionset.keys():
+			outcome = False
+		if "overwrite" not in newinstructionset.keys():
+			outcome = False
+	else:
 		outcome = False
 	return outcome
 
