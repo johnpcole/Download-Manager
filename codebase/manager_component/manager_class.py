@@ -197,12 +197,23 @@ class DefineTorrentSet:
 
 
 	#===============================================================================================
+	# Display the copier
+	#===============================================================================================
+
+	def displaycopier(self):
+
+		Logging.printinvocation("Loading Copier Page", "")
+		return {'copyactions': self.monitormanager.gethistorygraphics()}
+
+
+
+	#===============================================================================================
 	# Display the monitor
 	#===============================================================================================
 
 	def displaymonitor(self):
 
-		Logging.printinvocation("Creating Monitor History Page", "")
+		Logging.printinvocation("Loading Monitor History Page", "")
 		return {'monitoroutput': self.monitormanager.gethistorygraphics()}
 
 

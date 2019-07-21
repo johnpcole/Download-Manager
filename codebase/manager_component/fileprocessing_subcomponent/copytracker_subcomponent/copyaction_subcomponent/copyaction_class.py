@@ -32,6 +32,7 @@ class DefineActionItem:
 
 		return {'source': self.source, 'target': self.target}
 
+# =========================================================================================
 
 	def getdescription(self):
 
@@ -41,3 +42,10 @@ class DefineActionItem:
 		lineofarrows = arrows + arrows + arrows + arrows + arrows
 		outcome = "</br>" + indent + self.source + "</br>" + indent + lineofarrows + "</br>" + indent + self.target
 		return outcome
+
+# =========================================================================================
+
+	def getcopierpagedata(self):
+
+		return {'source': self.source, 'target': self.target, 'torrentid': self.torrentid,
+																'status': self.status.displaycurrent()}

@@ -61,3 +61,13 @@ class DefineLibraryManager:
 		if refreshdata is True:
 			self.tvshows.importtvshows(notes)
 
+
+
+	def getcopierpagedata(self):
+
+		return self.copytracker.getcopierpagedata()
+
+
+
+
+

@@ -162,6 +162,16 @@ def displaymonitor():
 
 
 
+#===============================================================================================
+# Display the copier
+#===============================================================================================
+
+@website.route('/Copier')
+def displaycopier():
+
+	result = torrentset.displaycopier()
+	return WebServer.makehtml('copier.html', **result)
+
 
 
 
@@ -179,7 +189,7 @@ def triggermonitor():
 
 
 #===============================================================================================
-# Generate a Monitor History Item
+# Generate a Copier Interaction
 #===============================================================================================
 
 @website.route('/TriggerDownloadCopier', methods=['POST'])
