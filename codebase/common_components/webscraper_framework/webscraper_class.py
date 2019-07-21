@@ -34,6 +34,10 @@ class DefineScraper:
 				else:
 					unencodedpostdata = GeneratePostData(datadictionary)
 					postdata = unencodedpostdata.encode("ascii")
+					print("====================================")
+					print("=====result sent to manager=========")
+					print(postdata)
+					print("====================================")
 					rawwebresponse = GetWebPage(self.webaddress, context=self.securitycontext, data=postdata).read(1000)
 				webresponse = rawwebresponse.decode("utf-8")
 				tries = 99999

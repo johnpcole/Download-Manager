@@ -21,10 +21,7 @@ class DefineCopier:
 		longwait = False
 
 		if self.shouldcalldownloadmanager() == True:
-			print("====================================")
-			print("=====result sent to manager=========")
-			print(self.lastinstruction.getstatus())
-			print("====================================")
+			self.delayer.wait(5)
 			self.scraper.posttourl(self.lastinstruction.getstatus())
 			newinstruction = self.scraper.getwebresult()
 			print("====================================")

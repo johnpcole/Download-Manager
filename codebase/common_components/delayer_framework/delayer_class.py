@@ -48,3 +48,9 @@ class DefineDelayer:
 			Wait(58)
 		elif self.erasize == 2:
 			Wait(8)
+
+
+	def wait(self, seconds):
+
+		Wait(seconds)
+
