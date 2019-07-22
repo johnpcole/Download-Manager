@@ -151,6 +151,8 @@ table.copier > tbody > tr:first-of-type > td:first-of-type {
 
 table.copier > tbody > tr:first-of-type > td:nth-of-type(2) {
     padding-right: 15px;
+    padding-bottom: 0px;
+    padding-top: 7px;
 }
 
 table.copier td {
@@ -160,6 +162,7 @@ table.copier td {
 table.copier > tbody > tr:nth-of-type(2) > td {
     font-size: small;
     padding-right: 15px;
+    padding-bottom: 8px;
 }
 
 table.copier > tbody:hover {
@@ -177,7 +180,7 @@ table.copier > tbody > tr:nth-of-type(2) > td:nth-of-type(2) {
 }
 
 table.copier > tbody > tr:nth-of-type(2) {
-    border-bottom: 1px solid #DDDDEE;
+    border-bottom: 3px solid #DDDDEE;
 }
 
 table.copier > tbody:last-of-type > tr:nth-of-type(2) {
