@@ -150,6 +150,11 @@ table.copier > tbody > tr:first-of-type > td:first-of-type {
     text-align: center;
 }
 
+table.copier > tbody > tr:first-of-type > td:nth-of-type(2) {
+    padding-right: 15px;
+    border-bottom: none;
+}
+
 table.copier td {
     vertical-align: middle;
 }
@@ -157,6 +162,7 @@ table.copier td {
 table.copier > tbody > tr:nth-of-type(2) > td {
     font-size: small;
     border-top: none;
+    padding-right: 15px;
 }
 
 table.copier > tbody:hover {
