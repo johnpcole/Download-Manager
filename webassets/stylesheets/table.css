@@ -115,23 +115,23 @@ tr.invocation img {
 
 /* =================================================== */
 
-tbody.copystate_succeeded {
+tbody.copystate_succeeded > tr {
     background-color: #009600;
 }
 
-tbody.copystate_failed {
+tbody.copystate_failed > tr {
     background-color: #AF0000;
 }
 
-tbody.copystate_queued {
+tbody.copystate_queued > tr {
     background-color: #454545;
 }
 
-tbody.copystate_inprogress {
+tbody.copystate_inprogress > tr {
     background-color: #000096;
 }
 
-tbody.copystate_confirm {
+tbody.copystate_confirm > tr {
     background-color: #DC6E00;
 }
 
@@ -169,7 +169,7 @@ table.copier > tbody:hover img {
 }
 
 table.copier > tbody > tr:nth-of-type(2) > td:nth-of-type(2) {
-    width: 160px;
+    width: 165px;
     text-align: right;
 }
 
