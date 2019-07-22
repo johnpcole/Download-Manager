@@ -17,17 +17,17 @@ td {
   vertical-align: top;
 }
 
-tr:first-of-type {
-  border-top: 0px;
-}
-
-tr:last-of-type {
-  border-bottom: 0px;
-}
-
 /* ======================================================================== */
 
 table.logs tr:hover {color:#000000;}
+
+table.logs tr:first-of-type {
+  border-top: 0px;
+}
+
+table.logs tr:last-of-type {
+  border-bottom: 0px;
+}
 
 td.counter {
   text-align: right;
@@ -156,6 +156,7 @@ table.copier td {
 
 table.copier > tbody > tr:nth-of-type(2) > td {
     font-size: small;
+    border-top: none;
 }
 
 table.copier > tbody:hover {
@@ -168,7 +169,7 @@ table.copier > tbody:hover img {
 }
 
 table.copier > tbody > tr:nth-of-type(2) > td:nth-of-type(2) {
-    width: 100px;
+    width: 160px;
     text-align: right;
 }
 

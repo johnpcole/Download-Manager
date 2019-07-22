@@ -152,8 +152,11 @@ class DefineCopyTracker:
 		outcome = []
 		for actionid in self.copyactions.keys():
 			if actionid != self.refreshfolders:
-				newitem = {'copyid': actionid}
-				newitem.update(self.copyactions[actionid].getcopierpagedata())
+				datetime = actionid[:4] + "-" + actionid[4:6] + "-" + actionid[6:8] + " "
+				datetime = datetime + actionid[8:10] + ":" + actionid[10:12] + ":" + actionid[12:14]
+				datetime = datetime + "(" + datetime[14:] + ")"
+				newitem = {'copyid': actionid, 'datetimestamp': datetime}
+				newitem.update(self.copyactions[actionid].getactioncopierpagedata())
 				outcome.append(newitem)
 
 		return outcome
