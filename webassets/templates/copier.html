@@ -36,7 +36,7 @@ Banner Content
 
 
 {% block content %}
- --><div class="MonitorChart"><table>
+ --><div class="MonitorChart"><table class="copier">
 {% for copyentry in copyactions %}
         <tr id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}">
             <td><img src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
