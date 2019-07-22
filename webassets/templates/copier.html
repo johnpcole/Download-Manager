@@ -40,8 +40,7 @@ Banner Content
 {% for copyentry in copyactions %}
         <tr id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}">
             <td><img src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
-            <td>{{ copyentry.target }}<br><small>{{ copyentry.torrentid }}</small></td>
-            <td>{{ copyentry.copyid }}</td>
+            <td><div>{{ copyentry.target }}</div><div>{{ copyentry.torrentid }}</div><div>{{ copyentry.copyid }}</div></td>
         </tr>
 {% endfor %}
 </table></div><!--
@@ -77,11 +76,11 @@ Banner Content
 {% block hiddendata %}
 
  --><div class="hidden">
-        <img src="{{ url_for('static', filename='images/copy_queued.png') }}" />
-        <img src="{{ url_for('static', filename='images/copy_inprogress.png') }}" />
-        <img src="{{ url_for('static', filename='images/copy_confirm.png') }}" />
-        <img src="{{ url_for('static', filename='images/copy_succeeded.png') }}" />
-        <img src="{{ url_for('static', filename='images/copy_failed.png') }}" />
+        <img src="{{ url_for('static', filename='images/copystate_queued.png') }}" />
+        <img src="{{ url_for('static', filename='images/copystate_inprogress.png') }}" />
+        <img src="{{ url_for('static', filename='images/copystate_confirm.png') }}" />
+        <img src="{{ url_for('static', filename='images/copystate_succeeded.png') }}" />
+        <img src="{{ url_for('static', filename='images/copystate_failed.png') }}" />
     </div><!--
 
 {% endblock %}
