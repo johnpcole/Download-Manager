@@ -5,12 +5,6 @@ table {
   color: #FFFFFF
 }
 
-tr {
-  background-color: #000000;
-  border-bottom: 1px solid #DDDDEE;
-
-}
-
 td {
   padding: 4px;
   text-align: left;
@@ -20,6 +14,11 @@ td {
 /* ======================================================================== */
 
 table.logs tr:hover {color:#000000;}
+
+table.logs tr {
+  background-color: #000000;
+  border-bottom: 1px solid #DDDDEE;
+}
 
 table.logs tr:first-of-type {
   border-top: 0px;
@@ -145,6 +144,7 @@ table.copier img {
     filter: invert(100%);
 }
 
+/* Icon Cell */
 table.copier > tbody > tr:first-of-type > td:first-of-type {
     width: 60px;
     text-align: center;
@@ -152,7 +152,6 @@ table.copier > tbody > tr:first-of-type > td:first-of-type {
 
 table.copier > tbody > tr:first-of-type > td:nth-of-type(2) {
     padding-right: 15px;
-    border-bottom: none;
 }
 
 table.copier td {
@@ -161,7 +160,6 @@ table.copier td {
 
 table.copier > tbody > tr:nth-of-type(2) > td {
     font-size: small;
-    border-top: none;
     padding-right: 15px;
 }
 
@@ -179,3 +177,10 @@ table.copier > tbody > tr:nth-of-type(2) > td:nth-of-type(2) {
     text-align: right;
 }
 
+table.copier > tbody > tr:nth-of-type(2) {
+    border-bottom: 1px solid #DDDDEE;
+}
+
+table.copier > tbody:last-of-type > tr:nth-of-type(2) {
+    border-bottom: none;
+}
