@@ -115,27 +115,27 @@ tr.invocation img {
 
 /* =================================================== */
 
-tr.copystate_succeeded {
+.copystate_succeeded {
     background-color: #009600;
 }
 
-tr.copystate_failed {
+.copystate_failed {
     background-color: #AF0000;
 }
 
-tr.copystate_queued {
+.copystate_queued {
     background-color: #454545;
 }
 
-tr.copystate_inprogress {
+.copystate_inprogress {
     background-color: #000096;
 }
 
-tr.copystate_confirm {
+.copystate_confirm {
     background-color: #DC6E00;
 }
 
-table.copier td:first-of-type img {
+table.copier img {
     display: inline-block;
     margin: 5px;
     height: 30px;
@@ -150,7 +150,7 @@ table.copier td:first-of-type {
     text-align: center;
 }
 
-table.copier td:nth-of-type(2) {
+table.copier td:nth-of-type(n+2) {
     line-height: 150%;
 }
 
@@ -158,15 +158,8 @@ table.copier td {
     vertical-align: middle;
 }
 
-table.copier td > div:nth-of-type(1) {
-    width: 100%;
-}
-
-table.copier td > div:nth-of-type(2) {
+table.copier tbody tr:nth-of-type(2) td {
     font-size: small;
 }
 
-table.copier td > div:nth-of-type(3) {
-    width: 100px;
-}
 

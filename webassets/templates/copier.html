@@ -36,12 +36,18 @@ Banner Content
 
 
 {% block content %}
- --><div class="MonitorChart"><table class="copier">
+ --><td class="MonitorChart"><table class="copier">
 {% for copyentry in copyactions %}
-        <tr id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}">
-            <td><img src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
-            <td><div>{{ copyentry.target }}</div><div>{{ copyentry.torrentid }}</div><div>{{ copyentry.copyid }}</div></td>
-        </tr>
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}">
+            <tr>
+                <td rowspan="2"><img src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
+                <td colspan="2">{{ copyentry.target }}</td>
+            </tr>
+            <tr>
+                <td>{{ copyentry.torrentid }}</td>
+                <td>{{ copyentry.copyid }}</td>
+            </tr>
+        </tbody>
 {% endfor %}
 </table></div><!--
 
