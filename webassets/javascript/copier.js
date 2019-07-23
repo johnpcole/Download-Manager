@@ -28,7 +28,7 @@ function updateCopierList(bulkaction)
         dataType:'json',
         success: function(data)
         {
-            updateAllCopierTiles(data.torrents);
+            updateAllCopierTiles(data.copyactions);
         }
     });
 };
