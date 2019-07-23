@@ -148,7 +148,6 @@ class DefineCopyTracker:
 
 	def getcopierpagedata(self):
 
-
 		outcome = []
 		for actionid in self.copyactions.keys():
 			if actionid != self.refreshfolders:
@@ -160,3 +159,20 @@ class DefineCopyTracker:
 				outcome.append(newitem)
 
 		return outcome
+
+
+
+	def getcopierpageupdatedata(self):
+
+		outcome = []
+		for actionid in self.copyactions.keys():
+			if actionid != self.refreshfolders:
+				if self.copyactions[actionid].getcachestate() == True:
+					newitem = {'copyid': actionid}
+					newitem.update(self.copyactions[actionid].getactioncopierpageupdatedata())
+					outcome.append(newitem)
+
+		return outcome
+
+
+

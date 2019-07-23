@@ -67,6 +67,11 @@ class DefineLibraryManager:
 
 		return self.copytracker.getcopierpagedata()
 
+	def getcopierpageupdatedata(self):
+
+		return self.copytracker.getcopierpageupdatedata()
+
+
 
 
 

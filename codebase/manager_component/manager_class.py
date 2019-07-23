@@ -208,6 +208,17 @@ class DefineTorrentSet:
 
 
 	#===============================================================================================
+	# Refresh Copier List page
+	#===============================================================================================
+
+	def updatecopierpage(self):
+
+		Logging.printinvocation("Refreshing Copier Page", "")
+		return {'copyactions': self.librarymanager.getcopierpageupdatedata()}
+
+
+
+	#===============================================================================================
 	# Display the monitor
 	#===============================================================================================
 
@@ -243,13 +254,6 @@ class DefineTorrentSet:
 		return self.librarymanager.processnextcopyaction()
 
 
-	#===============================================================================================
-	# Refresh Copier List page
-	#===============================================================================================
-
-	def updatecopierpage(self):
-
-		return {'copyactions': self.librarymanager.getcopierpagedata()}
 
 
 

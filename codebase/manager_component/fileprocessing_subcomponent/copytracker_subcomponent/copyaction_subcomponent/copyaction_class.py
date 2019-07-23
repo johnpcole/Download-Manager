@@ -13,11 +13,21 @@ class DefineActionItem:
 
 		self.torrentid = torrentid
 
+		self.torrentname = "UNKNOWN"
+
+		self.cacheupdateflag = False
+
+# =========================================================================================
+
+	def getcachestate(self):
+
+		return self.cacheupdateflag
 
 # =========================================================================================
 
 	def updatestatus(self, newstatus):
 
+		self.cacheupdateflag = True
 		return self.status.set(newstatus)
 
 # =========================================================================================
@@ -52,5 +62,17 @@ class DefineActionItem:
 			statuslabel = "InProgress"
 		target = self.target
 		target = target.replace("/", " / ")
+		self.cacheupdateflag = False
 		return {'source': self.source, 'target': target[1:], 'torrentid': self.torrentid,
 																						'status': statuslabel.lower()}
+
+
+# =========================================================================================
+
+	def getactioncopierpageupdatedata(self):
+
+		statuslabel = self.status.displaycurrent()
+		if statuslabel == "In Progress":
+			statuslabel = "InProgress"
+		self.cacheupdateflag = False
+		return {'status': statuslabel.lower()}
