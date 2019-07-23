@@ -160,7 +160,7 @@ table.copier td {
 }
 
 table.copier > tbody > tr:nth-of-type(2) > td {
-    font-size: small;
+    font-size: x-small;
     padding-right: 15px;
     padding-bottom: 8px;
 }
