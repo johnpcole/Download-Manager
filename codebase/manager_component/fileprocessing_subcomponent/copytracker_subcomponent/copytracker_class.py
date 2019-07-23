@@ -28,7 +28,7 @@ class DefineCopyTracker:
 				copysource = FileSystem.createpathfromlist(newaction['source'])
 				copytarget = FileSystem.createpathfromlist(newaction['target'])
 				self.copyactions[self.generateindex()] = CopyAction.createcopyaction(copysource, copytarget,
-																					newaction['torrentid'])
+																	newaction['torrentid'], newaction['torrentname'])
 
 # =========================================================================================
 

@@ -3,7 +3,7 @@ from .....common_components.enumeration_datatype import enumeration_module as En
 
 class DefineActionItem:
 
-	def __init__(self, source, target, torrentid):
+	def __init__(self, source, target, torrentid, torrentname):
 
 		self.source = source
 
@@ -13,7 +13,7 @@ class DefineActionItem:
 
 		self.torrentid = torrentid
 
-		self.torrentname = "UNKNOWN"
+		self.torrentname = torrentname
 
 		self.cacheupdateflag = False
 
@@ -64,7 +64,7 @@ class DefineActionItem:
 		target = target.replace("/", " / ")
 		self.cacheupdateflag = False
 		return {'source': self.source, 'target': target[1:], 'torrentid': self.torrentid,
-																						'status': statuslabel.lower()}
+														'torrentname': self.torrentname, 'status': statuslabel.lower()}
 
 
 # =========================================================================================
