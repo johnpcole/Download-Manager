@@ -174,6 +174,18 @@ def displaycopier():
 
 
 
+#===============================================================================================
+# Refresh Torrents List on existing page, after performing a bulk action if required
+#===============================================================================================
+
+@website.route('/UpdateCopierList', methods=['POST'])
+def updatecopierpage():
+
+	inputdata = WebServer.getrequestdata()
+	result = torrentset.updatecopierpage()
+	return WebServer.makejson(**result)
+
+
 
 #===============================================================================================
 # Generate a Monitor History Item

@@ -91,11 +91,11 @@ function getText(fieldname)
 
 // Update the displayed image
 
-function rerenderImage(fieldname, fieldimage)
+function rerenderImage(fieldname, fieldimage, filetype)
 {
     var tileData = document.getElementById(fieldname);
     if (tileData != null) {
-        tileData.src = "/webassets/images/"+fieldimage+".png";
+        tileData.src = "/webassets/images/"+fieldimage+"."+filetype;
     } else {
         alert("rerenderImage: "+ fieldname);
     }

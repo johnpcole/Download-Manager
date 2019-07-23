@@ -13,9 +13,9 @@ function showHideRows(rowNumber)
     var masterRowName = "Entry".concat(rowNumber.toString());
     var currentStatus = getImageName(masterRowName);
     if (currentStatus == 'collapsed_indicator') {
-        rerenderImage(masterRowName, 'expanded_indicator');
+        rerenderImage(masterRowName, 'expanded_indicator', 'png');
     } else {
-        rerenderImage(masterRowName, 'collapsed_indicator');
+        rerenderImage(masterRowName, 'collapsed_indicator', 'png');
     };
     for( var subRow = 0; subRow < 100; subRow++ ) {
         var subRowId = getSubRowId(rowNumber, subRow);

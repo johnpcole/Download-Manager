@@ -243,10 +243,21 @@ class DefineTorrentSet:
 		return self.librarymanager.processnextcopyaction()
 
 
+	#===============================================================================================
+	# Refresh Copier List page
+	#===============================================================================================
+
+	def updatecopierpage(self):
+
+		return {'copyactions': self.librarymanager.getcopierpagedata()}
+
+
+
+
 
 
 
 
 	def determinewebmode(self):
 
-		return True #FileManager.getwebhostconfig()
+		return True # FileManager.getwebhostconfig()

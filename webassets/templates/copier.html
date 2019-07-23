@@ -7,7 +7,7 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/logs.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier.js') }}"></script>
 
 {% endblock %}
 
@@ -40,7 +40,7 @@ Banner Content
 {% for copyentry in copyactions %}
         <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}">
             <tr>
-                <td rowspan="2"><img src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
+                <td rowspan="2"><img id="Icon_{{ copyentry.copyid }}" src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
                 <td colspan="2">{{ copyentry.target }}</td>
             </tr>
             <tr>
