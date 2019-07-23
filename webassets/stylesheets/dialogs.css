@@ -12,18 +12,21 @@ div.dialog {
     outline: 0;
 }
 
-div.dialogcontent {
+/* Dialog Content */
+.dialog > div:nth-of-type(3) {
     margin: 0;
     padding: 0;
 }
 
-div.dialogactions {
+/* Dialog Actions at the bottom */
+.dialog > div:nth-of-type(4) {
     margin: 0;
     padding: 0;
     text-align: center;
 }
 
-div.dialogsplitter {
+/* Dialog Separator Line */
+.dialog > div:nth-of-type(2) {
     height: 2px;
     border-style: solid;
     border-width: 0px 0px 1px 0px;
@@ -33,7 +36,8 @@ div.dialogsplitter {
     width: 490px;
 }
 
-div.dialogtitle {
+/* Dialog Title */
+.dialog > div:nth-of-type(1) {
     width: 100%;
     text-align: center;
     padding: 2px 3px 6px 3px;
@@ -44,7 +48,7 @@ div.dialogtitle {
     position: relative;
 }
 
-div.dialogitem {
+div.dialogitemleft, div.dialogitemright, div.dialogitemfull, div.dialogitemmax {
     font-size: 75%;
     padding: 5px 4px 4px 4px;
     overflow: hidden;
@@ -74,7 +78,13 @@ div.dialogitemfull {
     /*background-color: #ffffaa;*/
 }
 
-div.dialogitem img {
+div.dialogitemmax {
+    width: 100%;
+    text-align: left;
+    /*background-color: #ffffaa;*/
+}
+
+.dialog img {
     display: inline-block;
     height: 16px;
     width: 16px;

@@ -137,6 +137,10 @@ Start-All-Button
 
         {{ buttontemplate("Start", "updateTorrentsList('Start')", "listaction_startall", "start") }}
 
+Copier-Button
+
+        {{ buttontemplate("ViewCopier", "window.location.href = '/Copier'", "copier", "view copier") }}
+
 Rescan-File-Server-Button
 
         {{ buttontemplate("RescanFileServer", "updateTorrentsList('RescanFileServer')", "folder_refresh", "rescan fileserver") }}
@@ -166,8 +170,8 @@ ADD-DIALOG
 
 Dialog-Content
 
-         --><div class="dialogcontent">
-                <div class="dialogitem dialogitemfull">
+         --><div>
+                <div class="dialogitemfull">
                     <span>New Torrent URL: </span><!--
                  --><input type="text" name="newurl" class="newurlfield" value="" />
                 </div>

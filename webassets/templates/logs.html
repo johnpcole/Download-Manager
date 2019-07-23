@@ -36,7 +36,7 @@ Banner Content
 
 
 {% block content %}
- --><div class="MonitorChart"><table>
+ --><div class="MonitorChart"><table class="logs">
 {% for logentry in loggingoutput %}
 
 {% if (logentry.entrytype == "information") or (logentry.entrytype == "success") %}

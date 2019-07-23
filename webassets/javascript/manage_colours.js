@@ -17,3 +17,10 @@ function updateIndexBannerTileColour(networkstatus)
     var newclassname = networkstatus;
     changeAreaClass("IndexBanner", newclassname);
 };
+
+
+function updateCopierTileColour(copyid, copystatus)
+{
+    var newclassname = "copystate_" + copystatus;
+    changeAreaClass(copyid, newclassname);
+};

@@ -1,0 +1,19 @@
+[Unit]
+Description=Download Manager Copier Daemon
+After=network-online.target mult-user.target
+
+[Service]
+ExecStart=/home/pi/Download-Manager/launch_copier.sh
+User=pi
+Group=pi
+#UMask=000
+#Type=idle
+Restart=on-failure
+
+# Configures the time to wait before service is stopped forccefully.
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target
+
+

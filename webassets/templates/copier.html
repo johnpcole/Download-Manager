@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block bodycontext %} class="fixed"{% endblock %}
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block javascript %}
+
+    <script src="{{ url_for('static', filename='javascript/copier.js') }}"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block banner %}
+
+ --><div id="AuditBanner"><!--
+
+
+Banner Content
+
+     --><div class="bannerbigheading">
+            <span>Download Copier</span>
+        </div><!--
+
+
+ --></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block content %}
+ --><div class="MonitorChart"><table class="copier">
+{% for copyentry in copyactions %}
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}">
+            <tr>
+                <td rowspan="2"><img id="Icon_{{ copyentry.copyid }}" src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
+                <td colspan="2">{{ copyentry.target }}</td>
+            </tr>
+            <tr>
+                <td>{{ copyentry.torrentname }}</td>
+                <td>{{ copyentry.datetimestamp }}</td>
+            </tr>
+        </tbody>
+{% endfor %}
+</table></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block toolbar %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block dialogs %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block hiddendata %}
+
+ --><div class="hidden">
+        <img src="{{ url_for('static', filename='images/copystate_queued.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copystate_inprogress.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copystate_confirm.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copystate_succeeded.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copystate_failed.gif') }}" />
+    </div><!--
+
+{% endblock %}
