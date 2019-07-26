@@ -13,7 +13,7 @@
 
      --><button type="button" id="{{ id }}" onclick="javascript:{{ jsaction }};">
             <img src="{{ url_for('static', filename='images/' + image + '.png') }}" alt="{{ alttext }} button" />
-            <img id="{{ id }}_Overlay" src="{{ url_for('static', filename='images/' + overlayimage + '.png') }}" alt="{{ alttext }} button overlay" />
+            <img id="{{ id }}_Overlay" src="{{ url_for('static', filename='images/' + overlayimage + '.gif') }}" alt="{{ alttext }} button overlay" />
         </button><!--
 
 {% endmacro %}
@@ -37,7 +37,7 @@
 
      --><button disabled type="button" id="{{ id }}" onclick="javascript:{{ jsaction }};">
             <img src="{{ url_for('static', filename='images/' + image + '.png') }}" alt="{{ alttext }} button" />
-            <img id="{{ id }}_Overlay" src="{{ url_for('static', filename='images/' + overlayimage + '.png') }}" alt="{{ alttext }} button overlay" />
+            <img id="{{ id }}_Overlay" src="{{ url_for('static', filename='images/' + overlayimage + '.gif') }}" alt="{{ alttext }} button overlay" />
         </button><!--
 
 {% endmacro %}
