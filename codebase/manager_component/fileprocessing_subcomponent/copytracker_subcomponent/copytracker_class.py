@@ -184,7 +184,7 @@ class DefineCopyTracker:
 
 		outcome = "Nothing"
 		for actionid in self.copyactions.keys():
-			if self.copyactions[actionid].gettorrentid() == torrentid:
+			if (torrentid == "") or (self.copyactions[actionid].gettorrentid() == torrentid):
 				copystatus = self.copyactions[actionid].getstatus()
 				if (copystatus == "Queued") or (copystatus == "In Progress"):
 					if outcome == "Nothing":
