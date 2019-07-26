@@ -81,6 +81,7 @@ div.actionbuttonsgroup {
     box-shadow: 3px 3px 2px #AAAAAA;
     overflow: hidden;
     display: inline-block;
+    position: relative;
 }
 
 .actionbuttonsgroup button:hover:enabled {
@@ -100,13 +101,13 @@ div.actionbuttonsgroup {
 }
 
 .actionbuttonsgroup button > img:nth-of-type(2) {
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
     margin: 0px;
     padding: 0px;
-    display: absolute;
-    right: 9px;
-    bottom: 71px;
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
 }
 
 
