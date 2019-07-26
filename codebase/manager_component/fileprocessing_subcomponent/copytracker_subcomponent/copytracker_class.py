@@ -184,7 +184,7 @@ class DefineCopyTracker:
 	def gettorrentcopystate(self, torrentid):
 
 		if torrentid == "":
-			tracker = CopySetTracker.createglobalcopytracker(self.refreshfolders)
+			tracker = CopySetTracker.createglobalcopytracker(self.copyactions[self.refreshfolders].gettorrentid())
 		else:
 			tracker = CopySetTracker.createtorrentcopytracker(torrentid)
 

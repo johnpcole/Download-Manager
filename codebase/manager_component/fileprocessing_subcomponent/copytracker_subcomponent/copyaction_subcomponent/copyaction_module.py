@@ -5,4 +5,4 @@ def createcopyaction(source, target, torrentid, torrentname):
 	return CopyActionClass.DefineActionItem(source, target, torrentid, torrentname)
 
 def createblankcopyaction():
-	return CopyActionClass.DefineActionItem("", "", "", "")
+	return CopyActionClass.DefineActionItem("", "", "< IGNORE >", "")
