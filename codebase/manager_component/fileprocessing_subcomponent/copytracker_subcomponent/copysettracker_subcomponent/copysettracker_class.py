@@ -9,7 +9,7 @@ class DefineSetTracker:
 
 		self.ignoreid = ignoreid
 
-		self.status = Enumeration.createenum(["Nothing", "Incomplete", "Completed", "Attention"], "Nothing")
+		self.copystatus = Enumeration.createenum(["Nothing", "Incomplete", "Completed", "Attention"], "Nothing")
 
 # =========================================================================================
 
@@ -20,18 +20,19 @@ class DefineSetTracker:
 			if (self.torrentid == torrentid) or (self.torrentid == ""):
 				newcopystatus = copyactionobject.getstatus()
 				if (newcopystatus == "Queued") or (newcopystatus == "In Progress"):
-					if (self.status.getstatus("Nothing") == True) or (self.status.getstatus("Completed") == True):
-						self.status.set("Incomplete")
+					if (self.copystatus.getstatus("Nothing") == True) or (self.copystatus.getstatus("Completed") == True):
+						self.copystatus.set("Incomplete")
 				elif (newcopystatus == "Confirm") or (newcopystatus == "Failed"):
-					self.status.set("Attention")
+					self.copystatus.set("Attention")
 				elif newcopystatus == "Succeeded":
-					if self.status.getstatus("Nothing") == True:
-						self.status.set("Completed")
+					if self.copystatus.getstatus("Nothing") == True:
+						self.copystatus.set("Completed")
 
 
 
 	def getstatus(self):
 
-		return self.status.lower()
+		outcome = self.copystatus.displaycurrent()
+		return outcome.lower()
 
 
