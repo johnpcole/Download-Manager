@@ -189,7 +189,6 @@ class DefineCopyTracker:
 			tracker = CopySetTracker.createtorrentcopytracker(torrentid)
 
 		for actionid in self.copyactions.keys():
-			print("actionid ", actionid)
 			tracker.updatestatus(self.copyactions[actionid])
 
 		return tracker.getstatus()
