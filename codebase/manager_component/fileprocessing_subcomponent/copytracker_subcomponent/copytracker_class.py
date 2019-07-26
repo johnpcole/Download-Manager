@@ -102,9 +102,9 @@ class DefineCopyTracker:
 		nextactionid = self.noaction
 
 		for actionid in self.copyactions.keys():
-			if self.copyactions[actionid].confirmstatus("In Progress"):
+			if self.copyactions[actionid].getstatus() == "In Progress":
 				inprogressflag = True
-			elif self.copyactions[actionid].confirmstatus("Queued"):
+			elif self.copyactions[actionid].getstatus() == "Queued":
 				if nextactionid == self.noaction:
 					nextactionid = actionid
 
