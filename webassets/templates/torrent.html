@@ -250,7 +250,7 @@ Section: Read-Only-Mode Action Buttons
 
             {{ disabledbuttontemplate("Edit", "editTorrentConfiguration()", "torrentaction_edit", "edit") }}
 
-            {{ disabledbuttontemplate("Copy", "copyTorrent()", "torrentaction_copy", "copy") }}
+            {{ disabledbuttonwithoverlaytemplate("Copy", "copyTorrent()", "torrentaction_copy", "copyoverlay_"+{{ copyqueuestate }}, "copy") }}
 
             {{ buttontemplate("Delete", "deleteTorrent()", "torrentaction_delete", "delete") }}
 
@@ -313,7 +313,6 @@ Dialog-Content
 {% block hiddendata %}
 
  --><div class="hidden">
-        <span id="copyqueuestate">{{ copyqueuestate }}</span>
     </div><!--
 
 {% endblock %}

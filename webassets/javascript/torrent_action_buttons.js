@@ -18,7 +18,7 @@ function updateCopyButton(torrentstate, torrenttype, copyqueuestate)
 {
     var torrentstateprefix = torrentstate.substr(0, 7);
     if ((torrentstateprefix == "seeding") && (torrenttype != "unknown")) {
-        if ((copyqueuestate == "Nothing") || (copyqueuestate == "Completed")) {
+        if ((copyqueuestate == "nothing") || (copyqueuestate == "completed")) {
             changeButtonState('Copy', 'Enable');
         } else {
             changeButtonState('Copy', 'Disable');
@@ -26,6 +26,7 @@ function updateCopyButton(torrentstate, torrenttype, copyqueuestate)
     } else {
         changeButtonState('Copy', 'Disable');
     };
+    rerenderImage('Copy_Overlay', 'copyoverlay_'+copyqueuestate, 'png')
 };
 
 
@@ -45,7 +46,7 @@ function updateEditButton()
 
 function updateDeleteButton(copyqueuestate)
 {
-    if ((copyqueuestate == "Nothing") || (copyqueuestate == "Completed")) {
+    if ((copyqueuestate == "nothing") || (copyqueuestate == "completed")) {
         changeButtonState('Delete', 'Enable');
     } else {
         changeButtonState('Delete', 'Disable');

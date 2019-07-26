@@ -194,6 +194,6 @@ class DefineCopyTracker:
 				elif copystatus == "Succeeded":
 					if outcome == "Nothing":
 						outcome = "Completed"
-		return outcome
+		return outcome.lower()
 
 

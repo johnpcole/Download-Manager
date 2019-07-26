@@ -87,16 +87,26 @@ div.actionbuttonsgroup {
     background-color: #777777;
 }
 
-.actionbuttonsgroup button > img {
+.actionbuttonsgroup button > img:first-of-type {
     width: 36px;
     height: 36px;
     margin: auto;
     display: inline-block;
 }
 
-.actionbuttonsgroup button:disabled > img {
+.actionbuttonsgroup button:disabled > img:first-of-type {
     -webkit-filter: brightness(3) saturate(9);
     filter: brightness(3) saturate(9);
+}
+
+.actionbuttonsgroup button > img:nth-of-type(2) {
+    width: 12px;
+    height: 12px;
+    margin: 0px;
+    padding: 0px;
+    display: absolute;
+    right: 9px;
+    bottom: 71px;
 }
 
 
