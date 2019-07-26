@@ -16,8 +16,9 @@ class DefineSetTracker:
 	def updatestatus(self, copyactionobject):
 
 		torrentid = copyactionobject.gettorrentid()
+		print(torrentid, " ", self.torrentid, " ", self.ignoreid)
 		if torrentid != self.ignoreid:
-			if (self.torrentid == torrentid) or (self.torrentid == ""):
+			if (self.torrentid == torrentid) or (self.torrentid == "< ALL TORRENTS >"):
 				newcopystatus = copyactionobject.getstatus()
 				if (newcopystatus == "Queued") or (newcopystatus == "In Progress"):
 					if (self.copystatus.get("Nothing") == True) or (self.copystatus.get("Completed") == True):
