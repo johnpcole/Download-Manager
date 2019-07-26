@@ -314,6 +314,10 @@ Dialog-Content
 {% block hiddendata %}
 
  --><div class="hidden">
+         <img src="{{ url_for('static', filename='images/copyoverlay_attention.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copyoverlay_completed.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copyoverlay_incomplete.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copyoverlay_nothing.gif') }}" />
     </div><!--
 
 {% endblock %}

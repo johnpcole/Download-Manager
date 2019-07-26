@@ -2,6 +2,10 @@ from ....common_components.filesystem_framework import filesystem_module as File
 from .copyaction_subcomponent import copyaction_module as CopyAction
 from ....common_components.datetime_datatypes import datetime_module as DateTime
 from ....common_components.logging_framework import logging_module as Logging
+from ....common_components.dataconversion_framework import as Functions
+from .copysettracker_subcomponent import copysettracker_module as CopySetTracker
+
+
 
 
 class DefineCopyTracker:
@@ -151,10 +155,7 @@ class DefineCopyTracker:
 		outcome = []
 		for actionid in self.copyactions.keys():
 			if actionid != self.refreshfolders:
-				datetime = actionid[:4] + "-" + actionid[4:6] + "-" + actionid[6:8] + " "
-				datetime = datetime + actionid[8:10] + ":" + actionid[10:12] + ":" + actionid[12:14]
-				datetime = datetime + " [" + actionid[14:] + "]"
-				newitem = {'copyid': actionid, 'datetimestamp': datetime}
+				newitem = {'copyid': actionid, 'datetimestamp': Functions.sanitisecopydatetimestamp(actionid)}
 				newitem.update(self.copyactions[actionid].getactioncopierpagedata())
 				if newitem['torrentid'] in torrentidlist:
 					newitem['stillavailable'] = "Yes"
@@ -182,35 +183,13 @@ class DefineCopyTracker:
 
 	def gettorrentcopystate(self, torrentid):
 
-		outcome = "Nothing"
-		for actionid in self.copyactions.keys():
-			if self.matchtorrentid(torrentid, self.copyactions[actionid].gettorrentid(), actionid) == True:
-				copystatus = self.copyactions[actionid].getstatus()
-				if (copystatus == "Queued") or (copystatus == "In Progress"):
-					if outcome == "Nothing":
-						outcome = "Incomplete"
-				elif (copystatus == "Confirm") or (copystatus == "Failed"):
-					outcome = "Attention"
-				elif copystatus == "Succeeded":
-					if outcome == "Nothing":
-						outcome = "Completed"
-		return outcome.lower()
-
-
-
-
-	def matchtorrentid(self, desiredtorrentid, copyactionstorrentid, copyid):
-
-		matchflag = False
-
-		if desiredtorrentid == "":
-			if copyid != self.refreshfolders:
-				matchflag = True
+		if torrentid == "":
+			tracker = CopySetTracker.createglobalcopytracker()
 		else:
-			if copyactionstorrentid == desiredtorrentid:
-				matchflag = True
+			tracker = CopySetTracker.createtorrentcopytracker(torrentid)
 
-		return matchflag
+		for actionid in self.copyactions.keys():
+			if actionid != self.refreshfolders:
+				tracker.updatestatus(self.copyactions[actionid])
 
-
-
+		return tracker.getstatus()
