@@ -66,7 +66,7 @@ class DefineTorrentSet:
 			Logging.printinvocation("Loading Specific Torrent Page", torrentid)
 			self.torrentmanager.refreshtorrentdata(torrentid)
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
-					'copystate': self.librarymanager.gettorrentcopystate(torrentid)}
+					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
 		else:
 			Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
 
@@ -87,7 +87,7 @@ class DefineTorrentSet:
 				Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
 			self.torrentmanager.refreshtorrentdata(torrentid)
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
-					'copystate': self.librarymanager.gettorrentcopystate(torrentid)}
+					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
 		else:
 			Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
 
