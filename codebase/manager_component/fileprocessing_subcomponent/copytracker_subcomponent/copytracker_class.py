@@ -184,12 +184,13 @@ class DefineCopyTracker:
 	def gettorrentcopystate(self, torrentid):
 
 		if torrentid == "":
-			tracker = CopySetTracker.createglobalcopytracker()
+			tracker = CopySetTracker.createglobalcopytracker(self.refreshfolders)
 		else:
 			tracker = CopySetTracker.createtorrentcopytracker(torrentid)
 
 		for actionid in self.copyactions.keys():
-			if actionid != self.refreshfolders:
-				tracker.updatestatus(self.copyactions[actionid])
+			tracker.updatestatus(self.copyactions[actionid])
 
 		return tracker.getstatus()
+
+
