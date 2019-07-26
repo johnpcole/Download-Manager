@@ -186,3 +186,8 @@ table.copier > tbody > tr:nth-of-type(2) {
 table.copier > tbody:last-of-type > tr:nth-of-type(2) {
     border-bottom: none;
 }
+
+.strikethrough {
+    text-decoration: line-through;
+}
+

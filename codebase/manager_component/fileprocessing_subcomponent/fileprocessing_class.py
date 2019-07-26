@@ -63,13 +63,17 @@ class DefineLibraryManager:
 
 
 
-	def getcopierpagedata(self):
+	def getcopierpagedata(self, torrentidlist):
 
-		return self.copytracker.getcopierpagedata()
+		return self.copytracker.getcopierpagedata(torrentidlist)
 
 	def getcopierpageupdatedata(self):
 
 		return self.copytracker.getcopierpageupdatedata()
+
+	def gettorrentcopystate(self, torrentid):
+
+		return self.copytracker.gettorrentcopystate(torrentid)
 
 
 

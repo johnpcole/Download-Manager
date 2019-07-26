@@ -6,7 +6,8 @@ $(document).ready(function ()
     $('#deletedialog').hide();
     var torrentstatus = getImageName('Status').substr(7);
     updateStartStopButtons(torrentstatus);
-    updateCopyButton(torrentstatus, getImageName('TorrentType').substr(5));
+    updateCopyButton(torrentstatus, getImageName('TorrentType').substr(5), getText('copyqueuestate'));
+    updateDeleteButton(getText('copyqueuestate'));
     updateEditButton();
     changeAreasState('readmodebuttons', 'Show');
 
@@ -47,7 +48,7 @@ function updateTorrentState(action)
             if (data.selectedtorrent.filechangealert == true) {
                 window.location.replace("/Torrent="+getCurrentTorrentId());
             } else {
-                updateTorrentStateDisplay(data.selectedtorrent);
+                updateTorrentStateDisplay(data.selectedtorrent, data.copyqueuestate);
             };
         }
     });
@@ -56,13 +57,15 @@ function updateTorrentState(action)
 
 // Update the displayed data
 
-function updateTorrentStateDisplay(dataitem)
+function updateTorrentStateDisplay(dataitem, copyqueuestate)
 {
     rerenderImage("Status", "status_"+dataitem.status, 'png');
     updateTorrentTileColour("TorrentBanner", dataitem.status);
     rerenderText("Progress", dataitem.progress);
+    rerenderText('copyqueuestate', copyqueuestate);
     updateStartStopButtons(dataitem.status);
-    updateCopyButton(dataitem.status, getImageName('TorrentType').substr(5));
+    updateCopyButton(dataitem.status, getImageName('TorrentType').substr(5), copyqueuestate);
+    updateDeleteButton(copyqueuestate);
 };
 
 

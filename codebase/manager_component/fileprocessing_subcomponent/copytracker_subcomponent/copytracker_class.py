@@ -90,7 +90,7 @@ class DefineCopyTracker:
 
 		queuetest = True
 		for actionid in self.copyactions.keys():
-			if self.copyactions[actionid].confirmstatus("Queued") == True:
+			if self.copyactions[actionid].getstatus == "Queued":
 				queuetest = False
 
 		return queuetest
@@ -146,7 +146,7 @@ class DefineCopyTracker:
 		return outcome
 
 
-	def getcopierpagedata(self):
+	def getcopierpagedata(self, torrentidlist):
 
 		outcome = []
 		for actionid in self.copyactions.keys():
@@ -156,6 +156,10 @@ class DefineCopyTracker:
 				datetime = datetime + " [" + actionid[14:] + "]"
 				newitem = {'copyid': actionid, 'datetimestamp': datetime}
 				newitem.update(self.copyactions[actionid].getactioncopierpagedata())
+				if newitem['torrentid'] in torrentidlist:
+					newitem['stillavailable'] = "Yes"
+				else:
+					newitem['stillavailable'] = "No"
 				outcome.append(newitem)
 
 		return outcome
@@ -174,5 +178,22 @@ class DefineCopyTracker:
 
 		return outcome
 
+
+
+	def gettorrentcopystate(self, torrentid):
+
+		outcome = "Nothing"
+		for actionid in self.copyactions.keys():
+			if self.copyactions[actionid] == torrentid:
+				copystatus = self.copyactions[actionid].getstatus()
+				if (copystatus == "Queued") or (copystatus == "In Progress"):
+					if outcome == "Nothing":
+						outcome = "Incomplete"
+				elif (copystatus == "Confirm") or (copystatus == "Failed"):
+					outcome = "Attention"
+				elif copystatus == "Succeeded":
+					if outcome == "Nothing":
+						outcome = "Completed"
+		return outcome
 
 

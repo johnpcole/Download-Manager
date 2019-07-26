@@ -65,7 +65,8 @@ class DefineTorrentSet:
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Loading Specific Torrent Page", torrentid)
 			self.torrentmanager.refreshtorrentdata(torrentid)
-			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise")}
+			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
+					'copystate': self.librarymanager.gettorrentcopystate(torrentid)}
 		else:
 			Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
 
@@ -85,7 +86,8 @@ class DefineTorrentSet:
 			else:
 				Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
 			self.torrentmanager.refreshtorrentdata(torrentid)
-			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh")}
+			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
+					'copystate': self.librarymanager.gettorrentcopystate(torrentid)}
 		else:
 			Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
 
@@ -203,7 +205,7 @@ class DefineTorrentSet:
 	def displaycopier(self):
 
 		Logging.printinvocation("Loading Copier Page", "")
-		return {'copyactions': self.librarymanager.getcopierpagedata()}
+		return {'copyactions': self.librarymanager.getcopierpagedata(self.torrentmanager.gettorrentidlist())}
 
 
 

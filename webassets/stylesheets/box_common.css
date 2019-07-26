@@ -60,8 +60,8 @@ div.editupperrow {
     height: 18px;
     width: 18px;
     margin: 0px 0px -2px 0px;
-    -webkit-filter: brightness(9) saturate(9);
-    filter: brightness(9) saturate(9);
+    -webkit-filter: brightness(10) saturate(0) contrast(10);
+    filter: brightness(10) saturate(0) contrast(10);
 }
 
 /* ===============================================================================
@@ -109,8 +109,8 @@ div.tilesplitter {
     height: 13px;
     width: 13px;
     margin: -2px 5px -2px 5px;
-    -webkit-filter: brightness(9) saturate(9);
-    filter: brightness(9) saturate(9);
+    -webkit-filter: brightness(10) saturate(0) contrast(10);
+    filter: brightness(10) saturate(0) contrast(10);
 }
 
 

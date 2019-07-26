@@ -44,5 +44,10 @@
 
 .tilesgroup > a:hover {
     background-color: #222222;
+    color: #000000
 }
 
+.tilesgroup > a:hover img {
+    -webkit-filter: brightness(0) saturate(0) contrast(10);
+    filter: brightness(0) saturate(0) contrast(10);
+}

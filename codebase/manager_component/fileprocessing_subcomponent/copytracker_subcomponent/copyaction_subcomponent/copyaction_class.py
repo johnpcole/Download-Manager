@@ -9,7 +9,8 @@ class DefineActionItem:
 
 		self.target = target
 
-		self.status = Enumeration.createenum(["Queued", "In Progress", "Failed", "Succeeded", "Confirm"], "Queued")
+		self.status = Enumeration.createenum(["Queued", "In Progress", "Failed", "Succeeded", "Confirm", "Discarded"],
+																											"Queued")
 
 		self.torrentid = torrentid
 
@@ -32,9 +33,15 @@ class DefineActionItem:
 
 # =========================================================================================
 
-	def confirmstatus(self, statuscheck):
+	def getstatus(self):
 
-		return self.status.get(statuscheck)
+		return self.status.displaycurrent()
+
+# =========================================================================================
+
+	def gettorrentid(self):
+
+		return self.torrentid
 
 # =========================================================================================
 
@@ -76,3 +83,5 @@ class DefineActionItem:
 			statuslabel = "InProgress"
 		self.cacheupdateflag = False
 		return {'status': statuslabel.lower()}
+
+# =========================================================================================

@@ -285,3 +285,12 @@ class DefineTorrentManager:
 		return self.sessiondata
 
 
+# =========================================================================================
+
+	def gettorrentidlist(self):
+
+		outcome = []
+		for torrentitem in self.torrents:
+			outcome.append(torrentitem.getid())
+
+		return outcome
