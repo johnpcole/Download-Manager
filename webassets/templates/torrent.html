@@ -250,7 +250,7 @@ Section: Read-Only-Mode Action Buttons
 
             {{ disabledbuttontemplate("Edit", "editTorrentConfiguration()", "torrentaction_edit", "edit") }}
 
-            {{ disabledbuttonwithoverlaytemplate("Copy", "copyTorrent()", "torrentaction_copy", "copyoverlay_"+{{ copyqueuestate }}, "copy") }}
+            {{ disabledbuttonwithoverlaytemplate("Copy", "copyTorrent()", "torrentaction_copy", "copyoverlay_"+copyqueuestate, "copy") }}
 
             {{ buttontemplate("Delete", "deleteTorrent()", "torrentaction_delete", "delete") }}
 
