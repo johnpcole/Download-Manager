@@ -20,12 +20,12 @@ class DefineSetTracker:
 			if (self.torrentid == torrentid) or (self.torrentid == ""):
 				newcopystatus = copyactionobject.getstatus()
 				if (newcopystatus == "Queued") or (newcopystatus == "In Progress"):
-					if (self.copystatus.getstatus("Nothing") == True) or (self.copystatus.getstatus("Completed") == True):
+					if (self.copystatus.get("Nothing") == True) or (self.copystatus.get("Completed") == True):
 						self.copystatus.set("Incomplete")
 				elif (newcopystatus == "Confirm") or (newcopystatus == "Failed"):
 					self.copystatus.set("Attention")
 				elif newcopystatus == "Succeeded":
-					if self.copystatus.getstatus("Nothing") == True:
+					if self.copystatus.get("Nothing") == True:
 						self.copystatus.set("Completed")
 
 
