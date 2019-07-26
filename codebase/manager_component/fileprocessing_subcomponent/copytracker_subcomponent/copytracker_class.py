@@ -184,7 +184,7 @@ class DefineCopyTracker:
 
 		outcome = "Nothing"
 		for actionid in self.copyactions.keys():
-			if self.matchtorrentid(torrentid, self.copyactions[actionid].gettorrentid()) == True:
+			if self.matchtorrentid(torrentid, self.copyactions[actionid].gettorrentid(), actionid) == True:
 				copystatus = self.copyactions[actionid].getstatus()
 				if (copystatus == "Queued") or (copystatus == "In Progress"):
 					if outcome == "Nothing":
@@ -199,16 +199,15 @@ class DefineCopyTracker:
 
 
 
-	def matchtorrentid(self, desiredtorrentid, copyactionsid):
+	def matchtorrentid(self, desiredtorrentid, copyactionstorrentid, copyid):
 
 		matchflag = False
 
 		if desiredtorrentid == "":
-			if copyactionsid != self.refreshfolders:
-				print(copyactionsid)
+			if copyid != self.refreshfolders:
 				matchflag = True
 		else:
-			if copyactionsid == desiredtorrentid:
+			if copyactionstorrentid == desiredtorrentid:
 				matchflag = True
 
 		return matchflag
