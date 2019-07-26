@@ -26,7 +26,7 @@ function updateCopyButton(torrentstate, torrenttype, copyqueuestate)
     } else {
         changeButtonState('Copy', 'Disable');
     };
-    rerenderImage('Copy_Overlay', 'copyoverlay_'+copyqueuestate, 'gif')
+    rerenderAnimatedImage('Copy_Overlay', 'copyoverlay_'+copyqueuestate, 'gif')
 };
 
 
@@ -52,5 +52,4 @@ function updateDeleteButton(copyqueuestate)
         changeButtonState('Delete', 'Disable');
     };
 };
-
 

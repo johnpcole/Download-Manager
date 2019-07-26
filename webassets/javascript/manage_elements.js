@@ -102,6 +102,16 @@ function rerenderImage(fieldname, fieldimage, filetype)
 };
 
 
+function rerenderAnimatedImage(elementname, newstate, fileextension)
+{
+    if (getImageName(elementname) !== newstate) {
+        rerenderImage(elementname, newstate, fileextension);
+    };
+};
+
+
+
+
 
 // Get displayed image filename
 

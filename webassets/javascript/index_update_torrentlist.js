@@ -79,8 +79,7 @@ function updateStats(stats)
 
 function updateCopierButton(copyqueuestate)
 {
-    rerenderImage('ViewCopier_Overlay', 'copyoverlay_'+copyqueuestate, 'gif')
+    rerenderAnimatedImage('ViewCopier_Overlay', 'copyoverlay_'+copyqueuestate, 'gif')
 };
-
 
 
