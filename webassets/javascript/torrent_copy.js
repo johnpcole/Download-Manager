@@ -21,8 +21,7 @@ function confirmCopy()
         },
         success: function(data){
             closeCopyDialog();
-            rerenderText('copyqueuestate', 'Incomplete')
-            updateCopyButton(getImageName('Status').substr(7), getImageName('TorrentType').substr(5), getImageName('Copy_Overlay').substr(12));
+            updateCopyButton(getImageName('Status').substr(7), getImageName('TorrentType').substr(5), 'Incomplete');
             updateDeleteButton(getImageName('Copy_Overlay').substr(12));
             $('#ajaxloader').hide();
         }
