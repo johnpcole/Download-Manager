@@ -16,7 +16,7 @@ class DefineSetTracker:
 	def updatestatus(self, copyactionobject):
 
 		torrentid = copyactionobject.gettorrentid()
-		print(torrentid, " ", self.torrentid, " ", self.ignoreid)
+		print(torrentid, " <-- test id, filter id --> ", self.torrentid, " | ignore id -->", self.ignoreid)
 		if torrentid != self.ignoreid:
 			if (self.torrentid == torrentid) or (self.torrentid == "< ALL TORRENTS >"):
 				newcopystatus = copyactionobject.getstatus()
