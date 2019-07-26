@@ -5,4 +5,4 @@ def createtorrentcopytracker(torrentid):
 	return CopySetTrackerClass.DefineSetTracker(torrentid)
 
 def createglobalcopytracker():
-	return CopyActionClass.DefineActionItem("")
+	return CopySetTrackerClass.DefineActionItem("")
