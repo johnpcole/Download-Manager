@@ -30,6 +30,7 @@ function updateTorrentsList(bulkaction)
         {
             updateAllTorrentTiles(data.torrents);
             updateStats(data.stats);
+            updateCopierButton(data.copyqueuestate);
         }
     });
 };
@@ -71,3 +72,14 @@ function updateStats(stats)
     rerenderText('innerhider', '<circle cx="60.5" cy="61" r="49.5" stroke-dasharray="'+stats.activedownloads.fill+' '+stats.activedownloads.gap+'" stroke-dashoffset="'+stats.activedownloads.offset+'" /><circle cx="60.5" cy="61" r="36.5" stroke-dasharray="'+stats.activeuploads.fill+' '+stats.activeuploads.gap+'" stroke-dashoffset="'+stats.activeuploads.offset+'" />');
     rerenderText('outerhider', '<circle cx="60.5" cy="61" r="49.5" stroke-dasharray="'+stats.downloadcount.fill+' '+stats.downloadcount.gap+'" stroke-dashoffset="'+stats.downloadcount.offset+'" /><circle cx="60.5" cy="61" r="36.5" stroke-dasharray="'+stats.uploadcount.fill+' '+stats.uploadcount.gap+'" stroke-dashoffset="'+stats.uploadcount.offset+'" />');
 };
+
+
+
+// Update copier button
+
+function updateCopierButton(copyqueuestate)
+{
+    rerenderAnimatedImage('ViewCopier_Overlay', 'copyoverlay_'+copyqueuestate, 'gif')
+};
+
+

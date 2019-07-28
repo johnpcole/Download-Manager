@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from 'button.html' import buttontemplate %}
 {% from 'button.html' import disabledbuttontemplate %}
+{% from 'button.html' import disabledbuttonwithoverlaytemplate %}
 {% from 'button.html' import itembuttontemplate %}
 {% from 'dialog.html' import dialogtoptemplate %}
 {% from 'dialog.html' import dialogbottomtemplate %}
@@ -250,7 +251,7 @@ Section: Read-Only-Mode Action Buttons
 
             {{ disabledbuttontemplate("Edit", "editTorrentConfiguration()", "torrentaction_edit", "edit") }}
 
-            {{ disabledbuttontemplate("Copy", "copyTorrent()", "torrentaction_copy", "copy") }}
+            {{ disabledbuttonwithoverlaytemplate("Copy", "copyTorrent()", "torrentaction_copy", "copyoverlay_"+copyqueuestate, "copy") }}
 
             {{ buttontemplate("Delete", "deleteTorrent()", "torrentaction_delete", "delete") }}
 
@@ -313,6 +314,10 @@ Dialog-Content
 {% block hiddendata %}
 
  --><div class="hidden">
+         <img src="{{ url_for('static', filename='images/copyoverlay_attention.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copyoverlay_completed.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copyoverlay_incomplete.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copyoverlay_nothing.gif') }}" />
     </div><!--
 
 {% endblock %}

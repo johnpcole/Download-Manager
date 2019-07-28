@@ -2,6 +2,10 @@ from ....common_components.filesystem_framework import filesystem_module as File
 from .copyaction_subcomponent import copyaction_module as CopyAction
 from ....common_components.datetime_datatypes import datetime_module as DateTime
 from ....common_components.logging_framework import logging_module as Logging
+from ....common_components.dataconversion_framework import dataconversion_module as Functions
+from .copysettracker_subcomponent import copysettracker_module as CopySetTracker
+
+
 
 
 class DefineCopyTracker:
@@ -90,7 +94,7 @@ class DefineCopyTracker:
 
 		queuetest = True
 		for actionid in self.copyactions.keys():
-			if self.copyactions[actionid].confirmstatus("Queued") == True:
+			if self.copyactions[actionid].getstatus == "Queued":
 				queuetest = False
 
 		return queuetest
@@ -102,9 +106,9 @@ class DefineCopyTracker:
 		nextactionid = self.noaction
 
 		for actionid in self.copyactions.keys():
-			if self.copyactions[actionid].confirmstatus("In Progress"):
+			if self.copyactions[actionid].getstatus() == "In Progress":
 				inprogressflag = True
-			elif self.copyactions[actionid].confirmstatus("Queued"):
+			elif self.copyactions[actionid].getstatus() == "Queued":
 				if nextactionid == self.noaction:
 					nextactionid = actionid
 
@@ -146,16 +150,17 @@ class DefineCopyTracker:
 		return outcome
 
 
-	def getcopierpagedata(self):
+	def getcopierpagedata(self, torrentidlist):
 
 		outcome = []
 		for actionid in self.copyactions.keys():
 			if actionid != self.refreshfolders:
-				datetime = actionid[:4] + "-" + actionid[4:6] + "-" + actionid[6:8] + " "
-				datetime = datetime + actionid[8:10] + ":" + actionid[10:12] + ":" + actionid[12:14]
-				datetime = datetime + " [" + actionid[14:] + "]"
-				newitem = {'copyid': actionid, 'datetimestamp': datetime}
+				newitem = {'copyid': actionid, 'datetimestamp': Functions.sanitisecopydatetimestamp(actionid)}
 				newitem.update(self.copyactions[actionid].getactioncopierpagedata())
+				if newitem['torrentid'] in torrentidlist:
+					newitem['stillavailable'] = "Yes"
+				else:
+					newitem['stillavailable'] = "No"
 				outcome.append(newitem)
 
 		return outcome
@@ -174,5 +179,18 @@ class DefineCopyTracker:
 
 		return outcome
 
+
+
+	def gettorrentcopystate(self, torrentid):
+
+		if torrentid == "":
+			tracker = CopySetTracker.createglobalcopytracker(self.copyactions[self.refreshfolders].gettorrentid())
+		else:
+			tracker = CopySetTracker.createtorrentcopytracker(torrentid)
+
+		for actionid in self.copyactions.keys():
+			tracker.updatestatus(self.copyactions[actionid])
+
+		return tracker.getstatus()
 
 

@@ -12,7 +12,8 @@ function saveTorrentConfiguration()
     } else {
         newinstructions = { 'torrenttype' : newtype, 'moviename' : getFieldValue("moviename"), 'fileinstructions' : getUnknownTorrentFileInstructions() };
     };
-    updateCopyButton(getImageName('Status').substr(7), newtype);
+    updateCopyButton(getImageName('Status').substr(7), newtype, getImageName('Copy_Overlay').substr(12));
+    updateDeleteButton(getImageName('Copy_Overlay').substr(12));
     updateTorrentConfig(newinstructions);
 };
 

@@ -14,14 +14,19 @@ function updateStartStopButtons(torrentstate)
 };
 
 
-function updateCopyButton(torrentstate, torrenttype)
+function updateCopyButton(torrentstate, torrenttype, copyqueuestate)
 {
     var torrentstateprefix = torrentstate.substr(0, 7);
     if ((torrentstateprefix == "seeding") && (torrenttype != "unknown")) {
-        changeButtonState('Copy', 'Enable');
+        if ((copyqueuestate == "nothing") || (copyqueuestate == "completed")) {
+            changeButtonState('Copy', 'Enable');
+        } else {
+            changeButtonState('Copy', 'Disable');
+        };
     } else {
         changeButtonState('Copy', 'Disable');
     };
+    rerenderAnimatedImage('Copy_Overlay', 'copyoverlay_'+copyqueuestate, 'gif')
 };
 
 
@@ -36,3 +41,15 @@ function updateEditButton()
         changeButtonState('Edit', 'Disable');
     };
 };
+
+
+
+function updateDeleteButton(copyqueuestate)
+{
+    if ((copyqueuestate == "nothing") || (copyqueuestate == "completed")) {
+        changeButtonState('Delete', 'Enable');
+    } else {
+        changeButtonState('Delete', 'Disable');
+    };
+};
+

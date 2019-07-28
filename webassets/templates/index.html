@@ -5,6 +5,7 @@
 {% from 'meter.html' import meterlinetemplate %}
 {% from 'meter.html' import meterendtemplate %}
 {% from 'button.html' import buttontemplate %}
+{% from 'button.html' import buttonwithoverlaytemplate %}
 {% from 'dialog.html' import dialogtoptemplate %}
 {% from 'dialog.html' import dialogbottomtemplate %}
 {% from 'icons.html' import thermometertemplate %}
@@ -139,7 +140,7 @@ Start-All-Button
 
 Copier-Button
 
-        {{ buttontemplate("ViewCopier", "window.location.href = '/Copier'", "copier", "view copier") }}
+        {{ buttonwithoverlaytemplate("ViewCopier", "window.location.href = '/Copier'", "copier", "copyoverlay_"+copyqueuestate, "view copier") }}
 
 Rescan-File-Server-Button
 
@@ -188,6 +189,10 @@ Dialog-Content
 {% block hiddendata %}
 
  --><div class="hidden">
+         <img src="{{ url_for('static', filename='images/copyoverlay_attention.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copyoverlay_completed.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copyoverlay_incomplete.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copyoverlay_nothing.gif') }}" />
     </div><!--
 
 {% endblock %}

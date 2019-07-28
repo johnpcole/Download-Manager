@@ -21,6 +21,8 @@ function confirmCopy()
         },
         success: function(data){
             closeCopyDialog();
+            updateCopyButton(getImageName('Status').substr(7), getImageName('TorrentType').substr(5), 'incomplete');
+            updateDeleteButton(getImageName('Copy_Overlay').substr(12));
             $('#ajaxloader').hide();
         }
     });

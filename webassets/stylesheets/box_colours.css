@@ -43,6 +43,17 @@
 }
 
 .tilesgroup > a:hover {
-    background-color: #222222;
+    background-color: #FFFF55;
+    /* background-image: url("/webassets/images/tile_lightener.png"); */
+    color: #000000
+}
+
+.tilesgroup > a:hover img {
+    -webkit-filter: brightness(0) saturate(0) contrast(10);
+    filter: brightness(0) saturate(0) contrast(10);
+}
+
+.tilesgroup > a:hover > div.tilesplitter {
+    border-color: #000000;
 }
 

@@ -81,22 +81,33 @@ div.actionbuttonsgroup {
     box-shadow: 3px 3px 2px #AAAAAA;
     overflow: hidden;
     display: inline-block;
+    position: relative;
 }
 
 .actionbuttonsgroup button:hover:enabled {
-    background-color: #777777;
+    background-color: #FFFF55;
 }
 
-.actionbuttonsgroup button > img {
+.actionbuttonsgroup button > img:first-of-type {
     width: 36px;
     height: 36px;
     margin: auto;
     display: inline-block;
 }
 
-.actionbuttonsgroup button:disabled > img {
+.actionbuttonsgroup button:disabled > img:first-of-type {
     -webkit-filter: brightness(3) saturate(9);
     filter: brightness(3) saturate(9);
+}
+
+.actionbuttonsgroup button > img:nth-of-type(2) {
+    width: 15px;
+    height: 15px;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
 }
 
 

@@ -29,7 +29,8 @@ class DefineTorrentSet:
 		self.torrentmanager.refreshtorrentlist("Manager")
 		self.monitormanager.refreshsessionmeters(self.torrentmanager.getsessiondata())
 		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
-				'stats': self.monitormanager.getsessionmeters()}
+				'stats': self.monitormanager.getsessionmeters(),
+				'copyqueuestate': self.librarymanager.gettorrentcopystate("")}
 
 
 
@@ -52,7 +53,8 @@ class DefineTorrentSet:
 		self.torrentmanager.refreshtorrentlist("Manager")
 		self.monitormanager.refreshsessionmeters(self.torrentmanager.getsessiondata())
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
-				'stats': self.monitormanager.getsessionmeters()}
+				'stats': self.monitormanager.getsessionmeters(),
+				'copyqueuestate': self.librarymanager.gettorrentcopystate("")}
 
 
 
@@ -65,7 +67,8 @@ class DefineTorrentSet:
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Loading Specific Torrent Page", torrentid)
 			self.torrentmanager.refreshtorrentdata(torrentid)
-			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise")}
+			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
+					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
 		else:
 			Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
 
@@ -85,7 +88,8 @@ class DefineTorrentSet:
 			else:
 				Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
 			self.torrentmanager.refreshtorrentdata(torrentid)
-			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh")}
+			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
+					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
 		else:
 			Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
 
@@ -203,7 +207,7 @@ class DefineTorrentSet:
 	def displaycopier(self):
 
 		Logging.printinvocation("Loading Copier Page", "")
-		return {'copyactions': self.librarymanager.getcopierpagedata()}
+		return {'copyactions': self.librarymanager.getcopierpagedata(self.torrentmanager.gettorrentidlist())}
 
 
 
