@@ -43,7 +43,7 @@
 }
 
 .tilesgroup > a:hover {
-    background-color: #222222;
+    /* background-color: #222222; */
     color: #000000
 }
 
@@ -51,3 +51,8 @@
     -webkit-filter: brightness(0) saturate(0) contrast(10);
     filter: brightness(0) saturate(0) contrast(10);
 }
+
+.tilesgroup > a:hover > div.tilesplitter {
+    border-color: #000000;
+}
+
