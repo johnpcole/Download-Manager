@@ -15,6 +15,9 @@ td {
 
 table.logs tr:hover {
   color:#000000;
+}
+
+table.logs tr:hover td {
   background-color: #FFFF55;
 }
 
@@ -113,6 +116,11 @@ tr.invocation img {
     width: 6px;
 }
 
+tr.invocation:hover img {
+    -webkit-filter: invert(0%);
+    filter: invert(0%);
+}
+
 
 /* =================================================== */
 
@@ -146,6 +154,8 @@ table.copier img {
     filter: invert(100%);
 }
 
+
+
 /* Icon Cell */
 table.copier > tbody > tr:first-of-type > td:first-of-type {
     width: 60px;
@@ -170,6 +180,9 @@ table.copier > tbody > tr:nth-of-type(2) > td {
 
 table.copier > tbody:hover {
     color:#000000;
+}
+
+table.copier > tbody:hover td {
     background-color: #FFFF55;
 }
 
