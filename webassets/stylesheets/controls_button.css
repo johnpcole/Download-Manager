@@ -85,7 +85,7 @@ div.actionbuttonsgroup {
 }
 
 .actionbuttonsgroup button:hover:enabled {
-    background-color: #777777;
+    background-color: #FFFF55;
 }
 
 .actionbuttonsgroup button > img:first-of-type {
