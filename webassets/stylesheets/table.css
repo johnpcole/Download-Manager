@@ -13,7 +13,10 @@ td {
 
 /* ======================================================================== */
 
-table.logs tr:hover {color:#000000;}
+table.logs tr:hover {
+  color:#000000;
+  background-color: #FFFF55;
+}
 
 table.logs tr {
   border-bottom: 1px solid #DDDDEE;
@@ -167,6 +170,7 @@ table.copier > tbody > tr:nth-of-type(2) > td {
 
 table.copier > tbody:hover {
     color:#000000;
+    background-color: #FFFF55;
 }
 
 table.copier > tbody:hover img {
