@@ -44,6 +44,7 @@
 
 .tilesgroup > a:hover {
     /* background-color: #222222; */
+    background-image: url("/webassets/images/tile_lightener.png");
     color: #000000
 }
 
