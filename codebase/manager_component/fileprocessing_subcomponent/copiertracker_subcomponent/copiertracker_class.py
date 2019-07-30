@@ -43,7 +43,10 @@ class DefineCopierTracker:
 
 		nextactionid = self.findnextqueuedaction()
 
-		Logging.printout(PrivateFunctions.getcopieractiondescription(nextactionid, self.copieractions[nextactionid]))
+		if nextactionid == self.nullaction:
+			Logging.printout("Null Request to Copier")
+		else:
+			Logging.printout(PrivateFunctions.getcopieractiondescription(nextactionid, self.copieractions[nextactionid]))
 
 		if nextactionid != self.nullaction:
 			self.copieractions[nextactionid].updatestatusandresultdetail("In Progress", "")
@@ -57,7 +60,10 @@ class DefineCopierTracker:
 
 	def updatecopieractionwithresult(self, copyid, newstatus, newresultdetail):
 
-		Logging.printout("Request " + copyid + " returned with result <" + newstatus + ">")
+		if copyid == self.nullaction:
+			Logging.printout("Null Request returned from copier")
+		else:
+			Logging.printout("Request " + copyid + " returned with result <" + newstatus + ">")
 
 		if copyid != self.nullaction:
 			if copyid in self.copieractions.keys():
