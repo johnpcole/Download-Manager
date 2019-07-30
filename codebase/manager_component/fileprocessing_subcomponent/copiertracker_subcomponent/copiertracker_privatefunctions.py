@@ -1,6 +1,6 @@
 def getcopieractiondescription(copyid, copieritem):
 
-	data = copieritem.getcopierinstruction(copyid)
+	data = copieritem.getcopieractioninstruction(copyid)
 
 	if data['action'] == "Scrape TV Shows":
 		outcome = "Request " + copyid + " to scrape TV Show folders"
