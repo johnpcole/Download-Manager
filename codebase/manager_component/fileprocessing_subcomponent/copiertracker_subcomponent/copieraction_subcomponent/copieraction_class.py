@@ -67,7 +67,7 @@ class DefineCopierActionItem:
 
 		outcome = False
 		if self.actiontype.get("Scrape TV Shows") == True:
-			if self.status.get("Suceeded") == True:
+			if self.status.get("Succeeded") == True:
 				outcome = True
 
 		return outcome

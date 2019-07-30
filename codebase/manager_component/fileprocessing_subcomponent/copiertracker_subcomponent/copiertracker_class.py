@@ -63,7 +63,7 @@ class DefineCopierTracker:
 		if copyid == self.nullaction:
 			Logging.printout("Null Request returned from copier")
 		else:
-			Logging.printout("Request " + copyid + " returned with result <" + newstatus + ">")
+			Logging.printout("Request " + copyid + " returned from copier with result <" + newstatus + ">")
 
 		if copyid != self.nullaction:
 			if copyid in self.copieractions.keys():
