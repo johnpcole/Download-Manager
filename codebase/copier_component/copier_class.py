@@ -25,18 +25,10 @@ class DefineCopier:
 			self.scraper.posttourl(self.lastinstruction.getstatus())
 			newinstruction = self.scraper.getjsonresult()
 			if CopyInstruction.isvalidinstruction(newinstruction) == True:
-				if CopyInstruction.isalldone(newinstruction['copyid']) == True:
+				if CopyInstruction.isalldone(newinstruction) == True:
 					longwait = self.performafinish()
 				else:
-					if CopyInstruction.isfolderrefresh(newinstruction['copyid']) == True:
-						self.performafolderrefresh()
-					else:
-						self.performacopy(newinstruction['copyid'], newinstruction['source'],
-														newinstruction['target'], newinstruction['overwrite'])
-			else:
-				print("Invalid response from Download-Manager:")
-				print(newinstruction)
-				print("====================================")
+					self.performanaction(newinstruction)
 
 		if longwait == True:
 			self.delayer.waitlong()
@@ -44,12 +36,19 @@ class DefineCopier:
 			self.delayer.waitshort()
 
 
+	def performanaction(self, newinstruction):
+		if CopyInstruction.isfolderrefresh(newinstruction) == True:
+			self.performafolderrefresh(newinstruction['copyid'])
+		else:
+			self.performafilecopy(newinstruction['copyid'], newinstruction['source'],
+							  newinstruction['target'], newinstruction['overwrite'])
 
-	def performafolderrefresh(self):
-		self.lastinstruction.setrefreshfolders()
+
+
+	def performafolderrefresh(self, copyid):
+		self.lastinstruction.settonew(copyid, "Scrape TV Shows")
 		copyoutcome = self.filemanager.scrapetvshows()
 		self.lastinstruction.updatenotes(copyoutcome)
-
 
 
 	def performafinish(self):
@@ -61,8 +60,8 @@ class DefineCopier:
 		return longwait
 
 
-	def performacopy(self, copyid, source, target, forcemode):
-		self.lastinstruction.settonew(copyid)
+	def performafilecopy(self, copyid, source, target, forcemode):
+		self.lastinstruction.settonew(copyid, "File Copy")
 		copyoutcome = self.filemanager.performcopy(source, target, forcemode)
 		self.lastinstruction.updatestatus(copyoutcome)
 

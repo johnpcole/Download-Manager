@@ -1,4 +1,4 @@
-from . import copytracker_class as CopyTrackerClass
+from . import copiertracker_class as CopierTrackerClass
 
 
 # =========================================================================================
@@ -7,5 +7,5 @@ from . import copytracker_class as CopyTrackerClass
 # =========================================================================================
 
 def createtracker():
-	return CopyTrackerClass.DefineCopyTracker()
+	return CopierTrackerClass.DefineCopierTracker()
 

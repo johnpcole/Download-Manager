@@ -1,4 +1,4 @@
-from .copytracker_subcomponent import copytracker_module as CopyTracker
+from .copiertracker_subcomponent import copiertracker_module as CopierTracker
 from .tvshows_subcomponent import tvshows_module as TVShows
 
 
@@ -9,7 +9,7 @@ class DefineLibraryManager:
 
 		self.tvshows = TVShows.createtvshows()
 
-		self.copytracker = CopyTracker.createtracker()
+		self.copiertracker = CopierTracker.createtracker()
 
 # =========================================================================================
 # Connects to the file server, and compiles a list of tv shows and seasons to store locally
@@ -17,7 +17,7 @@ class DefineLibraryManager:
 
 	def discovertvshows(self):
 
-		self.copytracker.queuefolderrefresh()
+		self.copiertracker.queuefolderrefresh()
 
 
 # =========================================================================================
@@ -43,38 +43,41 @@ class DefineLibraryManager:
 
 	def queuefilecopy(self, newcopyactions):
 
-		self.copytracker.queuenewactions(newcopyactions)
+		self.copiertracker.queuenewfilecopyactions(newcopyactions)
 
 
 # =========================================================================================
 
 	def processnextcopyaction(self):
 
-		return self.copytracker.startnextaction()
+		return self.copiertracker.startnextcopieraction()
 
 
 # =========================================================================================
 
-	def importcopieroutcome(self, copyid, newstatus, notes):
+	def importcopieroutcome(self, copyid, newstatus, resultdetail):
 
-		refreshdata = self.copytracker.updatecopyaction(copyid, newstatus)
-		if refreshdata is True:
-			self.tvshows.importtvshows(notes)
+		self.copiertracker.updatecopieractionwithresult(copyid, newstatus, resultdetail)
+
+		if self.copiertracker.shouldrefreshtvshowdata(copyid) is True:
+			self.tvshows.importtvshows(resultdetail)
 
 
+	def getcopierpageload(self, torrentidlist):
 
-	def getcopierpagedata(self, torrentidlist):
+		return self.copiertracker.getcopierpagedata(torrentidlist, "initialise")
 
-		return self.copytracker.getcopierpagedata(torrentidlist)
+	def getcopierpageupdate(self):
 
-	def getcopierpageupdatedata(self):
-
-		return self.copytracker.getcopierpageupdatedata()
+		return self.copiertracker.getcopierpagedata({}, "refresh")
 
 	def gettorrentcopystate(self, torrentid):
 
-		return self.copytracker.gettorrentcopystate(torrentid)
+		return self.copiertracker.getcopysetstate(torrentid)
 
+	def getoverallcopierstate(self):
+
+		return self.copiertracker.getcopysetstate("")
 
 
 

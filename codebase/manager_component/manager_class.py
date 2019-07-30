@@ -30,7 +30,7 @@ class DefineTorrentSet:
 		self.monitormanager.refreshsessionmeters(self.torrentmanager.getsessiondata())
 		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 				'stats': self.monitormanager.getsessionmeters(),
-				'copyqueuestate': self.librarymanager.gettorrentcopystate("")}
+				'copyqueuestate': self.librarymanager.getoverallcopierstate()}
 
 
 
@@ -54,7 +54,7 @@ class DefineTorrentSet:
 		self.monitormanager.refreshsessionmeters(self.torrentmanager.getsessiondata())
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
 				'stats': self.monitormanager.getsessionmeters(),
-				'copyqueuestate': self.librarymanager.gettorrentcopystate("")}
+				'copyqueuestate': self.librarymanager.getoverallcopierstate()}
 
 
 
@@ -207,7 +207,7 @@ class DefineTorrentSet:
 	def displaycopier(self):
 
 		Logging.printinvocation("Loading Copier Page", "")
-		return {'copyactions': self.librarymanager.getcopierpagedata(self.torrentmanager.gettorrentidlist())}
+		return {'copyactions': self.librarymanager.getcopierpageload(self.torrentmanager.gettorrentidlist())}
 
 
 
@@ -218,7 +218,7 @@ class DefineTorrentSet:
 	def updatecopierpage(self):
 
 		Logging.printinvocation("Refreshing Copier Page", "")
-		return {'copyactions': self.librarymanager.getcopierpageupdatedata()}
+		return {'copyactions': self.librarymanager.getcopierpageupdate()}
 
 
 

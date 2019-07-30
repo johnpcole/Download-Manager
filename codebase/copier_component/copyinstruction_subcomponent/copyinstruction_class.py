@@ -5,9 +5,11 @@ class DefineInstruction:
 
 		self.copyid = "00000000000000000"
 
+		self.actiontype = "Null"
+
 		self.status = "All Done"
 
-		self.notes = ""
+		self.resultsnotes = ""
 
 # =========================================================================================
 
@@ -18,44 +20,41 @@ class DefineInstruction:
 
 	def updatenotes(self, newnotes):
 
-		self.notes = newnotes
+		self.resultsnotes = newnotes
 
 		self.status = "Succeeded"
 
-	def settonew(self, copyid):
+	def settonew(self, copyid, actiontype):
 
 		self.copyid = copyid
 
+		self.actiontype = actiontype
+
 		self.status = "In Progress"
 
-		self.notes = {}
+		self.resultsnotes = {}
 
 	def setalldone(self):
 
 		self.copyid = "00000000000000000"
 
+		self.actiontype = "Null"
+
 		self.status = "All Done"
 
-		self.notes = {}
-
-	def setrefreshfolders(self):
-
-		self.copyid = "-----------------"
-
-		self.status = "In Progress"
-
-		self.notes = {}
+		self.resultsnotes = {}
 
 
 	def isalldone(self):
 
-		if self.copyid == "00000000000000000":
+		if self.actiontype == "Null":
 			outcome = True
 		else:
 			outcome = False
 		return outcome
 
+
 	def getstatus(self):
 
-		return {'copyid': self.copyid, 'outcome': self.status, 'notes': self.notes}
+		return {'copyid': self.copyid, 'outcome': self.status, 'notes': self.resultsnotes}
 
