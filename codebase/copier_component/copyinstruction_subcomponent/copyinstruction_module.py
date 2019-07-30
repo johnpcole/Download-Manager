@@ -5,15 +5,15 @@ def createinstruction():
 	return CopyInstructionClass.DefineInstruction()
 
 
-def isalldone(copyid):
-	if copyid == "00000000000000000":
+def isalldone(newinstructionset):
+	if newinstructionset['action'] == "Null":
 		outcome = True
 	else:
 		outcome = False
 	return outcome
 
-def isfolderrefresh(copyid):
-	if copyid == "-----------------":
+def isfolderrefresh(newinstructionset):
+	if newinstructionset['action'] == "Scrape TV Shows":
 		outcome = True
 	else:
 		outcome = False
@@ -25,13 +25,22 @@ def isvalidinstruction(newinstructionset):
 		outcome = True
 		if "copyid" not in newinstructionset.keys():
 			outcome = False
-		if "source" not in newinstructionset.keys():
+		if "action" not in newinstructionset.keys():
 			outcome = False
-		if "target" not in newinstructionset.keys():
-			outcome = False
-		if "overwrite" not in newinstructionset.keys():
-			outcome = False
+		else:
+			if newinstructionset['action'] == "File Copy":
+				if "source" not in newinstructionset.keys():
+					outcome = False
+				if "target" not in newinstructionset.keys():
+					outcome = False
+				if "overwrite" not in newinstructionset.keys():
+					outcome = False
 	else:
 		outcome = False
+
+	if outcome == False:
+		print("Invalid response from Download-Manager:")
+		print(newinstructionset)
+		print("====================================")
 	return outcome
 
