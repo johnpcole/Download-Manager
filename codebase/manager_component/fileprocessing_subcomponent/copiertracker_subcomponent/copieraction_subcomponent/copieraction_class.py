@@ -95,7 +95,7 @@ class DefineCopierActionItem:
 					'copyid': actionid,
 					'datetimestamp': Functions.sanitisecopydatetimestamp(actionid)}
 
-		if self.actiontype.get("File Copy") == True:
+		if self.actiontype.get("Copy File") == True:
 			outcome['target'] = Functions.sanitisetargetpath(self.target)
 			outcome['source'] = self.source
 			outcome['torrentid'] = self.torrentid
