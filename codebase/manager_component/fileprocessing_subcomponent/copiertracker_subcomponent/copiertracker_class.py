@@ -50,7 +50,7 @@ class DefineCopierTracker:
 
 		if nextactionid != self.nullaction:
 			self.copieractions[nextactionid].updatestatusandresultdetail("In Progress", "")
-			outcome = self.copieractions[nextactionid].getcopierinstruction(nextactionid)
+			outcome = self.copieractions[nextactionid].getcopieractioninstruction(nextactionid)
 		else:
 			outcome = {'copyid': self.nullaction, 'action': "Null"}
 
