@@ -1,9 +1,9 @@
 [Unit]
-Description=Download Manager Monitoring Trigger Daemon
+Description=Download Manager Web Interface (using Flask development service)
 After=network-online.target mult-user.target
 
 [Service]
-ExecStart=/home/pi/Download-Manager/launch_monitor.sh
+ExecStart=/home/pi/Download-Manager/launcher.sh
 User=pi
 Group=pi
 #UMask=000

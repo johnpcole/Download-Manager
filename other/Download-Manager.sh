@@ -12,6 +12,6 @@ cp /mnt/Torrents-Disk/Download-Manager/data/application_logs/manager_2.log /mnt/
 cp /mnt/Torrents-Disk/Download-Manager/data/application_logs/manager_1.log /mnt/Torrents-Disk/Download-Manager/data/application_logs/manager_2.log
 cp /mnt/Torrents-Disk/Download-Manager/data/application_logs/manager_0.log /mnt/Torrents-Disk/Download-Manager/data/application_logs/manager_1.log
 
-python3 Download_Manager.py >/mnt/Torrents-Disk/Download-Manager/data/application_logs/manager_0.log 2>&1
+python3 manager_application.py >/mnt/Torrents-Disk/Download-Manager/data/application_logs/manager_0.log 2>&1
 
 

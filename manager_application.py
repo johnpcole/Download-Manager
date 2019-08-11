@@ -226,6 +226,6 @@ if __name__ == "__main__":
 		website.run(debug=True)
 else:
 	Logging.printinvocation("Starting Web Server as embedded application", "")
-	app = website
+
 
 
