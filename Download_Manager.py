@@ -219,12 +219,13 @@ def triggercopier():
 
 
 if __name__ == "__main__":
-	Logging.printinvocation("Starting Web Server (as standalone application)", "")
+	Logging.printinvocation("Starting Web Server as standalone application", "")
 	if torrentset.determinewebmode() == True:
 		website.run(debug=False, host='0.0.0.0')
 	else:
 		website.run(debug=True)
 else:
-	Logging.printinvocation("Starting Web Server (as embedded application)", "")
+	Logging.printinvocation("Starting Web Server as embedded application", "")
+	app = website
 
 
