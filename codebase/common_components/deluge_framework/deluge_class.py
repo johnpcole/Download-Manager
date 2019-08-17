@@ -14,7 +14,7 @@ class DefineDelugeInterface:
 		# This object captures the interface (including address & credentials) to be
 		# opened, closed, and used to pass messages to the daemon
 		self.delugeinterface = DelugeDaemonInterface(address, port, username, password)
-		print(address, port, username, password)
+
 		# The deluge keys used for gaining overall session data via the 'core.get_session_status' call
 		self.delugekeysforsessioninfo = ["payload_download_rate", "payload_upload_rate", "total_payload_upload"]
 
@@ -40,6 +40,7 @@ class DefineDelugeInterface:
 
 	def openconnection(self):
 
+		self.delugeinterface.connect()
 		# Logging.printout("- Connecting to Deluge Daemon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reasontext + ")</small>")
 		try:
 			while self.delugeinterface.connected == False:
@@ -84,6 +85,7 @@ class DefineDelugeInterface:
 
 	def retrievetorrentlist(self):
 
+		print(self.delugeinterface.call('core.get_session_state'))
 
 		try:
 			outcome = []
