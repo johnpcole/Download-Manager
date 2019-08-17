@@ -48,6 +48,8 @@ class DefineDelugeInterface:
 
 	def performdelugeaction(self, action, item):
 
+		print(self.delugeclient)
+
 		self.delugeclient.openconnection()
 
 		if action != "Refresh":

@@ -40,7 +40,6 @@ class DefineDelugeInterface:
 
 	def openconnection(self):
 
-		self.delugeinterface.connect()
 		# Logging.printout("- Connecting to Deluge Daemon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reasontext + ")</small>")
 		try:
 			while self.delugeinterface.connected == False:
@@ -84,8 +83,6 @@ class DefineDelugeInterface:
 # =========================================================================================
 
 	def retrievetorrentlist(self):
-
-		print(self.delugeinterface.call('core.get_session_state'))
 
 		try:
 			outcome = []
