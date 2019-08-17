@@ -1,6 +1,6 @@
-from . import copier_class as CopierClass
+from . import operator_class as OperatorClass
 
-def createcopier(webaddress, erasize, retrylimit):
+def createoperator(webaddress, erasize, retrylimit):
 
-	return CopierClass.DefineCopier(webaddress, erasize, retrylimit)
+	return OperatorClass.DefineOperator(webaddress, erasize, retrylimit)
 

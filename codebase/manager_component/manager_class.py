@@ -12,8 +12,8 @@ class DefineTorrentSet:
 		Logging.printinvocation("Initialising Manager for " + torrentsetname, "")
 
 		self.managername = torrentsetname
-		self.librarymanager = FileManager.createmanager()
-		self.torrentmanager = TorrentManager.createmanager(FileManager.gettorrentconnectionconfig())
+		self.librarymanager = FileManager.createfilemanager()
+		self.torrentmanager = TorrentManager.createtorrentmanager()
 		self.torrentmanager.setconfigs(FileManager.loadconfigs())
 		self.monitormanager = MonitorManager.createmonitor()
 		self.monitormanager.restoresavedhistory(FileManager.getmonitor(MonitorManager.getloadlist()))
@@ -258,6 +258,15 @@ class DefineTorrentSet:
 		return self.librarymanager.processnextcopyaction()
 
 
+	#===============================================================================================
+	# Process Operator Queue
+	#===============================================================================================
+
+	def triggeroperator(self, torrentdata, sessiondata):
+
+		Logging.printinvocation("Triggering Operator", "")
+		self.librarymanager.importcopieroutcome(latestcopyid, copyoutcome, notes)
+		return self.librarymanager.processnextcopyaction()
 
 
 

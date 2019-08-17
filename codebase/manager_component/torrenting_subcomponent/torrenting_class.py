@@ -1,4 +1,3 @@
-from ...common_components.deluge_framework import deluge_module as DelugeClient
 from .torrent_subcomponent import torrent_module as TorrentData
 from ...common_components.dataconversion_framework import dataconversion_module as Functions
 from ...common_components.logging_framework import logging_module as Logging
@@ -6,10 +5,7 @@ from ...common_components.logging_framework import logging_module as Logging
 
 class DefineTorrentManager:
 
-	def __init__(self, address, port, username, password):
-
-		# The information required to connect to the deluge daemon
-		self.delugeclient = DelugeClient.createinterface(address, port, username, password)
+	def __init__(self):
 
 		# The list of torrents in the deluge daemon; each item contains composite torrenting data (structured/layered dictionary)
 		self.torrents = []
@@ -17,16 +13,17 @@ class DefineTorrentManager:
 		# The dictionary of session data
 		self.sessiondata = {}
 
-		self.refreshtorrentlist("Manager")
+		self.nextdelugeaction = "Refresh"
+
+		self.nextdelugecontext = ""
+
 
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
 # =========================================================================================
 
-	def refreshtorrentlist(self, refreshmode):
+	def refreshtorrentlist(self, torrentdata):
 
-		# Open the connection to the Deluge Daemon
-		dummyoutcome = self.delugeclient.openconnection("Refresh Torrents List for " + refreshmode)
 
 		# Get the list of torrent GUIDs from the Delude Daemon (as a flat list)
 		reportedtorrentidlist = self.delugeclient.retrievetorrentlist()

@@ -54,3 +54,8 @@ class DefineDelayer:
 
 		Wait(seconds)
 
+
+	def reset(self):
+
+		self.latestcall.setfromobject(DateTime.getnow())
+

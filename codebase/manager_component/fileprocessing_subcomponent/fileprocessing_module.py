@@ -8,39 +8,9 @@ from ...common_components.logging_framework import logging_module as Logging
 # as well as lists of tv shows, and processes copy actions
 # =========================================================================================
 
-def createmanager():
+def createfilemanager():
 	return FileManagerClass.DefineLibraryManager()
 
-
-
-# =========================================================================================
-# Reads the configuration data for connecting to the torrent daemon, from a file
-# =========================================================================================
-
-def gettorrentconnectionconfig():
-	Logging.printout("Loading Deluge Daemon Connection Data")
-	credentials = FileSystem.readfromdisk('./data/application_config/torrent_connection.cfg')
-	outcome = { 'Address': credentials[0],
-				'Port': int(credentials[1]),
-				'Username': credentials[2],
-				'Password': credentials[3]}
-	return outcome
-
-
-
-# =========================================================================================
-# Reads the configuration data for connecting to the file server, from a file
-# =========================================================================================
-
-# def getlibraryconnectionconfig():
-# 	Logging.printout("Loading File-Server Connection Data")
-# 	credentials = FileSystem.readfromdisk('./data/application_config/library_connection.cfg')
-# 	outcome = { 'Mountpoint': credentials[0],
-# 				'Address': credentials[1],
-# 				'Username': credentials[2],
-# 				'Password': credentials[3]}
-# 	return outcome
-#
 
 
 # =========================================================================================

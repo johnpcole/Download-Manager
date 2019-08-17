@@ -188,19 +188,6 @@ def updatecopierpage():
 
 
 #===============================================================================================
-# Generate a Monitor History Item
-#===============================================================================================
-
-@website.route('/TriggerDownloadMonitor')
-def triggermonitor():
-
-	result = torrentset.triggermonitor()
-	return WebServer.makejson(**result)
-
-
-
-
-#===============================================================================================
 # Generate a Copier Interaction
 #===============================================================================================
 
@@ -209,6 +196,19 @@ def triggercopier():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.triggercopier(inputdata['copyid'], inputdata['outcome'], inputdata['notes'])
+	return WebServer.makejson(**result)
+
+
+
+#===============================================================================================
+# Generate a Copier Interaction
+#===============================================================================================
+
+@website.route('/TriggerDownloadOperator', methods=['POST'])
+def triggeroperator():
+
+	inputdata = WebServer.getrequestdata()
+	result = torrentset.triggeroperator(inputdata['torrents'], inputdata['sessiondata'])
 	return WebServer.makejson(**result)
 
 
