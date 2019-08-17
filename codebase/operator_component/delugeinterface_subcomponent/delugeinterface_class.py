@@ -10,7 +10,7 @@ class DefineDelugeInterface:
 		self.delugeclient = DelugeClient.createinterface(address, port, username, password)
 
 		# The list of torrents in the deluge daemon; each item contains composite torrenting data (structured/layered dictionary)
-		self.torrents = []
+		self.torrents = {}
 
 		# The dictionary of session data
 		self.sessiondata = {}
@@ -33,7 +33,7 @@ class DefineDelugeInterface:
 
 		# Update all the torrents' data relevent
 		if reportedtorrentidlist is not None:
-			self.torrents = []
+			self.torrents = {}
 			for torrentid in reportedtorrentidlist:
 				torrentdata = self.delugeclient.retrievetorrentdata(torrentid)
 				self.torrents[torrentid] = torrentdata
