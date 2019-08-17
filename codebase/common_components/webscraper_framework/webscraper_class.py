@@ -20,7 +20,7 @@ class DefineScraper:
 
 		self.webaddress = GenerateWebRequest(webaddress)
 
-		self.latestresult = {}
+		self.latestresult = ""
 
 		self.latestdatetime = DateTime.getnow()
 
@@ -34,11 +34,11 @@ class DefineScraper:
 		while tries < self.webcalltries:
 			try:
 				if datadictionary is None:
-					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext).read(1000)
+					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext).read(10000)
 				else:
 					unencodedpostdata = MakeJson(datadictionary)
 					postdata = unencodedpostdata.encode("ascii")
-					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext, data=postdata).read(1000)
+					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext, data=postdata).read(10000)
 				webresponse = rawwebresponse.decode("utf-8")
 				tries = 99999
 				self.latestresult = webresponse
