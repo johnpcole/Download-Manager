@@ -30,7 +30,7 @@ class DefineDelugeInterface:
 
 		# Get the list of torrent GUIDs from the Delude Daemon (as a flat list)
 		reportedtorrentidlist = self.delugeclient.retrievetorrentlist()
-		print("TORRENTLIST: "+reportedtorrentidlist)
+		print("TORRENTLIST: " + str(len(reportedtorrentidlist)))
 
 		# Update all the torrents' data relevent
 		if reportedtorrentidlist is not None:
