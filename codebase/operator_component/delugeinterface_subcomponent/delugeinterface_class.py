@@ -15,7 +15,7 @@ class DefineDelugeInterface:
 		# The dictionary of session data
 		self.sessiondata = {}
 
-		self.performdelugeaction("Refresh", "")
+		self.performdelugeaction("Refresh", "None")
 
 
 
