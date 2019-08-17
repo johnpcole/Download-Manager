@@ -20,7 +20,7 @@ class DefineScraper:
 
 		self.webaddress = GenerateWebRequest(webaddress)
 
-		self.latestresult = MakeJson({"action": "Refresh", "context": "None"})
+		self.latestresult = ""
 
 		self.latestdatetime = DateTime.getnow()
 
@@ -73,5 +73,10 @@ class DefineScraper:
 
 	def getjsonresult(self):
 
-		return ReadJson(self.latestresult)
+		try:
+			outcome = ReadJson(self.latestresult)
+		except:
+			outcome = {}
+
+		return outcome
 

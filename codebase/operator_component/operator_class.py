@@ -23,8 +23,13 @@ class DefineOperator:
 
 		self.scraper.posttourl(self.torrentmanager.getdelugedata())
 		newinstructions = self.scraper.getjsonresult()
-		newinstruction = newinstructions['action']
-		instructioncontext = newinstructions['context']
+		if ('action' in newinstructions.keys()) and ('context' in newinstructions.keys()):
+			newinstruction = newinstructions['action']
+			instructioncontext = newinstructions['context']
+		else:
+			newinstruction = "Null"
+			instructioncontext = "None"
+
 		if newinstruction == "Null":
 			if self.delayer.checkdelay() == True:
 				newinstruction = "Refresh"
