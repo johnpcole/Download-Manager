@@ -65,12 +65,8 @@ def loadconfigs():
 def getloggingdata(loggingmode):
 	Logging.printout("Loading Logs")
 	loggingoutput = []
-	for filename in ['9', '8', '7', '6', '5', '4', '3', '2', '1', '0']:
-		logcontents = FileSystem.readfromdisk('./data/application_logs/manager_' + filename + '.log')
-		if len(logcontents) > 0:
-			if filename != '9':
-				loggingoutput.append('--- RESTART SERVICE ---')
-			loggingoutput.extend(logcontents)
+	logcontents = FileSystem.readfromdisk('./data/application_logs/manager.log')
+	loggingoutput.extend(logcontents)
 	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
 

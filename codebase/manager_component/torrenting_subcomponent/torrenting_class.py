@@ -19,22 +19,15 @@ class DefineTorrentManager:
 
 	def refreshtorrentlist(self, torrentdata):
 
-
-		# Get the list of torrent GUIDs from the Delude Daemon (as a flat list)
-		reportedtorrentidlist = torrentdata.keys()
-
 		# Update the list of torrents to include new torrents not previously managed by Download-Manager
-		self.registermissingtorrents(reportedtorrentidlist)
+		self.registermissingtorrents(torrentdata.keys())
 
 		# Update the list of torrents to exclude torrents previously managed by Download-Manager
-		self.cleantorrentlist(reportedtorrentidlist)
+		self.cleantorrentlist(torrentdata.keys())
 
 		# Update all the torrents' data relevent for Download-Manager/Deluge-Monitor
 		self.refreshalltorrentdata(torrentdata)
 
-		# Get the overall session data from the Deluge Daemon (as a flat dictionary of values)
-		# as well as summing up individual torrent data already gathered
-		#self.refreshsessiondata()
 
 # =========================================================================================
 # Confirms whether the specified torrent id is registered in Download-Manager

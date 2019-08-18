@@ -47,9 +47,9 @@ class DefineMonitor:
 
 # =========================================================================================
 
-	def addtohistory(self):
+	#def addtohistory(self):
 
-		return self.monitorhistory.addhistoryentry(monitordata, Network.getvpnstatus(), PiThermometer.getoveralltemperature())
+		#return self.monitorhistory.addhistoryentry(monitordata, Network.getvpnstatus(), PiThermometer.getoveralltemperature())
 
 # =========================================================================================
 
