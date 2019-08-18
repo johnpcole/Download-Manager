@@ -17,16 +17,20 @@ class DefineMonitor:
 		# Determines whether the VPN is currently up or down
 		self.networkstatus = 0
 
+		# Torrent aggregate counts
+		self.torrentaggregates = {'downloadcount': 0, 'activedownloads': 0, 'uploadcount': 0, 'activeuploads': 0,
+									'redcount': 0, 'orangecount': 0, 'ambercount': 0, 'yellowcount': 0, 'greencount': 0}
 
 
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
 # =========================================================================================
 
-	def refreshsessionmeters(self, sessiondata):
+	def refreshmonitordata(self, sessiondata, torrentaggregates):
 
 		self.sessionmeters.updatesessiondata(sessiondata, PiThermometer.getoveralltemperature())
 		self.networkstatus = Network.getvpnstatus()
+		self.torrentaggregates = torrentaggregates
 
 # =========================================================================================
 # Generates an array of stat numerics, required to draw the meter graphs
@@ -43,7 +47,7 @@ class DefineMonitor:
 
 # =========================================================================================
 
-	def addtohistory(self, monitordata):
+	def addtohistory(self):
 
 		return self.monitorhistory.addhistoryentry(monitordata, Network.getvpnstatus(), PiThermometer.getoveralltemperature())
 

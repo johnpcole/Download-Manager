@@ -3,6 +3,7 @@ from .fileprocessing_subcomponent import fileprocessing_module as FileManager
 from .monitoring_subcomponent import monitoring_module as MonitorManager
 from ..common_components.logging_framework import logging_module as Logging
 from . import manager_privatefunctions as Waste
+from .operatortracker_subcomponent import operatortracker_module as DelugeManager
 
 
 class DefineTorrentSet:
@@ -17,6 +18,7 @@ class DefineTorrentSet:
 		self.torrentmanager.setconfigs(FileManager.loadconfigs())
 		self.monitormanager = MonitorManager.createmonitor()
 		self.monitormanager.restoresavedhistory(FileManager.getmonitor(MonitorManager.getloadlist()))
+		self.delugemanager = DelugeManager.createtracker()
 
 
 	#===============================================================================================
@@ -26,8 +28,9 @@ class DefineTorrentSet:
 	def initialiselistpage(self):
 
 		Logging.printinvocation("Loading All Torrents List Page", "")
+		self.delugemanager.queuenewrefreshaction()
 		self.torrentmanager.refreshtorrentlist("Manager")
-		self.monitormanager.refreshsessionmeters(self.torrentmanager.getsessiondata())
+		self.monitormanager.refreshmonitordata(self.torrentmanager.getaggregates())
 		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 				'stats': self.monitormanager.getsessionmeters(),
 				'copyqueuestate': self.librarymanager.getoverallcopierstate()}
@@ -40,9 +43,12 @@ class DefineTorrentSet:
 
 	def updatelistpage(self, bulkaction):
 
-		if (bulkaction == "Start") or (bulkaction == "Stop"):
-			Logging.printinvocation(bulkaction + "ing all Torrents", "")
-			self.torrentmanager.bulkprocessalltorrents(bulkaction)
+		if bulkaction == "Start":
+			Logging.printinvocation("Starting all Torrents", "")
+			self.delugemanager.queuenewresumeallaction()
+		elif bulkaction == "Stop":
+			Logging.printinvocation("Stopping all Torrents", "")
+			self.delugemanager.queuenewpauseallaction()
 		elif bulkaction == "RescanFileServer":
 			Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
 			self.librarymanager.discovertvshows()
@@ -50,8 +56,9 @@ class DefineTorrentSet:
 			Logging.printinvocation("Refreshing All Torrents List Page", "")
 		else:
 			Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
+		self.delugemanager.queuenewrefreshaction()
 		self.torrentmanager.refreshtorrentlist("Manager")
-		self.monitormanager.refreshsessionmeters(self.torrentmanager.getsessiondata())
+		self.monitormanager.refreshmonitordata(self.torrentmanager.getaggregates())
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
 				'stats': self.monitormanager.getsessionmeters(),
 				'copyqueuestate': self.librarymanager.getoverallcopierstate()}
@@ -66,7 +73,7 @@ class DefineTorrentSet:
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Loading Specific Torrent Page", torrentid)
-			self.torrentmanager.refreshtorrentdata(torrentid)
+			self.delugemanager.queuenewrefreshaction()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
 					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
 		else:
@@ -80,14 +87,17 @@ class DefineTorrentSet:
 	def updatetorrentpage(self, torrentid, torrentaction):
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
-			if (torrentaction == "Start") or (torrentaction == "Stop"):
-				Logging.printinvocation(torrentaction + "ing Torrent", torrentid )
-				self.torrentmanager.processonetorrent(torrentid, torrentaction)
+			if torrentaction == "Start":
+				Logging.printinvocation("Starting Torrent", torrentid)
+				self.delugemanager.queuenewresumetorrentaction(torrentid)
+			elif torrentaction == "Stop":
+				Logging.printinvocation("Stopping Torrent", torrentid)
+				self.delugemanager.queuenewpausetorrentaction(torrentid)
 			elif torrentaction == "Refresh":
 				Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
 			else:
 				Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
-			self.torrentmanager.refreshtorrentdata(torrentid)
+			self.delugemanager.queuenewrefreshaction()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
 					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
 		else:
@@ -118,7 +128,7 @@ class DefineTorrentSet:
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Deleting Torrent", torrentid)
-			self.torrentmanager.processonetorrent(torrentid, "Delete")
+			self.delugemanager.queuenewdeletetorrentaction(torrentid)
 			return {'deletedata': "Done"}
 		else:
 			Logging.printinvocation("Requested Deletion of Unknown Torrent", torrentid)
@@ -241,7 +251,8 @@ class DefineTorrentSet:
 
 		Logging.printinvocation("Triggering Monitor", "")
 		self.torrentmanager.refreshtorrentlist("Monitor")
-		outcome = self.monitormanager.addtohistory(self.torrentmanager.getsessiondata())
+		self.monitormanager.refreshmonitordata(self.torrentmanager.getaggregates())
+		outcome = self.monitormanager.addtohistory()
 		FileManager.savemonitor(outcome)
 		return {'monitordata': outcome}
 
@@ -265,8 +276,9 @@ class DefineTorrentSet:
 	def triggeroperator(self, torrentdata, sessiondata):
 
 		Logging.printinvocation("Triggering Operator", "")
-		self.librarymanager.importcopieroutcome(latestcopyid, copyoutcome, notes)
-		return self.librarymanager.processnextcopyaction()
+
+		self.torrentmanager.refreshtorrentlist(torrentdata)
+		return self.delugemanager.getnextoperatoraction()
 
 
 
