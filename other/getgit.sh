@@ -45,14 +45,11 @@ wget https://github.com/johnpcole/Download-Manager/archive/$1.zip
 echo "============================================================================================"
 unzip $1.zip
 echo "============================================================================================"
-echo "rewriting launch-manager.sh"
-sed -i "s+/mnt/Torrents-Disk/Download-Manager+/home/pi/$2+g" /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/launch_manager.sh
+echo "rewriting Download-Operator.sh"
+sed -i "s+/mnt/Torrents-Disk/Download-Manager+/home/pi/$2+g" /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/Download-Operator.sh
 echo "============================================================================================"
-echo "rewriting launch-monitor.sh"
-sed -i "s+/mnt/Torrents-Disk/Download-Manager+/home/pi/$2+g" /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/launch_monitor.sh
-echo "============================================================================================"
-echo "rewriting launch-copier.sh"
-sed -i "s+/mnt/Torrents-Disk/Download-Manager+/home/pi/$2+g" /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/launch_copier.sh
+echo "rewriting Download-Copier.sh"
+sed -i "s+/mnt/Torrents-Disk/Download-Manager+/home/pi/$2+g" /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/Download-Copier.sh
 echo "============================================================================================"
 echo "turning .sh files into executables"
 chmod --verbose 744 /home/pi/GETGITDOWNLOADTEMP/Download-Manager-$1/*.sh
