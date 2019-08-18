@@ -50,7 +50,7 @@ class DefineOperatorTracker:
 		else:
 			outcome = {'action': self.nullaction, 'context': "Null"}
 
-		print outcome
+		print(outcome)
 		return outcome
 
 # =========================================================================================
