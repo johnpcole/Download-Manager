@@ -22,8 +22,8 @@ class DefineOperator:
 
 		self.delayer.wait(5)
 
-		datatosend = {'temperature' : Thermometer.getoveralltemperature()}
-		datatosend.update(self.torrentmanager.getdelugedata())
+		datatosend = self.torrentmanager.getdelugedata()
+		datatosend['sessiondata'].update({'temperature': Thermometer.getoveralltemperature()})
 		self.scraper.posttourl(datatosend)
 		newinstructions = self.scraper.getjsonresult()
 		if ('action' in newinstructions.keys()) and ('context' in newinstructions.keys()):
