@@ -29,8 +29,6 @@ class DefineTorrentSet:
 
 		Logging.printinvocation("Loading All Torrents List Page", "")
 		self.delugemanager.queuenewrefreshaction()
-		self.torrentmanager.refreshtorrentlist("Manager")
-		self.monitormanager.refreshmonitordata(self.torrentmanager.getaggregates())
 		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 				'stats': self.monitormanager.getsessionmeters(),
 				'copyqueuestate': self.librarymanager.getoverallcopierstate()}
@@ -57,8 +55,6 @@ class DefineTorrentSet:
 		else:
 			Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
 		self.delugemanager.queuenewrefreshaction()
-		self.torrentmanager.refreshtorrentlist("Manager")
-		self.monitormanager.refreshmonitordata(self.torrentmanager.getaggregates())
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
 				'stats': self.monitormanager.getsessionmeters(),
 				'copyqueuestate': self.librarymanager.getoverallcopierstate()}
@@ -277,12 +273,12 @@ class DefineTorrentSet:
 
 		Logging.printinvocation("Triggering Operator", "")
 
-		self.torrentmanager.refreshtorrentlist(torrentdata)
+		if torrentdata is not None:
+			self.torrentmanager.refreshtorrentlist(torrentdata)
+			if sessiondata is not None:
+				self.monitormanager.refreshmonitordata(sessiondata, self.torrentmanager.getaggregates())
+
 		return self.delugemanager.getnextoperatoraction()
-
-
-
-
 
 
 

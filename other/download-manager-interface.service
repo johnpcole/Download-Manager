@@ -1,5 +1,5 @@
 [Unit]
-Descripton=Download Manager Web Interface (using uWSGI Service)
+Description=Download Manager Web Interface (using uWSGI Service)
 After=network-online.target mult-user.target
 
 [Service]

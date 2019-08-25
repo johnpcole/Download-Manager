@@ -1,5 +1,6 @@
 from ...common_components.deluge_framework import deluge_module as DelugeClient
 from ...common_components.logging_framework import logging_module as Logging
+from ...common_components.datetime_datatypes import datetime_module as DateTime
 
 
 class DefineDelugeInterface:
@@ -14,6 +15,8 @@ class DefineDelugeInterface:
 
 		# The dictionary of session data
 		self.sessiondata = {}
+
+		self.lastdatascrape = DateTime.createfromiso("20100101000000")
 
 		self.performdelugeaction("Refresh", "None")
 
@@ -43,6 +46,8 @@ class DefineDelugeInterface:
 		# Get the overall session data from the Deluge Daemon (as a flat dictionary of values)
 		# as well as summing up individual torrent data already gathered
 		self.sessiondata = self.delugeclient.retrievesessiondata()
+
+		self.lastdatascrape.settonow()
 
 # =========================================================================================
 
@@ -90,7 +95,13 @@ class DefineDelugeInterface:
 
 	def getdelugedata(self):
 
-		return {'sessiondata': self.sessiondata, 'torrents': self.torrents}
+		outcome = {'lastpolled': self.lastdatascrape.getiso()}
+		if self.torrents is not None:
+			outcome['torrents'] = self.torrents
+		if self.sessiondata is not None:
+			outcome['sessiondata'] = self.sessiondata
+
+		return outcome
 
 
 

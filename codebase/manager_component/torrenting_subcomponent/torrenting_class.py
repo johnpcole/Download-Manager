@@ -178,7 +178,7 @@ class DefineTorrentManager:
 			for indexkey in currenttorrent:
 				outcome[indexkey] = outcome[indexkey] + currenttorrent[indexkey]
 
-		self.sessiondata = outcome
+		return outcome
 
 
 # =========================================================================================
