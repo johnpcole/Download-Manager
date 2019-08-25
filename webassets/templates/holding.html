@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block bodycontext %}{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block javascript %}
+
+    <script src="{{ url_for('static', filename='javascript/index_update_torrentlist.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index_add_torrent.js') }}"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block banner %}
+
+ --><div id="IndexBanner" class="{{ stats.networkstatus }}"><!--
+
+Banner Content
+
+     --><div class="bannerbigheading">
+            <span>Download-Manager</span>
+        </div><!--
+
+ --></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block content %}
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block toolbar %}
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block dialogs %}
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block hiddendata %}
+
+ --><div class="hidden">
+    </div><!--
+
+{% endblock %}

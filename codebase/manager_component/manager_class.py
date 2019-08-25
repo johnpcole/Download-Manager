@@ -28,7 +28,10 @@ class DefineTorrentSet:
 
 		Logging.printinvocation("Loading All Torrents List Page", "")
 		self.delugemanager.queuenewrefreshaction()
-		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
+		if self.areconfigsloaded == False:
+			return {'waitingforinitialisation': True}
+		else:
+			return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 				'stats': self.monitormanager.getsessionmeters(),
 				'copyqueuestate': self.librarymanager.getoverallcopierstate()}
 
@@ -66,13 +69,17 @@ class DefineTorrentSet:
 
 	def initialisetorrentpage(self, torrentid):
 
-		if self.torrentmanager.validatetorrentid(torrentid) == True:
-			Logging.printinvocation("Loading Specific Torrent Page", torrentid)
-			self.delugemanager.queuenewrefreshaction()
-			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
-					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
+		if self.areconfigsloaded == False:
+			return {'waitingforinitialisation': True}
 		else:
-			Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
+			if self.torrentmanager.validatetorrentid(torrentid) == True:
+				Logging.printinvocation("Loading Specific Torrent Page", torrentid)
+				self.delugemanager.queuenewrefreshaction()
+				return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
+						'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
+			else:
+				Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
+				return {'waitingforinitialisation': True}
 
 
 	#===============================================================================================

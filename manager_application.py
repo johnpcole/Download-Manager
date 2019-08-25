@@ -18,7 +18,10 @@ website = WebServer.createwebsite(__name__)
 def initialiselistpage():
 
 	result = torrentset.initialiselistpage()
-	return WebServer.makehtml('index.html', **result)
+	if 'torrentlist' in result.keys():
+		return WebServer.makehtml('index.html', **result)
+	else:
+		return WebServer.makehtml('holding.html', **result)
 
 
 
@@ -43,7 +46,10 @@ def updatelistpage():
 def initialisetorrentpage(torrentid):
 
 	result = torrentset.initialisetorrentpage(torrentid)
-	return WebServer.makehtml('torrent.html', **result)
+	if 'torrentlist' in result.keys():
+		return WebServer.makehtml('torrent.html', **result)
+	else:
+		return WebServer.makehtml('holding.html', **result)
 
 
 
