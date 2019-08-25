@@ -44,9 +44,7 @@ class DefineSessionDataMeters:
 # storing them in the meter objects for later use
 # =========================================================================================
 
-	def updatesessiondata(self, delugesessiondata, temperaturedata):
-
-		self.temperature.setmetervalue(temperaturedata)
+	def updatesessiondata(self, delugesessiondata):
 
 		for indexkey in delugesessiondata:
 
@@ -64,6 +62,8 @@ class DefineSessionDataMeters:
 				self.uploadcount.setmetervalue(delugesessiondata[indexkey])
 			elif indexkey == 'activeuploads':
 				self.activeuploads.setmetervalue(delugesessiondata[indexkey])
+			elif indexkey == 'temperature':
+				self.temperature.setmetervalue(delugesessiondata[indexkey])
 			else:
 				tempo = 0
 

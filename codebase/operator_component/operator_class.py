@@ -2,6 +2,7 @@ from ..common_components.delayer_framework import delayer_module as Delayer
 from ..common_components.webscraper_framework import webscraper_module as WebScraper
 from .delugeinterface_subcomponent import delugeinterface_module as DelugeInterface
 from .configfile_subcomponent import configfile_module as FileManager
+from ..common_components.thermometer_framework import thermometer_module as Thermometer
 
 
 class DefineOperator:
@@ -21,7 +22,9 @@ class DefineOperator:
 
 		self.delayer.wait(5)
 
-		self.scraper.posttourl(self.torrentmanager.getdelugedata())
+		datatosend = {'temperature' : Thermometer.getoveralltemperature()}
+		datatosend.update(self.torrentmanager.getdelugedata())
+		self.scraper.posttourl(datatosend)
 		newinstructions = self.scraper.getjsonresult()
 		if ('action' in newinstructions.keys()) and ('context' in newinstructions.keys()):
 			newinstruction = newinstructions['action']

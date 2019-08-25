@@ -1,4 +1,3 @@
-from ...common_components.thermometer_framework import thermometer_module as PiThermometer
 from .sessiondatameters_subcomponent import sessiondatameters_module as SessionDataMeters
 from .network_subcomponent import network_module as Network
 from .history_subcomponent import history_module as History
@@ -28,7 +27,7 @@ class DefineMonitor:
 
 	def refreshmonitordata(self, sessiondata, torrentaggregates):
 
-		self.sessionmeters.updatesessiondata(sessiondata, PiThermometer.getoveralltemperature())
+		self.sessionmeters.updatesessiondata(sessiondata)
 		self.networkstatus = Network.getvpnstatus()
 		self.torrentaggregates = torrentaggregates
 
