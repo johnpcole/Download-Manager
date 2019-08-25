@@ -3,6 +3,7 @@ from ..common_components.webscraper_framework import webscraper_module as WebScr
 from .delugeinterface_subcomponent import delugeinterface_module as DelugeInterface
 from .configfile_subcomponent import configfile_module as FileManager
 from ..common_components.thermometer_framework import thermometer_module as Thermometer
+from .network_subcomponent import network_module as VPNStatus
 
 
 class DefineOperator:
@@ -24,6 +25,7 @@ class DefineOperator:
 
 		datatosend = self.torrentmanager.getdelugedata()
 		datatosend['sessiondata'].update({'temperature': Thermometer.getoveralltemperature()})
+		datatosend['sessiondata'].update({'vpnstatus': VPNStatus.getvpnstatus()})
 		self.scraper.posttourl(datatosend)
 		newinstructions = self.scraper.getjsonresult()
 		if ('action' in newinstructions.keys()) and ('context' in newinstructions.keys()):

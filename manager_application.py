@@ -46,7 +46,7 @@ def updatelistpage():
 def initialisetorrentpage(torrentid):
 
 	result = torrentset.initialisetorrentpage(torrentid)
-	if 'torrentlist' in result.keys():
+	if 'selectedtorrent' in result.keys():
 		return WebServer.makehtml('torrent.html', **result)
 	else:
 		return WebServer.makehtml('holding.html', **result)

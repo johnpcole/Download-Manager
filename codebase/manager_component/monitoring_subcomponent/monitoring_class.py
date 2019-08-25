@@ -1,5 +1,4 @@
 from .sessiondatameters_subcomponent import sessiondatameters_module as SessionDataMeters
-from .network_subcomponent import network_module as Network
 from .history_subcomponent import history_module as History
 
 
@@ -28,7 +27,10 @@ class DefineMonitor:
 	def refreshmonitordata(self, sessiondata, torrentaggregates):
 
 		self.sessionmeters.updatesessiondata(sessiondata)
-		self.networkstatus = Network.getvpnstatus()
+
+		if 'vpnstatus' in sessiondata.keys():
+			self.networkstatus = sessiondata['vpnstatus']
+
 		self.torrentaggregates = torrentaggregates
 
 # =========================================================================================
