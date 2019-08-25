@@ -245,18 +245,18 @@ class DefineTorrentSet:
 
 
 
-	#===============================================================================================
-	# Generate a Monitor History Item
-	#===============================================================================================
-
-	def triggermonitor(self):
-
-		Logging.printinvocation("Triggering Monitor", "")
-		self.torrentmanager.refreshtorrentlist("Monitor")
-		self.monitormanager.refreshmonitordata(self.torrentmanager.getaggregates())
-		outcome = self.monitormanager.addtohistory()
-		FileManager.savemonitor(outcome)
-		return {'monitordata': outcome}
+	# #===============================================================================================
+	# # Generate a Monitor History Item
+	# #===============================================================================================
+	#
+	# def triggermonitor(self):
+	#
+	# 	Logging.printinvocation("Triggering Monitor", "")
+	# 	self.torrentmanager.refreshtorrentlist("Monitor")
+	# 	self.monitormanager.refreshmonitordata(self.torrentmanager.getaggregates())
+	# 	outcome = self.monitormanager.addtohistory()
+	# 	FileManager.savemonitor(outcome)
+	# 	return {'monitordata': outcome}
 
 
 
@@ -285,6 +285,7 @@ class DefineTorrentSet:
 				self.torrentmanager.setconfigs(FileManager.loadconfigs())
 				self.areconfigsloaded = True
 			if sessiondata is not None:
+				print("MONITORING DATA: ",sessiondata)
 				self.monitormanager.refreshmonitordata(sessiondata, self.torrentmanager.getaggregates())
 
 		return self.delugemanager.getnextoperatoraction()
