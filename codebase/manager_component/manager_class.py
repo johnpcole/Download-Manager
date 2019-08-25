@@ -15,11 +15,10 @@ class DefineTorrentSet:
 		self.managername = torrentsetname
 		self.librarymanager = FileManager.createfilemanager()
 		self.torrentmanager = TorrentManager.createtorrentmanager()
-		self.torrentmanager.setconfigs(FileManager.loadconfigs())
 		self.monitormanager = MonitorManager.createmonitor()
 		self.monitormanager.restoresavedhistory(FileManager.getmonitor(MonitorManager.getloadlist()))
 		self.delugemanager = DelugeManager.createtracker()
-
+		self.areconfigsloaded = False
 
 	#===============================================================================================
 	# Load the Torrents List as new page
@@ -275,6 +274,9 @@ class DefineTorrentSet:
 
 		if torrentdata is not None:
 			self.torrentmanager.refreshtorrentlist(torrentdata)
+			if self.areconfigsloaded == False:
+				self.torrentmanager.setconfigs(FileManager.loadconfigs())
+				self.areconfigsloaded = True
 			if sessiondata is not None:
 				self.monitormanager.refreshmonitordata(sessiondata, self.torrentmanager.getaggregates())
 
