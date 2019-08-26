@@ -55,3 +55,11 @@ class DefinePointerMeter:
 		outcome['hf'] = decalwidth - horizontalfinal
 
 		return outcome
+
+
+	def getmetervalue(self):
+
+		return self.datavalue
+
+
+

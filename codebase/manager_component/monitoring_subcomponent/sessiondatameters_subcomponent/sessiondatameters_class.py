@@ -96,3 +96,10 @@ class DefineSessionDataMeters:
 		return outcome
 
 
+
+
+	def gettemperature(self):
+
+		return self.temperature.getmetervalue()
+
+

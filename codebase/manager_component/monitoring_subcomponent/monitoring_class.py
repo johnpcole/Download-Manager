@@ -50,7 +50,8 @@ class DefineMonitor:
 
 	def addtohistory(self):
 
-		return self.monitorhistory.addhistoryentry(self.sessionmeters.getstats(), self.networkstatus)
+		return self.monitorhistory.addhistoryentry(self.torrentaggregates, self.networkstatus,
+																				self.sessionmeters.gettemperature())
 
 # =========================================================================================
 
