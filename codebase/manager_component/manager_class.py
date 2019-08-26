@@ -1,9 +1,9 @@
 from .torrenting_subcomponent import torrenting_module as TorrentManager
 from .fileprocessing_subcomponent import fileprocessing_module as FileManager
 from .monitoring_subcomponent import monitoring_module as MonitorManager
+from .operatortracker_subcomponent import operatortracker_module as DelugeManager
 from ..common_components.logging_framework import logging_module as Logging
 from . import manager_privatefunctions as Waste
-from .operatortracker_subcomponent import operatortracker_module as DelugeManager
 
 
 class DefineTorrentSet:
@@ -190,10 +190,8 @@ class DefineTorrentSet:
 	def addnewtorrent(self, newurl):
 
 		Logging.printinvocation("Adding New Torrent", "")
-		newid = self.torrentmanager.addnewtorrenttoclient(newurl)
-		Waste.time()
-		#torrentmanager.refreshtorrentlist()
-		return {'newtorrentid': newid}
+		self.torrentmanager.queuenewaddtorrentaction(newurl)
+		return {'addtorrent': 'done'}
 
 
 
