@@ -26,6 +26,7 @@ class DefineTorrentItem:
 
 		self.torrentfiles = Files.createfilesdata()
 
+		self.istorrentvisible = True
 
 
 # =========================================================================================
@@ -210,4 +211,16 @@ class DefineTorrentItem:
 				newdestination = newdestination + " / " + pathnode
 			outcome.append(newdestination)
 		return outcome
+
+
+	def markasdeleted(self):
+
+		self.istorrentvisible = False
+
+
+	def isvisible(self):
+
+		return self.istorrentvisible
+
+
 

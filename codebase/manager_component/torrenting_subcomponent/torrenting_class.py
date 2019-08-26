@@ -73,7 +73,8 @@ class DefineTorrentManager:
 		outcome = []
 
 		for torrentitem in self.torrents:
-			outcome.append(torrentitem.getheadlinedata(datamode))
+			if torrentitem.isvisible() == True:
+				outcome.append(torrentitem.getheadlinedata(datamode))
 
 		return outcome
 
@@ -160,6 +161,11 @@ class DefineTorrentManager:
 
 		self.torrents = Functions.sortdictionary(cleanlist, 'dateadded', True)
 
+		print("====================================================================================================")
+		for tester in self.torrents:
+			print(tester.torrentid, tester.torrentname, tester.dateadded)
+		print("====================================================================================================")
+
 
 # =========================================================================================
 # Refreshes the torrenting session data, by connecting to the Deluge client and also
@@ -193,3 +199,10 @@ class DefineTorrentManager:
 
 
 # =========================================================================================
+
+	def markasdeteled(self, torrentid):
+
+		torrentobject = self.gettorrentobject(torrentid)
+		torrentobject.markasdeleted()
+
+

@@ -130,6 +130,7 @@ class DefineTorrentSet:
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Deleting Torrent", torrentid)
+			self.torrentmanager.markasdeteled(torrentid)
 			self.delugemanager.queuenewdeletetorrentaction(torrentid)
 			return {'deletedata': "Done"}
 		else:
