@@ -2,12 +2,11 @@ from . import historyitem_class as HistoryItemClass
 from .....common_components.datetime_datatypes import datetime_module as DateTime
 
 
-def createhistoryitem(datetime, aggregates, vpnstatus, temperature):
+def createhistoryitem(datetime, aggregates, vpnstatus, uploaded, temperature):
 
 	print("====================================")
 	print(aggregates)
 	print("====================================")
-	uploaded = aggregates['uploadedtotal']
 	red = aggregates['redcount']
 	orange = aggregates['orangecount']
 	amber = aggregates['ambercount']

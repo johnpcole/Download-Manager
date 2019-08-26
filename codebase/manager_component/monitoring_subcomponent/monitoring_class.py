@@ -15,6 +15,8 @@ class DefineMonitor:
 		# Determines whether the VPN is currently up or down
 		self.networkstatus = 0
 
+		self.uploadedtotal = 0
+
 		# Torrent aggregate counts
 		self.torrentaggregates = {'downloadcount': 0, 'activedownloads': 0, 'uploadcount': 0, 'activeuploads': 0,
 									'redcount': 0, 'orangecount': 0, 'ambercount': 0, 'yellowcount': 0, 'greencount': 0}
@@ -30,6 +32,9 @@ class DefineMonitor:
 
 		if 'vpnstatus' in sessiondata.keys():
 			self.networkstatus = sessiondata['vpnstatus']
+
+		if 'uploadedtotal' in sessiondata.keys():
+			self.uploadedtotal = sessiondata['uploadedtotal']
 
 		self.torrentaggregates = torrentaggregates
 
@@ -50,7 +55,7 @@ class DefineMonitor:
 
 	def addtohistory(self):
 
-		return self.monitorhistory.addhistoryentry(self.torrentaggregates, self.networkstatus,
+		return self.monitorhistory.addhistoryentry(self.torrentaggregates, self.networkstatus, self.uploadedtotal,
 																				self.sessionmeters.gettemperature())
 
 # =========================================================================================
