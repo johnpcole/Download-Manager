@@ -11,13 +11,13 @@ $(document).ready(function ()
     updateEditButton();
     changeAreasState('readmodebuttons', 'Show');
 
-    // Refresh the tiles every minute.
+    // Refresh the tiles every five seconds.
     setInterval(function()
     {
         if ((getAreaState('copydialog') == 'Hidden') && (getAreaState('deletedialog') == 'Hidden')) {
             updateTorrentState('Refresh');
         };
-    }, 10000);
+    }, 5000);
 
     $('#ajaxloader').hide();
 });

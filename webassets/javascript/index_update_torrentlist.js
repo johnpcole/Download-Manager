@@ -9,7 +9,7 @@ $(document).ready(function ()
         if (getAreaState('adddialog') == 'Hidden') {
             updateTorrentsList('Refresh');
         };
-    }, 10000);
+    }, 5000);
 
     $('#ajaxloader').hide();
 });
@@ -42,9 +42,14 @@ function updateAllTorrentTiles(torrentdatalist)
 {
     $.each(torrentdatalist, function(index)
     {
-        updateTorrentTile(torrentdatalist[index]);
+        if (doesAreaExist("Torrent-"+torrentdatalist[index].torrentid) == "Yes") {
+            updateTorrentTile(torrentdatalist[index]);
+        } else {
+            window.location.replace("/");
+        };
     });
 };
+
 
 
 
@@ -65,15 +70,23 @@ function updateTorrentTile(dataitem)
 function updateStats(stats)
 {
     updateIndexBannerTileColour(stats.networkstatus);
-    rerenderText('downloadneedle', '<line x1="'+stats.downloadspeed.ho+'" y1="'+stats.downloadspeed.vo+'" x2="'+stats.downloadspeed.hf+'" y2="'+stats.downloadspeed.vf+'" />');
-    rerenderText('uploadneedle', '<line x1="'+stats.uploadspeed.ho+'" y1="'+stats.uploadspeed.vo+'" x2="'+stats.uploadspeed.hf+'" y2="'+stats.uploadspeed.vf+'" />');
-    rerenderText('spaceneedle', '<line x1="'+stats.space.ho+'" y1="'+stats.space.vo+'" x2="'+stats.space.hf+'" y2="'+stats.space.vf+'" />');
-    rerenderText('tempneedle', '<line x1="'+stats.temperature.ho+'" y1="'+stats.temperature.vo+'" x2="'+stats.temperature.hf+'" y2="'+stats.temperature.vf+'" />');
-    rerenderText('innerhider', '<circle cx="60.5" cy="61" r="49.5" stroke-dasharray="'+stats.activedownloads.fill+' '+stats.activedownloads.gap+'" stroke-dashoffset="'+stats.activedownloads.offset+'" /><circle cx="60.5" cy="61" r="36.5" stroke-dasharray="'+stats.activeuploads.fill+' '+stats.activeuploads.gap+'" stroke-dashoffset="'+stats.activeuploads.offset+'" />');
-    rerenderText('outerhider', '<circle cx="60.5" cy="61" r="49.5" stroke-dasharray="'+stats.downloadcount.fill+' '+stats.downloadcount.gap+'" stroke-dashoffset="'+stats.downloadcount.offset+'" /><circle cx="60.5" cy="61" r="36.5" stroke-dasharray="'+stats.uploadcount.fill+' '+stats.uploadcount.gap+'" stroke-dashoffset="'+stats.uploadcount.offset+'" />');
+    updateNeedleMeter('downloadneedle', stats.downloadspeed);
+    updateNeedleMeter('uploadneedle', stats.uploadspeed);
+    updateNeedleMeter('spaceneedle', stats.space);
+    updateNeedleMeter('tempneedle', stats.temperature);
+    updateBlockMeter('innerhider', stats.activedownloads, stats.activeuploads);
+    updateBlockMeter('outerhider', stats.downloadcount, stats.uploadcount);
 };
 
+function updateNeedleMeter(needlename, n)
+{
+    rerenderText(needlename, '<line x1="'+n.ho+'" y1="'+n.vo+'" x2="'+n.hf+'" y2="'+n.vf+'" />');
+};
 
+function updateBlockMeter(hidername, n, m)
+{
+    rerenderText(hidername, '<circle cx="60.5" cy="61" r="49.5" stroke-dasharray="'+n.fill+' '+n.gap+'" stroke-dashoffset="'+n.offset+'" /><circle cx="60.5" cy="61" r="36.5" stroke-dasharray="'+m.fill+' '+m.gap+'" stroke-dashoffset="'+m.offset+'" />');
+};
 
 // Update copier button
 

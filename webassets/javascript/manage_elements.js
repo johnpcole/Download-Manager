@@ -149,3 +149,15 @@ function getAreaState(areaid)
 };
 
 
+
+// Determines if an element exists
+
+function doesAreaExist(areaid)
+{
+    var controlobject = document.getElementById(areaid);
+    if (controlobject != null) {
+        return "Yes";
+    } else {
+        return "No";
+    };
+};

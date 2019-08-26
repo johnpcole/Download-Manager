@@ -2,16 +2,13 @@
 
 echo "============================================================================================"
 echo Download-Manager Copier
-echo "============================================================================================"
-sudo systemctl status download-manager-copier
+sudo systemctl is-active download-manager-copier
 echo "============================================================================================"
 echo Download-Manager Operator
-echo "============================================================================================"
-sudo systemctl status download-manager-operator
+sudo systemctl is-active download-manager-operator
 echo "============================================================================================"
 echo Download-Manager Interface
-echo "============================================================================================"
-sudo systemctl status download-manager-interface
+sudo systemctl is-active download-manager-interface
 echo "============================================================================================"
 
 

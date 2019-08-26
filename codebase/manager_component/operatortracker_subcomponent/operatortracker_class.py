@@ -109,6 +109,7 @@ class DefineOperatorTracker:
 				duplicatefound = True
 
 		if duplicatefound == False:
+			print("Adding unique operator action: ", action, context)
 			self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction(action, context)
 		else:
 			print("Ignoring duplicate operator action: ", action, context)
