@@ -43,7 +43,7 @@ function updateTorrentsList()
 function performBulkAction(bulkaction)
 {
     $.ajax({
-        url: 'UpdateTorrentsList',
+        url: 'PerformBulkTorrentAction',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({'bulkaction': bulkaction}),
