@@ -72,11 +72,13 @@ class DefineTorrentManager:
 
 		outcome = []
 
-		for torrentitem in self.torrents:
+		sortedtorrentslist = Functions.sortdictionary(self.torrents, 'dateadded', True)
+
+		for torrentitem in sortedtorrentslist:
 			if torrentitem.isvisible() == True:
 				outcome.append(torrentitem.getheadlinedata(datamode))
 
-		return Functions.sortdictionary(outcome, 'dateadded', True)
+		return outcome
 
 # =========================================================================================
 
