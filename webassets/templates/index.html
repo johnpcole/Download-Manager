@@ -132,11 +132,11 @@ Add-Button
 
 Stop-All-Button
 
-        {{ buttontemplate("Stop", "updateTorrentsList('Stop')", "listaction_stopall", "stop") }}
+        {{ buttontemplate("Stop", "performBulkAction('Stop')", "listaction_stopall", "stop") }}
 
 Start-All-Button
 
-        {{ buttontemplate("Start", "updateTorrentsList('Start')", "listaction_startall", "start") }}
+        {{ buttontemplate("Start", "performBulkAction('Start')", "listaction_startall", "start") }}
 
 Copier-Button
 
@@ -144,7 +144,7 @@ Copier-Button
 
 Rescan-File-Server-Button
 
-        {{ buttontemplate("RescanFileServer", "updateTorrentsList('RescanFileServer')", "folder_refresh", "rescan fileserver") }}
+        {{ buttontemplate("RescanFileServer", "performBulkAction('RescanFileServer')", "folder_refresh", "rescan fileserver") }}
 
 Monitor-Button
 

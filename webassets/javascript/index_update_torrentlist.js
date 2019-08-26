@@ -7,7 +7,7 @@ $(document).ready(function ()
     setInterval(function()
     {
         if (getAreaState('adddialog') == 'Hidden') {
-            updateTorrentsList('Refresh');
+            updateTorrentsList();
         };
     }, 5000);
 
@@ -18,13 +18,13 @@ $(document).ready(function ()
 
 // Ajax call for all torrent data
 
-function updateTorrentsList(bulkaction)
+function updateTorrentsList()
 {
     $.ajax({
         url: 'UpdateTorrentsList',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({'bulkaction': bulkaction}),
+        data: JSON.stringify({'bulkaction': 'refresh'}),
         dataType:'json',
         success: function(data)
         {
@@ -34,6 +34,26 @@ function updateTorrentsList(bulkaction)
         }
     });
 };
+
+
+
+
+// Ajax call for all torrent data
+
+function performBulkAction(bulkaction)
+{
+    $.ajax({
+        url: 'UpdateTorrentsList',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({'bulkaction': bulkaction}),
+        dataType:'json',
+        success: function(data)
+        {
+        }
+    });
+};
+
 
 
 

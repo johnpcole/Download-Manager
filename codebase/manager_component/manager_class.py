@@ -38,10 +38,24 @@ class DefineTorrentSet:
 
 
 	#===============================================================================================
-	# Refresh Torrents List on existing page, after performing a bulk action if required
+	# Refresh Torrents List on existing page
 	#===============================================================================================
 
-	def updatelistpage(self, bulkaction):
+	def updatelistpage(self):
+
+		Logging.printinvocation("Refreshing All Torrents List Page", "")
+		self.delugemanager.queuenewrefreshaction()
+		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
+				'stats': self.monitormanager.getsessionmeters(),
+				'copyqueuestate': self.librarymanager.getoverallcopierstate()}
+
+
+
+	#===============================================================================================
+	# Performing a bulk action if required
+	#===============================================================================================
+
+	def performbulkaction(self, bulkaction):
 
 		if bulkaction == "Start":
 			Logging.printinvocation("Starting all Torrents", "")
@@ -52,14 +66,10 @@ class DefineTorrentSet:
 		elif bulkaction == "RescanFileServer":
 			Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
 			self.librarymanager.discovertvshows()
-		elif bulkaction == "Refresh":
-			Logging.printinvocation("Refreshing All Torrents List Page", "")
 		else:
 			Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
 		self.delugemanager.queuenewrefreshaction()
-		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
-				'stats': self.monitormanager.getsessionmeters(),
-				'copyqueuestate': self.librarymanager.getoverallcopierstate()}
+		return {'bulktorrentaction': 'done'}
 
 
 

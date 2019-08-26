@@ -26,14 +26,27 @@ def initialiselistpage():
 
 
 #===============================================================================================
-# Refresh Torrents List on existing page, after performing a bulk action if required
+# Refresh Torrents List on existing page
 #===============================================================================================
 
 @website.route('/UpdateTorrentsList', methods=['POST'])
 def updatelistpage():
 
 	inputdata = WebServer.getrequestdata()
-	result = torrentset.updatelistpage(inputdata["bulkaction"])
+	result = torrentset.updatelistpage()
+	return WebServer.makejson(**result)
+
+
+
+#===============================================================================================
+# Perform a bulk action if required
+#===============================================================================================
+
+@website.route('/PerformBulkTorrentAction', methods=['POST'])
+def performbulkaction():
+
+	inputdata = WebServer.getrequestdata()
+	result = torrentset.performbulkaction(inputdata["bulkaction"])
 	return WebServer.makejson(**result)
 
 
