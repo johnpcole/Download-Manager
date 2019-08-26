@@ -32,6 +32,7 @@ class DefineOperator:
 				newinstructions['action'] = "Monitor-History"
 
 		if newinstructions['action'] != "Null":
+			print("Requested Action: ", newinstructions['action'], ", On :", newinstructions['context'])
 			self.torrentmanager.performdelugeaction(newinstructions['action'], newinstructions['context'])
 		else:
 			self.torrentmanager.blankdata()
