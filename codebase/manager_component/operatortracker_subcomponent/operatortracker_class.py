@@ -66,7 +66,9 @@ class DefineOperatorTracker:
 		else:
 			outcome = {'action': self.nullaction, 'context': "Null"}
 
+		print("=================================================================")
 		print("Number of operations left: ",len(self.operatoractions), " This operation: ", outcome)
+		print("=================================================================")
 		return outcome
 
 # =========================================================================================
