@@ -4,6 +4,9 @@ def extractflaskoutput(logentry, linecounter, sublinecounter):
 
 	if logentry.find("[pid: ") == 0:
 		reducedlog = logentry[logentry.find("] "):]
+		print("=============================")
+		print(reducedlog)
+		print("=============================")
 		datetimestart = reducedlog.find("[")
 		datetimeend = reducedlog.find("]")
 		datetime = reducedlog[datetimestart:datetimeend]
