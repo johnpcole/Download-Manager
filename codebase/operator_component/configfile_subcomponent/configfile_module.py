@@ -9,7 +9,7 @@ from ...common_components.logging_framework import logging_module as Logging
 
 def gettorrentconnectionconfig():
 	Logging.printout("Loading Deluge Daemon Connection Data")
-	credentials = FileSystem.readfromdisk('./data/application_config/torrent_connection.cfg')
+	credentials = FileSystem.readfromdisk('./data/application_config/operator_connection.cfg')
 	outcome = { 'Address': credentials[0],
 				'Port': int(credentials[1]),
 				'Username': credentials[2],

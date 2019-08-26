@@ -23,7 +23,7 @@ def createmanager(connectioncredentials, connectiontries):
 
 def getlibraryconnectionconfig():
 	Logging.printout("Loading File-Server Connection Data")
-	credentials = FileSystem.readfromdisk('./data/application_config/library_connection.cfg')
+	credentials = FileSystem.readfromdisk('./data/application_config/copier_connection.cfg')
 	outcome = { 'Mountpoint': credentials[0],
 				'Address': credentials[1],
 				'Username': credentials[2],

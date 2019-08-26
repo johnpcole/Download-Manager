@@ -21,10 +21,10 @@ class DefineMonitor:
 
 
 # =========================================================================================
-# Connects to the torrent daemon, and updates the local list of torrents
+#
 # =========================================================================================
 
-	def refreshmonitordata(self, sessiondata, torrentaggregates):
+	def refreshsessiondata(self, sessiondata, torrentaggregates):
 
 		self.sessionmeters.updatesessiondata(sessiondata)
 
@@ -48,9 +48,9 @@ class DefineMonitor:
 
 # =========================================================================================
 
-	#def addtohistory(self):
+	def addtohistory(self):
 
-		#return self.monitorhistory.addhistoryentry(monitordata, Network.getvpnstatus(), PiThermometer.getoveralltemperature())
+		return self.monitorhistory.addhistoryentry(self.sessionmeters.getstats(), self.networkstatus)
 
 # =========================================================================================
 

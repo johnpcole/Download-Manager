@@ -18,10 +18,9 @@ class DefineDelugeInterface:
 
 		self.lastdatascrape = DateTime.createfromiso("20100101000000")
 
+		self.isdataformonitor = False
+
 		self.performdelugeaction("Refresh", "None")
-
-
-
 
 
 
@@ -49,19 +48,30 @@ class DefineDelugeInterface:
 
 		self.lastdatascrape.settonow()
 
+
+	def blankdata(self):
+		self.torrents = None
+		self.sessiondata = None
+		self.isdataformonitor = False
+
 # =========================================================================================
 
 	def performdelugeaction(self, action, item):
 
 		self.delugeclient.openconnection()
 
-		if action != "Refresh":
+		if (action != "Refresh") and (action != "Monitor-History"):
 			if action == "Add":
 				self.addnewtorrenttoclient(item)
 			else:
 				self.processexistingtorrent(item, action)
 
 		self.retrievealldelugedata()
+
+		if action == "Monitor-History":
+			self.isdataformonitor = True
+		else:
+			self.isdataformonitor = False
 
 		#self.delugeclient.closeconnection()
 
@@ -100,6 +110,9 @@ class DefineDelugeInterface:
 			outcome['torrents'] = self.torrents
 		if self.sessiondata is not None:
 			outcome['sessiondata'] = self.sessiondata
+		else:
+			outcome['sessiondata'] = {}
+		outcome['monitorhistory'] = self.isdataformonitor
 
 		return outcome
 

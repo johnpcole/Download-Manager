@@ -16,3 +16,10 @@ class DefineOperatorActionItem:
 
 		return {'action': self.actiontype.displaycurrent(), 'context': self.context}
 
+# =========================================================================================
+
+	def isrefresh(self):
+
+		return self.actiontype.get("Refresh")
+
+

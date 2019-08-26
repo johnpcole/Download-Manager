@@ -18,25 +18,36 @@ class DefineOperatorTracker:
 
 	def queuenewaddtorrentaction(self, newurl):
 		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Add", newurl)
+		self.cleanrefreshactionsout()
 
 	def queuenewpausetorrentaction(self, torrentid):
 		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Stop", torrentid)
+		self.cleanrefreshactionsout()
 
 	def queuenewpauseallaction(self):
 		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Stop", "ALL")
+		self.cleanrefreshactionsout()
 
 	def queuenewresumetorrentaction(self, torrentid):
 		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Start", torrentid)
+		self.cleanrefreshactionsout()
 
 	def queuenewresumeallaction(self):
 		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Start", "ALL")
+		self.cleanrefreshactionsout()
 
 	def queuenewdeletetorrentaction(self, torrentid):
 		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Delete", torrentid)
+		self.cleanrefreshactionsout()
 
 	def queuenewrefreshaction(self):
 		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Refresh", "None")
 
+
+	def cleanrefreshactionsout(self):
+		for actionindex in self.operatoractions.keys():
+			if self.operatoractions[actionindex].isrefresh() == True:
+				del self.operatoractions[actionindex]
 
 # =========================================================================================
 

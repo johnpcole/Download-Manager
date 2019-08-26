@@ -2,7 +2,7 @@ from . import historyitem_class as HistoryItemClass
 from .....common_components.datetime_datatypes import datetime_module as DateTime
 
 
-def createhistoryitem(datetime, sessiondata, vpnstatus, temperature):
+def createhistoryitem(datetime, sessiondata, vpnstatus):
 
 	uploaded = sessiondata['uploadedtotal']
 	red = sessiondata['redcount']
@@ -10,6 +10,7 @@ def createhistoryitem(datetime, sessiondata, vpnstatus, temperature):
 	amber = sessiondata['ambercount']
 	yellow = sessiondata['yellowcount']
 	green = sessiondata['greencount']
+	temperature = sessiondata['temperature']
 
 	return HistoryItemClass.DefineItem(datetime, uploaded, red, orange, amber, yellow, green, vpnstatus, temperature)
 

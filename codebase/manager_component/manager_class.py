@@ -275,7 +275,7 @@ class DefineTorrentSet:
 	# Process Operator Queue
 	#===============================================================================================
 
-	def triggeroperator(self, torrentdata, sessiondata):
+	def triggeroperator(self, torrentdata, sessiondata, monitorhistory):
 
 		Logging.printinvocation("Triggering Operator", "")
 
@@ -285,8 +285,11 @@ class DefineTorrentSet:
 				self.torrentmanager.setconfigs(FileManager.loadconfigs())
 				self.areconfigsloaded = True
 			if sessiondata is not None:
-				print("MONITORING DATA: ",sessiondata)
-				self.monitormanager.refreshmonitordata(sessiondata, self.torrentmanager.getaggregates())
+				self.monitormanager.refreshsessiondata(sessiondata, self.torrentmanager.getaggregates())
+
+		if monitorhistory is True:
+			outcome = self.monitormanager.addtohistory()
+			FileManager.savemonitor(outcome)
 
 		return self.delugemanager.getnextoperatoraction()
 

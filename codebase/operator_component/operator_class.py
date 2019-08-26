@@ -23,25 +23,35 @@ class DefineOperator:
 
 		self.delayer.wait(5)
 
+		self.scraper.posttourl(self.generatereturndata())
+		newinstructions = self.sanitiseinstructions(self.scraper.getjsonresult())
+
+		if newinstructions['action'] == "Null":
+			newinstructions['context'] = "None"
+			if self.delayer.checkdelay() == True:
+				newinstructions['action'] = "Monitor-History"
+
+		if newinstructions['action'] != "Null":
+			self.torrentmanager.performdelugeaction(newinstructions['action'], newinstructions['context'])
+		else:
+			self.torrentmanager.blankdata()
+
+
+	def generatereturndata(self):
+
 		datatosend = self.torrentmanager.getdelugedata()
 		datatosend['sessiondata'].update({'temperature': Thermometer.getoveralltemperature()})
 		datatosend['sessiondata'].update({'vpnstatus': VPNStatus.getvpnstatus()})
-		self.scraper.posttourl(datatosend)
-		newinstructions = self.scraper.getjsonresult()
-		if ('action' in newinstructions.keys()) and ('context' in newinstructions.keys()):
-			newinstruction = newinstructions['action']
-			instructioncontext = newinstructions['context']
-		else:
-			newinstruction = "Null"
-			instructioncontext = "None"
 
-		if newinstruction == "Null":
-			if self.delayer.checkdelay() == True:
-				newinstruction = "Refresh"
-				instructioncontext = "None"
-		else:
-			self.delayer.reset()
 
-		if newinstruction != "Null":
-			self.torrentmanager.performdelugeaction(newinstruction, instructioncontext)
+	def sanitiseinstructions(self, instructionset):
+
+		outcome = {'action': "Null", 'context': "None"}
+		if ('action' in instructionset.keys()) and ('context' in instructionset.keys()):
+			outcome['action'] = instructionset['action']
+			outcome['context'] = instructionset['context']
+
+		return outcome
+
+
 
