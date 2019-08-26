@@ -20,7 +20,7 @@ class DefineDelugeInterface:
 
 		self.isdataformonitor = False
 
-		self.performdelugeaction("Refresh", "None")
+		self.performdelugeaction("Refresh", "None", False)
 
 
 
