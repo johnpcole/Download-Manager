@@ -53,6 +53,7 @@ class DefineOperatorTracker:
 			for actionindex in foundindexes:
 				del self.operatoractions[actionindex]
 
+		self.queuenewrefreshaction()
 
 # =========================================================================================
 

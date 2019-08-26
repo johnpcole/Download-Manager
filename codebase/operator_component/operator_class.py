@@ -25,6 +25,8 @@ class DefineOperator:
 
 		self.scraper.posttourl(self.generatereturndata())
 		monitormode = self.delayer.checkdelay()
+		print("==================================================")
+		print("Latest Instruction from Manager: ", self.scraper.getjsonresult())
 		newinstructions = self.sanitiseinstructions(self.scraper.getjsonresult(), monitormode)
 
 		if newinstructions['action'] != "Null":
