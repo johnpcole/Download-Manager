@@ -43,6 +43,7 @@ class DefineOperator:
 		datatosend = self.torrentmanager.getdelugedata()
 		datatosend['sessiondata'].update({'temperature': Thermometer.getoveralltemperature()})
 		datatosend['sessiondata'].update({'vpnstatus': VPNStatus.getvpnstatus()})
+		return datatosend
 
 
 	def sanitiseinstructions(self, instructionset):
