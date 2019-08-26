@@ -21,6 +21,9 @@ function confirmAdd()
         {
             changeButtonState('Add', 'Disable');
             cancelAdd();
+        },
+        complete: function(){
+            $('#ajaxloader').hide();
         }
     });
 };
