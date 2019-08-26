@@ -12,14 +12,14 @@ def extractflaskoutput(logentry, linecounter, sublinecounter):
 		rawdata = rawdata.split(" ")
 		outcome["method"] = rawdata[0]
 		outcome["path"] = rawdata[1]
-		outcomestart = reducedlog.find("HTTP/1.1")
+		outcomestart = reducedlog.find("(")
 		outcomeend = reducedlog.find(")")
-		rawdata = reducedlog[outcomestart+10:outcomeend-1]
+		rawdata = reducedlog[outcomestart:outcomeend]
 		print("============================")
-		print("RESULT", rawdata)
+		print("RESULT", rawdata, "=", rawdata.split(" "))
 		print("============================")
-		outcome["outcome"] = rawdata
-		if (rawdata == "200") or (rawdata == "304"):
+		outcome["outcome"] = rawdata[1]
+		if (rawdata[1] == "200") or (rawdata[1] == "304"):
 			outcome["entrytype"] = "success"
 		else:
 			outcome["entrytype"] = "failure"
