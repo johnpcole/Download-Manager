@@ -5,7 +5,8 @@ def extractflaskoutput(logentry, linecounter, sublinecounter):
 	if logentry.find("[pid: ") == 0:
 		reducedlog = logentry[logentry.find("] ")+2:]
 		datetime = reducedlog[reducedlog.find("[")+5:reducedlog.find("]")]
-		outcome["datetime"] = datetime   #.replace("/", " ")
+		datetime = datetime.split(" ")
+		outcome["datetime"] = datetime[1] + " " + datetime[0] + " " + datetime[3] + " - " + datetime[2]
 		outcome["requestipaddress"] = "From " + reducedlog[0:reducedlog.find("(")-1]
 		rawdata = reducedlog[reducedlog.find("] ")+2:reducedlog.find("=>")]
 		rawdata = rawdata.split(" ")
@@ -14,6 +15,9 @@ def extractflaskoutput(logentry, linecounter, sublinecounter):
 		outcomestart = reducedlog.find("HTTP/1.1")
 		outcomeend = reducedlog.find(")")
 		rawdata = reducedlog[outcomestart+10:outcomeend-1]
+		print("============================")
+		print("RESULT", rawdata)
+		print("============================")
 		outcome["outcome"] = rawdata
 		if (rawdata == "200") or (rawdata == "304"):
 			outcome["entrytype"] = "success"
