@@ -23,6 +23,7 @@
     <script src="{{ url_for('static', filename='javascript/torrent_update_state.js') }}"></script>
     <script src="{{ url_for('static', filename='javascript/torrent_copy.js') }}"></script>
     <script src="{{ url_for('static', filename='javascript/torrent_delete.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent_startstop.js') }}"></script>
 
 {% endblock %}
 
@@ -245,9 +246,9 @@ Section: Read-Only-Mode Action Buttons
 
             {{ buttontemplate("Exit", "window.location.replace('/')", "torrentaction_exit", "exit") }}
 
-            {{ buttontemplate("Stop", "updateTorrentState('Stop')", "torrentaction_stop", "stop") }}
+            {{ buttontemplate("Stop", "performTorrentAction('Stop')", "torrentaction_stop", "stop") }}
 
-            {{ buttontemplate("Start", "updateTorrentState('Start')", "torrentaction_start", "start") }}
+            {{ buttontemplate("Start", "performTorrentAction('Start')", "torrentaction_start", "start") }}
 
             {{ disabledbuttontemplate("Edit", "editTorrentConfiguration()", "torrentaction_edit", "edit") }}
 

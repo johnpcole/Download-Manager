@@ -39,7 +39,7 @@ def updatelistpage():
 
 
 #===============================================================================================
-# Perform a bulk action if required
+# Perform a bulk start or stop
 #===============================================================================================
 
 @website.route('/PerformBulkTorrentAction', methods=['POST'])
@@ -47,6 +47,19 @@ def performbulkaction():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.performbulkaction(inputdata["bulkaction"])
+	return WebServer.makejson(**result)
+
+
+
+#===============================================================================================
+# Perform a bulk action if required
+#===============================================================================================
+
+@website.route('/PerformTVShowRescan', methods=['POST'])
+def rescantvshows():
+
+	inputdata = WebServer.getrequestdata()
+	result = torrentset.rescantvshows()
 	return WebServer.makejson(**result)
 
 
@@ -67,15 +80,30 @@ def initialisetorrentpage(torrentid):
 
 
 #===============================================================================================
-# Refresh an existing Torrent page with Network Data, after performing an action if required
+# Refresh an existing Torrent page with Network Data
 #===============================================================================================
 
 @website.route('/UpdateTorrent', methods=['POST'])
 def updatetorrentpage():
 
 	inputdata = WebServer.getrequestdata()
-	result = torrentset.updatetorrentpage(inputdata['torrentid'], inputdata['torrentaction'])
+	result = torrentset.updatetorrentpage(inputdata['torrentid'])
 	return WebServer.makejson(**result)
+
+
+
+
+#===============================================================================================
+# Performing an action if required
+#===============================================================================================
+
+@website.route('/PerformTorrentAction', methods=['POST'])
+def performtorrentaction():
+
+	inputdata = WebServer.getrequestdata()
+	result = torrentset.performtorrentaction(inputdata['torrentid'], inputdata['torrentaction'])
+	return WebServer.makejson(**result)
+
 
 
 

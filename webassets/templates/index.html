@@ -21,7 +21,9 @@
 {% block javascript %}
 
     <script src="{{ url_for('static', filename='javascript/index_update_torrentlist.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index_startstop_torrents.js') }}"></script>
     <script src="{{ url_for('static', filename='javascript/index_add_torrent.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index_rescan_tvshows.js') }}"></script>
 
 {% endblock %}
 
@@ -144,7 +146,7 @@ Copier-Button
 
 Rescan-File-Server-Button
 
-        {{ buttontemplate("RescanFileServer", "performBulkAction('RescanFileServer')", "folder_refresh", "rescan fileserver") }}
+        {{ buttontemplate("RescanFileServer", "rescanTVShows()", "folder_refresh", "rescan fileserver") }}
 
 Monitor-Button
 

@@ -63,13 +63,24 @@ class DefineTorrentSet:
 		elif bulkaction == "Stop":
 			Logging.printinvocation("Stopping all Torrents", "")
 			self.delugemanager.queuenewpauseallaction()
-		elif bulkaction == "RescanFileServer":
-			Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
-			self.librarymanager.discovertvshows()
 		else:
 			Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
 		self.delugemanager.queuenewrefreshaction()
 		return {'bulktorrentaction': 'done'}
+
+
+
+	#===============================================================================================
+	# Performing a bulk action if required
+	#===============================================================================================
+
+	def rescantvshows(self):
+
+		Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
+		self.librarymanager.discovertvshows()
+		self.delugemanager.queuenewrefreshaction()
+		return {'rescantvshows': 'done'}
+
 
 
 
@@ -93,10 +104,25 @@ class DefineTorrentSet:
 
 
 	#===============================================================================================
+	# Refresh an existing Torrent page with Network Data
+	#===============================================================================================
+
+	def updatetorrentpage(self, torrentid):
+
+		if self.torrentmanager.validatetorrentid(torrentid) == True:
+			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
+			self.delugemanager.queuenewrefreshaction()
+			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
+					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
+		else:
+			Logging.printinvocation("Requested Refresh to Unknown Torrent", torrentid)
+
+
+	#===============================================================================================
 	# Refresh an existing Torrent page with Network Data, after performing an action if required
 	#===============================================================================================
 
-	def updatetorrentpage(self, torrentid, torrentaction):
+	def performtorrentaction(self, torrentid, torrentaction):
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			if torrentaction == "Start":
@@ -105,15 +131,13 @@ class DefineTorrentSet:
 			elif torrentaction == "Stop":
 				Logging.printinvocation("Stopping Torrent", torrentid)
 				self.delugemanager.queuenewpausetorrentaction(torrentid)
-			elif torrentaction == "Refresh":
-				Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
 			else:
 				Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
 			self.delugemanager.queuenewrefreshaction()
-			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
-					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
+			return {'torrentaction': 'done'}
 		else:
 			Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
+
 
 
 

@@ -38,24 +38,6 @@ function updateTorrentsList()
 
 
 
-// Ajax call for all torrent data
-
-function performBulkAction(bulkaction)
-{
-    $.ajax({
-        url: 'PerformBulkTorrentAction',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({'bulkaction': bulkaction}),
-        dataType:'json',
-        success: function(data)
-        {
-        }
-    });
-};
-
-
-
 
 
 function updateAllTorrentTiles(torrentdatalist)

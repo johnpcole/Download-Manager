@@ -15,7 +15,7 @@ $(document).ready(function ()
     setInterval(function()
     {
         if ((getAreaState('copydialog') == 'Hidden') && (getAreaState('deletedialog') == 'Hidden')) {
-            updateTorrentState('Refresh');
+            updateTorrentState();
         };
     }, 5000);
 
@@ -35,13 +35,13 @@ function getCurrentTorrentId()
 
 // Ajax call for all torrent downloading data
 
-function updateTorrentState(action)
+function updateTorrentState()
 {
     $.ajax({
         url: 'UpdateTorrent',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({'torrentid':getCurrentTorrentId(), 'torrentaction':action}),
+        data: JSON.stringify({'torrentid':getCurrentTorrentId()}),
         dataType:'json',
         success: function(data)
         {
