@@ -190,7 +190,7 @@ class DefineTorrentSet:
 	def addnewtorrent(self, newurl):
 
 		Logging.printinvocation("Adding New Torrent", "")
-		self.torrentmanager.queuenewaddtorrentaction(newurl)
+		self.delugemanager.queuenewaddtorrentaction(newurl)
 		return {'addtorrent': 'done'}
 
 
