@@ -24,16 +24,12 @@ class DefineOperator:
 		self.delayer.wait(5)
 
 		self.scraper.posttourl(self.generatereturndata())
-		newinstructions = self.sanitiseinstructions(self.scraper.getjsonresult())
-
-		if newinstructions['action'] == "Null":
-			newinstructions['context'] = "None"
-			if self.delayer.checkdelay() == True:
-				newinstructions['action'] = "Monitor-History"
+		monitormode = self.delayer.checkdelay()
+		newinstructions = self.sanitiseinstructions(self.scraper.getjsonresult(), monitormode)
 
 		if newinstructions['action'] != "Null":
-			print("Requested Action: ", newinstructions['action'], ", On :", newinstructions['context'])
-			self.torrentmanager.performdelugeaction(newinstructions['action'], newinstructions['context'])
+			print("Requested Action: ", newinstructions['action'], ", On :", newinstructions['context'], ", Monitor:", monitormode)
+			self.torrentmanager.performdelugeaction(newinstructions['action'], newinstructions['context'], monitormode)
 		else:
 			print("Remaining Dormant")
 			self.torrentmanager.blankdata()
@@ -48,12 +44,17 @@ class DefineOperator:
 		return datatosend
 
 
-	def sanitiseinstructions(self, instructionset):
+	def sanitiseinstructions(self, instructionset, monitormode):
 
 		outcome = {'action': "Null", 'context': "None"}
+
 		if ('action' in instructionset.keys()) and ('context' in instructionset.keys()):
 			outcome['action'] = instructionset['action']
 			outcome['context'] = instructionset['context']
+
+		if (outcome['action'] == "Null") and (monitormode == True):
+			outcome['action'] = "Refresh"
+			outcome['context'] = "None"
 
 		return outcome
 

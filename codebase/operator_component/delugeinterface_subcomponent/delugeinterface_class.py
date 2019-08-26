@@ -56,11 +56,11 @@ class DefineDelugeInterface:
 
 # =========================================================================================
 
-	def performdelugeaction(self, action, item):
+	def performdelugeaction(self, action, item, monitormode):
 
 		self.delugeclient.openconnection()
 
-		if (action != "Refresh") and (action != "Monitor-History"):
+		if action != "Refresh":
 			if action == "Add":
 				self.addnewtorrenttoclient(item)
 			else:
@@ -68,10 +68,7 @@ class DefineDelugeInterface:
 
 		self.retrievealldelugedata()
 
-		if action == "Monitor-History":
-			self.isdataformonitor = True
-		else:
-			self.isdataformonitor = False
+		self.isdataformonitor = monitormode
 
 		#self.delugeclient.closeconnection()
 
