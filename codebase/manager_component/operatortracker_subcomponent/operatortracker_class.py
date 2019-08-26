@@ -17,37 +17,42 @@ class DefineOperatorTracker:
 # =========================================================================================
 
 	def queuenewaddtorrentaction(self, newurl):
-		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Add", newurl)
+		self.queueaction("Add", newurl)
 		self.cleanrefreshactionsout()
 
 	def queuenewpausetorrentaction(self, torrentid):
-		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Stop", torrentid)
+		self.queueaction("Stop", torrentid)
 		self.cleanrefreshactionsout()
 
 	def queuenewpauseallaction(self):
-		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Stop", "ALL")
+		self.queueaction("Stop", "ALL")
 		self.cleanrefreshactionsout()
 
 	def queuenewresumetorrentaction(self, torrentid):
-		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Start", torrentid)
+		self.queueaction("Start", torrentid)
 		self.cleanrefreshactionsout()
 
 	def queuenewresumeallaction(self):
-		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Start", "ALL")
+		self.queueaction("Start", "ALL")
 		self.cleanrefreshactionsout()
 
 	def queuenewdeletetorrentaction(self, torrentid):
-		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Delete", torrentid)
+		self.queueaction("Delete", torrentid)
 		self.cleanrefreshactionsout()
 
 	def queuenewrefreshaction(self):
-		self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction("Refresh", "None")
+		self.queueaction("Refresh", "None")
 
 
 	def cleanrefreshactionsout(self):
+		foundindexes = []
 		for actionindex in self.operatoractions.keys():
 			if self.operatoractions[actionindex].isrefresh() == True:
+				foundindexes.append(actionindex)
+		if len(foundindexes) > 0:
+			for actionindex in foundindexes:
 				del self.operatoractions[actionindex]
+
 
 # =========================================================================================
 
@@ -61,7 +66,7 @@ class DefineOperatorTracker:
 		else:
 			outcome = {'action': self.nullaction, 'context': "Null"}
 
-		print(len(self.operatoractions), outcome)
+		print("Number of operations left: ",len(self.operatoractions), " This operation: ", outcome)
 		return outcome
 
 # =========================================================================================
@@ -93,6 +98,20 @@ class DefineOperatorTracker:
 
 		return outcome
 
+
+
+
+	def queueaction(self, action, context):
+
+		duplicatefound = False
+		for actionid in self.operatoractions.keys():
+			if self.operatoractions[actionid].isduplicate() == True:
+				duplicatefound = True
+
+		if duplicatefound == False:
+			self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction(action, context)
+		else:
+			print("Ignoring duplicate operator action: ", action, context)
 
 
 

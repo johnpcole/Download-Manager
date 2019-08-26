@@ -23,3 +23,15 @@ class DefineOperatorActionItem:
 		return self.actiontype.get("Refresh")
 
 
+	def isduplicate(self, action, context):
+
+		if (self.actiontype.get(action) == True) and (self.context == context):
+			outcome = True
+		else:
+			outcome = False
+
+		return outcome
+
+
+
+
