@@ -4,6 +4,9 @@ from .....common_components.datetime_datatypes import datetime_module as DateTim
 
 def createhistoryitem(datetime, sessiondata, vpnstatus):
 
+	print("====================================")
+	print(sessiondata)
+	print("====================================")
 	uploaded = sessiondata['uploadedtotal']
 	red = sessiondata['redcount']
 	orange = sessiondata['orangecount']
