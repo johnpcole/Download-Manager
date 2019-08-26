@@ -110,8 +110,6 @@ class DefineDelugeInterface:
 			outcome['torrents'] = self.torrents
 		if self.sessiondata is not None:
 			outcome['sessiondata'] = self.sessiondata
-		else:
-			outcome['sessiondata'] = {}
 		outcome['monitorhistory'] = self.isdataformonitor
 
 		return outcome

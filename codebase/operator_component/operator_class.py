@@ -35,14 +35,16 @@ class DefineOperator:
 			print("Requested Action: ", newinstructions['action'], ", On :", newinstructions['context'])
 			self.torrentmanager.performdelugeaction(newinstructions['action'], newinstructions['context'])
 		else:
+			print("Remaining Dormant")
 			self.torrentmanager.blankdata()
 
 
 	def generatereturndata(self):
 
 		datatosend = self.torrentmanager.getdelugedata()
-		datatosend['sessiondata'].update({'temperature': Thermometer.getoveralltemperature()})
-		datatosend['sessiondata'].update({'vpnstatus': VPNStatus.getvpnstatus()})
+		if 'sessiondata' in datatosend.keys():
+			datatosend['sessiondata'].update({'temperature': Thermometer.getoveralltemperature()})
+			datatosend['sessiondata'].update({'vpnstatus': VPNStatus.getvpnstatus()})
 		return datatosend
 
 
