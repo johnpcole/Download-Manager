@@ -105,7 +105,7 @@ class DefineOperatorTracker:
 
 		duplicatefound = False
 		for actionid in self.operatoractions.keys():
-			if self.operatoractions[actionid].isduplicate() == True:
+			if self.operatoractions[actionid].isduplicate(action, context) == True:
 				duplicatefound = True
 
 		if duplicatefound == False:
