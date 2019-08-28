@@ -14,6 +14,8 @@ class DefineOperatorTracker:
 
 		self.nullaction = "Null"
 
+		self.actioncounter = 0
+
 # =========================================================================================
 
 	def queuenewaddtorrentaction(self, newurl):
@@ -80,7 +82,10 @@ class DefineOperatorTracker:
 	def generateindex(self):
 
 		currentdatetime = DateTime.getnow()
-		indexstring = "0000" + str(len(self.operatoractions) % 1000)
+		self.actioncounter = self.actioncounter + 1
+		if self.actioncounter > 999:
+			self.actioncounter = 0
+		indexstring = "0000" + str(self.actioncounter)
 		outcome = currentdatetime.getiso() + indexstring[-3:]
 
 		return outcome
@@ -124,7 +129,8 @@ class DefineOperatorTracker:
 	def queueaction(self, action, context):
 
 		duplicatefound = False
-		for existingaction in self.operatoractions:
+		for existingactionid in self.operatoractions.keys():
+			existingaction = self.operatoractions[existingactionid]
 			if existingaction.isduplicate(action, context) == True:
 				duplicatefound = True
 
