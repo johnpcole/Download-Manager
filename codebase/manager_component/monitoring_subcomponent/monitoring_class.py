@@ -30,6 +30,8 @@ class DefineMonitor:
 
 		self.sessionmeters.updatesessiondata(sessiondata)
 
+		self.sessionmeters.updatesessiondata(torrentaggregates)
+
 		if 'vpnstatus' in sessiondata.keys():
 			self.networkstatus = sessiondata['vpnstatus']
 

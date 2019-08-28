@@ -179,10 +179,10 @@ class DefineTorrentManager:
 
 		for existingtorrent in self.torrents:
 
-			currenttorrent = existingtorrent.getconnectiondata()
+			currenttorrentdata = existingtorrent.getconnectiondata()
 
-			for indexkey in currenttorrent:
-				outcome[indexkey] = outcome[indexkey] + currenttorrent[indexkey]
+			for indexkey in currenttorrentdata.keys():
+				outcome[indexkey] = outcome[indexkey] + currenttorrentdata[indexkey]
 
 		return outcome
 
