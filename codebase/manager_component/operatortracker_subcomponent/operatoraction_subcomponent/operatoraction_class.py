@@ -12,9 +12,9 @@ class DefineOperatorActionItem:
 
 # =========================================================================================
 
-	def getinstruction(self):
+	def getinstruction(self, index):
 
-		return {'action': self.actiontype.displaycurrent(), 'context': self.context}
+		return {'index': index, 'action': self.actiontype.displaycurrent(), 'context': self.context}
 
 # =========================================================================================
 

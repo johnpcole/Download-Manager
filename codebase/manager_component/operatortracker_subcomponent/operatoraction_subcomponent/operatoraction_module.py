@@ -6,7 +6,7 @@ def createaoperatoraction(action, context):
 
 
 def createfromexisting(existingobject):
-	data = existingobject.getinstruction()
+	data = existingobject.getinstruction("")
 	return OperatorActionClass.DefineOperatorActionItem(data['action'], data['context'])
 
 

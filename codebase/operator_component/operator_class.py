@@ -26,7 +26,9 @@ class DefineOperator:
 		self.scraper.posttourl(self.generatereturndata())
 		monitormode = self.delayer.checkdelay()
 		print("==================================================")
+		print("==================================================")
 		print("Latest Instruction from Manager: ", self.scraper.getjsonresult())
+		print("==================================================")
 		newinstructions = self.sanitiseinstructions(self.scraper.getjsonresult(), monitormode)
 
 		if newinstructions['action'] != "Null":
@@ -35,6 +37,8 @@ class DefineOperator:
 		else:
 			print("Remaining Dormant")
 			self.torrentmanager.blankdata()
+		print("==================================================")
+		print("==================================================")
 
 
 	def generatereturndata(self):

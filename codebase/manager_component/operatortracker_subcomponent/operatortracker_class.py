@@ -62,13 +62,15 @@ class DefineOperatorTracker:
 		nextactionid = self.findnextqueuedaction()
 
 		if nextactionid != self.nullaction:
-			outcome = self.operatoractions[nextactionid].getinstruction()
+			outcome = self.operatoractions[nextactionid].getinstruction(nextactionid)
 			del self.operatoractions[nextactionid]
 		else:
-			outcome = {'action': self.nullaction, 'context': "Null"}
+			outcome = {'index': '-----------------', 'action': self.nullaction, 'context': "Null"}
 
 		print("=================================================================")
-		print("Number of operations left: ",len(self.operatoractions), " This operation: ", outcome)
+		print("=================================================================")
+		print("Next action for operator:", outcome)
+		print("=================================================================")
 		print("=================================================================")
 		return outcome
 
@@ -92,12 +94,27 @@ class DefineOperatorTracker:
 		if len(self.operatoractions) > 0:
 
 			actionids = []
+			print("=============================================================================")
+			print("=============================================================================")
 			for actionid in self.operatoractions.keys():
+				temp = self.operatoractions[actionid]
+				print("Queued action: ", temp.getinstruction(actionid))
 				actionids.append(actionid)
 
 			actionids.sort()
 
+			print("=============================================================================")
 			outcome = actionids[0]
+			print("Selected instruction:", outcome)
+			print("=============================================================================")
+			print("=============================================================================")
+
+		else:
+			print("=============================================================================")
+			print("=============================================================================")
+			print("No Queued Actions Left to find next")
+			print("=============================================================================")
+			print("=============================================================================")
 
 		return outcome
 
@@ -107,15 +124,24 @@ class DefineOperatorTracker:
 	def queueaction(self, action, context):
 
 		duplicatefound = False
-		for actionid in self.operatoractions.keys():
-			if self.operatoractions[actionid].isduplicate(action, context) == True:
+		for existingaction in self.operatoractions:
+			if existingaction.isduplicate(action, context) == True:
 				duplicatefound = True
 
 		if duplicatefound == False:
-			print("Adding unique operator action: ", action, context)
-			self.operatoractions[self.generateindex()] = OperatorAction.createaoperatoraction(action, context)
+			newindex = self.generateindex()
+			print("=============================================================================")
+			print("=============================================================================")
+			print("Adding unique operator action: ", newindex, action, context)
+			print("=============================================================================")
+			print("=============================================================================")
+			self.operatoractions[newindex] = OperatorAction.createaoperatoraction(action, context)
 		else:
+			print("=============================================================================")
+			print("=============================================================================")
 			print("Ignoring duplicate operator action: ", action, context)
+			print("=============================================================================")
+			print("=============================================================================")
 
 
 
