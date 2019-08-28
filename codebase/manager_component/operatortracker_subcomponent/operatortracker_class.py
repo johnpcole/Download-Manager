@@ -10,11 +10,12 @@ class DefineOperatorTracker:
 
 		self.operatoractions = {}
 
-		self.queuenewrefreshaction()
-
 		self.nullaction = "Null"
 
 		self.actioncounter = 0
+
+		self.queuenewrefreshaction()
+
 
 # =========================================================================================
 
