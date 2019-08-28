@@ -139,7 +139,7 @@ class DefineTorrentManager:
 			if self.validatetorrentid(torrentiditem) == False:
 				self.torrents.append(TorrentData.createitem(torrentiditem))
 				Logging.printout("Registering Torrent in Download-Manager: " + torrentiditem)
-				print("Registering Torrent in Download-Manager: " + torrentiditem)
+				#print("Registering Torrent in Download-Manager: " + torrentiditem)
 
 
 
@@ -161,7 +161,7 @@ class DefineTorrentManager:
 
 			if foundflag == False:
 				Logging.printout("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
-				print("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
+				#print("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
 
 		self.torrents = Functions.sortdictionary(cleanlist, 'dateadded', True)
 

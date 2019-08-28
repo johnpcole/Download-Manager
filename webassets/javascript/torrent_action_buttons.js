@@ -1,19 +1,22 @@
-function updateStartStopButtons(torrentstate)
+function updateStartStopButtons(torrentstate, actionstate)
 {
     var torrentstatesuffix = torrentstate.substr(torrentstate.length-6);
     if ((torrentstatesuffix == "active") || (torrentstatesuffix == "queued")) {
         changeButtonState('Start', 'Hide');
-        changeButtonState('Start', 'Enable');
         changeButtonState('Stop', 'Show');
     } else if (torrentstatesuffix == "paused"){
         changeButtonState('Stop', 'Hide');
-        changeButtonState('Stop', 'Enable');
         changeButtonState('Start', 'Show');
     } else {
         changeButtonState('Stop', 'Hide');
-        changeButtonState('Stop', 'Enable');
         changeButtonState('Start', 'Hide');
+    };
+    if (actionstate > 0) {
+        changeButtonState('Stop', 'Disable');
+        changeButtonState('Start', 'Disable');
+    } else {
         changeButtonState('Start', 'Enable');
+        changeButtonState('Stop', 'Enable');
     };
 };
 

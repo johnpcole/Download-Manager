@@ -255,9 +255,9 @@ def triggercopier():
 def triggeroperator():
 
 	inputdata = WebServer.getrequestdata()
-	print("===========================================================")
-	print("INPUT KEYS: ", inputdata.keys())
-	print("===========================================================")
+	#print("===========================================================")
+	#print("INPUT KEYS: ", inputdata.keys())
+	#print("===========================================================")
 	if ("torrents" in inputdata.keys()) and ("sessiondata" in inputdata.keys()
 																			and ("monitorhistory" in inputdata.keys())):
 		result = torrentset.triggeroperator(inputdata['torrents'], inputdata['sessiondata'],

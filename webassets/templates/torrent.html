@@ -246,9 +246,9 @@ Section: Read-Only-Mode Action Buttons
 
             {{ buttontemplate("Exit", "window.location.replace('/')", "torrentaction_exit", "exit") }}
 
-            {{ buttontemplate("Stop", "performTorrentAction('Stop')", "torrentaction_stop", "stop") }}
+            {{ disabledbuttontemplate("Stop", "performTorrentAction('Stop')", "torrentaction_stop", "stop") }}
 
-            {{ buttontemplate("Start", "performTorrentAction('Start')", "torrentaction_start", "start") }}
+            {{ disabledbuttontemplate("Start", "performTorrentAction('Start')", "torrentaction_start", "start") }}
 
             {{ disabledbuttontemplate("Edit", "editTorrentConfiguration()", "torrentaction_edit", "edit") }}
 
@@ -315,6 +315,7 @@ Dialog-Content
 {% block hiddendata %}
 
  --><div class="hidden">
+         <p id="initialactionstate">{{ actionqueuestate }}</p>
          <img src="{{ url_for('static', filename='images/copyoverlay_attention.gif') }}" />
          <img src="{{ url_for('static', filename='images/copyoverlay_completed.gif') }}" />
          <img src="{{ url_for('static', filename='images/copyoverlay_incomplete.gif') }}" />

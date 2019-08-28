@@ -97,7 +97,8 @@ class DefineTorrentSet:
 				Logging.printinvocation("Loading Specific Torrent Page", torrentid)
 				self.delugemanager.queuenewrefreshaction()
 				return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
-						'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
+						'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid),
+						'actionqueuestate': self.delugemanager.gettorrentactionstate(torrentid)}
 			else:
 				Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
 				return {'waitingforinitialisation': True}
@@ -113,7 +114,8 @@ class DefineTorrentSet:
 			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
 			self.delugemanager.queuenewrefreshaction()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
-					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)}
+					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid),
+					'actionqueuestate': self.delugemanager.gettorrentactionstate(torrentid)}
 		else:
 			Logging.printinvocation("Requested Refresh to Unknown Torrent", torrentid)
 
@@ -284,7 +286,7 @@ class DefineTorrentSet:
 
 	def triggercopier(self, latestcopyid, copyoutcome, notes):
 
-		Logging.printinvocation("Triggering Copier", "")
+		Logging.printinvocation("Connecting to Copier", "")
 		self.librarymanager.importcopieroutcome(latestcopyid, copyoutcome, notes)
 		return self.librarymanager.processnextcopyaction()
 
@@ -296,7 +298,7 @@ class DefineTorrentSet:
 
 	def triggeroperator(self, torrentdata, sessiondata, monitorhistory):
 
-		Logging.printinvocation("Triggering Operator", "")
+		Logging.printinvocation("Connecting to Operator", "")
 
 		if torrentdata is not None:
 			self.torrentmanager.refreshtorrentlist(torrentdata)

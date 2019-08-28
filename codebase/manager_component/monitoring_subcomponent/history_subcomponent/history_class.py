@@ -27,7 +27,7 @@ class DefineHistory:
 																										temperature)
 		self.monitorhistory.append(newhistoryitem)
 		self.clearuphistory(currentdatetime)
-		print("NEW MONITOR HISTORY ITEM: ", newhistoryitem.getsavedata())
+		#print("NEW MONITOR HISTORY ITEM: ", newhistoryitem.getsavedata())
 		return newhistoryitem.getsavedata()
 
 

@@ -33,5 +33,15 @@ class DefineOperatorActionItem:
 		return outcome
 
 
+	def isontorrent(self, torrentid):
+
+		if (self.context == "ALL") or (self.context == torrentid):
+			outcome = True
+		else:
+			outcome = False
+
+		return outcome
+
+
 
 

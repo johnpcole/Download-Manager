@@ -1,5 +1,6 @@
 from .operatoraction_subcomponent import operatoraction_module as OperatorAction
 from ...common_components.datetime_datatypes import datetime_module as DateTime
+from ...common_components.logging_framework import logging_module as Logging
 
 
 
@@ -115,12 +116,12 @@ class DefineOperatorTracker:
 		#	print("=============================================================================")
 		#	print("=============================================================================")
 
-		else:
-			print("=============================================================================")
-			print("=============================================================================")
-			print("No Queued Actions Left to find next")
-			print("=============================================================================")
-			print("=============================================================================")
+		#else:
+		#	print("=============================================================================")
+		#	print("=============================================================================")
+		#	print("No Queued Actions Left to find next")
+		#	print("=============================================================================")
+		#	print("=============================================================================")
 
 		return outcome
 
@@ -149,6 +150,16 @@ class DefineOperatorTracker:
 		#	print("Ignoring duplicate operator action: ", action, context)
 		#	print("=============================================================================")
 		#	print("=============================================================================")
+
+
+	def gettorrentactionstate(self, torrentid):
+
+		outcome = 0
+		for actionindex in self.operatoractions.keys():
+			if self.operatoractions[actionindex].isontorrent(torrentid) == True:
+				outcome = outcome + 1
+
+		return outcome
 
 
 
