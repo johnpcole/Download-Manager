@@ -3,6 +3,7 @@
 
 function performTorrentAction(action)
 {
+    changeButtonState(action, 'Disable');
     $.ajax({
         url: 'PerformTorrentAction',
         type: 'POST',
