@@ -1,6 +1,6 @@
 from .operatoraction_subcomponent import operatoraction_module as OperatorAction
 from ...common_components.datetime_datatypes import datetime_module as DateTime
-from ...common_components.logging_framework import logging_module as Logging
+#from ...common_components.logging_framework import logging_module as Logging
 
 
 
@@ -66,7 +66,8 @@ class DefineOperatorTracker:
 		nextactionid = self.findnextqueuedaction()
 
 		if nextactionid != self.nullaction:
-			outcome = self.operatoractions[nextactionid].getinstruction(nextactionid)
+			selectedaction = self.operatoractions[nextactionid]
+			outcome = selectedaction.getinstruction(nextactionid)
 			del self.operatoractions[nextactionid]
 		else:
 			outcome = {'index': '-----------------', 'action': self.nullaction, 'context': "Null"}
@@ -152,14 +153,15 @@ class DefineOperatorTracker:
 		#	print("=============================================================================")
 
 
-	def gettorrentactionstate(self, torrentid):
+	#def gettorrentactionstate(self, torrentid):
 
-		outcome = 0
-		for actionindex in self.operatoractions.keys():
-			if self.operatoractions[actionindex].isontorrent(torrentid) == True:
-				outcome = outcome + 1
+	#	outcome = 0
+	#	for actionindex in self.operatoractions.keys():
+	#		existingaction = self.operatoractions[actionindex]
+	#		if existingaction.isontorrent(torrentid) == True:
+	#			outcome = outcome + 1
 
-		return outcome
+	#	return outcome
 
 
 

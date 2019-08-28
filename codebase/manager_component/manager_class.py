@@ -97,8 +97,8 @@ class DefineTorrentSet:
 				Logging.printinvocation("Loading Specific Torrent Page", torrentid)
 				self.delugemanager.queuenewrefreshaction()
 				return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
-						'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid),
-						'actionqueuestate': self.delugemanager.gettorrentactionstate(torrentid)}
+						'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)} #,
+						#'actionqueuestate': self.delugemanager.gettorrentactionstate(torrentid)}
 			else:
 				Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
 				return {'waitingforinitialisation': True}
@@ -114,8 +114,8 @@ class DefineTorrentSet:
 			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
 			self.delugemanager.queuenewrefreshaction()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
-					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid),
-					'actionqueuestate': self.delugemanager.gettorrentactionstate(torrentid)}
+					'copyqueuestate': self.librarymanager.gettorrentcopystate(torrentid)} #,
+					#'actionqueuestate': self.delugemanager.gettorrentactionstate(torrentid)}
 		else:
 			Logging.printinvocation("Requested Refresh to Unknown Torrent", torrentid)
 

@@ -33,14 +33,14 @@ class DefineOperatorActionItem:
 		return outcome
 
 
-	def isontorrent(self, torrentid):
+	#def isontorrent(self, torrentid):
 
-		if (self.context == "ALL") or (self.context == torrentid):
-			outcome = True
-		else:
-			outcome = False
+	#	if (self.context == "ALL") or (self.context == torrentid):
+	#		outcome = True
+	#	else:
+	#		outcome = False
 
-		return outcome
+	#	return outcome
 
 
 
