@@ -52,9 +52,9 @@ class DefineDelugeInterface:
 		# WORKS! print self.delugeinterface.call('core.get_config')
 		# print "========================================================="
 			outcome = self.delugeinterface.connected
-		except:
+		except Exception as errortype:
 			outcome = None
-			print("DELUGE INTERFACE ERROR: Trying to connect to deluge client")
+			print("DELUGE INTERFACE ERROR: Trying to connect to deluge client (", errortype, ")")
 
 		return outcome
 
@@ -70,9 +70,9 @@ class DefineDelugeInterface:
 			while self.delugeinterface.connected == True:
 				self.delugeinterface.disconnect()
 			outcome = self.delugeinterface.connected
-		except:
+		except Exception as errortype:
 			outcome = None
-			print("DELUGE INTERFACE ERROR: Trying to disconnect from deluge client")
+			print("DELUGE INTERFACE ERROR: Trying to disconnect from deluge client (", errortype, ")")
 
 		return outcome
 
@@ -92,8 +92,8 @@ class DefineDelugeInterface:
 				outcome.append(rawtorrentid.decode("ascii", "ignore"))
 
 
-		except:
-			print("DELUGE INTERFACE ERROR: Trying to retrieve torrent list")
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to retrieve torrent list (", errortype, ")")
 			outcome = None
 
 		return outcome
@@ -135,8 +135,8 @@ class DefineDelugeInterface:
 				else:
 					outcome[newkeyname] = itemdata
 
-		except:
-			print("DELUGE INTERFACE ERROR: Trying to retrieve torrent data for " + torrentid)
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to retrieve torrent data for " + torrentid + " (", errortype, ")")
 			outcome = None
 
 
@@ -158,8 +158,8 @@ class DefineDelugeInterface:
 				newtorrentid = self.delugeinterface.call('core.add_torrent_url', linkstring, {})
 			outcome = newtorrentid.decode("ascii", "ignore")
 
-		except:
-			print("DELUGE INTERFACE ERROR: Trying to add new torrent")
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to add new torrent (", errortype, ")")
 			outcome = None
 
 		return outcome
@@ -175,8 +175,8 @@ class DefineDelugeInterface:
 
 		try:
 			outcome = self.delugeinterface.call('core.force_recheck', torrentids)
-		except:
-			print("DELUGE INTERFACE ERROR: Trying to force recheck of torrent " + torrentids)
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to force recheck of torrent " + torrentids + " (", errortype, ")")
 			outcome = None
 		return outcome
 
@@ -195,8 +195,8 @@ class DefineDelugeInterface:
 				outcome = self.delugeinterface.call('core.pause_all_torrents')
 			else:
 				outcome = self.delugeinterface.call('core.pause_torrent', [torrentid])
-		except:
-			print("DELUGE INTERFACE ERROR: Trying to pause torrent " + torrentid)
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to pause torrent " + torrentid + " (", errortype, ")")
 			outcome = None
 
 		return outcome
@@ -217,8 +217,8 @@ class DefineDelugeInterface:
 			else:
 				outcome = self.delugeinterface.call('core.resume_torrent', [torrentid])
 
-		except:
-			print("DELUGE INTERFACE ERROR: Trying to resume torrent " + torrentid)
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to resume torrent " + torrentid + " (", errortype, ")")
 			outcome = None
 
 		return outcome
@@ -234,8 +234,8 @@ class DefineDelugeInterface:
 
 		try:
 			outcome = self.delugeinterface.call('core.remove_torrent', torrentid, True)
-		except:
-			print("DELUGE INTERFACE ERROR: Trying to delete torrent " + torrentid)
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to delete torrent " + torrentid + " (", errortype, ")")
 			outcome = None
 
 
@@ -259,8 +259,8 @@ class DefineDelugeInterface:
 			outcome['uploadedtotal'] = rawstats1[b'total_payload_upload']
 			outcome['freespace'] = rawstats2 / 1000000000
 
-		except:
-			print("DELUGE INTERFACE ERROR: Trying to retrieve session data")
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to retrieve session data (", errortype, ")")
 			outcome = None
 
 

@@ -320,6 +320,9 @@ class DefineTorrentSet:
 			outcome = self.monitormanager.addtohistory()
 			ConfigFile.savemonitor(outcome)
 
+		if self.areconfigsloaded == False:
+			self.delugemanager.queuenewrefreshaction()
+
 		return self.delugemanager.getnextoperatoraction()
 
 
