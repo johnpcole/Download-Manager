@@ -1,10 +1,9 @@
 from .torrenting_subcomponent import torrenting_module as TorrentManager
 from .monitoring_subcomponent import monitoring_module as MonitorManager
+from .copiertracker_subcomponent import copiertracker_module as CopierManager
 from .operatortracker_subcomponent import operatortracker_module as DelugeManager
 from ..common_components.logging_framework import logging_module as Logging
-#from . import manager_privatefunctions as Waste
 from .datastore_subcomponent import datastore_module as ConfigFile
-from .copiertracker_subcomponent import copiertracker_module as CopierManager
 from .fileoptions_subcomponent import fileoptions_module as FileOptions
 
 
@@ -330,4 +329,4 @@ class DefineTorrentSet:
 
 	def determinewebmode(self):
 
-		return True # FileManager.getwebhostconfig()
+		return True # ConfigFile.getwebhostconfig()

@@ -72,6 +72,7 @@ class DefineFileManager:
 	def performcopy(self, sourcelocation, targetsublocation, forcemode):
 
 		outcome = "Failed"
+		outcomedetail = {}
 		targetlocation = FileSystem.concatenatepaths(self.mountpoint, targetsublocation)
 		connectionoutcome = self.connecttofileserver("Copy Files")
 		proceedwithcopy = False
@@ -79,11 +80,13 @@ class DefineFileManager:
 		if connectionoutcome == True:
 
 			if FileSystem.doesexist(targetlocation) == True:
+				outcomedetail = {"Existing File": "Dont Know Yet", "New File": "Dont Know Yet"}
 				if forcemode == True:
 					proceedwithcopy = True
 				else:
 					outcome = "Confirm"
 			else:
+				outcomedetail = {"New File": "Dont Know Yet"}
 				proceedwithcopy = True
 
 		if proceedwithcopy == True:
@@ -91,7 +94,7 @@ class DefineFileManager:
 			if actionoutcome == True:
 				outcome = "Succeeded"
 
-		return outcome
+		return {"outcome": outcome, "detail": outcomedetail}
 
 
 
@@ -116,11 +119,12 @@ class DefineFileManager:
 	def scrapetvshows(self):
 
 		tvshows = {}
-
+		outcome = "Failed"
 		connectionoutcome = self.connecttofileserver("Scrape TV Shows")
 		if connectionoutcome == True:
 			rootfolder = FileSystem.concatenatepaths(self.mountpoint, "TV Shows")
 			rootlisting = FileSystem.getfolderlisting(rootfolder)
+			outcome = "Succeeded"
 			for rootitem in rootlisting:
 				if rootlisting[rootitem] == "Folder":
 					subfolder = FileSystem.concatenatepaths(rootfolder, rootitem)
@@ -138,6 +142,6 @@ class DefineFileManager:
 						orderedlist.append(seasonlist[key])
 					tvshows[rootitem] = orderedlist
 
-		return tvshows
+		return {"outcome": outcome, "detail": tvshows}
 
 

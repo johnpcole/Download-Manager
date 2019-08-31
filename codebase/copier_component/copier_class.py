@@ -16,8 +16,8 @@ class DefineCopier:
 
 		self.filemanager = FileManager.createmanager(ConfigFile.readconfigurationfile(
 																	'./data/application_config/copier_connection.cfg',
-																	['Mountpoint', 'Address', 'Username', 'Password'])
-																	, retrylimit)
+																	['Mountpoint', 'Address', 'Username', 'Password']),
+																	retrylimit)
 
 		self.lastinstruction = CopyInstruction.createinstruction()
 
@@ -47,14 +47,14 @@ class DefineCopier:
 			self.performafolderrefresh(newinstruction['copyid'])
 		else:
 			self.performafilecopy(newinstruction['copyid'], newinstruction['source'],
-							  newinstruction['target'], newinstruction['overwrite'])
+																newinstruction['target'], newinstruction['overwrite'])
 
 
 
 	def performafolderrefresh(self, copyid):
 		self.lastinstruction.settonew(copyid, "Scrape TV Shows")
-		copyoutcome = self.filemanager.scrapetvshows()
-		self.lastinstruction.updatenotes(copyoutcome)
+		scrapeoutcome = self.filemanager.scrapetvshows()
+		self.lastinstruction.updateresults(scrapeoutcome["outcome"], scrapeoutcome["detail"])
 
 
 	def performafinish(self):
@@ -69,7 +69,7 @@ class DefineCopier:
 	def performafilecopy(self, copyid, source, target, forcemode):
 		self.lastinstruction.settonew(copyid, "File Copy")
 		copyoutcome = self.filemanager.performcopy(source, target, forcemode)
-		self.lastinstruction.updatestatus(copyoutcome)
+		self.lastinstruction.updateresults(copyoutcome["outcome"], copyoutcome["detail"])
 
 
 	def shouldcalldownloadmanager(self):
