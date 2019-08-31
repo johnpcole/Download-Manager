@@ -1,6 +1,6 @@
-from ....common_components.dataconversion_framework import dataconversion_module as Functions
+from ...common_components.dataconversion_framework import dataconversion_module as Functions
 
-class DefineTVShows:
+class DefineFileOptions:
 
 	def __init__(self):
 

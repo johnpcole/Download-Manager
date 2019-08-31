@@ -9,7 +9,7 @@ $(document).ready(function ()
         if ('Hidden' == 'Hidden') {
             updateCopierList('Refresh');
         };
-    }, 1000);
+    }, 5000);
 
     $('#ajaxloader').hide();
 });

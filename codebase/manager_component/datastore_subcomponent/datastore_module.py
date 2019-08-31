@@ -1,23 +1,12 @@
 from ...common_components.filesystem_framework import filesystem_module as FileSystem
-from . import fileprocessing_class as FileManagerClass
 from ...common_components.logging_framework import logging_module as Logging
-
-
-# =========================================================================================
-# Creates the Library object, which contains file server connectivity data,
-# as well as lists of tv shows, and processes copy actions
-# =========================================================================================
-
-def createfilemanager():
-	return FileManagerClass.DefineLibraryManager()
-
 
 
 # =========================================================================================
 # Saves the current torrent config information, to a file
 # =========================================================================================
 
-def saveconfigs(outputlist):
+def savetorrentconfigs(outputlist):
 	Logging.printout("Saving Torrents Configuration Data")
 	FileSystem.writetodisk('./data/torrent_configs.db', outputlist, "Overwrite")
 
@@ -25,7 +14,7 @@ def saveconfigs(outputlist):
 # Reads the current torrent config information, from a file
 # =========================================================================================
 
-def loadconfigs():
+def loadtorrentconfigs():
 	Logging.printout("Loading Torrents Configuration Data")
 	return FileSystem.readfromdisk('./data/torrent_configs.db')
 
@@ -43,19 +32,6 @@ def loadconfigs():
 	#else:
 	#	outcome = False
 	#return outcome
-
-
-# =========================================================================================
-# Creates a filepath from a list of nodes, using the appropriate filesystem symbol
-# =========================================================================================
-
-# def buildpath(nodelist):
-# 	outcome = "-"
-# 	for node in nodelist:
-# 		outcome = FileSystem.concatenatepaths(outcome, node)
-#
-# 	return outcome[2:]
-
 
 
 # =========================================================================================

@@ -1,4 +1,4 @@
-from . import tvshows_class as TVShowsClass
+from . import fileoptions_class as FileOptionsClass
 
 
 # =========================================================================================
@@ -6,7 +6,7 @@ from . import tvshows_class as TVShowsClass
 # as well as lists of tv shows, and processes copy actions
 # =========================================================================================
 
-def createtvshows():
-	return TVShowsClass.DefineTVShows()
+def createfileoptions():
+	return FileOptionsClass.DefineFileOptions()
 
 

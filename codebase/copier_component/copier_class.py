@@ -2,6 +2,9 @@ from ..common_components.delayer_framework import delayer_module as Delayer
 from ..common_components.webscraper_framework import webscraper_module as WebScraper
 from .filemanagement_subcomponent import filemanagement_module as FileManager
 from .copyinstruction_subcomponent import copyinstruction_module as CopyInstruction
+from ..common_components.filesystem_framework import configfile_module as ConfigFile
+
+
 
 class DefineCopier:
 
@@ -11,7 +14,10 @@ class DefineCopier:
 
 		self.scraper = WebScraper.createscraper(webaddress, retrylimit)
 
-		self.filemanager = FileManager.createmanager(FileManager.getlibraryconnectionconfig(), retrylimit)
+		self.filemanager = FileManager.createmanager(ConfigFile.readconfigurationfile(
+																	'./data/application_config/copier_connection.cfg',
+																	['Mountpoint', 'Address', 'Username', 'Password'])
+																	, retrylimit)
 
 		self.lastinstruction = CopyInstruction.createinstruction()
 

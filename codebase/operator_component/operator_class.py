@@ -1,9 +1,10 @@
 from ..common_components.delayer_framework import delayer_module as Delayer
 from ..common_components.webscraper_framework import webscraper_module as WebScraper
 from .delugeinterface_subcomponent import delugeinterface_module as DelugeInterface
-from .configfile_subcomponent import configfile_module as FileManager
 from ..common_components.thermometer_framework import thermometer_module as Thermometer
 from .network_subcomponent import network_module as VPNStatus
+from ..common_components.filesystem_framework import configfile_module as ConfigFile
+
 
 
 class DefineOperator:
@@ -14,7 +15,9 @@ class DefineOperator:
 
 		self.scraper = WebScraper.createscraper(webaddress, retrylimit)
 
-		self.torrentmanager = DelugeInterface.createinterface(FileManager.gettorrentconnectionconfig())
+		self.torrentmanager = DelugeInterface.createinterface(ConfigFile.readconfigurationfile(
+																	'./data/application_config/operator_connection.cfg',
+																	['Address', 'Port', 'Username', 'Password']))
 
 
 

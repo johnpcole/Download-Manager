@@ -1,4 +1,4 @@
-from .sessiondatameters_subcomponent import sessiondatameters_module as SessionDataMeters
+from .dashboardmeters_subcomponent import dashboardmeters_module as DashboardMeters
 from .history_subcomponent import history_module as History
 
 
@@ -7,7 +7,7 @@ class DefineMonitor:
 	def __init__(self):
 
 		# An array of meter graph data, capturing important overall torrenting stats
-		self.sessionmeters = SessionDataMeters.createsessiondatameters()
+		self.dashboardmeters = DashboardMeters.createdashboardmeters()
 
 		# An array of historic monitor history
 		self.monitorhistory = History.createhistory()
@@ -18,8 +18,7 @@ class DefineMonitor:
 		self.uploadedtotal = 0
 
 		# Torrent aggregate counts
-		self.torrentaggregates = {'downloadcount': 0, 'activedownloads': 0, 'uploadcount': 0, 'activeuploads': 0,
-									'redcount': 0, 'orangecount': 0, 'ambercount': 0, 'yellowcount': 0, 'greencount': 0}
+		self.colourcounts = {'redcount': 0, 'orangecount': 0, 'ambercount': 0, 'yellowcount': 0, 'greencount': 0}
 
 
 # =========================================================================================
@@ -28,25 +27,28 @@ class DefineMonitor:
 
 	def refreshsessiondata(self, sessiondata, torrentaggregates):
 
-		self.sessionmeters.updatesessiondata(sessiondata)
+		self.dashboardmeters.updatesessiondata(sessiondata)
 
-		self.sessionmeters.updatesessiondata(torrentaggregates)
+		self.dashboardmeters.updatesessiondata(torrentaggregates)
 
-		if 'vpnstatus' in sessiondata.keys():
-			self.networkstatus = sessiondata['vpnstatus']
+		for index in sessiondata.keys():
+			if index == 'vpnstatus':
+				self.networkstatus = sessiondata[index]
+			elif index == 'uploadedtotal':
+				self.uploadedtotal = sessiondata[index]
 
-		if 'uploadedtotal' in sessiondata.keys():
-			self.uploadedtotal = sessiondata['uploadedtotal']
+		for index in torrentaggregates.keys():
+			if index in self.colourcounts.keys():
+				self.colourcounts[index] = torrentaggregates[index]
 
-		self.torrentaggregates = torrentaggregates
 
 # =========================================================================================
 # Generates an array of stat numerics, required to draw the meter graphs
 # =========================================================================================
 
-	def getsessionmeters(self):
+	def getdashboardmeters(self):
 
-		outcome = self.sessionmeters.getstats()
+		outcome = self.dashboardmeters.getmetergraphics()
 		if self.networkstatus == 1:
 			outcome['networkstatus'] = "vpn_up"
 		else:
@@ -57,8 +59,8 @@ class DefineMonitor:
 
 	def addtohistory(self):
 
-		return self.monitorhistory.addhistoryentry(self.torrentaggregates, self.networkstatus, self.uploadedtotal,
-																				self.sessionmeters.gettemperature())
+		return self.monitorhistory.addhistoryentry(self.colourcounts, self.networkstatus, self.uploadedtotal,
+																				self.dashboardmeters.gettemperature())
 
 # =========================================================================================
 

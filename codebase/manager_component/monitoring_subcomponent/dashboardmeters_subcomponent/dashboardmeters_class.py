@@ -6,7 +6,7 @@ from .meter_subcomponent import meter_module as Meter
 # The object only stores information fed to it, rather than looking up the information itself,
 # and stores the information within each child meter object, rather than on itself; It's just a collection
 
-class DefineSessionDataMeters:
+class DefineDashboardMeters:
 
 	def __init__(self):
 
@@ -44,26 +44,26 @@ class DefineSessionDataMeters:
 # storing them in the meter objects for later use
 # =========================================================================================
 
-	def updatesessiondata(self, delugesessiondata):
+	def updatesessiondata(self, dashboarddata):
 
-		for indexkey in delugesessiondata:
+		for indexkey in dashboarddata:
 
 			if indexkey == 'uploadspeed':
-				self.uploadspeed.setmetervalue(delugesessiondata[indexkey])
+				self.uploadspeed.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'downloadspeed':
-				self.downloadspeed.setmetervalue(delugesessiondata[indexkey])
+				self.downloadspeed.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'freespace':
-				self.freespace.setmetervalue(delugesessiondata[indexkey])
+				self.freespace.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'downloadcount':
-				self.downloadcount.setmetervalue(delugesessiondata[indexkey])
+				self.downloadcount.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'activedownloads':
-				self.activedownloads.setmetervalue(delugesessiondata[indexkey])
+				self.activedownloads.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'uploadcount':
-				self.uploadcount.setmetervalue(delugesessiondata[indexkey])
+				self.uploadcount.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'activeuploads':
-				self.activeuploads.setmetervalue(delugesessiondata[indexkey])
+				self.activeuploads.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'temperature':
-				self.temperature.setmetervalue(delugesessiondata[indexkey])
+				self.temperature.setmetervalue(dashboarddata[indexkey])
 			else:
 				tempo = 0
 
@@ -74,7 +74,7 @@ class DefineSessionDataMeters:
 # required to draw the meter graphs
 # =========================================================================================
 
-	def getstats(self):
+	def getmetergraphics(self):
 
 		outcome = {}
 		outcome['downloadspeed'] = self.downloadspeed.getmeterdata()

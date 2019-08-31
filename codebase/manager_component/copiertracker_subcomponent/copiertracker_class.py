@@ -1,7 +1,7 @@
-from ....common_components.filesystem_framework import filesystem_module as FileSystem
+from ...common_components.filesystem_framework import filesystem_module as FileSystem
 from .copieraction_subcomponent import copieraction_module as CopierAction
-from ....common_components.datetime_datatypes import datetime_module as DateTime
-from ....common_components.logging_framework import logging_module as Logging
+from ...common_components.datetime_datatypes import datetime_module as DateTime
+from ...common_components.logging_framework import logging_module as Logging
 from .copyset_subcomponent import copyset_module as CopySet
 from . import copiertracker_privatefunctions as PrivateFunctions
 
@@ -122,15 +122,22 @@ class DefineCopierTracker:
 
 
 
-	def getcopierpagedata(self, torrentidlist, displaymode):
+	def getcopierpageinitialdata(self, torrentidlist):
 
 		outcome = []
 		for actionid in self.copieractions.keys():
-			if displaymode == "initialise":
-				outcome.append(self.copieractions[actionid].getcopierpageloaddata(torrentidlist, actionid))
-			else:
-				if self.copieractions[actionid].getcachestate() == True:
-					outcome.append(self.copieractions[actionid].getcopierpageupdatedata(actionid))
+			outcome.append(self.copieractions[actionid].getcopierpageloaddata(torrentidlist, actionid))
+
+		return outcome
+
+
+
+	def getcopierpagerefreshdata(self):
+
+		outcome = []
+		for actionid in self.copieractions.keys():
+			if self.copieractions[actionid].getcachestate() == True:
+				outcome.append(self.copieractions[actionid].getcopierpageupdatedata(actionid))
 
 		return outcome
 
@@ -138,7 +145,7 @@ class DefineCopierTracker:
 
 	def getcopysetstate(self, torrentid):
 
-		if torrentid == "":
+		if torrentid == "ALL":
 			tracker = CopySet.createglobalactiontracker()
 		else:
 			tracker = CopySet.createtorrentcopytracker(torrentid)

@@ -1,4 +1,4 @@
-from .....common_components.enumeration_datatype import enumeration_module as Enumeration
+from ....common_components.enumeration_datatype import enumeration_module as Enumeration
 
 
 class DefineSet:
