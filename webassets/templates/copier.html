@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% from 'dialog.html' import dialogtoptemplate %}
+{% from 'dialog.html' import dialogdoublebottomtemplate %}
 
 {% block bodycontext %} class="fixed"{% endblock %}
 
@@ -71,6 +73,20 @@ Banner Content
 {% block dialogs %}
 
  --><div class="hidden">
+
+     {{ dialogtoptemplate("copyfailuredialog", "File Copy Failure", "CloseCopyFailure", "closeCopyDialogs()") }}
+         --><div id="dialogcontent"><!--
+             --><div class="dialogitemmax">{{ copyitem }}</div><!--
+         --></div><!--
+    {{ dialogdoublebottomtemplate("abandonCopy", "abandonCopy()", "", "RetryCopy", "retryCopy()") }}
+
+     {{ dialogtoptemplate("copyconfirmdialog", "File Copy Overwrite", "CloseCopyConfirm", "closeCopyDialogs()") }}
+         --><div id="dialogcontent"><!--
+             --><div class="dialogitemmax">{{ copyitem }}</div><!--
+         --></div><!--
+    {{ dialogdoublebottomtemplate("abandonCopy", "abandonCopy()", "ConfirmCopy", "confirmCopy()") }}
+
+
     </div><!--
 
 {% endblock %}

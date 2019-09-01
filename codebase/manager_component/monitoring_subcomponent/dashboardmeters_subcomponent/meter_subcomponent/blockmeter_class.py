@@ -39,3 +39,19 @@ class DefineBlockMeter:
 		outcome['offset'] = ((180.0 - startangle) / 360.0) * circumference
 
 		return outcome
+
+
+	def getdummydata(self):
+
+		outcome = {}
+		outcome['fill'] = 0
+		outcome['gap'] = 100
+		outcome['offset'] = 0
+
+		return outcome
+
+
+
+
+
+

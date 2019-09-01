@@ -17,6 +17,8 @@ class DefineOperatorTracker:
 
 		self.queuenewrefreshaction()
 
+		self.lastseen = DateTime.getnow()
+
 
 # =========================================================================================
 
@@ -162,6 +164,22 @@ class DefineOperatorTracker:
 	#			outcome = outcome + 1
 
 	#	return outcome
+
+
+	def lognewdatashare(self):
+
+		self.lastseen.settonow()
+
+	def hasrecentlybeenseen(self):
+
+		secondsdifference = DateTime.secondsdifference(self.lastseen, DateTime.getnow())
+		if abs(secondsdifference) > 10:
+			outcome = False
+		else:
+			outcome = True
+
+		return outcome
+
 
 
 

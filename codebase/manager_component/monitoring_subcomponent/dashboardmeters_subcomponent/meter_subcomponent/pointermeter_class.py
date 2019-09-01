@@ -61,5 +61,15 @@ class DefinePointerMeter:
 
 		return self.datavalue
 
+	def getdummydata(self):
+
+		outcome = {}
+		outcome['vo'] = -100
+		outcome['ho'] = -100
+		outcome['vf'] = -100
+		outcome['hf'] = -100
+
+		return outcome
+
 
 

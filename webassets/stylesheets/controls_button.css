@@ -118,8 +118,8 @@ div.actionbuttonsgroup {
 /* =================================================== */
 
 .dialog > div:nth-of-type(1) button {
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     background-color: #FFFFCC;
     position: absolute;
     top: 0px;
@@ -139,8 +139,8 @@ div.actionbuttonsgroup {
 }
 
 .dialog > div:nth-of-type(4) button {
-    width: 22px;
-    height: 22px;
+    width: 28px;
+    height: 28px;
     background-color: #FFFFCC;
     border: 1px solid #000033;
     padding: 2px;

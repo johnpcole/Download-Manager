@@ -103,3 +103,16 @@ class DefineDashboardMeters:
 		return self.temperature.getmetervalue()
 
 
+	def getdummymetergraphics(self):
+		outcome = {}
+		outcome['downloadspeed'] = self.downloadspeed.getdummydata()
+		outcome['uploadspeed'] = self.uploadspeed.getdummydata()
+		outcome['space'] = self.freespace.getdummydata()
+		outcome['temperature'] = self.temperature.getdummydata()
+		outcome['downloadcount'] = self.downloadcount.getdummydata()
+		outcome['activedownloads'] = self.activedownloads.getdummydata()
+		outcome['uploadcount'] = self.uploadcount.getdummydata()
+		outcome['activeuploads'] = self.activeuploads.getdummydata()
+		return outcome
+
+

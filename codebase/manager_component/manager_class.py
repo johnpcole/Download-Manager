@@ -35,8 +35,8 @@ class DefineTorrentSet:
 			return {'waitingforinitialisation': True}
 		else:
 			return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
-				'stats': self.monitormanager.getdashboardmeters(),
-				'copyqueuestate': self.copiermanager.getcopysetstate("ALL")}
+					'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
+					'copyqueuestate': self.copiermanager.getcopysetstate("ALL")}
 
 
 
@@ -49,7 +49,7 @@ class DefineTorrentSet:
 		Logging.printinvocation("Refreshing All Torrents List Page", "")
 		self.delugemanager.queuenewrefreshaction()
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
-				'stats': self.monitormanager.getdashboardmeters(),
+				'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL")}
 
 
@@ -314,6 +314,7 @@ class DefineTorrentSet:
 				self.areconfigsloaded = True
 			if sessiondata is not None:
 				self.monitormanager.refreshsessiondata(sessiondata, self.torrentmanager.getaggregates())
+				self.delugemanager.lognewdatashare()
 
 		if monitorhistory is True:
 			outcome = self.monitormanager.addtohistory()

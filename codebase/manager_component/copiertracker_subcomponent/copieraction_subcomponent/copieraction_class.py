@@ -14,7 +14,7 @@ class DefineCopierActionItem:
 
 		self.status = Enumeration.createenum(["Queued", "In Progress", "Failed", "Succeeded", "Confirm", "Abandoned"],
 																											"Queued")
-		self.resultdetail = ""
+		self.resultdetail = {}
 
 		self.torrentid = torrentid
 

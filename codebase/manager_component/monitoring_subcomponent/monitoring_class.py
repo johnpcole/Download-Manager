@@ -46,13 +46,18 @@ class DefineMonitor:
 # Generates an array of stat numerics, required to draw the meter graphs
 # =========================================================================================
 
-	def getdashboardmeters(self):
+	def getdashboardmeters(self, isdatarecent):
 
-		outcome = self.dashboardmeters.getmetergraphics()
-		if self.networkstatus == 1:
-			outcome['networkstatus'] = "vpn_up"
+		if isdatarecent == True:
+			outcome = self.dashboardmeters.getmetergraphics()
+			if self.networkstatus == 1:
+				outcome['networkstatus'] = "vpn_up"
+			else:
+				outcome['networkstatus'] = "vpn_down"
 		else:
+			outcome = self.dashboardmeters.getdummymetergraphics()
 			outcome['networkstatus'] = "vpn_down"
+
 		return outcome
 
 # =========================================================================================

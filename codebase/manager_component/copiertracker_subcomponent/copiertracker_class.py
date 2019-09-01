@@ -124,13 +124,13 @@ class DefineCopierTracker:
 
 	def getcopierpageinitialdata(self, torrentidlist):
 
-		outcome = []
 		keylist = []
 		for actionid in self.copieractions.keys():
 			keylist.append(actionid)
 
-		keylist.sort()
+		keylist.sort(reverse=True)
 
+		outcome = []
 		for actionid in keylist:
 			outcome.append(self.copieractions[actionid].getcopierpageloaddata(torrentidlist, actionid))
 
