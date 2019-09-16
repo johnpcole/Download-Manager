@@ -9,7 +9,16 @@ class DefineBlockMeter:
 
 		self.metertype = metertype
 
+		self.endangle = 185.0
 
+		self.countermax = 9.5
+
+		if self.metertype == "Outer":
+			self.circleradius = 49.5
+		else:
+			self.circleradius = 36.5
+
+		self.circumference = self.circleradius * Maths.pi * 2.0
 
 	def setmetervalue(self, newvalue):
 
@@ -19,37 +28,26 @@ class DefineBlockMeter:
 
 	def getmeterdata(self):
 
-		endangle = 185.0
-		countermax = 9.5
-
-		startangle = MeterFunctions.getblockmeterangle(self.datavalue, endangle, countermax)
-
-		if self.metertype == "Outer":
-			circleradius = 49.5
-		else:
-			circleradius = 36.5
-
-		circumference = circleradius * Maths.pi * 2.0
-
-		filledangle = (endangle - startangle) / 360.0
-
-		outcome = {}
-		outcome['fill'] = filledangle * circumference
-		outcome['gap'] = circumference - outcome['fill']
-		outcome['offset'] = ((180.0 - startangle) / 360.0) * circumference
-
-		return outcome
+		return self.generatemeterdata(self.datavalue)
 
 
 	def getdummydata(self):
 
+		return self.generatemeterdata(0)
+
+
+	def generatemeterdata(self, countervalue):
+
+		startangle = MeterFunctions.getblockmeterangle(countervalue, self.endangle, self.countermax)
+
+		filledangle = (self.endangle - startangle) / 360.0
+
 		outcome = {}
-		outcome['fill'] = 0
-		outcome['gap'] = 100
-		outcome['offset'] = 0
+		outcome['fill'] = filledangle * self.circumference
+		outcome['gap'] = self.circumference - outcome['fill']
+		outcome['offset'] = ((180.0 - startangle) / 360.0) * self.circumference
 
 		return outcome
-
 
 
 

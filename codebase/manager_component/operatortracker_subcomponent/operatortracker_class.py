@@ -173,6 +173,9 @@ class DefineOperatorTracker:
 	def hasrecentlybeenseen(self):
 
 		timedifference = DateTime.timedifferenceasduration(self.lastseen, DateTime.getnow())
+		print("======================================================================")
+		print("LAST SEEN: ",self.lastseen.getiso()," NOW: ",DateTime.getnow()," DIFF: ",timedifference.getsecondsvalue())
+		print("======================================================================")
 		if abs(timedifference.getsecondsvalue()) > 10:
 			outcome = False
 		else:
