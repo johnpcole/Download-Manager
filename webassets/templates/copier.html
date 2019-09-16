@@ -46,8 +46,11 @@ Banner Content
                 <td colspan="2">{{ copyentry.target }}</td>
             </tr>
             <tr>
-                <td{% if copyentry.stillavailable == "No" %} class="strikethrough"{% endif %}>{{ copyentry.torrentname }}</td>
+                <td>{% if copyentry.stillavailable == "No" %} class="strikethrough"{% endif %}>{{ copyentry.torrentname }}</td>
                 <td>{{ copyentry.datetimestamp }}</td>
+            </tr>
+            <tr>
+                <td id="Details_{{ copyentry.copyid }}" rowspan="2">{{ copyentry.result }}</td>
             </tr>
         </tbody>
 {% endfor %}

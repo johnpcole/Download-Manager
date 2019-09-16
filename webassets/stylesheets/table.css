@@ -154,6 +154,9 @@ table.copier img {
     filter: invert(100%);
 }
 
+table.copier > tbody > tr:nth-of-type(3) {
+    display: hidden;
+}
 
 
 /* Icon Cell */

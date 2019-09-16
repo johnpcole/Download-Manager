@@ -100,8 +100,7 @@ class DefineTorrentSet:
 				Logging.printinvocation("Loading Specific Torrent Page", torrentid)
 				self.delugemanager.queuenewrefreshaction()
 				return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
-						'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)} #,
-						# 'actionqueuestate': self.delugemanager.gettorrentactionstate(torrentid)}
+						'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
 			else:
 				Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
 				return {'waitingforinitialisation': True}
@@ -117,8 +116,7 @@ class DefineTorrentSet:
 			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
 			self.delugemanager.queuenewrefreshaction()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
-					'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)} #,
-					#'actionqueuestate': self.delugemanager.gettorrentactionstate(torrentid)}
+					'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
 		else:
 			Logging.printinvocation("Requested Refresh to Unknown Torrent", torrentid)
 
@@ -257,6 +255,7 @@ class DefineTorrentSet:
 	def displaycopier(self):
 
 		Logging.printinvocation("Loading Copier Page", "")
+		self.delugemanager.queuenewrefreshaction()
 		return {'copyactions': self.copiermanager.getcopierpageinitialdata(self.torrentmanager.gettorrentidlist())}
 
 
@@ -268,6 +267,7 @@ class DefineTorrentSet:
 	def updatecopierpage(self):
 
 		Logging.printinvocation("Refreshing Copier Page", "")
+		self.delugemanager.queuenewrefreshaction()
 		return {'copyactions': self.copiermanager.getcopierpagerefreshdata()}
 
 
