@@ -100,3 +100,8 @@ class DefineFileManager:
 		return {"outcome": outcome, "feedback": tvshows}
 
 
+	def gotosleep(self):
+
+		self.serverconnection.disconnectfileserver()
+
+

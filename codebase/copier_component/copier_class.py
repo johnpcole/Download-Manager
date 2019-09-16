@@ -59,7 +59,7 @@ class DefineCopier:
 
 	def performafinish(self):
 		longwait = False
-		self.filemanager.disconnectfileserver()
+		self.filemanager.gotosleep()
 		if self.lastinstruction.isalldone() == True:
 			longwait = True
 		self.lastinstruction.setalldone()

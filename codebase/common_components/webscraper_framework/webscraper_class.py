@@ -50,7 +50,7 @@ class DefineScraper:
 
 		if tries != 99999:
 			currentdatetime = DateTime.getnow()
-			Logging.printrawline(" -   Gave up Triggering Deluge-Monitor at " + currentdatetime.getiso())
+			Logging.printrawline(" -   Gave up Triggering Deluge-Manager at " + currentdatetime.getiso())
 		#else:
 			#Logging.printrawline(" -   Successfully Triggered Monitor: " + webresponse)
 
