@@ -155,7 +155,7 @@ table.copier img {
 }
 
 table.copier > tbody > tr:nth-of-type(3) {
-    display: hidden;
+    display: none;
 }
 
 

@@ -91,7 +91,6 @@ class DefineCopierActionItem:
 
 		outcome = {'action': self.actiontype.displaycurrent(),
 					'status': Functions.sanitisestatus(self.status.displaycurrent()),
-					'result': self.resultdetail,
 					'copyid': actionid,
 					'datetimestamp': Functions.sanitisecopydatetimestamp(actionid)}
 
@@ -99,6 +98,7 @@ class DefineCopierActionItem:
 			outcome['target'] = Functions.sanitisetargetpath(self.target)
 			outcome['source'] = self.source
 			outcome['torrentid'] = self.torrentid
+			outcome['result']: self.resultdetail
 			outcome['torrentname'] = self.torrentname
 			if self.torrentid in torrentidlist:
 				outcome['stillavailable'] = "Yes"
@@ -108,6 +108,7 @@ class DefineCopierActionItem:
 			outcome['target'] = "Search the Videos drive for TV Shows & their Seasons"
 			outcome['source'] = ""
 			outcome['torrentid'] = ""
+			outcome['result'] = ""
 			outcome['torrentname'] = "Includes newly added TV Show & Season folders on the Video drive"
 			outcome['stillavailable'] = "Yes"
 
