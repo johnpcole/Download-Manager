@@ -56,7 +56,7 @@ class DefineMonitor:
 				outcome['networkstatus'] = "vpn_down"
 		else:
 			outcome = self.dashboardmeters.getdummymetergraphics()
-			outcome['networkstatus'] = "vpn_down"
+			outcome['networkstatus'] = "vpn_up"
 
 		return outcome
 
