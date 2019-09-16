@@ -24,22 +24,29 @@ class DefineFileManager:
 		connectionoutcome = self.serverconnection.connecttofileserver("Copy Files")
 		proceedwithcopy = False
 
+		copydetail["New File"] = "Dont Know Yet"
+
 		if connectionoutcome == True:
 
 			if FileSystem.doesexist(targetlocation) == True:
-				copydetail = {"Existing File": "Dont Know Yet", "New File": "Dont Know Yet"}
+				copydetail["Existing File"] = "Dont Know Yet"
 				if forcemode == True:
 					proceedwithcopy = True
 				else:
 					outcome = "Confirm"
 			else:
-				copydetail = {"New File": "Dont Know Yet"}
 				proceedwithcopy = True
+		else:
+			copydetail["Error"] = "Cannot connect to Server"
+
 
 		if proceedwithcopy == True:
 			actionoutcome = self.copyafile(sourcelocation, targetlocation)
 			if actionoutcome == True:
 				outcome = "Succeeded"
+				copydetail["Copied File"] = "Dont Know Yet"
+			else:
+				copydetail["Error"] = "Cannot copy file"
 
 		return {"outcome": outcome, "feedback": copydetail}
 

@@ -54,12 +54,6 @@ class DefineCopierActionItem:
 
 		return self.torrentid
 
-# =========================================================================================
-
-	def getresultdetail(self):
-
-		return self.resultdetail
-
 
 # =========================================================================================
 
@@ -98,7 +92,7 @@ class DefineCopierActionItem:
 			outcome['target'] = Functions.sanitisetargetpath(self.target)
 			outcome['source'] = self.source
 			outcome['torrentid'] = self.torrentid
-			outcome['result']: self.resultdetail
+			outcome['result'] = self.resultdetail
 			outcome['torrentname'] = self.torrentname
 			if self.torrentid in torrentidlist:
 				outcome['stillavailable'] = "Yes"
