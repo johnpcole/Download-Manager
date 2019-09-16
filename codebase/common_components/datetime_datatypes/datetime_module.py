@@ -128,7 +128,8 @@ def secondsdifference(first, second):
 											Time.secondsdifference(first.gettimecomponent(), second.gettimecomponent()),
 																										"Seconds")
 
-	return Duration.add(datedifference, timedifference)
+	overallduration = Duration.add(datedifference, timedifference)
+	return overallduration.getsecondsvalue()
 
 
 
