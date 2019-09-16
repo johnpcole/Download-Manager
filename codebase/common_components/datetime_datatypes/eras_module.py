@@ -37,7 +37,7 @@ def geteradifference(origindatetimeobject, currentdatetimeobject, erasize):
 	originitem = geteraasobject(origindatetimeobject, erasize)
 	currentitem = geteraasobject(currentdatetimeobject, erasize)
 
-	differencevalueobject = DateTime.secondsdifference(currentitem, originitem)
+	differencevalueobject = DateTime.timedifferenceasduration(currentitem, originitem)
 	differencevalue = differencevalueobject.getsecondsvalue()
 
 	divisor = 1

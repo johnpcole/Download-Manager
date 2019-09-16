@@ -114,11 +114,11 @@ def createtimefromvalue(secondsintodayinteger):
 
 
 # ---------------------------------------------------------
-# Returns the difference, in seconds, between this datetime
+# Returns the difference, as a duration object, between this datetime
 # and the datetime (object) passed in
 # ---------------------------------------------------------
 
-def secondsdifference(first, second):
+def timedifferenceasduration(first, second):
 
 	datedifference = Duration.createfromvalues(
 											Date.daysdifference(first.getdatecomponent(), second.getdatecomponent()),
@@ -128,8 +128,7 @@ def secondsdifference(first, second):
 											Time.secondsdifference(first.gettimecomponent(), second.gettimecomponent()),
 																										"Seconds")
 
-	overallduration = Duration.add(datedifference, timedifference)
-	return overallduration.getsecondsvalue()
+	return Duration.add(datedifference, timedifference)
 
 
 
@@ -139,7 +138,7 @@ def secondsdifference(first, second):
 
 def isfirstlaterthansecond(first, second):
 
-	differenceduration = secondsdifference(first, second)
+	differenceduration = timedifferenceasduration(first, second)
 
 	if differenceduration.getsecondsvalue() > 0:
 		outcome = True
@@ -156,7 +155,7 @@ def isfirstlaterthansecond(first, second):
 
 def areidentical(first, second):
 
-	differenceduration = secondsdifference(first, second)
+	differenceduration = timedifferenceasduration(first, second)
 
 	if differenceduration.getsecondsvalue() == 0:
 		outcome = True
