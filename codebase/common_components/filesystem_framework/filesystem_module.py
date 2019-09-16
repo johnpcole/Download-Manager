@@ -1,12 +1,9 @@
 import os as OperatingSystem
-from ...common_components.logging_framework import logging_module as Logging
 
 
-def mountnetworkdrive(mountpoint, networkpath, username, password, reason):
-	Logging.printout("- Connecting to File-Server&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reason + ")</small>")
-
+def mountnetworkdrive(mountpoint, networkpath, username, password):
 	if concatenatepaths(" ", " ") == " / ":
-		outcome = OperatingSystem.system('sudo mount -t cifs -o username='+username+',password='+password+',uid=pi,gid=pi,noexec,vers=2.0 '+networkpath+' '+mountpoint)
+		outcome = OperatingSystem.system('sudo mount -v -t cifs -o username='+username+',password='+password+',uid=pi,gid=pi,noexec,vers=2.0 '+networkpath+' '+mountpoint)
 	else:
 		if username != "":
 			outcome = OperatingSystem.system('NET USE '+mountpoint+' '+networkpath+' '+password+' '+'/USER:'+username+' /PERSISTENT:NO')
@@ -18,10 +15,8 @@ def mountnetworkdrive(mountpoint, networkpath, username, password, reason):
 
 
 def unmountnetworkdrive(mountpoint):
-	Logging.printout("- Disconnecting File-Server")
-
 	if concatenatepaths(" ", " ") == " / ":
-		outcome = OperatingSystem.system('sudo umount '+mountpoint)
+		outcome = OperatingSystem.system('sudo umount -v '+mountpoint)
 	else:
 		outcome = OperatingSystem.system('NET USE '+mountpoint+' /DELETE')
 	return outcome
@@ -47,7 +42,8 @@ def readfromdisk(filename):
 
 	except:
 		# Print an error if the file cannot be read
-		Logging.printout("Cannot read file - " + filename)
+		print("Cannot read file - " + filename)
+
 
 	return newfilelist
 
@@ -108,7 +104,7 @@ def getfolderlisting(folderpath):
 			outcome[listitem] = itemtype
 
 	except:
-		Logging.printout("Cannot access folder - " + folderpath)
+		print("Cannot access folder - " + folderpath)
 
 	return outcome
 
@@ -210,7 +206,7 @@ def writetodisk(filename, outputlist, appendwritemode):
 
 	except:
 		# Print an error if the file cannot be written
-		Logging.printout("Cannot write file - " + filename)
+		print("Cannot write file - " + filename)
 
 
 
@@ -233,14 +229,9 @@ def createpathfromlist(pathlist):
 # ---------------------------------------------
 
 def copyfile(source, target):
-	space = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-	arrows = space + space + "&darr;"
-	indent = space + space + space + space + space
-	lineofarrows = arrows + arrows + arrows + arrows + arrows
-	Logging.printout("Copying File:&nbsp;" + space + source + "</br>" + indent + lineofarrows + "</br>" + indent + target)
 
 	if concatenatepaths(" ", " ") == " / ":
-		outcome = OperatingSystem.system('cp "' + source + '" "' + target + '"')
+		outcome = OperatingSystem.system('cp -v "' + source + '" "' + target + '"')
 	else:
 		outcome = OperatingSystem.system('copy "' + source + '" "' + target + '"')
 

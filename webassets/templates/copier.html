@@ -76,15 +76,15 @@ Banner Content
 
      {{ dialogtoptemplate("copyfailuredialog", "File Copy Failure", "CloseCopyFailure", "closeCopyDialogs()") }}
          --><div id="dialogcontent"><!--
-             --><div class="dialogitemmax">{{ copyitem }}</div><!--
+             --><div class="dialogitemmax">stuff</div><!--
          --></div><!--
-    {{ dialogdoublebottomtemplate("abandonCopy", "abandonCopy()", "", "RetryCopy", "retryCopy()") }}
+    {{ dialogdoublebottomtemplate("abandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialog_go_copyagain", "Retry Copy") }}
 
      {{ dialogtoptemplate("copyconfirmdialog", "File Copy Overwrite", "CloseCopyConfirm", "closeCopyDialogs()") }}
          --><div id="dialogcontent"><!--
-             --><div class="dialogitemmax">{{ copyitem }}</div><!--
+             --><div class="dialogitemmax">stuff</div><!--
          --></div><!--
-    {{ dialogdoublebottomtemplate("abandonCopy", "abandonCopy()", "ConfirmCopy", "confirmCopy()") }}
+    {{ dialogdoublebottomtemplate("abandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "ConfirmCopy", "confirmCopy()", "dialog_go_copyagain", "Confirm Overwrite") }}
 
 
     </div><!--

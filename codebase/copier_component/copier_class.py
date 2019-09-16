@@ -54,7 +54,7 @@ class DefineCopier:
 	def performafolderrefresh(self, copyid):
 		self.lastinstruction.settonew(copyid, "Scrape TV Shows")
 		scrapeoutcome = self.filemanager.scrapetvshows()
-		self.lastinstruction.updateresults(scrapeoutcome["outcome"], scrapeoutcome["detail"])
+		self.lastinstruction.updateresults(scrapeoutcome["outcome"], scrapeoutcome["feedback"])
 
 
 	def performafinish(self):
@@ -69,7 +69,7 @@ class DefineCopier:
 	def performafilecopy(self, copyid, source, target, forcemode):
 		self.lastinstruction.settonew(copyid, "File Copy")
 		copyoutcome = self.filemanager.performcopy(source, target, forcemode)
-		self.lastinstruction.updateresults(copyoutcome["outcome"], copyoutcome["detail"])
+		self.lastinstruction.updateresults(copyoutcome["outcome"], copyoutcome["feedback"])
 
 
 	def shouldcalldownloadmanager(self):

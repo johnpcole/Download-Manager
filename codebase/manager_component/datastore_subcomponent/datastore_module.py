@@ -1,5 +1,6 @@
 from ...common_components.filesystem_framework import filesystem_module as FileSystem
 from ...common_components.logging_framework import logging_module as Logging
+from ...common_components.filesystem_framework import configfile_module as ConfigFile
 
 
 # =========================================================================================
@@ -16,7 +17,7 @@ def savetorrentconfigs(outputlist):
 
 def loadtorrentconfigs():
 	Logging.printout("Loading Torrents Configuration Data")
-	return FileSystem.readfromdisk('./data/torrent_configs.db')
+	return ConfigFile.readgeneralfile("./data/torrent_configs.db")
 
 
 
@@ -41,7 +42,7 @@ def loadtorrentconfigs():
 def getloggingdata(loggingmode):
 	Logging.printout("Loading Logs")
 	loggingoutput = []
-	logcontents = FileSystem.readfromdisk('./data/application_logs/manager.log')
+	logcontents = ConfigFile.readgeneralfile('./data/application_logs/manager.log')
 	loggingoutput.extend(logcontents)
 	outcome = Logging.processlog(loggingoutput, loggingmode)
 	return outcome
@@ -74,7 +75,7 @@ def getmonitor(filenamelist):
 		filename = './data/monitor_history/history_' + filenameitem + '.db'
 
 		if FileSystem.doesexist(filename) == True:
-			loggingitems = FileSystem.readfromdisk(filename)
+			loggingitems = ConfigFile.readgeneralfile(filename)
 			outcome.extend(loggingitems)
 
 	return outcome

@@ -7,10 +7,6 @@ from . import filemanagement_class as FileManagerClass
 # =========================================================================================
 
 def createmanager(connectioncredentials, connectiontries):
-	return FileManagerClass.DefineFileManager(connectioncredentials['Mountpoint'],
-												connectioncredentials['Address'],
-												connectioncredentials['Username'],
-												connectioncredentials['Password'],
-												connectiontries)
+	return FileManagerClass.DefineFileManager(connectioncredentials, connectiontries)
 
 
