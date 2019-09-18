@@ -125,7 +125,7 @@ class DefineCopierActionItem:
 		if self.actiontype.get("Copy File") == True:
 			outcome = Functions.rendercopyresults(self.resultdetail, self.status, self.target)
 		else:
-			dummydata = [["hello", "hello"], ["hello", "hello"]]
+			dummydata = [["", ""], ["", ""]]
 			outcome = {"filepath": str(len(self.resultdetail)) + ' TV Shows Found',
 																			"outcomes": dummydata, "description": ""}
 		return outcome

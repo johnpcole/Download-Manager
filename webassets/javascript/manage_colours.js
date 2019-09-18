@@ -21,7 +21,7 @@ function updateIndexBannerTileColour(networkstatus)
 
 function updateCopierTileColour(copyid, copystatus)
 {
-    var currentclassname = getAreaClass(copyid)
+    var currentclassname = getAreaClass("CopyItem_"+copyid)
     if (currentclassname.substr(4) == "copy") {
         var newclassname = "copystate_" + copystatus;
     } else {

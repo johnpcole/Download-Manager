@@ -42,7 +42,7 @@ Banner Content
  --><div class="MonitorChart"><table class="copier">
 {% for copyentry in copyactions %}
         {% if copyentry.action == "Copy File" %}
-        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }} clickable" onclick="requestActionDetail('{{ copyentry.copyid }}')">
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}" onclick="requestActionDetail('{{ copyentry.copyid }}')">
         {% else %}
         <tbody id="CopyItem_{{ copyentry.copyid }}" class="scrapestate_{{ copyentry.status }}">
         {% endif %}
@@ -51,7 +51,7 @@ Banner Content
                 <td colspan="2">{{ copyentry.target }}</td>
             </tr>
             <tr>
-                <td{% if copyentry.stillavailable == "No" %} class="strikethrough"{% endif %}>{{ copyentry.torrentname }}</td>
+                <td id="TorrentLink_{{ copyentry.copyid }}"{% if copyentry.stillavailable == "No" %} class="strikethrough"{% endif %}>{{ copyentry.torrentname }}</td>
                 <td>{{ copyentry.datetimestamp }}</td>
             </tr>
         </tbody>
@@ -85,7 +85,7 @@ DIALOG
 
          --><div id="dialogcontent"></div><!--
 
-    {{ dialogtriplebottomtemplate("abandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialog_go_copyagain", "Retry Copy", "ConfirmOverwrite", "forceCopy()", "dialog_go_overwrite", "Overwrite Copy") }}
+    {{ dialogtriplebottomtemplate("AbandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialog_go_copyagain", "Retry Copy", "ConfirmOverwrite", "forceCopy()", "dialog_go_overwrite", "Overwrite Copy") }}
 
 {% endblock %}
 

@@ -95,8 +95,3 @@ def rendercopydatetime(filedetails):
 
 
 
-
-
-
-
-
