@@ -3,7 +3,6 @@
 
 function showActionDialog(copyid)
 {
-    alert('<'+copyid+'>');
     $.ajax({
         url: 'GetCopyActionDetail',
         type: 'POST',
@@ -27,7 +26,7 @@ function showActionDialog(copyid)
 
 function populateCopyDialog(filepath, copydata)
 {
-    var outputtext = '<div>'+ filepath +'</div><table>';
+    var outputtext = '<div class="dialogitemfull">'+ filepath +'</div><table class="copierresultstable">';
     $.each(copydata, function(index)
     {
         var currentitem = copydata[index];

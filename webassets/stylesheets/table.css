@@ -11,6 +11,10 @@ td {
   vertical-align: top;
 }
 
+table.logs, table.copier {
+  color: #FFFFFF
+}
+
 /* ======================================================================== */
 
 table.logs tr:hover {
@@ -208,3 +212,8 @@ table.copier > tbody:last-of-type > tr:nth-of-type(2) {
     text-decoration: line-through;
 }
 
+/* =================================================== */
+
+table.copierresultstable td {
+  text-align: left;
+}
