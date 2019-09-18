@@ -42,7 +42,7 @@ Banner Content
  --><div class="MonitorChart"><table class="copier">
 {% for copyentry in copyactions %}
         {% if copyentry.action == "Copy File" %}
-        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }} clickable" onclick="showActionDialog('{{ copyentry.copyid }}')">
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }} clickable" onclick="requestActionDetail('{{ copyentry.copyid }}')">
         {% else %}
         <tbody id="CopyItem_{{ copyentry.copyid }}" class="scrapestate_{{ copyentry.status }}">
         {% endif %}
