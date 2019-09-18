@@ -58,8 +58,9 @@ input.movienamefield {
 }
 
 input.newurlfield {
-    width: 370px; /*386px;*/
+    width: 355px; /*370, after 386px;*/
     margin: 0px 12px 0px 10px;
+    font-size: 90%;
 }
 
 select.tvshownamefield {

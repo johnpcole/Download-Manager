@@ -1,0 +1,19 @@
+[Unit]
+Description=Download Manager Operator Daemon
+After=network-online.target mult-user.target
+
+[Service]
+ExecStart=/home/pi/Download-Manager/Download-Operator.sh
+User=pi
+Group=pi
+#UMask=000
+#Type=idle
+Restart=on-failure
+
+# Configures the time to wait before service is stopped forccefully.
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target
+
+

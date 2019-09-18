@@ -1,3 +1,6 @@
+from ...common_components.enumeration_datatype import enumeration_module as Enumeration
+
+
 
 class DefineInstruction:
 
@@ -5,32 +8,27 @@ class DefineInstruction:
 
 		self.copyid = "00000000000000000"
 
-		self.actiontype = "Null"
+		self.actiontype = Enumeration.createenum(["Null", "File Copy", "Scrape TV Shows"], "Null")
 
-		self.status = "All Done"
+		self.status = Enumeration.createenum(["All Done", "Succeeded", "In Progress", "Failed", "Confirm"], "All Done")
 
-		self.resultsnotes = ""
+		self.resultsnotes = {}
 
 # =========================================================================================
 
-	def updatestatus(self, newstatus):
+	def updateresults(self, newstatus, newnotes):
 
-		self.status = newstatus
-
-
-	def updatenotes(self, newnotes):
+		self.status.set(newstatus)
 
 		self.resultsnotes = newnotes
-
-		self.status = "Succeeded"
 
 	def settonew(self, copyid, actiontype):
 
 		self.copyid = copyid
 
-		self.actiontype = actiontype
+		self.actiontype.set(actiontype)
 
-		self.status = "In Progress"
+		self.status.set("In Progress")
 
 		self.resultsnotes = {}
 
@@ -38,23 +36,19 @@ class DefineInstruction:
 
 		self.copyid = "00000000000000000"
 
-		self.actiontype = "Null"
+		self.actiontype.set("Null")
 
-		self.status = "All Done"
+		self.status.set("All Done")
 
 		self.resultsnotes = {}
 
 
 	def isalldone(self):
 
-		if self.actiontype == "Null":
-			outcome = True
-		else:
-			outcome = False
-		return outcome
+		return self.actiontype.get("Null")
 
 
 	def getstatus(self):
 
-		return {'copyid': self.copyid, 'outcome': self.status, 'notes': self.resultsnotes}
+		return {'copyid': self.copyid, 'outcome': self.status.displaycurrent(), 'notes': self.resultsnotes}
 

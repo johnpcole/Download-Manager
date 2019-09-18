@@ -21,12 +21,29 @@ Horizontal-Bar
 <!-- ------------------------------------------------------------------------------------------------ -->
 
 
-{% macro dialogbottomtemplate(id, jsaction) %}
+{% macro dialogbottomtemplate(id, jsaction, image, alttext) %}
 
 Ok-Button
 
          --><div><!--
-         {{ buttontemplate(id, jsaction, "dialog_go", "go") }}
+         {{ buttontemplate(id, jsaction, image, alttext) }}
+         --></div><!--
+
+     --></div>
+    </div><!--
+
+{% endmacro %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% macro dialogtriplebottomtemplate(idone, jsactionone, imageone, alttextone, idtwo, jsactiontwo, imagetwo, alttexttwo, idthree, jsactionthree, imagethree, alttextthree) %}
+
+         --><div><!--
+         {{ buttontemplate(idone, jsactionone, imageone, alttextone) }}
+         {{ buttontemplate(idtwo, jsactiontwo, imagetwo, alttexttwo) }}
+         {{ buttontemplate(idthree, jsactionthree, imagethree, alttextthree) }}
          --></div><!--
 
      --></div>

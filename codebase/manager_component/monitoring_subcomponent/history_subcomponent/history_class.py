@@ -20,12 +20,14 @@ class DefineHistory:
 
 # =========================================================================================
 
-	def addhistoryentry(self, monitordata, networkstatus, temperature):
+	def addhistoryentry(self, colourcounts, networkstatus, uploadedtotal, temperature):
 
 		currentdatetime = DateTime.getnow()
-		newhistoryitem = HistoryItem.createhistoryitem(currentdatetime, monitordata, networkstatus, temperature)
+		newhistoryitem = HistoryItem.createhistoryitem(currentdatetime, colourcounts, networkstatus, uploadedtotal,
+																										temperature)
 		self.monitorhistory.append(newhistoryitem)
 		self.clearuphistory(currentdatetime)
+		#print("NEW MONITOR HISTORY ITEM: ", newhistoryitem.getsavedata())
 		return newhistoryitem.getsavedata()
 
 

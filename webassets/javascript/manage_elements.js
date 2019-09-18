@@ -61,6 +61,20 @@ function changeAreaClass(areaname, classvalue)
 
 
 
+// Get area class
+
+function getAreaClass(areaname)
+{
+    var areaobject = document.getElementById(areaname);
+    if (areaobject != null) {
+        return areaobject.className;
+    } else {
+        alert("changeAreaClass: "+areaname);
+    };
+};
+
+
+
 // Update the displayed text
 
 function rerenderText(fieldname, fieldvalue)
@@ -149,3 +163,15 @@ function getAreaState(areaid)
 };
 
 
+
+// Determines if an element exists
+
+function doesAreaExist(areaid)
+{
+    var controlobject = document.getElementById(areaid);
+    if (controlobject != null) {
+        return "Yes";
+    } else {
+        return "No";
+    };
+};

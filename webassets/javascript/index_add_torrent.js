@@ -19,7 +19,11 @@ function confirmAdd()
         },
         success: function(data)
         {
-            window.location.replace("/Torrent="+data.newtorrentid);
+            changeButtonState('Add', 'Disable');
+            cancelAdd();
+        },
+        complete: function(){
+            $('#ajaxloader').hide();
         }
     });
 };

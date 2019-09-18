@@ -2,7 +2,6 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin: 0px;
-  color: #FFFFFF
 }
 
 td {
@@ -10,6 +9,12 @@ td {
   text-align: left;
   vertical-align: top;
 }
+
+table.logs, table.copier {
+  color: #FFFFFF
+}
+
+
 
 /* ======================================================================== */
 
@@ -124,23 +129,23 @@ tr.invocation:hover img {
 
 /* =================================================== */
 
-tbody.copystate_succeeded > tr {
+tbody.copystate_succeeded > tr, tbody.scrapestate_succeeded > tr  {
     background-color: #009600;
 }
 
-tbody.copystate_failed > tr {
+tbody.copystate_failed > tr, tbody.scrapestate_failed > tr {
     background-color: #AF0000;
 }
 
-tbody.copystate_queued > tr {
+tbody.copystate_queued > tr, tbody.scrapestate_queued > tr {
     background-color: #454545;
 }
 
-tbody.copystate_inprogress > tr {
+tbody.copystate_inprogress > tr, tbody.scrapestate_inprogress > tr {
     background-color: #000096;
 }
 
-tbody.copystate_confirm > tr {
+tbody.copystate_confirm > tr, tbody.scrapestate_confirm > tr {
     background-color: #DC6E00;
 }
 
@@ -178,15 +183,19 @@ table.copier > tbody > tr:nth-of-type(2) > td {
     padding-bottom: 8px;
 }
 
-table.copier > tbody:hover {
+tbody.copystate_succeeded, tbody.copystate_failed, tbody.copystate_confirm {
+    cursor: pointer;
+}
+
+tbody.copystate_succeeded:hover, tbody.copystate_failed:hover, tbody.copystate_confirm:hover {
     color:#000000;
 }
 
-table.copier > tbody:hover td {
+tbody.copystate_succeeded:hover td, tbody.copystate_failed:hover td, tbody.copystate_confirm:hover td {
     background-color: #FFFF55;
 }
 
-table.copier > tbody:hover img {
+tbody.copystate_succeeded:hover img, tbody.copystate_failed:hover img, tbody.copystate_confirm:hover img {
     -webkit-filter: invert(0%);
     filter: invert(0%);
 }
@@ -208,3 +217,4 @@ table.copier > tbody:last-of-type > tr:nth-of-type(2) {
     text-decoration: line-through;
 }
 
+/* =================================================== */

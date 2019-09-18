@@ -1,5 +1,5 @@
 from deluge_client import DelugeRPCClient as DelugeDaemonInterface
-from ...common_components.logging_framework import logging_module as Logging
+# from ...common_components.logging_framework import logging_module as Logging
 
 # This class creates an object which is used to interface to a Deluge Daemon (via the RPCClient)
 # The object doesn't store any useful information itself, but present the most useful torrent management functions
@@ -19,11 +19,8 @@ class DefineDelugeInterface:
 		self.delugekeysforsessioninfo = ["payload_download_rate", "payload_upload_rate", "total_payload_upload"]
 
 		# The deluge keys used for gaining detailed data about a single torrent via the 'core.get_torrent_status' call
-		self.delugekeysfortorrentinfo = ["state", "save_path", "name", "total_size", "progress", "eta",
-												"files", "is_finished", "time_added", "num_seeds", "num_peers"]
-
-		# The deluge keys used for gaining monitor data
-		self.delugekeysformonitorinfo = ["tracker_status", "state"]
+		self.delugekeysfortorrentinfo = ["state", "save_path", "name", "total_size", "progress", "eta", "files",
+												"tracker_status", "is_finished", "time_added", "num_seeds", "num_peers"]
 
 		# The full list deluge keys available for gaining detailed data about a single torrent via the
 		# 'core.get_torrent_status' call
@@ -41,12 +38,12 @@ class DefineDelugeInterface:
 # Opens a connection with the deluge daemon, for messages to be passed to/from it
 # =========================================================================================
 
-	def openconnection(self, reasontext):
+	def openconnection(self):
 
-		Logging.printout("- Connecting to Deluge Daemon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reasontext + ")</small>")
-
-		while self.delugeinterface.connected == False:
-			self.delugeinterface.connect()
+		# Logging.printout("- Connecting to Deluge Daemon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reasontext + ")</small>")
+		try:
+			while self.delugeinterface.connected == False:
+				self.delugeinterface.connect()
 		# print "========================================================="
 		# print self.delugeinterface.call('client.api_methods')
 		# print "========================================================="
@@ -54,7 +51,12 @@ class DefineDelugeInterface:
 		# print "========================================================="
 		# WORKS! print self.delugeinterface.call('core.get_config')
 		# print "========================================================="
-		return self.delugeinterface.connected
+			outcome = self.delugeinterface.connected
+		except Exception as errortype:
+			outcome = None
+			print("DELUGE INTERFACE ERROR: Trying to connect to deluge client (", errortype, ")")
+
+		return outcome
 
 
 
@@ -64,9 +66,15 @@ class DefineDelugeInterface:
 
 	def closeconnection(self):
 
-		# while self.delugeinterface.connected == True:
-		# self.delugeinterface.disconnect()
-		return self.delugeinterface.connected
+		try:
+			while self.delugeinterface.connected == True:
+				self.delugeinterface.disconnect()
+			outcome = self.delugeinterface.connected
+		except Exception as errortype:
+			outcome = None
+			print("DELUGE INTERFACE ERROR: Trying to disconnect from deluge client (", errortype, ")")
+
+		return outcome
 
 
 
@@ -76,11 +84,17 @@ class DefineDelugeInterface:
 
 	def retrievetorrentlist(self):
 
-		rawtorrentlist = self.delugeinterface.call('core.get_session_state')
+		try:
+			outcome = []
+			rawtorrentlist = self.delugeinterface.call('core.get_session_state')
 
-		outcome = []
-		for rawtorrentid in rawtorrentlist:
-			outcome.append(rawtorrentid.decode("ascii", "ignore"))
+			for rawtorrentid in rawtorrentlist:
+				outcome.append(rawtorrentid.decode("ascii", "ignore"))
+
+
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to retrieve torrent list (", errortype, ")")
+			outcome = None
 
 		return outcome
 
@@ -90,41 +104,41 @@ class DefineDelugeInterface:
 # Returns a structured/layered dictionary of information about a specified (by GUID) torrent
 # =========================================================================================
 
-	def retrievetorrentdata(self, torrentid, datamode):
+	def retrievetorrentdata(self, torrentid):
 
-		if datamode == "Manager":
-			dataset = self.delugekeysfortorrentinfo
-		elif datamode == "Monitor":
-			dataset = self.delugekeysformonitorinfo
-		else:
-			assert 1 == 0, "Inappropriate GetTorrentData Mode: " + datamode
-		rawtorrentdata = self.delugeinterface.call('core.get_torrent_status', torrentid, dataset)
+		try:
+			outcome = {}
+			rawtorrentdata = self.delugeinterface.call('core.get_torrent_status', torrentid, self.delugekeysfortorrentinfo)
 
-		outcome = {}
 
-		for itemkey in rawtorrentdata:
-			itemdata = rawtorrentdata[itemkey]
-			newkeyname = itemkey.decode("utf-8", "ignore")
+			for itemkey in rawtorrentdata:
+				itemdata = rawtorrentdata[itemkey]
+				newkeyname = itemkey.decode("utf-8", "ignore")
 
-			if isinstance(itemdata, bytes) == True:
-				outcome[newkeyname] = itemdata.decode("utf-8", "ignore")
+				if isinstance(itemdata, bytes) == True:
+					outcome[newkeyname] = itemdata.decode("utf-8", "ignore")
 
-			elif isinstance(itemdata, tuple) == True:
-				newlist = []
-				for subitem in itemdata:
-					newsubdictionary = {}
-					for subitemkey in subitem:
-						newsubitemkey = subitemkey.decode("utf-8", "ignore")
-						if isinstance(subitem[subitemkey], bytes) == True:
-							newsubitemdata = subitem[subitemkey].decode("utf-8", "ignore")
-						else:
-							newsubitemdata = subitem[subitemkey]
-						newsubdictionary[newsubitemkey] = newsubitemdata
-					newlist.append(newsubdictionary)
-				outcome[newkeyname] = newlist
+				elif isinstance(itemdata, tuple) == True:
+					newlist = []
+					for subitem in itemdata:
+						newsubdictionary = {}
+						for subitemkey in subitem:
+							newsubitemkey = subitemkey.decode("utf-8", "ignore")
+							if isinstance(subitem[subitemkey], bytes) == True:
+								newsubitemdata = subitem[subitemkey].decode("utf-8", "ignore")
+							else:
+								newsubitemdata = subitem[subitemkey]
+							newsubdictionary[newsubitemkey] = newsubitemdata
+						newlist.append(newsubdictionary)
+					outcome[newkeyname] = newlist
 
-			else:
-				outcome[newkeyname] = itemdata
+				else:
+					outcome[newkeyname] = itemdata
+
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to retrieve torrent data for " + torrentid + " (", errortype, ")")
+			outcome = None
+
 
 		return outcome
 
@@ -137,12 +151,18 @@ class DefineDelugeInterface:
 
 	def addtorrentlink(self, linkstring):
 
-		if linkstring[:7] == "magnet:":
-			outcome = self.delugeinterface.call('core.add_torrent_magnet', linkstring, {})
-		else:
-			outcome = self.delugeinterface.call('core.add_torrent_url', linkstring, {})
+		try:
+			if linkstring[:7] == "magnet:":
+				newtorrentid = self.delugeinterface.call('core.add_torrent_magnet', linkstring, {})
+			else:
+				newtorrentid = self.delugeinterface.call('core.add_torrent_url', linkstring, {})
+			outcome = newtorrentid.decode("ascii", "ignore")
 
-		return outcome.decode("ascii", "ignore")
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to add new torrent (", errortype, ")")
+			outcome = None
+
+		return outcome
 
 
 
@@ -153,7 +173,12 @@ class DefineDelugeInterface:
 
 	def rechecktorrent(self, torrentids):
 
-		return self.delugeinterface.call('core.force_recheck', torrentids)
+		try:
+			outcome = self.delugeinterface.call('core.force_recheck', torrentids)
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to force recheck of torrent " + torrentids + " (", errortype, ")")
+			outcome = None
+		return outcome
 
 
 
@@ -165,10 +190,15 @@ class DefineDelugeInterface:
 
 	def pausetorrent(self, torrentid):
 
-		if torrentid == "ALL":
-			outcome = self.delugeinterface.call('core.pause_all_torrents')
-		else:
-			outcome = self.delugeinterface.call('core.pause_torrent', [torrentid])
+		try:
+			if torrentid == "ALL":
+				outcome = self.delugeinterface.call('core.pause_all_torrents')
+			else:
+				outcome = self.delugeinterface.call('core.pause_torrent', [torrentid])
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to pause torrent " + torrentid + " (", errortype, ")")
+			outcome = None
+
 		return outcome
 
 
@@ -181,10 +211,16 @@ class DefineDelugeInterface:
 
 	def resumetorrent(self, torrentid):
 
-		if torrentid == "ALL":
-			outcome = self.delugeinterface.call('core.resume_all_torrents')
-		else:
-			outcome = self.delugeinterface.call('core.resume_torrent', [torrentid])
+		try:
+			if torrentid == "ALL":
+				outcome = self.delugeinterface.call('core.resume_all_torrents')
+			else:
+				outcome = self.delugeinterface.call('core.resume_torrent', [torrentid])
+
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to resume torrent " + torrentid + " (", errortype, ")")
+			outcome = None
+
 		return outcome
 
 
@@ -196,7 +232,14 @@ class DefineDelugeInterface:
 
 	def deletetorrent(self, torrentid):
 
-		return self.delugeinterface.call('core.remove_torrent', torrentid, True)
+		try:
+			outcome = self.delugeinterface.call('core.remove_torrent', torrentid, True)
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to delete torrent " + torrentid + " (", errortype, ")")
+			outcome = None
+
+
+		return outcome
 
 
 
@@ -206,14 +249,20 @@ class DefineDelugeInterface:
 
 	def retrievesessiondata(self):
 
-		rawstats1 = self.delugeinterface.call('core.get_session_status', self.delugekeysforsessioninfo)
-		rawstats2 = self.delugeinterface.call('core.get_free_space')
+		try:
+			rawstats1 = self.delugeinterface.call('core.get_session_status', self.delugekeysforsessioninfo)
+			rawstats2 = self.delugeinterface.call('core.get_free_space')
 
-		outcome = {}
-		outcome['uploadspeed'] = rawstats1[b'payload_upload_rate']
-		outcome['downloadspeed'] = rawstats1[b'payload_download_rate']
-		outcome['uploadedtotal'] = rawstats1[b'total_payload_upload']
-		outcome['freespace'] = rawstats2 / 1000000000
+			outcome = {}
+			outcome['uploadspeed'] = rawstats1[b'payload_upload_rate']
+			outcome['downloadspeed'] = rawstats1[b'payload_download_rate']
+			outcome['uploadedtotal'] = rawstats1[b'total_payload_upload']
+			outcome['freespace'] = rawstats2 / 1000000000
+
+		except Exception as errortype:
+			print("DELUGE INTERFACE ERROR: Trying to retrieve session data (", errortype, ")")
+			outcome = None
+
 
 		return outcome
 

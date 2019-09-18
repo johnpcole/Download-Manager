@@ -20,7 +20,7 @@ class DefineScraper:
 
 		self.webaddress = GenerateWebRequest(webaddress)
 
-		self.latestresult = {}
+		self.latestresult = ""
 
 		self.latestdatetime = DateTime.getnow()
 
@@ -34,11 +34,11 @@ class DefineScraper:
 		while tries < self.webcalltries:
 			try:
 				if datadictionary is None:
-					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext).read(1000)
+					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext).read(10000)
 				else:
 					unencodedpostdata = MakeJson(datadictionary)
 					postdata = unencodedpostdata.encode("ascii")
-					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext, data=postdata).read(1000)
+					rawwebresponse = GetWebPage(webaddress, context=self.securitycontext, data=postdata).read(10000)
 				webresponse = rawwebresponse.decode("utf-8")
 				tries = 99999
 				self.latestresult = webresponse
@@ -50,7 +50,7 @@ class DefineScraper:
 
 		if tries != 99999:
 			currentdatetime = DateTime.getnow()
-			Logging.printrawline(" -   Gave up Triggering Deluge-Monitor at " + currentdatetime.getiso())
+			Logging.printrawline(" -   Gave up Triggering Deluge-Manager at " + currentdatetime.getiso())
 		#else:
 			#Logging.printrawline(" -   Successfully Triggered Monitor: " + webresponse)
 
@@ -73,5 +73,10 @@ class DefineScraper:
 
 	def getjsonresult(self):
 
-		return ReadJson(self.latestresult)
+		try:
+			outcome = ReadJson(self.latestresult)
+		except:
+			outcome = {}
+
+		return outcome
 

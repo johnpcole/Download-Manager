@@ -1,19 +1,16 @@
 [Unit]
-Description=Download Manager Web Interface
+Description=Download Manager Web Interface (using uWSGI Service)
 After=network-online.target mult-user.target
 
 [Service]
-ExecStart=/home/pi/Download-Manager/launcher.sh
-User=pi
-Group=pi
-#UMask=000
-#Type=idle
-Restart=on-failure
+User=www-data
+Group=www-data
+WorkingDirectory=/home/pi/Download-Manager/
+ExecStart=/usr/local/bin/uwsgi --ini /home/pi/Download-Manager/Download-Manager.ini
 
 # Configures the time to wait before service is stopped forccefully.
-TimeoutStopSec=10
+TimeoutStopSec=20
 
 [Install]
 WantedBy=multi-user.target
-
 

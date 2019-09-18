@@ -5,19 +5,19 @@ $(document).ready(function ()
     $('#copydialog').hide();
     $('#deletedialog').hide();
     var torrentstatus = getImageName('Status').substr(7);
-    updateStartStopButtons(torrentstatus);
+    updateStartStopButtons(torrentstatus, 'page_load_dummy_status');
     updateCopyButton(torrentstatus, getImageName('TorrentType').substr(5), getImageName('Copy_Overlay').substr(12));
     updateDeleteButton(getImageName('Copy_Overlay').substr(12));
     updateEditButton();
     changeAreasState('readmodebuttons', 'Show');
 
-    // Refresh the tiles every minute.
+    // Refresh the tiles every five seconds.
     setInterval(function()
     {
         if ((getAreaState('copydialog') == 'Hidden') && (getAreaState('deletedialog') == 'Hidden')) {
-            updateTorrentState('Refresh');
+            updateTorrentState();
         };
-    }, 10000);
+    }, 5000);
 
     $('#ajaxloader').hide();
 });
@@ -35,13 +35,13 @@ function getCurrentTorrentId()
 
 // Ajax call for all torrent downloading data
 
-function updateTorrentState(action)
+function updateTorrentState()
 {
     $.ajax({
         url: 'UpdateTorrent',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({'torrentid':getCurrentTorrentId(), 'torrentaction':action}),
+        data: JSON.stringify({'torrentid':getCurrentTorrentId()}),
         dataType:'json',
         success: function(data)
         {
@@ -59,10 +59,11 @@ function updateTorrentState(action)
 
 function updateTorrentStateDisplay(dataitem, copyqueuestate)
 {
+    var oldstatus = getImageName('Status').substr(7);
     rerenderImage("Status", "status_"+dataitem.status, 'png');
     updateTorrentTileColour("TorrentBanner", dataitem.status);
     rerenderText("Progress", dataitem.progress);
-    updateStartStopButtons(dataitem.status);
+    updateStartStopButtons(dataitem.status, oldstatus);
     updateCopyButton(dataitem.status, getImageName('TorrentType').substr(5), copyqueuestate);
     updateDeleteButton(copyqueuestate);
 };

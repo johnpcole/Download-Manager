@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% from 'dialog.html' import dialogtoptemplate %}
+{% from 'dialog.html' import dialogtriplebottomtemplate %}
 
 {% block bodycontext %} class="fixed"{% endblock %}
 
@@ -7,7 +9,8 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/copier.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier_update_state.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier_action.js') }}"></script>
 
 {% endblock %}
 
@@ -38,13 +41,17 @@ Banner Content
 {% block content %}
  --><div class="MonitorChart"><table class="copier">
 {% for copyentry in copyactions %}
-        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}">
+        {% if copyentry.action == "Copy File" %}
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}" onclick="requestActionDetail('{{ copyentry.copyid }}')">
+        {% else %}
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="scrapestate_{{ copyentry.status }}">
+        {% endif %}
             <tr>
                 <td rowspan="2"><img id="Icon_{{ copyentry.copyid }}" src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
                 <td colspan="2">{{ copyentry.target }}</td>
             </tr>
             <tr>
-                <td{% if copyentry.stillavailable == "No" %} class="strikethrough"{% endif %}>{{ copyentry.torrentname }}</td>
+                <td id="TorrentLink_{{ copyentry.copyid }}"{% if copyentry.stillavailable == "No" %} class="strikethrough"{% endif %}>{{ copyentry.torrentname }}</td>
                 <td>{{ copyentry.datetimestamp }}</td>
             </tr>
         </tbody>
@@ -59,7 +66,7 @@ Banner Content
 
 {% block toolbar %}
 
- --><div class="hidden">
+ --><div>
     </div><!--
 
 {% endblock %}
@@ -70,8 +77,15 @@ Banner Content
 
 {% block dialogs %}
 
- --><div class="hidden">
-    </div><!--
+DIALOG
+
+     {{ dialogtoptemplate("copierdialog", "File Copier Action", "CloseCopyInformation", "closeActionDialog()") }}
+
+ Dialog-Content
+
+         --><div id="dialogcontent"></div><!--
+
+    {{ dialogtriplebottomtemplate("AbandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialog_go_copyagain", "Retry Copy", "ConfirmOverwrite", "forceCopy()", "dialog_go_overwrite", "Overwrite Copy") }}
 
 {% endblock %}
 

@@ -21,7 +21,9 @@
 {% block javascript %}
 
     <script src="{{ url_for('static', filename='javascript/index_update_torrentlist.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index_startstop_torrents.js') }}"></script>
     <script src="{{ url_for('static', filename='javascript/index_add_torrent.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index_rescan_tvshows.js') }}"></script>
 
 {% endblock %}
 
@@ -82,7 +84,7 @@ Count Meter
 
 {% block content %}
 
- --><div class="tilesgroup"><!--
+ --><div id="TorrentsList" class="tilesgroup"><!--
 
 {% for torrent in torrentlist %}
 
@@ -132,11 +134,11 @@ Add-Button
 
 Stop-All-Button
 
-        {{ buttontemplate("Stop", "updateTorrentsList('Stop')", "listaction_stopall", "stop") }}
+        {{ buttontemplate("Stop", "performBulkAction('Stop')", "listaction_stopall", "stop") }}
 
 Start-All-Button
 
-        {{ buttontemplate("Start", "updateTorrentsList('Start')", "listaction_startall", "start") }}
+        {{ buttontemplate("Start", "performBulkAction('Start')", "listaction_startall", "start") }}
 
 Copier-Button
 
@@ -144,7 +146,7 @@ Copier-Button
 
 Rescan-File-Server-Button
 
-        {{ buttontemplate("RescanFileServer", "updateTorrentsList('RescanFileServer')", "folder_refresh", "rescan fileserver") }}
+        {{ buttontemplate("RescanFileServer", "rescanTVShows()", "folder_refresh", "rescan fileserver") }}
 
 Monitor-Button
 
@@ -178,7 +180,7 @@ Dialog-Content
                 </div>
             </div><!--
 
-    {{ dialogbottomtemplate("ConfirmAdd", "confirmAdd()") }}
+    {{ dialogbottomtemplate("ConfirmAdd", "confirmAdd()", "dialog_go_add", "Confirm Add") }}
 
 {% endblock %}
 

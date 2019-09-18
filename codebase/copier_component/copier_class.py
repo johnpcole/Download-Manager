@@ -2,6 +2,9 @@ from ..common_components.delayer_framework import delayer_module as Delayer
 from ..common_components.webscraper_framework import webscraper_module as WebScraper
 from .filemanagement_subcomponent import filemanagement_module as FileManager
 from .copyinstruction_subcomponent import copyinstruction_module as CopyInstruction
+from ..common_components.filesystem_framework import configfile_module as ConfigFile
+
+
 
 class DefineCopier:
 
@@ -11,7 +14,10 @@ class DefineCopier:
 
 		self.scraper = WebScraper.createscraper(webaddress, retrylimit)
 
-		self.filemanager = FileManager.createmanager(FileManager.getlibraryconnectionconfig(), retrylimit)
+		self.filemanager = FileManager.createmanager(ConfigFile.readconfigurationfile(
+																	'./data/application_config/copier_connection.cfg',
+																	['Mountpoint', 'Address', 'Username', 'Password']),
+																	retrylimit)
 
 		self.lastinstruction = CopyInstruction.createinstruction()
 
@@ -41,19 +47,19 @@ class DefineCopier:
 			self.performafolderrefresh(newinstruction['copyid'])
 		else:
 			self.performafilecopy(newinstruction['copyid'], newinstruction['source'],
-							  newinstruction['target'], newinstruction['overwrite'])
+																newinstruction['target'], newinstruction['overwrite'])
 
 
 
 	def performafolderrefresh(self, copyid):
 		self.lastinstruction.settonew(copyid, "Scrape TV Shows")
-		copyoutcome = self.filemanager.scrapetvshows()
-		self.lastinstruction.updatenotes(copyoutcome)
+		scrapeoutcome = self.filemanager.scrapetvshows()
+		self.lastinstruction.updateresults(scrapeoutcome["outcome"], scrapeoutcome["feedback"])
 
 
 	def performafinish(self):
 		longwait = False
-		self.filemanager.disconnectfileserver()
+		self.filemanager.gotosleep()
 		if self.lastinstruction.isalldone() == True:
 			longwait = True
 		self.lastinstruction.setalldone()
@@ -63,7 +69,7 @@ class DefineCopier:
 	def performafilecopy(self, copyid, source, target, forcemode):
 		self.lastinstruction.settonew(copyid, "File Copy")
 		copyoutcome = self.filemanager.performcopy(source, target, forcemode)
-		self.lastinstruction.updatestatus(copyoutcome)
+		self.lastinstruction.updateresults(copyoutcome["outcome"], copyoutcome["feedback"])
 
 
 	def shouldcalldownloadmanager(self):
