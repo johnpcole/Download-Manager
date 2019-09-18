@@ -41,7 +41,7 @@ Banner Content
 {% block content %}
  --><div class="MonitorChart"><table class="copier">
 {% for copyentry in copyactions %}
-        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}" onclick="showActionDialog({{ copyentry.copyid }})">
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}" onclick="showActionDialog('{{ copyentry.copyid }}')">
             <tr>
                 <td rowspan="2"><img id="Icon_{{ copyentry.copyid }}" src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
                 <td colspan="2">{{ copyentry.target }}</td>
