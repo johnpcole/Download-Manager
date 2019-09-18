@@ -1,4 +1,5 @@
 import os as OperatingSystem
+import time as TimeFunctions
 
 
 def mountnetworkdrive(mountpoint, networkpath, username, password):
@@ -236,4 +237,28 @@ def copyfile(source, target):
 		outcome = OperatingSystem.system('copy "' + source + '" "' + target + '"')
 
 	return outcome
+
+
+
+# ---------------------------------------------
+# Returns filesize
+# ---------------------------------------------
+
+def getsize(fullpath):
+	return OperatingSystem.path.getsize(fullpath)
+
+
+
+# ---------------------------------------------
+# Returns file modified datetime
+# ---------------------------------------------
+
+def getmodifytimedate(fullpath):
+	dt = TimeFunctions.localtime(OperatingSystem.path.getmtime(fullpath))
+	outcome = {"Year": dt.tm_year, "Month": dt.tm_mon, "Day": dt.tm_mday, "Hour": dt.tm_hour, "Minute": dt.tm_min,
+																								"Second": dt.tm_sec}
+
+	return outcome
+
+
 

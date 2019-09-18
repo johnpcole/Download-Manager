@@ -235,6 +235,19 @@ def updatecopierpage():
 
 
 #===============================================================================================
+# Gets specific copy action information
+#===============================================================================================
+
+@website.route('/GetCopyActionDetail', methods=['POST'])
+def getcopieroutcome():
+
+	inputdata = WebServer.getrequestdata()
+	result = torrentset.getcopieroutcomedetail(inputdata['copyid'])
+	return WebServer.makejson(**result)
+
+
+
+#===============================================================================================
 # Generate a Copier Interaction
 #===============================================================================================
 

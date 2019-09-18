@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% from 'dialog.html' import dialogtoptemplate %}
-{% from 'dialog.html' import dialogdoublebottomtemplate %}
+{% from 'dialog.html' import dialogtriplebottomtemplate %}
 
 {% block bodycontext %} class="fixed"{% endblock %}
 
@@ -40,7 +40,7 @@ Banner Content
 {% block content %}
  --><div class="MonitorChart"><table class="copier">
 {% for copyentry in copyactions %}
-        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}">
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}" onclick="showActionDialog({{ copyentry.copyid }})">
             <tr>
                 <td rowspan="2"><img id="Icon_{{ copyentry.copyid }}" src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
                 <td colspan="2">{{ copyentry.target }}</td>
@@ -48,9 +48,6 @@ Banner Content
             <tr>
                 <td{% if copyentry.stillavailable == "No" %} class="strikethrough"{% endif %}>{{ copyentry.torrentname }}</td>
                 <td>{{ copyentry.datetimestamp }}</td>
-            </tr>
-            <tr>
-                <td id="Details_{{ copyentry.copyid }}" colspan="3">{{ copyentry.result }}</td>
             </tr>
         </tbody>
 {% endfor %}
@@ -77,17 +74,11 @@ Banner Content
 
  --><div class="hidden">
 
-     {{ dialogtoptemplate("copyfailuredialog", "File Copy Failure", "CloseCopyFailure", "closeCopyDialogs()") }}
-         --><div id="retrydialogcontent"><!--
+     {{ dialogtoptemplate("copierdialog", "File Copy Information", "CloseCopyInformation", "closeCopyDialogs()") }}
+         --><div id="dialogcontent"><!--
              --><div class="dialogitemmax">stuff</div><!--
          --></div><!--
-    {{ dialogdoublebottomtemplate("abandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialog_go_copyagain", "Retry Copy") }}
-
-     {{ dialogtoptemplate("copyconfirmdialog", "File Copy Overwrite", "CloseCopyConfirm", "closeCopyDialogs()") }}
-         --><div id="overwritedialogcontent"><!--
-             --><div class="dialogitemmax">stuff</div><!--
-         --></div><!--
-    {{ dialogdoublebottomtemplate("abandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "ConfirmCopy", "confirmCopy()", "dialog_go_copyagain", "Confirm Overwrite") }}
+    {{ dialogtriplebottomtemplate("abandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialog_go_copyagain", "Retry Copy", "ConfirmOverwrite", "forceCopy()", "dialog_go_overwrite", "Overwrite Copy") }}
 
 
     </div><!--

@@ -1,6 +1,7 @@
 from ...common_components.filesystem_framework import filesystem_module as FileSystem
 from ...common_components.logging_framework import logging_module as Logging
 from .serverconnection_subcomponent import serverconnection_module as ServerConnection
+from ...common_components.datetime_datatypes import datetime_module as DateTime
 
 
 
@@ -24,12 +25,12 @@ class DefineFileManager:
 		connectionoutcome = self.serverconnection.connecttofileserver("Copy Files")
 		proceedwithcopy = False
 
-		copydetail["New File"] = "Dont Know Yet"
+		copydetail["Source File"] = self.getfiledetails(sourcelocation)
 
 		if connectionoutcome == True:
 
 			if FileSystem.doesexist(targetlocation) == True:
-				copydetail["Existing File"] = "Dont Know Yet"
+				copydetail["Existing File"] = self.getfiledetails(targetlocation)
 				if forcemode == True:
 					proceedwithcopy = True
 				else:
@@ -44,7 +45,7 @@ class DefineFileManager:
 			actionoutcome = self.copyafile(sourcelocation, targetlocation)
 			if actionoutcome == True:
 				outcome = "Succeeded"
-				copydetail["Copied File"] = "Dont Know Yet"
+				copydetail["New Copied File"] = self.getfiledetails(targetlocation)
 			else:
 				copydetail["Error"] = "Cannot copy file"
 
@@ -107,8 +108,25 @@ class DefineFileManager:
 		return {"outcome": outcome, "feedback": tvshows}
 
 
+
 	def gotosleep(self):
 
 		self.serverconnection.disconnectfileserver()
+
+
+	def getfiledetails(self, fullpath):
+
+		try:
+			rawfilesize = FileSystem.getsize(fullpath)
+			rawdatetime = FileSystem.getmodifytimedate(fullpath)
+
+			filedatetime = DateTime.createfromsextuplet(rawdatetime["Day"], rawdatetime["Month"], rawdatetime["Year"],
+													rawdatetime["Hour"], rawdatetime["Minute"], rawdatetime["Second"])
+
+		except:
+			rawfilesize = 0
+			filedatetime = DateTime.createfromsextuplet(1, 1, 2000, 0, 0, 0)
+
+		return {'datetime': filedatetime.getiso(), 'filesize': rawfilesize}
 
 

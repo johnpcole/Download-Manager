@@ -38,11 +38,12 @@ Ok-Button
 <!-- ------------------------------------------------------------------------------------------------ -->
 
 
-{% macro dialogdoublebottomtemplate(idone, jsactionone, imageone, alttextone, idtwo, jsactiontwo, imagetwo, alttexttwo) %}
+{% macro dialogtriplebottomtemplate(idone, jsactionone, imageone, alttextone, idtwo, jsactiontwo, imagetwo, alttexttwo, idthree, jsactionthree, imagethree, alttextthree) %}
 
          --><div><!--
          {{ buttontemplate(idone, jsactionone, imageone, alttextone) }}
          {{ buttontemplate(idtwo, jsactiontwo, imagetwo, alttexttwo) }}
+         {{ buttontemplate(idthree, jsactionthree, imagethree, alttextthree) }}
          --></div><!--
 
      --></div>

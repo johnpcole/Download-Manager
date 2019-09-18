@@ -162,3 +162,11 @@ class DefineCopierTracker:
 		return tracker.getstatus()
 
 
+	def getcopyactionoutcomedetail(self, copyid):
+
+		copyaction = self.copieractions[copyid]
+
+		return copyaction.getcopieractiondetail()
+
+
+

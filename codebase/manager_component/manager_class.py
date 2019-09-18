@@ -273,6 +273,17 @@ class DefineTorrentSet:
 
 
 	#===============================================================================================
+	# Get copy action detail
+	#===============================================================================================
+
+	def getcopieroutcomedetail(self, copyid):
+
+		Logging.printinvocation("Retrieving copier outcome detail", "")
+		return {'outcomedetail': self.copiermanager.getcopyactionoutcomedetail(copyid)}
+
+
+
+	#===============================================================================================
 	# Display the monitor
 	#===============================================================================================
 

@@ -92,7 +92,7 @@ class DefineCopierActionItem:
 			outcome['target'] = Functions.sanitisetargetpath(self.target)
 			outcome['source'] = self.source
 			outcome['torrentid'] = self.torrentid
-			outcome['result'] = self.resultdetail
+			#outcome['result'] = Functions.rendercopyresults(self.resultdetail, self.status)
 			outcome['torrentname'] = self.torrentname
 			if self.torrentid in torrentidlist:
 				outcome['stillavailable'] = "Yes"
@@ -102,8 +102,8 @@ class DefineCopierActionItem:
 			outcome['target'] = "Search the Videos drive for TV Shows & their Seasons"
 			outcome['source'] = ""
 			outcome['torrentid'] = ""
-			outcome['result'] = ""
-			outcome['torrentname'] = "Includes newly added TV Show & Season folders on the Video drive"
+			#outcome['result'] = ['TV Shows Found' + str(len(self.resultdetail))]
+			outcome['torrentname'] = "Adds newly created TV Show & Season folders on the Video drive to the TV Show options lists"
 			outcome['stillavailable'] = "Yes"
 
 		self.cacheupdateflag = False
@@ -119,3 +119,15 @@ class DefineCopierActionItem:
 		return {'status': statuslabel, 'result': self.resultdetail, 'copyid': actionid}
 
 # =========================================================================================
+
+	def getcopieractiondetail(self):
+
+		if self.actiontype.get("Copy File") == True:
+			outcome = Functions.rendercopyresults(self.resultdetail, self.status, self.target)
+		else:
+			outcome = ['TV Shows Found' + str(len(self.resultdetail))]
+		return outcome
+
+
+
+
