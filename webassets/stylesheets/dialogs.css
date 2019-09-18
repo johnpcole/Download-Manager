@@ -63,6 +63,12 @@ div.dialogitemleft, div.dialogitemright, div.dialogitemfull, div.dialogitemmax {
     border-color: #FFFFFF;*/
 }
 
+div.wraptext {
+    white-space: normal !important;
+    line-height: normal !important;
+}
+
+
 div.dialogitemleft {
     width: 396px;
     text-align: left;

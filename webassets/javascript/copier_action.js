@@ -13,7 +13,7 @@ function showActionDialog(copyid)
             $('#ajaxloader').show();
         },
         success: function(data){
-            populateCopyDialog(data.outcomedetail.filepath, data.outcomedetail.outcomes)
+            populateCopyDialog(data.outcomedetail.filepath, data.outcomedetail.description, data.outcomedetail.outcomes)
             $('#copierdialog').show();
             $('#ajaxloader').hide();
         }
@@ -24,13 +24,15 @@ function showActionDialog(copyid)
 
 // Re-population of copy dialog following reconfiguration
 
-function populateCopyDialog(filepath, copydata)
+function populateCopyDialog(filepath, description, copydata)
 {
-    var outputtext = '<div class="dialogitemfull">'+ filepath +'</div><table class="copierresultstable">';
+    var outputtext = '<div class="dialogitemfull">'+ filepath +'</div>';
+    outputtext = outputtext + '<div class="dialogitemfull wraptext">'+ description +'</div>';
+    outputtext = outputtext + '<table class="copierresultstable">';
     $.each(copydata, function(index)
     {
         var currentitem = copydata[index];
-        outputtext = outputtext + '<tr><td>.</td>';
+        outputtext = outputtext + '<tr><td></td>';
 
         $.each(currentitem, function(indextwo)
         {
@@ -40,7 +42,7 @@ function populateCopyDialog(filepath, copydata)
             };
         });
 
-        outputtext = outputtext + '<td>.</td></tr>';
+        outputtext = outputtext + '<td></td></tr>';
     });
     outputtext = outputtext + '</table>'
     rerenderText('dialogcontent', outputtext);

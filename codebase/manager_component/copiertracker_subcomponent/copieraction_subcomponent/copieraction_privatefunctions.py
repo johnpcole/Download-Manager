@@ -45,19 +45,14 @@ def rendercopyresults(results, statusenum, targetpath):
 		datetimes.append(rendercopydatetime(results["Source File"]))
 
 	if "Existing File" in results.keys():
-		if statusenum.get("Succeeded") == True:
-			titles.append("Pre-existing File which was overwritten")
-		elif statusenum.get("Confirm") == True:
-			titles.append("Pre-existing File which will be overwritten if confirmed")
-		else:
-			titles.append("Pre-existing File which would have been overwritten")
+		titles.append("Pre-existing File")
 		subtitles.append("(On Videos drive)")
 		sizes.append(rendercopysize(results["Existing File"]))
 		datetimes.append(rendercopydatetime(results["Existing File"]))
 
 	if "New Copied File" in results.keys():
-		titles.append("Downloaded File")
-		subtitles.append("(On Downloads drive)")
+		titles.append("Copied File")
+		subtitles.append("(On Videos drive)")
 		sizes.append(rendercopysize(results["New Copied File"]))
 		datetimes.append(rendercopydatetime(results["New Copied File"]))
 
@@ -67,7 +62,21 @@ def rendercopyresults(results, statusenum, targetpath):
 		sizes.extend(results["Error"])
 		datetimes.extend("")
 
-	realoutcome = {"filepath": sanitisetargetpath(targetpath), "outcomes": [titles, subtitles, sizes, datetimes]}
+	if "Existing File" in results.keys():
+		if statusenum.get("Succeeded") == True:
+			description = "The pre-existing file was overwritten with the downloaded file"
+		elif statusenum.get("Confirm") == True:
+			description = "The pre-existing file will be overwritten if you confirm the copy action"
+		else:
+			description = "The pre-existing file may have been compromised by the failed copy action"
+	else:
+		if statusenum.get("Succeeded") == True:
+			description = "The downloaded file was successfully copied"
+		else:
+			description = "The downloaded file was <b>NOT</b> successfully copied"
+
+	realoutcome = {"filepath": sanitisetargetpath(targetpath), "outcomes": [titles, subtitles, sizes, datetimes],
+																						"description" : description}
 
 	return realoutcome
 
@@ -80,7 +89,7 @@ def rendercopysize(filedetails):
 def rendercopydatetime(filedetails):
 
 	datetime = sanitisecopydatetimestamp(filedetails["datetime"] + "000")
-	return datetime[:-3]
+	return datetime[:-6]
 
 
 

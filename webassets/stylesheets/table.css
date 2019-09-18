@@ -14,6 +14,11 @@ table.logs, table.copier {
   color: #FFFFFF
 }
 
+table.copierresultstable {
+  margin: 10px 0px 10px 0px;
+}
+
+
 /* ======================================================================== */
 
 table.logs tr:hover {
@@ -215,12 +220,30 @@ table.copier > tbody:last-of-type > tr:nth-of-type(2) {
 
 table.copierresultstable td {
   text-align: center;
+  font-size: 90%;
   width: 30%;
+  border-left: 1px #000000 solid;
+  padding: 0px 10px 0px 10px;
 }
 
-table.copierresultstable > tr > td:first-of-type, table.copierresultstable > tr > td:last-of-type {
+table.copierresultstable tr td:first-of-type, table.copierresultstable tr td:last-of-type {
   width: auto;
 }
 
+table.copierresultstable tr td:first-of-type {
+  border-left: none;
+}
 
+
+table.copierresultstable tr:first-of-type td {
+  padding-top: 8px;
+}
+
+table.copierresultstable tr:nth-of-type(n+2) td {
+  padding-bottom: 10px;
+}
+
+table.copierresultstable tr:nth-of-type(2) td {
+  font-size: 60%;
+}
 
