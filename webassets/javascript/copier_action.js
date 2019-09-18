@@ -2,7 +2,7 @@
 // Invoke Copier Action Dialog
 
 function showActionDialog(copyid)
-    alert(copyid);
+    alert('<'+copyid+'>');
 {
     $.ajax({
         url: 'GetCopyActionDetail',
