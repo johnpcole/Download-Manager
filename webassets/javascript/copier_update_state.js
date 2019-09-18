@@ -2,7 +2,7 @@
 
 $(document).ready(function ()
 {
-    $('#adddialog').hide();
+    $('#copierdialog').hide();
     // Refresh the tiles every ten seconds.
     setInterval(function()
     {

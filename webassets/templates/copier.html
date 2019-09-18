@@ -9,7 +9,8 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/copier.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier_update_state.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier_action.js') }}"></script>
 
 {% endblock %}
 
@@ -74,7 +75,7 @@ Banner Content
 
  --><div class="hidden">
 
-     {{ dialogtoptemplate("copierdialog", "File Copy Information", "CloseCopyInformation", "closeCopyDialogs()") }}
+     {{ dialogtoptemplate("copierdialog", "File Copy Information", "CloseCopyInformation", "closeActionDialog()") }}
          --><div id="dialogcontent"><!--
              --><div class="dialogitemmax">stuff</div><!--
          --></div><!--
