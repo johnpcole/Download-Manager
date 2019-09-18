@@ -242,7 +242,7 @@ def updatecopierpage():
 def getcopieroutcome():
 
 	inputdata = WebServer.getrequestdata()
-	result = torrentset.getcopieroutcomedetail(inputdata['copyid'])
+	result = torrentset.getcopieroutcomedetail(str(inputdata['copyid']))
 	return WebServer.makejson(**result)
 
 

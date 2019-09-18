@@ -62,7 +62,7 @@ Banner Content
 
 {% block toolbar %}
 
- --><div class="hidden">
+ --><div>
     </div><!--
 
 {% endblock %}
@@ -73,16 +73,17 @@ Banner Content
 
 {% block dialogs %}
 
- --><div class="hidden">
+DIALOG
 
      {{ dialogtoptemplate("copierdialog", "File Copy Information", "CloseCopyInformation", "closeActionDialog()") }}
+
+ Dialog-Content
+
          --><div id="dialogcontent"><!--
              --><div class="dialogitemmax">stuff</div><!--
          --></div><!--
+
     {{ dialogtriplebottomtemplate("abandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialog_go_copyagain", "Retry Copy", "ConfirmOverwrite", "forceCopy()", "dialog_go_overwrite", "Overwrite Copy") }}
-
-
-    </div><!--
 
 {% endblock %}
 
