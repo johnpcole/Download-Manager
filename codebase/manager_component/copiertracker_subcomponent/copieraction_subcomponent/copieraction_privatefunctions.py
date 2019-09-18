@@ -66,7 +66,7 @@ def rendercopyresults(results, statusenum, targetpath):
 		if statusenum.get("Succeeded") == True:
 			description = "The pre-existing file was overwritten with the downloaded file"
 		elif statusenum.get("Confirm") == True:
-			description = "The pre-existing file will be overwritten if you confirm the copy action"
+			description = "The pre-existing file will be overwritten if you confirm this copy action"
 		else:
 			description = "The pre-existing file may have been compromised by the failed copy action"
 	else:

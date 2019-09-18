@@ -61,6 +61,20 @@ function changeAreaClass(areaname, classvalue)
 
 
 
+// Get area class
+
+function getAreaClass(areaname)
+{
+    var areaobject = document.getElementById(areaname);
+    if (areaobject != null) {
+        return areaobject.className;
+    } else {
+        alert("changeAreaClass: "+areaname);
+    };
+};
+
+
+
 // Update the displayed text
 
 function rerenderText(fieldname, fieldvalue)
