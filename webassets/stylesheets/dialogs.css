@@ -38,6 +38,7 @@ div.dialog {
 
 /* Dialog Title */
 .dialog > div:nth-of-type(1) {
+    font-weight: bold;
     width: 100%;
     text-align: center;
     padding: 2px 3px 6px 3px;
@@ -49,7 +50,7 @@ div.dialog {
 }
 
 div.dialogitemleft, div.dialogitemright, div.dialogitemfull, div.dialogitemmax {
-    font-size: 75%;
+    /*font-size: 100%;*/
     padding: 5px 4px 4px 4px;
     overflow: hidden;
     text-overflow: ellipsis;
