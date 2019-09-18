@@ -2,8 +2,8 @@
 // Invoke Copier Action Dialog
 
 function showActionDialog(copyid)
-    alert('<'+copyid+'>');
 {
+    alert('<'+copyid+'>');
     $.ajax({
         url: 'GetCopyActionDetail',
         type: 'POST',
@@ -14,7 +14,7 @@ function showActionDialog(copyid)
             $('#ajaxloader').show();
         },
         success: function(data){
-            populateCopyDialog(data.outcomedetail)
+            populateCopyDialog(data.outcomedetail.filepath, data.outcomedetail.outcomes)
             $('#copierdialog').show();
             $('#ajaxloader').hide();
         }
@@ -25,14 +25,25 @@ function showActionDialog(copyid)
 
 // Re-population of copy dialog following reconfiguration
 
-function populateCopyDialog(copydata)
+function populateCopyDialog(filepath, copydata)
 {
-    var outputtext = '';
+    var outputtext = '<div>'+ filepath +'</div><table>';
     $.each(copydata, function(index)
     {
         var currentitem = copydata[index];
-        outputtext = outputtext + '<div class="dialogitemmax">' + currentitem + '</div>';
+        outputtext = outputtext + '<tr><td>.</td>';
+
+        $.each(currentitem, function(indextwo)
+        {
+            var currentsubitem = currentitem[indextwo];
+            if (currentsubitem != "") {
+                outputtext = outputtext + '<td>' + currentsubitem + '</td>';
+            };
+        });
+
+        outputtext = outputtext + '<td>.</td></tr>';
     });
+    outputtext = outputtext + '</table>'
     rerenderText('dialogcontent', outputtext);
 };
 
