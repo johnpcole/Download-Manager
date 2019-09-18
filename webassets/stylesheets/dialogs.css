@@ -16,6 +16,8 @@ div.dialog {
 .dialog > div:nth-of-type(3) {
     margin: 0;
     padding: 0;
+    font-size: 90%;
+
 }
 
 /* Dialog Actions at the bottom */
@@ -31,13 +33,14 @@ div.dialog {
     border-style: solid;
     border-width: 0px 0px 1px 0px;
     border-color: #000033;
-    margin: 0 auto;
+    margin: 0px auto 5px auto;
     padding: 0;
     width: 490px;
 }
 
 /* Dialog Title */
 .dialog > div:nth-of-type(1) {
+    font-size: 100%;
     font-weight: bold;
     width: 100%;
     text-align: center;
@@ -50,7 +53,6 @@ div.dialog {
 }
 
 div.dialogitemleft, div.dialogitemright, div.dialogitemfull, div.dialogitemmax {
-    /*font-size: 100%;*/
     padding: 5px 4px 4px 4px;
     overflow: hidden;
     text-overflow: ellipsis;
