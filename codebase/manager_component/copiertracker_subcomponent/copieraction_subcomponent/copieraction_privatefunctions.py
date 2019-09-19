@@ -59,8 +59,8 @@ def rendercopyresults(results, statusenum, targetpath):
 	if "Error" in results.keys():
 		titles.append("File not copied!")
 		subtitles.append("(Error encountered)")
-		sizes.extend(results["Error"])
-		datetimes.extend("")
+		sizes.append(results["Error"])
+		datetimes.append("")
 
 	if "Existing File" in results.keys():
 		if statusenum.get("Succeeded") == True:

@@ -36,19 +36,30 @@ function showActionDialog(copyid)
 
 function populateCopyDialog(filepath, description, copydata)
 {
+    var errorflag = -999;
+    var colcount = 0;
     var outputtext = '<div class="dialogitemfull">'+ filepath +'</div>';
     outputtext = outputtext + '<div class="dialogitemfull wraptext">'+ description +'</div>';
     outputtext = outputtext + '<table class="copierresultstable">';
     $.each(copydata, function(index)
     {
+        colcount = 0;
         var currentitem = copydata[index];
         outputtext = outputtext + '<tr><td></td>';
 
         $.each(currentitem, function(indextwo)
         {
+            colcount = colcount + 1;
             var currentsubitem = currentitem[indextwo];
             if (currentsubitem != "") {
-                outputtext = outputtext + '<td>' + currentsubitem + '</td>';
+                outputtext = outputtext + '<td'
+                if (colcount == errorflag) {
+                    outputtext = outputtext + ' rowspan="2"';
+                };
+                outputtext = outputtext + '>' + currentsubitem + '</td>';
+            };
+            if (currentsubitem == "(Error encountered)") {
+                errorflag = colcount;
             };
         });
 
