@@ -178,7 +178,8 @@ function doesAreaExist(areaid)
 
 // Deletes element
 
-function removeElement(areaid) {
+function removeElement(areaid)
+{
     var controlobject = document.getElementById(areaid);
     if (controlobject != null) {
         var parentobject = controlobject.parentNode
@@ -186,4 +187,8 @@ function removeElement(areaid) {
     } else {
         alert("Cant find area: "+areaid);
     };
+};
+
+
+
 
