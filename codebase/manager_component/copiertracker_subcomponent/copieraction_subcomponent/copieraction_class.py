@@ -44,7 +44,7 @@ class DefineCopierActionItem:
 
 		if intervention == "Abandon":
 			if (self.status.get("Failed") == True) or (self.status.get("Confirm") == True):
-				self.status.set("Abandon")
+				self.status.set("Abandoned")
 			else:
 				print("Invalid Abandon intervention for status ",self.status.displaycurrent())
 		elif intervention == "Overwrite":

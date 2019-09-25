@@ -39,7 +39,7 @@ function populateCopyDialog(filepath, description, copydata, copyid)
     var errorflag = -999;
     var colcount = 0;
     var outputtext = '<div class="hidden" id="currentlydetailedcopyid">' + copyid + '</div>';
-    outputtext = outputtext + <div class="dialogitemfull">' + filepath + '</div>';
+    outputtext = outputtext + '<div class="dialogitemfull">' + filepath + '</div>';
     outputtext = outputtext + '<div class="dialogitemfull wraptext">' + description + '</div>';
     outputtext = outputtext + '<table class="copierresultstable">';
     $.each(copydata, function(index)

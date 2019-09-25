@@ -303,7 +303,7 @@ class DefineTorrentSet:
 		Logging.printinvocation("Intervening Copier Action", "")
 		self.copiermanager.intervene(copyid, intervention)
 
-		return self.copiermanager.getcopierpagerefreshdata()
+		return {'copyactions': self.copiermanager.getcopierpagerefreshdata()}
 
 
 
