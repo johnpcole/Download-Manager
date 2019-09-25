@@ -295,6 +295,19 @@ class DefineTorrentSet:
 
 
 	#===============================================================================================
+	# Process Copy Intervention
+	#===============================================================================================
+
+	def processcopyintervention(self, copyid, intervention):
+
+		Logging.printinvocation("Intervening Copier Action", "")
+		self.copiermanager.intervene(copyid, intervention)
+
+		return self.copiermanager.getcopierpagerefreshdata()
+
+
+
+	#===============================================================================================
 	# Process Copy Queue
 	#===============================================================================================
 

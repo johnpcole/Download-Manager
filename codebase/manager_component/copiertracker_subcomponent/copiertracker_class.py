@@ -71,6 +71,16 @@ class DefineCopierTracker:
 			else:
 				Logging.printrawline("Cannot find copy action to update: " + copyid)
 
+# =========================================================================================
+
+	def intervene(self, copyid, intervention):
+
+		if copyid in self.copieractions.keys():
+			self.copieractions[copyid].intervention(intervention)
+		else:
+			Logging.printrawline("Cannot find copy action to intervene with: " + copyid)
+
+# =========================================================================================
 
 	def shouldrefreshtvshowdata(self, copyid):
 
@@ -107,7 +117,9 @@ class DefineCopierTracker:
 		inprogressflag = False
 		nextactionid = self.nullaction
 
-		for actionid in self.copieractions.keys():
+		sortedlist = sorted(self.copieractions.keys())
+
+		for actionid in sortedlist:
 			if self.copieractions[actionid].getstatus() == "In Progress":
 				inprogressflag = True
 			elif self.copieractions[actionid].getstatus() == "Queued":

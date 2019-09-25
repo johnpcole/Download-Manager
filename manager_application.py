@@ -248,6 +248,19 @@ def getcopieroutcome():
 
 
 #===============================================================================================
+# Gets specific copy action information
+#===============================================================================================
+
+@website.route('/PerformCopyIntervention', methods=['POST'])
+def performcopyintervention():
+
+	inputdata = WebServer.getrequestdata()
+	result = torrentset.processcopyintervention(inputdata['copyid'], inputdata['intervention'])
+	return WebServer.makejson(**result)
+
+
+
+#===============================================================================================
 # Generate a Copier Interaction
 #===============================================================================================
 

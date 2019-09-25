@@ -22,6 +22,8 @@ class DefineCopierActionItem:
 
 		self.cacheupdateflag = False
 
+		self.forcecopy = False
+
 # =========================================================================================
 
 	def getcachestate(self):
@@ -35,6 +37,29 @@ class DefineCopierActionItem:
 		self.cacheupdateflag = True
 		self.resultdetail = newresultdetail
 		self.status.set(newstatus)
+
+# =========================================================================================
+
+	def intervention(self, intervention):
+
+		if intervention == "Abandon":
+			if (self.status.get("Failed") == True) or (self.status.get("Confirm") == True):
+				self.status.set("Abandon")
+			else:
+				print("Invalid Abandon intervention for status ",self.status.displaycurrent())
+		elif intervention == "Overwrite":
+			if self.status.get("Confirm") == True:
+				self.status.set("Queued")
+				self.forcecopy = True
+			else:
+				print("Invalid Overwrite intervention for status ", self.status.displaycurrent())
+		elif intervention == "Retry":
+			if self.status.get("Failed") == True:
+				self.status.set("Queued")
+			else:
+				print("Invalid Retry intervention for status ",self.status.displaycurrent())
+		else:
+			print("Unknown intervention specified: ", intervention)
 
 # =========================================================================================
 
@@ -71,12 +96,11 @@ class DefineCopierActionItem:
 	def getcopieractioninstruction(self, nextactionid):
 
 		outcome = {'action': self.actiontype.displaycurrent(),
-					'copyid': nextactionid,
-					'overwrite': False}
+					'copyid': nextactionid}
 		if self.actiontype.get("Copy File") == True:
 			outcome['source'] = self.source
 			outcome['target'] = self.target
-
+			outcome['overwrite'] = self.forcecopy
 		return outcome
 
 # =========================================================================================
