@@ -158,7 +158,7 @@ function getAreaState(areaid)
             return "Displayed";
         };
     } else {
-        alert("Cant find area: "+areaid)
+        alert("Cant find area: "+areaid);
     };
 };
 
@@ -183,8 +183,7 @@ function removeElement(areaid) {
     if (controlobject != null) {
         var parentobject = controlobject.parentNode
         parentobject.removeChild(controlobject);
-        };
     } else {
-        alert("Cant find area: "+areaid)
+        alert("Cant find area: "+areaid);
     };
 
