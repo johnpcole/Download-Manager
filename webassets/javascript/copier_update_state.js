@@ -41,7 +41,7 @@ function updateAllCopierTiles(copydatalist)
     $.each(copydatalist, function(index)
     {
         var dataitem = copydatalist[index];
-        if (dataitem.status != 'Abandoned') {
+        if (dataitem.status != 'abandoned') {
             updateCopierTileColour('CopyItem_'+dataitem.copyid, dataitem.status);
             rerenderImage('Icon_'+dataitem.copyid, 'copystate_'+dataitem.status, 'gif');
         } else {
