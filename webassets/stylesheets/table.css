@@ -149,12 +149,6 @@ tbody.copystate_confirm > tr, tbody.scrapestate_confirm > tr {
     background-color: #DC6E00;
 }
 
-tbody.copystate_abandoned > tr, tbody.scrapestate_abandoned > tr {
-    display: none;
-    background-color: #000000;
-}
-
-
 table.copier img {
     display: inline-block;
     margin: 5px;

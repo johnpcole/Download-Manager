@@ -42,6 +42,7 @@ class DefineCopierActionItem:
 
 	def intervention(self, intervention):
 
+		self.cacheupdateflag = True
 		if intervention == "Abandon":
 			if (self.status.get("Failed") == True) or (self.status.get("Confirm") == True):
 				self.status.set("Abandoned")
