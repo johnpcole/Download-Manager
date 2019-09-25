@@ -144,7 +144,8 @@ class DefineCopierTracker:
 
 		outcome = []
 		for actionid in keylist:
-			outcome.append(self.copieractions[actionid].getcopierpageloaddata(torrentidlist, actionid))
+			if self.copieractions[actionid].getstatus() != "Abandoned":
+				outcome.append(self.copieractions[actionid].getcopierpageloaddata(torrentidlist, actionid))
 
 		return outcome
 
