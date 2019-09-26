@@ -158,7 +158,7 @@ function getAreaState(areaid)
             return "Displayed";
         };
     } else {
-    alert("Cant find area: "+areaid)
+        alert("Cant find area: "+areaid);
     };
 };
 
@@ -175,3 +175,20 @@ function doesAreaExist(areaid)
         return "No";
     };
 };
+
+// Deletes element
+
+function removeElement(areaid)
+{
+    var controlobject = document.getElementById(areaid);
+    if (controlobject != null) {
+        var parentobject = controlobject.parentNode
+        parentobject.removeChild(controlobject);
+    } else {
+        alert("Cant find area: "+areaid);
+    };
+};
+
+
+
+
