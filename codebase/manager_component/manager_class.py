@@ -256,7 +256,8 @@ class DefineTorrentSet:
 
 		Logging.printinvocation("Loading Copier Page", "")
 		self.delugemanager.queuenewrefreshaction()
-		return {'copyactions': self.copiermanager.getcopierpageinitialdata(self.torrentmanager.gettorrentidlist())}
+		return {'copyactions': self.copiermanager.getcopierpageinitialdata(
+																		self.torrentmanager.getvisibletorrentidlist())}
 
 
 

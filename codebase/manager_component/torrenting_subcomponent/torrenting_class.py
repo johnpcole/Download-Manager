@@ -189,11 +189,12 @@ class DefineTorrentManager:
 
 # =========================================================================================
 
-	def gettorrentidlist(self):
+	def getvisibletorrentidlist(self):
 
 		outcome = []
 		for torrentitem in self.torrents:
-			outcome.append(torrentitem.getid())
+			if torrentitem.isvisible() == True:
+				outcome.append(torrentitem.getid())
 
 		return outcome
 
