@@ -62,7 +62,7 @@ table.copier > tbody > tr:nth-of-type(2) > td {
     font-size: x-small;
     padding-right: 15px;
     padding-bottom: 8px;
-    vertical-align: top;
+    vertical-align: bottom;
 }
 
 tbody.copystate_succeeded, tbody.copystate_failed, tbody.copystate_confirm {
