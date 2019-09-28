@@ -1,16 +1,16 @@
 {% extends "base.html" %}
-{% from 'meter.html' import meteroutlinetemplate %}
-{% from 'meter.html' import metermarkerstemplate %}
-{% from 'meter.html' import meterblockstemplate %}
-{% from 'meter.html' import meterlinetemplate %}
-{% from 'meter.html' import meterendtemplate %}
-{% from 'button.html' import buttontemplate %}
-{% from 'button.html' import buttonwithoverlaytemplate %}
-{% from 'dialog.html' import dialogtoptemplate %}
-{% from 'dialog.html' import dialogbottomtemplate %}
-{% from 'icons.html' import thermometertemplate %}
-{% from 'icons.html' import storagetemplate %}
-{% from 'icons.html' import connectivitytemplate %}
+{% from 'macros/meter.html' import meteroutlinetemplate %}
+{% from 'macros/meter.html' import metermarkerstemplate %}
+{% from 'macros/meter.html' import meterblockstemplate %}
+{% from 'macros/meter.html' import meterlinetemplate %}
+{% from 'macros/meter.html' import meterendtemplate %}
+{% from 'macros/button.html' import buttontemplate %}
+{% from 'macros/button.html' import buttonwithoverlaytemplate %}
+{% from 'macros/dialog.html' import dialogtoptemplate %}
+{% from 'macros/dialog.html' import dialogbottomtemplate %}
+{% from 'macros/icons.html' import thermometertemplate %}
+{% from 'macros/icons.html' import storagetemplate %}
+{% from 'macros/icons.html' import connectivitytemplate %}
 
 {% block bodycontext %}{% endblock %}
 
@@ -20,10 +20,20 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/index_update_torrentlist.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/index_startstop_torrents.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/index_add_torrent.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/index_rescan_tvshows.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index/update_torrentlist.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index/startstop_alltorrents.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index/add_torrent.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index/rescan_tvshows.js') }}"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block styling %}
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/meters.css') }}" />
 
 {% endblock %}
 
@@ -97,7 +107,7 @@ FIRST ROW = Title (Configured-Title & Type)
                     <span>{{ torrent.torrenttitle }}</span>
                 </div><!--
              --><div>
-                    <img src="{{ url_for('static', filename='images/type_' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
+                    <img src="{{ url_for('static', filename='images/torrenttypes/' + torrent.torrenttype + '.png') }}" alt="{{ torrent.torrenttype }}" />
                 </div><!--
          --></div><!--
 SECOND ROW = Horizontal-Bar
@@ -108,7 +118,7 @@ THIRD ROW = Subtitle (Raw-Title & Progress/Status)
                     <span>{{ torrent.torrentname }}</span>
                 </div><!--
              --><div>
-                    <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/status_' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
+                    <img id="StatusIcon-{{ torrent.torrentid }}" src="{{ url_for('static', filename='images/torrentstatuses/' + torrent.status + '.png') }}" alt="{{ torrent.status }}" /><!--
                  --><span id="Progress-{{ torrent.torrentid }}">{{ torrent.progress }}</span>
                 </div><!--
          --></div><!--
@@ -130,31 +140,31 @@ THIRD ROW = Subtitle (Raw-Title & Progress/Status)
 
 Add-Button
 
-        {{ buttontemplate("Add", "addTorrent()", "listaction_add", "add") }}
+        {{ buttontemplate("Add", "addTorrent()", "indexactions/add_torrent", "add") }}
 
 Stop-All-Button
 
-        {{ buttontemplate("Stop", "performBulkAction('Stop')", "listaction_stopall", "stop") }}
+        {{ buttontemplate("Stop", "performBulkAction('Stop')", "indexactions/stop_alltorrents", "stop") }}
 
 Start-All-Button
 
-        {{ buttontemplate("Start", "performBulkAction('Start')", "listaction_startall", "start") }}
+        {{ buttontemplate("Start", "performBulkAction('Start')", "indexactions/start_alltorrents", "start") }}
 
 Copier-Button
 
-        {{ buttonwithoverlaytemplate("ViewCopier", "window.location.href = '/Copier'", "copier", "copyoverlay_"+copyqueuestate, "view copier") }}
+        {{ buttonwithoverlaytemplate("ViewCopier", "window.location.href = '/Copier'", "indexactions/copier", "copierstates/"+copyqueuestate, "view copier") }}
 
 Rescan-File-Server-Button
 
-        {{ buttontemplate("RescanFileServer", "rescanTVShows()", "folder_refresh", "rescan fileserver") }}
+        {{ buttontemplate("RescanFileServer", "rescanTVShows()", "indexactions/folder_refresh", "rescan fileserver") }}
 
 Monitor-Button
 
-        {{ buttontemplate("ViewLogs", "window.location.href = '/Monitor'", "monitoring", "view monitor") }}
+        {{ buttontemplate("ViewLogs", "window.location.href = '/Monitor'", "indexactions/monitoring", "view monitor") }}
 
 Logs-Button
 
-        {{ buttontemplate("ViewLogs", "window.location.href = '/Logs'", "information", "view logs") }}
+        {{ buttontemplate("ViewLogs", "window.location.href = '/Logs'", "indexactions/information", "view logs") }}
 
 
  --></div><!--
@@ -180,7 +190,7 @@ Dialog-Content
                 </div>
             </div><!--
 
-    {{ dialogbottomtemplate("ConfirmAdd", "confirmAdd()", "dialog_go_add", "Confirm Add") }}
+    {{ dialogbottomtemplate("ConfirmAdd", "confirmAdd()", "dialogs/add", "Confirm Add") }}
 
 {% endblock %}
 

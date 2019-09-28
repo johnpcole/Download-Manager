@@ -1,8 +1,8 @@
 <html>
-    <script src="{{ url_for('static', filename='javascript/jquery-3.2.0.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/manage_controls.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/manage_elements.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/manage_colours.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/common/jquery-3.2.0.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/common/manage_controls.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/common/manage_elements.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/common/manage_colours.js') }}"></script>
     {% block javascript %}{% endblock %}
     <head>
         <title>Download-Manager</title>
@@ -12,18 +12,16 @@
         <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/box_colours.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/editing.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/box_common.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/box_banners.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/box_tiles.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/controls_button.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/controls_other.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/controls_slider.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/controls_textbox.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/ajaxloader.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/dialogs.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/meters.css') }}" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/table.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/table_common.css') }}" />
+        {% block styling %}{% endblock %}
     </head>
     <body{% block bodycontext %}{% endblock %}><!--
 

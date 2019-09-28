@@ -4,10 +4,10 @@ $(document).ready(function ()
 {
     $('#copydialog').hide();
     $('#deletedialog').hide();
-    var torrentstatus = getImageName('Status').substr(7);
+    var torrentstatus = getImageName('Status');
     updateStartStopButtons(torrentstatus, 'page_load_dummy_status');
-    updateCopyButton(torrentstatus, getImageName('TorrentType').substr(5), getImageName('Copy_Overlay').substr(12));
-    updateDeleteButton(getImageName('Copy_Overlay').substr(12));
+    updateCopyButton(torrentstatus, getImageName('TorrentType'), getImageName('Copy_Overlay'));
+    updateDeleteButton(getImageName('Copy_Overlay'));
     updateEditButton();
     changeAreasState('readmodebuttons', 'Show');
 
@@ -59,12 +59,12 @@ function updateTorrentState()
 
 function updateTorrentStateDisplay(dataitem, copyqueuestate)
 {
-    var oldstatus = getImageName('Status').substr(7);
-    rerenderImage("Status", "status_"+dataitem.status, 'png');
+    var oldstatus = getImageName('Status');
+    rerenderImage("Status", "torrentstatuses/"+dataitem.status, 'png');
     updateTorrentTileColour("TorrentBanner", dataitem.status);
     rerenderText("Progress", dataitem.progress);
     updateStartStopButtons(dataitem.status, oldstatus);
-    updateCopyButton(dataitem.status, getImageName('TorrentType').substr(5), copyqueuestate);
+    updateCopyButton(dataitem.status, getImageName('TorrentType'), copyqueuestate);
     updateDeleteButton(copyqueuestate);
 };
 

@@ -2,6 +2,7 @@ from .files_subcomponent import files_module as Files
 from ....common_components.dataconversion_framework import dataconversion_module as Functions
 from .category_subcomponent import category_module as Category
 from .status_subcomponent import status_module as Status
+from ....common_components.datetime_datatypes import datetime_module as DateTime
 
 
 # This class creates an object which is used to capture information about an individual torrent
@@ -26,8 +27,8 @@ class DefineTorrentItem:
 
 		self.torrentfiles = Files.createfilesdata()
 
-		self.istorrentvisible = True
-
+		#self.istorrentvisible = True
+		self.deleteddate = DateTime.createfromiso("20000101000000")
 
 # =========================================================================================
 
@@ -215,12 +216,20 @@ class DefineTorrentItem:
 
 	def markasdeleted(self):
 
-		self.istorrentvisible = False
+		#self.istorrentvisible = False
+		self.deleteddate.settonow()
 
 
 	def isvisible(self):
 
-		return self.istorrentvisible
+		#return self.istorrentvisible
+		timedifference = DateTime.timedifferenceasduration(self.deleteddate, DateTime.getnow())
+		if abs(timedifference.getsecondsvalue()) > 60:
+			outcome = False
+		else:
+			outcome = True
+
+		return outcome
 
 
 

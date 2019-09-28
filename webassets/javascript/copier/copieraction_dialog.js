@@ -1,7 +1,6 @@
 function requestActionDetail(copyid)
 {
     var currentstatus = getImageName('Icon_'+copyid);
-    currentstatus = currentstatus.substr(10);
     if (((currentstatus == "confirm") || (currentstatus == "failed")) || (currentstatus == "succeeded")) {
         prepareCopyDialogButtons(copyid, currentstatus);
         showActionDialog(copyid);

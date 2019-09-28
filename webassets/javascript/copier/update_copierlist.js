@@ -42,7 +42,7 @@ function updateAllCopierTiles(copydatalist)
     {
         var dataitem = copydatalist[index];
         updateCopierTileColour('CopyItem_'+dataitem.copyid, dataitem.status);
-        rerenderImage('Icon_'+dataitem.copyid, 'copystate_'+dataitem.status, 'gif');
+        rerenderImage('Icon_'+dataitem.copyid, 'copier/'+dataitem.status, 'gif');
     });
 };
 
