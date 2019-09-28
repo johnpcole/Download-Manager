@@ -12,8 +12,8 @@ function saveTorrentConfiguration()
     } else {
         newinstructions = { 'torrenttype' : newtype, 'moviename' : getFieldValue("moviename"), 'fileinstructions' : getUnknownTorrentFileInstructions() };
     };
-    updateCopyButton(getImageName('Status').substr(7), newtype, getImageName('Copy_Overlay'));
-    updateDeleteButton(getImageName('Copy_Overlay').substr(12));
+    updateCopyButton(getImageName('Status'), newtype, getImageName('Copy_Overlay'));
+    updateDeleteButton(getImageName('Copy_Overlay'));
     updateTorrentConfig(newinstructions);
 };
 
@@ -98,7 +98,7 @@ function getFileControlStates()
         if (getButtonState('MakeIgnore-'+fileid) == 'Disabled') {
             fileinstructions.push([fileid, "ignore", "no-episode", "no-filetype", "no-subtitle"]);
         } else {
-            filetype = (getImageName("filetype-"+fileid)).substring(9)
+            filetype = getImageName("filetype-"+fileid)
             if (filetype == "subtitle") {
                 subflag = getFieldValue("subtitleselector-"+fileid)
             } else {
