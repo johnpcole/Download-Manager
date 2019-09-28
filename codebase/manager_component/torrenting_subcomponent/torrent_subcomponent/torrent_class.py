@@ -225,9 +225,9 @@ class DefineTorrentItem:
 		#return self.istorrentvisible
 		timedifference = DateTime.timedifferenceasduration(self.deleteddate, DateTime.getnow())
 		if abs(timedifference.getsecondsvalue()) > 60:
-			outcome = False
-		else:
 			outcome = True
+		else:
+			outcome = False
 
 		return outcome
 
