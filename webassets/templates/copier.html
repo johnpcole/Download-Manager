@@ -77,8 +77,11 @@ Banner Content
 
 {% block toolbar %}
 
- --><div>
-    </div><!--
+  --><div class="actionbuttonsgroup"><!--
+
+            {{ buttontemplate("Exit", "window.location.replace('/')", "home", "exit") }}
+
+ --></div><!--
 
 {% endblock %}
 
