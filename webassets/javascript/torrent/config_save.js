@@ -12,8 +12,8 @@ function saveTorrentConfiguration()
     } else {
         newinstructions = { 'torrenttype' : newtype, 'moviename' : getFieldValue("moviename"), 'fileinstructions' : getUnknownTorrentFileInstructions() };
     };
-    updateCopyButton(getImageName('Status').substr(7), newtype, getImageName('Copy_Overlay').substr(12));
-    updateDeleteButton(getImageName('Copy_Overlay').substr(12));
+    updateCopyButton(getImageName('Status'), newtype, getImageName('Copy_Overlay'));
+    updateDeleteButton(getImageName('Copy_Overlay'));
     updateTorrentConfig(newinstructions);
 };
 
@@ -48,15 +48,15 @@ function updateTorrentConfig(action)
 function updateTorrentConfigDisplay(dataitem)
 {
     rerenderText("TorrentTitle", dataitem.torrenttitle);
-    rerenderImage("TorrentType", "type_"+dataitem.torrenttype, 'png');
+    rerenderImage("TorrentType", "torrenttypes/"+dataitem.torrenttype, 'png');
 
     var filelist = dataitem.files;
     $.each(filelist, function(index)
     {
         rerenderText("filetitle-"+filelist[index].fileid, filelist[index].filetitle);
-        rerenderImage("outcome-"+filelist[index].fileid, "fileaction_"+filelist[index].outcome, 'png');
+        rerenderImage("outcome-"+filelist[index].fileid, "fileactions/"+filelist[index].outcome, 'png');
         var filetypelabel = getImageName("filetype-"+filelist[index].fileid)
-        updateFileTileColour("File-"+filelist[index].fileid, filetypelabel.substr(9), filelist[index].outcome);
+        updateFileTileColour("File-"+filelist[index].fileid, filetypelabel, filelist[index].outcome);
     });
 
     populateCopyDialog(dataitem.copyinfo);
@@ -98,7 +98,7 @@ function getFileControlStates()
         if (getButtonState('MakeIgnore-'+fileid) == 'Disabled') {
             fileinstructions.push([fileid, "ignore", "no-episode", "no-filetype", "no-subtitle"]);
         } else {
-            filetype = (getImageName("filetype-"+fileid)).substring(9)
+            filetype = getImageName("filetype-"+fileid)
             if (filetype == "subtitle") {
                 subflag = getFieldValue("subtitleselector-"+fileid)
             } else {

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% from 'dialog.html' import dialogtoptemplate %}
-{% from 'dialog.html' import dialogtriplebottomtemplate %}
+{% from 'macros/dialog.html' import dialogtoptemplate %}
+{% from 'macros/dialog.html' import dialogtriplebottomtemplate %}
 
 {% block bodycontext %} class="fixed"{% endblock %}
 
@@ -9,9 +9,19 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/copier_update_state.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/copier_dialog.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/copier_intervention.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier/update_copierlist.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier/copieraction_dialog.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier/intervene_copieraction.js') }}"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block styling %}
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/table_copier.css') }}" />
 
 {% endblock %}
 
@@ -48,7 +58,7 @@ Banner Content
         <tbody id="CopyItem_{{ copyentry.copyid }}" class="scrapestate_{{ copyentry.status }}">
         {% endif %}
             <tr>
-                <td rowspan="2"><img id="Icon_{{ copyentry.copyid }}" src="{{ url_for('static', filename='images/copystate_'+copyentry.status+'.gif') }}" /></td>
+                <td rowspan="2"><img id="Icon_{{ copyentry.copyid }}" src="{{ url_for('static', filename='images/copier/'+copyentry.status+'.gif') }}" /></td>
                 <td colspan="2">{{ copyentry.target }}</td>
             </tr>
             <tr>
@@ -86,7 +96,7 @@ DIALOG
 
          --><div id="dialogcontent"></div><!--
 
-    {{ dialogtriplebottomtemplate("AbandonCopy", "abandonCopy()", "dialog_go_copyabandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialog_go_copyagain", "Retry Copy", "ConfirmOverwrite", "forceCopy()", "dialog_go_copyconfirm", "Overwrite Copy") }}
+    {{ dialogtriplebottomtemplate("AbandonCopy", "abandonCopy()", "dialogs/copy_abandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialogs/copy_again", "Retry Copy", "ConfirmOverwrite", "forceCopy()", "dialogs/copy_confirm", "Overwrite Copy") }}
 
 {% endblock %}
 
@@ -97,11 +107,12 @@ DIALOG
 {% block hiddendata %}
 
  --><div class="hidden">
-        <img src="{{ url_for('static', filename='images/copystate_queued.gif') }}" />
-        <img src="{{ url_for('static', filename='images/copystate_inprogress.gif') }}" />
-        <img src="{{ url_for('static', filename='images/copystate_confirm.gif') }}" />
-        <img src="{{ url_for('static', filename='images/copystate_succeeded.gif') }}" />
-        <img src="{{ url_for('static', filename='images/copystate_failed.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/queued.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/inprogress.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/confirm.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/succeeded.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/failed.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/abandoned.gif') }}" />
     </div><!--
 
 {% endblock %}

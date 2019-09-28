@@ -7,7 +7,17 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/logs.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/logs/logs.js') }}"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block styling %}
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/table_logs.css') }}" />
 
 {% endblock %}
 
@@ -43,7 +53,7 @@ Banner Content
         <tr class="hide{{ logentry.entrytype }}" id="{{ logentry.lineindex }}"><td></td>
 {% elif logentry.entrytype == "invocation" %}
         <tr class="{{ logentry.entrytype }}" onclick="showHideRows({{ logentry.lineindex }})">
-            <td><img id="Entry{{ logentry.lineindex }}" src="{{ url_for('static', filename='images/log_collapsed.png') }}" /></td>
+            <td><img id="Entry{{ logentry.lineindex }}" src="{{ url_for('static', filename='images/log/collapsed.png') }}" /></td>
 {% else %}
         <tr class="{{ logentry.entrytype }}"><td></td>
 {% endif %}
@@ -106,8 +116,8 @@ Banner Content
 {% block hiddendata %}
 
  --><div class="hidden">
-         <img src="{{ url_for('static', filename='images/log_collapsed.png') }}" />
-         <img src="{{ url_for('static', filename='images/log_expanded.png') }}" />
+         <img src="{{ url_for('static', filename='images/log/collapsed.png') }}" />
+         <img src="{{ url_for('static', filename='images/log/expanded.png') }}" />
     </div><!--
 
 {% endblock %}

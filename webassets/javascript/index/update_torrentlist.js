@@ -60,7 +60,7 @@ function updateAllTorrentTiles(torrentdatalist)
 function updateTorrentTile(dataitem)
 {
     tid = dataitem.torrentid
-    rerenderImage("StatusIcon-"+tid, "status_"+dataitem.status, 'png');
+    rerenderImage("StatusIcon-"+tid, "torrentstatuses/"+dataitem.status, 'png');
     updateTorrentTileColour("Torrent-"+tid, dataitem.status);
     rerenderText("Progress-"+tid, dataitem.progress)
 };
@@ -94,7 +94,7 @@ function updateBlockMeter(hidername, n, m)
 
 function updateCopierButton(copyqueuestate)
 {
-    rerenderAnimatedImage('ViewCopier_Overlay', 'copyoverlay_'+copyqueuestate, 'gif')
+    rerenderAnimatedImage('ViewCopier_Overlay', 'copierstates/'+copyqueuestate, 'gif')
 };
 
 

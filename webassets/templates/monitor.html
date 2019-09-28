@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% from 'graphing.html' import graphblocksandbars %}
-{% from 'graphing.html' import graphlines %}
-{% from 'graphing.html' import graphtext %}
+{% from 'macros/graphing.html' import graphblocksandbars %}
+{% from 'macros/graphing.html' import graphlines %}
+{% from 'macros/graphing.html' import graphtext %}
 
 
 {% block bodycontext %} class="fixed"{% endblock %}
@@ -11,7 +11,15 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/logs.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/logs/logs.js') }}"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block styling %}
 
 {% endblock %}
 
