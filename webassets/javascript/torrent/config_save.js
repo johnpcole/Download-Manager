@@ -48,15 +48,15 @@ function updateTorrentConfig(action)
 function updateTorrentConfigDisplay(dataitem)
 {
     rerenderText("TorrentTitle", dataitem.torrenttitle);
-    rerenderImage("TorrentType", "type_"+dataitem.torrenttype, 'png');
+    rerenderImage("TorrentType", "torrenttypes/"+dataitem.torrenttype, 'png');
 
     var filelist = dataitem.files;
     $.each(filelist, function(index)
     {
         rerenderText("filetitle-"+filelist[index].fileid, filelist[index].filetitle);
-        rerenderImage("outcome-"+filelist[index].fileid, "fileaction_"+filelist[index].outcome, 'png');
+        rerenderImage("outcome-"+filelist[index].fileid, "fileactions/"+filelist[index].outcome, 'png');
         var filetypelabel = getImageName("filetype-"+filelist[index].fileid)
-        updateFileTileColour("File-"+filelist[index].fileid, filetypelabel.substr(9), filelist[index].outcome);
+        updateFileTileColour("File-"+filelist[index].fileid, filetypelabel, filelist[index].outcome);
     });
 
     populateCopyDialog(dataitem.copyinfo);
