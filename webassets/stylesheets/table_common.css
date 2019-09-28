@@ -3,6 +3,7 @@ table {
   width: 100%;
   margin: 0px;
   padding: 0px !important;
+  display: table !important;
 }
 
 td {
@@ -19,7 +20,7 @@ table.copier, table.logs {
 
 @media screen and (min-width: 1070px) {
     table.copier, table.logs {
-        width: 960px;
+        width: 974px;
     }
 }
 
