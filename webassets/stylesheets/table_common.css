@@ -2,7 +2,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin: 0px;
-  padding: 0px;
+  padding: 0px !important;
 }
 
 td {
@@ -10,4 +10,17 @@ td {
   text-align: left;
   vertical-align: top;
 }
+
+table.copier, table.logs {
+  width: 480px;
+  color: #FFFFFF;
+  background-color: #00FFFF;
+}
+
+@media screen and (min-width: 1070px) {
+    table.copier, table.logs {
+        width: 960px;
+    }
+}
+
 

@@ -1,8 +1,3 @@
-table.copier {
-  color: #FFFFFF;
-  background-color: #00FFFF;
-}
-
 tbody.copystate_succeeded > tr, tbody.scrapestate_succeeded > tr  {
     background-color: #009600;
 }
