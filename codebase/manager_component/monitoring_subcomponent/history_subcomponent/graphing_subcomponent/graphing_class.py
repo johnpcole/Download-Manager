@@ -18,8 +18,8 @@ class DefineGraphing:
 		self.graphhorizontaloffset = 9
 		self.graphverticaloffset = -28
 		self.graphverticalspacing = 177
-		self.widegraphwidth = 1020
-		self.narrowgraphwidth = 510
+		self.widegraphwidth = 974 - 4
+		self.narrowgraphwidth = 480 - 4
 		self.graphheight = 125
 		self.graphblockheight = 5
 
