@@ -138,12 +138,14 @@ class DefineGraphing:
 				graph.adjustminutes(0 - 30)
 			else:
 				graph.adjusthours(0 - self.narrowshortoriginoffset)
+				graph.adjustminutes(0 - 30)
 		else:
 			if longhistorymode == True:
 				graph.adjusthours(0 - self.widelongoriginoffset)
 				graph.adjustminutes(0 - 30)
 			else:
 				graph.adjusthours(0 - self.wideshortoriginoffset)
+				graph.adjustminutes(0 - 30)
 		return graph
 
 	def determinegraphwidth(self, index):
