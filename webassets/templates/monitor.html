@@ -50,6 +50,8 @@ Banner Content
 
 {% block content %}
 
+     --><div class="mainpagecontent"><!--
+
 {% for thisgraphindex, thisgraph in monitoroutput.items() %}
 
      --><div class="monitorchart">
@@ -100,6 +102,8 @@ Banner Content
         </div><!--
 
 {% endfor %}
+
+     --></div><!--
 
 {% endblock %}
 
