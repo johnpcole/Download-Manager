@@ -18,15 +18,15 @@ class DefineGraphing:
 		self.graphhorizontaloffset = 9
 		self.graphverticaloffset = -28
 		self.graphverticalspacing = 177
-		self.widegraphwidth = 974 - 4
-		self.narrowgraphwidth = 480 - 4
+		self.widegraphwidth = 974 - 20
+		self.narrowgraphwidth = 480 - 20
 		self.graphheight = 125
 		self.graphblockheight = 5
 
-		self.wideshortoriginoffset = 42               # Hours from origin to now
-		self.widelongoriginoffset = 12 + (10 * 24)    # Hours from origin to now
-		self.narrowshortoriginoffset = 42             # Hours from origin to now
-		self.narrowlongoriginoffset = 12 + (10 * 24)  # Hours from origin to now
+		self.wideshortoriginoffset = 39               # Hours from origin to now
+		self.widelongoriginoffset = 9 + (10 * 24)    # Hours from origin to now
+		self.narrowshortoriginoffset = 20             # Hours from origin to now
+		self.narrowlongoriginoffset = 1 + (5 * 24)  # Hours from origin to now
 
 	# =========================================================================================
 
