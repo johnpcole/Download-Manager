@@ -39,9 +39,16 @@ class DefineHistory:
 
 
 
-	def gethistorygraphics(self):
+	def gethistorygraphics(self, historyperiod):
 
-		return self.graphs.drawgraphs(self.monitorhistory, self.getlonghistory())
+		if historyperiod == "Latest":
+			dataset = self.monitorhistory
+			longhistory = False
+		else:
+			dataset = self.getlonghistory()
+			longhistory = True
+
+		return self.graphs.drawgraphs(longhistory, dataset)
 
 
 

@@ -18,23 +18,21 @@ def createblank():
 def createstatuslegend(horizontaloffset, graphbottom):
 
 	outcome = createblank()
-	ho = 696 + horizontaloffset
-	vo = graphbottom - 134
 
-	outcome.additem('red', Draw.rectangle(ho + 244, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 254, vo, 'Other-Error'))
+	outcome.additem('red', Draw.rectangle(horizontaloffset + 940, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 950, graphbottom - 134, 'Other-Error'))
 
-	outcome.additem('orange', Draw.rectangle(ho + 164, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 174, vo, 'Invalid-Argument'))
+	outcome.additem('orange', Draw.rectangle(horizontaloffset + 860, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 870, graphbottom - 134, 'Invalid-Argument'))
 
-	outcome.additem('amber', Draw.rectangle(ho + 103, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 113, vo, 'Timed-Out'))
+	outcome.additem('amber', Draw.rectangle(horizontaloffset + 799, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 809, graphbottom - 134, 'Timed-Out'))
 
-	outcome.additem('yellow', Draw.rectangle(ho + 46, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 56, vo, 'Unknown'))
+	outcome.additem('yellow', Draw.rectangle(horizontaloffset + 742, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 752, graphbottom - 134, 'Unknown'))
 
-	outcome.additem('green', Draw.rectangle(ho + 0, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 10, vo, 'Good'))
+	outcome.additem('green', Draw.rectangle(horizontaloffset + 696, graphbottom - 141, 5, 7))
+	outcome.additem('graphlegends', Draw.text(horizontaloffset + 706, graphbottom - 134, 'Good'))
 
 	return outcome
 
@@ -201,20 +199,16 @@ def createvpnbars(origintimedate, erasize, boxwidth, horizontaloffset, graphbott
 
 
 
-def createtitles(longhistorymode, horizontaloffset, verticaloffset, verticalspacing, graphindex):
+def createtitles(horizontaloffset, verticaloffset, verticalspacing, graphindex):
 
 	outcome = createblank()
 
 	horizontalposition = horizontaloffset + 10
 	verticalposition = verticalspacing + verticaloffset - 131
-	labellist = {1: 'Tracker Statuses', 2: 'Upload Rate', 0: 'Temperature'}
-	if longhistorymode == True:
-		labeltext = 'Latest '
-	else:
-		labeltext = 'Recent '
+	labellist = {1: 'Latest Tracker Statuses', 2: 'Latest Upload Rates', 3: 'Recent Tracker Statuses',
+																	4: 'Recent Upload Rates', 5: 'Recent Temperature'}
 
-	outcome.additem('graphtitles', Draw.text(horizontalposition, verticalposition, labeltext +
-																							labellist[graphindex % 3]))
+	outcome.additem('graphtitles', Draw.text(horizontalposition, verticalposition, labellist[graphindex]))
 
 	return outcome
 
