@@ -1,0 +1,16 @@
+
+.mainpagecontent > div:nth-of-type(n+3) {
+    display: none;
+}
+
+@media screen and (min-width: 1070px) {
+    .mainpagecontent > div {
+            display: none;
+    }
+    .mainpagecontent > div:nth-of-type(n+3) {
+            display: inline-block;
+    }
+}
+
+
+

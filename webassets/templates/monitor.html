@@ -22,6 +22,8 @@
 
 {% block styling %}
 
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/box_charts.css') }}" />
+
 {% endblock %}
 
 
@@ -54,7 +56,7 @@ Banner Content
 
 {% for thisgraphindex, thisgraph in monitoroutput.items() %}
 
-     --><div class="monitorchart">
+     --><div><!-- class="monitorchart">-->
             <svg width="974" height="175">
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
