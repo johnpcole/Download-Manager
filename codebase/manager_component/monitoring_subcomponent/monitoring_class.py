@@ -75,9 +75,9 @@ class DefineMonitor:
 
 # =========================================================================================
 
-	def gethistorygraphics(self):
+	def gethistorygraphics(self, historyperiod):
 
-		return self.monitorhistory.gethistorygraphics()
+		return self.monitorhistory.gethistorygraphics(historyperiod)
 
 
 

@@ -201,10 +201,10 @@ def displaylogs():
 # Display the monitor
 #===============================================================================================
 
-@website.route('/Monitor')
-def displaymonitor():
+@website.route('/Monitor=<historyperiod>')
+def displaymonitor(historyperiod):
 
-	result = torrentset.displaymonitor()
+	result = torrentset.displaymonitor(historyperiod)
 	return WebServer.makehtml('monitor.html', **result)
 
 

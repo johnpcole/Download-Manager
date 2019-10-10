@@ -2,9 +2,10 @@
 {% from 'macros/graphing.html' import graphblocksandbars %}
 {% from 'macros/graphing.html' import graphlines %}
 {% from 'macros/graphing.html' import graphtext %}
+{% from 'macros/button.html' import buttontemplate %}
 
 
-{% block bodycontext %} class="fixed"{% endblock %}
+{% block bodycontext %}{% endblock %}
 
 <!-- ------------------------------------------------------------------------------------------------ -->
 
@@ -20,6 +21,8 @@
 
 
 {% block styling %}
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/box_charts.css') }}" />
 
 {% endblock %}
 
@@ -49,10 +52,12 @@ Banner Content
 
 {% block content %}
 
+     --><div class="mainpagecontent"><!--
+
 {% for thisgraphindex, thisgraph in monitoroutput.items() %}
 
-     --><div class="monitorchart">
-            <svg width="1038" height="175">
+     --><div><!-- class="monitorchart">-->
+            <svg width="974" height="175">
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
                     .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal; }
@@ -100,6 +105,8 @@ Banner Content
 
 {% endfor %}
 
+     --></div><!--
+
 {% endblock %}
 
 
@@ -108,8 +115,15 @@ Banner Content
 
 {% block toolbar %}
 
- --><div class="hidden">
-    </div><!--
+  --><div class="actionbuttonsgroup"><!--
+
+            {{ buttontemplate("Exit", "window.location.replace('/')", "home", "exit") }}
+
+            {{ buttontemplate("Switch View 1", "switchview('latest')", "switchlatest", "switchlatest") }}
+
+            {{ buttontemplate("Switch View 2", "switchview('recent')", "switchrecent", "switchrecent") }}
+
+ --></div><!--
 
 {% endblock %}
 

@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% from 'macros/dialog.html' import dialogtoptemplate %}
 {% from 'macros/dialog.html' import dialogtriplebottomtemplate %}
+{% from 'macros/button.html' import buttontemplate %}
 
-{% block bodycontext %} class="fixed"{% endblock %}
+{% block bodycontext %}{% endblock %}
 
 <!-- ------------------------------------------------------------------------------------------------ -->
 
@@ -50,7 +51,7 @@ Banner Content
 
 
 {% block content %}
- --><div class="MonitorChart"><table class="copier">
+ --><div class="mainpagecontent"><table class="copier">
 {% for copyentry in copyactions %}
         {% if copyentry.action == "Copy File" %}
         <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}" onclick="requestActionDetail('{{ copyentry.copyid }}')">
@@ -77,8 +78,11 @@ Banner Content
 
 {% block toolbar %}
 
- --><div>
-    </div><!--
+  --><div class="actionbuttonsgroup"><!--
+
+            {{ buttontemplate("Exit", "window.location.replace('/')", "home", "exit") }}
+
+ --></div><!--
 
 {% endblock %}
 

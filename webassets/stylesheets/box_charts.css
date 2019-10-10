@@ -1,0 +1,20 @@
+
+.mainpagecontent > div {
+    padding: 0px;
+}
+
+.mainpagecontent > div:nth-of-type(n+4) {
+    display: none;
+}
+
+@media screen and (max-width: 1069px) {
+    .mainpagecontent > div {
+            display: none;
+    }
+    .mainpagecontent > div:nth-of-type(n+4) {
+            display: inline-block;
+    }
+}
+
+
+

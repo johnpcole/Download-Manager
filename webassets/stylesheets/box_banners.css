@@ -4,14 +4,12 @@
 
 #IndexBanner, #TorrentBanner, #AuditBanner {
     position: relative;
-}
-
-#IndexBanner, #TorrentBanner {
     width: 524px;
 }
 
+
 @media screen and (min-width: 1070px) {
-    #IndexBanner, #TorrentBanner  {
+    #IndexBanner, #TorrentBanner, #AuditBanner {
         width: 1018px;
     }
 }
@@ -28,7 +26,6 @@
 }
 
 #AuditBanner {
-    width: 1018px;
     height: 72px;
     text-align: center;
 }
@@ -94,13 +91,3 @@
 }
 
 
-
-/* ===============================================================================
-   MONITOR GRAPH PLACEHOLDER
-   =============================================================================== */
-
-div.monitorchart {
-    height: auto;
-    width: 1038px;
-    padding: 0px;
-}

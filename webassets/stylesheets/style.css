@@ -34,3 +34,22 @@ div.screenblock {
 div.hidden {
     display: none;
 }
+
+/* ===============================================================================
+   MAIN SCREEN CONTENT
+   =============================================================================== */
+
+div.mainpagecontent, div.tilesgroup {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    overflow: hidden;
+    width: 496px;
+    background-color: #FF0000;
+}
+
+@media screen and (min-width: 1070px) {
+    div.mainpagecontent, div.tilesgroup {
+        width: 990px;
+    }
+}
