@@ -1,5 +1,9 @@
 
-.mainpagecontent > div:nth-of-type(n+3) {
+.mainpagecontent > div {
+    padding: 0px;
+}
+
+.mainpagecontent > div:nth-of-type(n+2) {
     display: none;
 }
 
@@ -7,7 +11,7 @@
     .mainpagecontent > div {
             display: none;
     }
-    .mainpagecontent > div:nth-of-type(n+3) {
+    .mainpagecontent > div:nth-of-type(n+2) {
             display: inline-block;
     }
 }
