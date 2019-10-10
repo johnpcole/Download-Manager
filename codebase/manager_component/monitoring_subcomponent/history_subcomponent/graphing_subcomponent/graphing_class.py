@@ -135,11 +135,13 @@ class DefineGraphing:
 		if graphindex > 3:
 			if longhistorymode == True:
 				graph.adjusthours(0 - self.narrowlongoriginoffset)
+				graph.adjustminutes(0 - 30)
 			else:
 				graph.adjusthours(0 - self.narrowshortoriginoffset)
 		else:
 			if longhistorymode == True:
 				graph.adjusthours(0 - self.widelongoriginoffset)
+				graph.adjustminutes(0 - 30)
 			else:
 				graph.adjusthours(0 - self.wideshortoriginoffset)
 		return graph
