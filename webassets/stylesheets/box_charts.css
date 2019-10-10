@@ -3,7 +3,7 @@
     padding: 0px;
 }
 
-.mainpagecontent > div:nth-of-type(n+2) {
+.mainpagecontent > div:nth-of-type(n+4) {
     display: none;
 }
 
@@ -11,7 +11,7 @@
     .mainpagecontent > div {
             display: none;
     }
-    .mainpagecontent > div:nth-of-type(n+2) {
+    .mainpagecontent > div:nth-of-type(n+4) {
             display: inline-block;
     }
 }
