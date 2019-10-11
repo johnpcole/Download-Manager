@@ -136,7 +136,7 @@ def creategraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbo
 	currentmarker = Calculate.firstcurrentmarker(erasize, origintimedate)
 	column = 0
 	hoffset = horizontaloffset + (boxwidth / 2.0)
-	while column < 300:
+	while column < graphwidth:
 		currentmarker.adjusthours(littlemarkergapsize)
 		column = Calculate.columnposition(boxwidth, hoffset, origintimedate, currentmarker, erasize)
 		if column >= horizontaloffset + 2:
