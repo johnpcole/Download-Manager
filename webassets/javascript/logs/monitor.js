@@ -8,7 +8,7 @@ $(document).ready(function ()
 
 function switchView()
 {
-    changeButtonState("Switch View", "Disable");
+    changeButtonState("SwitchView", "Disable");
     var newurl = "/Monitor=" + getNewView();
     window.location.replace(newurl);
 };

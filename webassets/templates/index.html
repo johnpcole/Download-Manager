@@ -24,6 +24,7 @@
     <script src="{{ url_for('static', filename='javascript/index/startstop_alltorrents.js') }}"></script>
     <script src="{{ url_for('static', filename='javascript/index/add_torrent.js') }}"></script>
     <script src="{{ url_for('static', filename='javascript/index/rescan_tvshows.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/index/load_slowpages.js') }}"></script>
 
 {% endblock %}
 
@@ -100,7 +101,7 @@ Count Meter
 
 Torrent {{ torrent.torrentid }}
 
-     --><a id="Torrent-{{ torrent.torrentid }}" class="torrent_{{ torrent.status }}" href="/Torrent={{ torrent.torrentid }}"><!--
+     --><a id="Torrent-{{ torrent.torrentid }}" class="torrent_{{ torrent.status }}" href="javascript:loadTorrent('{{ torrent.torrentid }}');"><!--
 FIRST ROW = Title (Configured-Title & Type)
          --><div class="tileupperrow"><!--
              --><div>
@@ -152,7 +153,7 @@ Start-All-Button
 
 Copier-Button
 
-        {{ buttonwithoverlaytemplate("ViewCopier", "window.location.href = '/Copier'", "indexactions/copier", "copierstates/"+copyqueuestate, "view copier") }}
+        {{ buttonwithoverlaytemplate("ViewCopier", "loadCopier()", "indexactions/copier", "copierstates/"+copyqueuestate, "view copier") }}
 
 Rescan-File-Server-Button
 
@@ -160,11 +161,11 @@ Rescan-File-Server-Button
 
 Monitor-Button
 
-        {{ buttontemplate("ViewLogs", "window.location.href = '/Monitor'", "indexactions/monitoring", "view monitor") }}
+        {{ buttontemplate("ViewMonitor", "loadMonitor()", "indexactions/monitoring", "view monitor") }}
 
 Logs-Button
 
-        {{ buttontemplate("ViewLogs", "window.location.href = '/Logs'", "indexactions/information", "view logs") }}
+        {{ buttontemplate("ViewLogs", "wloadLogs()", "indexactions/information", "view logs") }}
 
 
  --></div><!--
