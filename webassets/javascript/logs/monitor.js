@@ -3,6 +3,9 @@
 $(document).ready(function ()
 {
     $('#ajaxloader').hide();
+    if (getCurrentView() == "None") {
+        switchView();
+    };
 });
 
 
@@ -16,15 +19,18 @@ function switchView()
 
 function getNewView()
 {
-    var pathname = window.location.pathname;
-    var currentview = pathname.substring(9);
-    if (currentview == 'Recent') {
-        var newview = 'Latest';
-    } else {
+    if (getCurrentView() == 'Latest') {
         var newview = 'Recent';
+    } else {
+        var newview = 'Latest';
     };
     return newview;
 };
 
 
-
+function getCurrentView()
+{
+    var pathname = window.location.pathname;
+    var currentview = pathname.substring(9);
+    return currentview;
+};

@@ -33,6 +33,14 @@ class DefineGraphing:
 
 	# =========================================================================================
 
+	def drawdummygraphs(self):
+
+		graphset = Graph.creategraphset(self.graphsetsize)
+		return graphset.printout()
+
+
+	# =========================================================================================
+
 	def drawgraphs(self, longhistorymode, historydataset):
 
 		currentdatetime = DateTime.getnow()

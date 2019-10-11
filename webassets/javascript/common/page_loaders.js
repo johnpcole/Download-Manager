@@ -1,7 +1,7 @@
 function loadMonitorPage()
 {
     $('#ajaxloader').show();
-    window.location.replace("/Monitor=Latest");
+    window.location.replace("/Monitor=None");
 };
 
 function loadCopierPage()

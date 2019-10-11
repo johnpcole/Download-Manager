@@ -68,6 +68,7 @@ Banner Content
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
                     <rect height="500" width="1500" x="-50" y="-50"/>
                 </g>
+    {% if displaymode != "None" %}
 <!-- Bright Red -->
                 {{ graphblocksandbars(thisgraph.brightred, "#FF0000") }}
 <!-- Red -->
@@ -100,6 +101,7 @@ Banner Content
 <!-- Chart Headings & Legends -->
                 {{ graphtext(thisgraph.graphtitles, "graphheadings", "start") }}
                 {{ graphtext(thisgraph.graphlegends, "graphlegends", "start") }}
+    {% endif %}
             </svg>
         </div><!--
 
