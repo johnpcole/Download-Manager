@@ -24,9 +24,12 @@ class DefineGraphing:
 		self.graphblockheight = 5
 
 		self.wideshortoriginoffset = 39               # Hours from origin to now
-		self.widelongoriginoffset = 9 + (10 * 24)    # Hours from origin to now
+		self.wideshortoriginoffsetminutes = 40        # Minutes from origin to now
 		self.narrowshortoriginoffset = 25             # Hours from origin to now
-		self.narrowlongoriginoffset = 1 + (5 * 24)  # Hours from origin to now
+		self.narrowshortoriginoffsetminutes = 20      # Minutes from origin to now
+
+		self.widelongoriginoffset = 1 + (9 * 24)      # Hours from origin to now
+		self.narrowlongoriginoffset = 1 + (6 * 24)    # Hours from origin to now
 
 	# =========================================================================================
 
@@ -135,17 +138,15 @@ class DefineGraphing:
 		if graphindex > 3:
 			if longhistorymode == True:
 				graph.adjusthours(0 - self.narrowlongoriginoffset)
-				graph.adjustminutes(0 - 30)
 			else:
 				graph.adjusthours(0 - self.narrowshortoriginoffset)
-				graph.adjustminutes(0 - 20) # Dont change
+				graph.adjustminutes(0 - self.narrowshortoriginoffsetminutes)
 		else:
 			if longhistorymode == True:
 				graph.adjusthours(0 - self.widelongoriginoffset)
-				graph.adjustminutes(0 - 30)
 			else:
 				graph.adjusthours(0 - self.wideshortoriginoffset)
-				graph.adjustminutes(0 - 40) # Dont change
+				graph.adjustminutes(0 - self.wideshortoriginoffsetminutes)
 		return graph
 
 	def determinegraphwidth(self, index):
