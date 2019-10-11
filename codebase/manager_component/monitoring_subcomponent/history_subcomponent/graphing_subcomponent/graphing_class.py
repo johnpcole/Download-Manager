@@ -78,7 +78,7 @@ class DefineGraphing:
 
 		# Legends
 			graphset.addto(graphindex, Graph.createstatuslegend(
-														self.graphhorizontaloffset,
+														self.determinegraphwidth(graphindex + 1),
 														self.determinegraphbottom(1)))
 
 			if longhistorymode == True:

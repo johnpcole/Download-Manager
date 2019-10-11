@@ -15,10 +15,10 @@ def createblank():
 	return GraphClass.DefineGraph()
 
 
-def createstatuslegend(horizontaloffset, graphbottom):
+def createstatuslegend(graphright, graphbottom):
 
 	outcome = createblank()
-	ho = 696 + horizontaloffset
+	ho = graphright - 300
 	vo = graphbottom - 134
 
 	outcome.additem('red', Draw.rectangle(ho + 244, vo - 7, 5, 7))
