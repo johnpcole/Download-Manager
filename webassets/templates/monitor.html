@@ -12,7 +12,7 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/logs/logs.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/logs/monitor.js') }}"></script>
 
 {% endblock %}
 
@@ -119,9 +119,7 @@ Banner Content
 
             {{ buttontemplate("Exit", "window.location.replace('/')", "home", "exit") }}
 
-            {{ buttontemplate("Switch View 1", "switchview('latest')", "switchlatest", "switchlatest") }}
-
-            {{ buttontemplate("Switch View 2", "switchview('recent')", "switchrecent", "switchrecent") }}
+            {{ buttontemplate("Switch View", "switchView()", "switchlatest", "switchlatest") }}
 
  --></div><!--
 
