@@ -3,6 +3,7 @@
 {% from 'macros/graphing.html' import graphlines %}
 {% from 'macros/graphing.html' import graphtext %}
 {% from 'macros/button.html' import buttontemplate %}
+{% from 'macros/button.html' import disabledbuttontemplate %}
 
 
 {% block bodycontext %}{% endblock %}
@@ -12,7 +13,7 @@
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/logs/logs.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/logs/monitor.js') }}"></script>
 
 {% endblock %}
 
@@ -68,6 +69,7 @@ Banner Content
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
                     <rect height="500" width="1500" x="-50" y="-50"/>
                 </g>
+    {% if displaymode != "None" %}
 <!-- Bright Red -->
                 {{ graphblocksandbars(thisgraph.brightred, "#FF0000") }}
 <!-- Red -->
@@ -100,6 +102,7 @@ Banner Content
 <!-- Chart Headings & Legends -->
                 {{ graphtext(thisgraph.graphtitles, "graphheadings", "start") }}
                 {{ graphtext(thisgraph.graphlegends, "graphlegends", "start") }}
+    {% endif %}
             </svg>
         </div><!--
 
@@ -117,11 +120,9 @@ Banner Content
 
   --><div class="actionbuttonsgroup"><!--
 
-            {{ buttontemplate("Exit", "window.location.replace('/')", "home", "exit") }}
+            {{ buttontemplate("Exit", "loadHomePage()", "home", "exit") }}
 
-            {{ buttontemplate("Switch View 1", "switchview('latest')", "switchlatest", "switchlatest") }}
-
-            {{ buttontemplate("Switch View 2", "switchview('recent')", "switchrecent", "switchrecent") }}
+            {{ disabledbuttontemplate("SwitchView", "switchView()", "monitoring/switchview", "switch monitor") }}
 
  --></div><!--
 

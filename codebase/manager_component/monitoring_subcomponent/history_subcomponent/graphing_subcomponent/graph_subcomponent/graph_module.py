@@ -212,9 +212,9 @@ def createtitles(longhistorymode, horizontaloffset, verticaloffset, verticalspac
 	verticalposition = verticalspacing + verticaloffset - 131
 	labellist = {1: 'Tracker Statuses', 2: 'Upload Rate', 0: 'Temperature'}
 	if longhistorymode == True:
-		labeltext = 'Latest '
-	else:
 		labeltext = 'Recent '
+	else:
+		labeltext = 'Latest '
 
 	outcome.additem('graphtitles', Draw.text(horizontalposition, verticalposition, labeltext +
 																							labellist[graphindex % 3]))

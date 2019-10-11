@@ -42,13 +42,13 @@ class DefineHistory:
 	def gethistorygraphics(self, historyperiod):
 
 		if historyperiod == "Latest":
-			dataset = self.monitorhistory
-			longhistory = False
+			output = self.graphs.drawgraphs(False, self.monitorhistory)
+		elif historyperiod == "Recent":
+			output = self.graphs.drawgraphs(True, self.getlonghistory())
 		else:
-			dataset = self.getlonghistory()
-			longhistory = True
+			output = self.graphs.drawdummygraphs()
 
-		return self.graphs.drawgraphs(longhistory, dataset)
+		return output
 
 
 

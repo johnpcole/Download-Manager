@@ -21,7 +21,7 @@ def initialiselistpage():
 	if 'torrentlist' in result.keys():
 		return WebServer.makehtml('index.html', **result)
 	else:
-		return WebServer.makehtml('holding.html', **result)
+		return WebServer.makehtml('index_holding.html', **result)
 
 
 
