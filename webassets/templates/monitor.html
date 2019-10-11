@@ -3,6 +3,7 @@
 {% from 'macros/graphing.html' import graphlines %}
 {% from 'macros/graphing.html' import graphtext %}
 {% from 'macros/button.html' import buttontemplate %}
+{% from 'macros/button.html' import disabledbuttontemplate %}
 
 
 {% block bodycontext %}{% endblock %}
@@ -121,7 +122,7 @@ Banner Content
 
             {{ buttontemplate("Exit", "loadHomePage()", "home", "exit") }}
 
-            {{ buttontemplate("SwitchView", "switchView()", "switchmonitor", "switch monitor") }}
+            {{ disabledbuttontemplate("SwitchView", "switchView()", "switchmonitor", "switch monitor") }}
 
  --></div><!--
 

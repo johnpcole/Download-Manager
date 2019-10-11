@@ -5,6 +5,8 @@ $(document).ready(function ()
     $('#ajaxloader').hide();
     if (getCurrentView() == "None") {
         switchView();
+    } else {
+        changeButtonState("SwitchView", "Enable");
     };
 });
 
