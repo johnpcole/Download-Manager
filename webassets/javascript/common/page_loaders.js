@@ -1,26 +1,31 @@
-function loadMonitor()
+function loadMonitorPage()
 {
     $('#ajaxloader').show();
     window.location.replace("/Monitor=Latest");
 };
 
-function loadCopier()
+function loadCopierPage()
 {
     $('#ajaxloader').show();
     window.location.replace("/Copier");
 };
 
-function loadLogs()
+function loadLogsPage()
 {
     $('#ajaxloader').show();
     window.location.replace("/Logs");
 };
 
-function loadTorrent(torrentid)
+function loadTorrentPage(torrentid)
 {
     $('#ajaxloader').show();
     window.location.replace("/Torrent=" + torrentid);
 };
 
+function loadHomePage()
+{
+    $('#ajaxloader').show();
+    window.location.replace("/");
+};
 
 

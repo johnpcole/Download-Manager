@@ -101,7 +101,7 @@ Count Meter
 
 Torrent {{ torrent.torrentid }}
 
-     --><a id="Torrent-{{ torrent.torrentid }}" class="torrent_{{ torrent.status }}" href="javascript:loadTorrent('{{ torrent.torrentid }}');"><!--
+     --><a id="Torrent-{{ torrent.torrentid }}" class="torrent_{{ torrent.status }}" href="javascript:loadTorrentPage('{{ torrent.torrentid }}');"><!--
 FIRST ROW = Title (Configured-Title & Type)
          --><div class="tileupperrow"><!--
              --><div>
@@ -153,7 +153,7 @@ Start-All-Button
 
 Copier-Button
 
-        {{ buttonwithoverlaytemplate("ViewCopier", "loadCopier()", "indexactions/copier", "copierstates/"+copyqueuestate, "view copier") }}
+        {{ buttonwithoverlaytemplate("ViewCopier", "loadCopierPage()", "indexactions/copier", "copierstates/"+copyqueuestate, "view copier") }}
 
 Rescan-File-Server-Button
 
@@ -161,11 +161,11 @@ Rescan-File-Server-Button
 
 Monitor-Button
 
-        {{ buttontemplate("ViewMonitor", "loadMonitor()", "indexactions/monitoring", "view monitor") }}
+        {{ buttontemplate("ViewMonitor", "loadMonitorPage()", "indexactions/monitoring", "view monitor") }}
 
 Logs-Button
 
-        {{ buttontemplate("ViewLogs", "wloadLogs()", "indexactions/information", "view logs") }}
+        {{ buttontemplate("ViewLogs", "loadLogsPage()", "indexactions/information", "view logs") }}
 
 
  --></div><!--
