@@ -18,15 +18,18 @@ class DefineGraphing:
 		self.graphhorizontaloffset = 9
 		self.graphverticaloffset = -28
 		self.graphverticalspacing = 177
-		self.widegraphwidth = 1020
-		self.narrowgraphwidth = 510
+		self.widegraphwidth = 974 - 18
+		self.narrowgraphwidth = 480 - 18
 		self.graphheight = 125
 		self.graphblockheight = 5
 
-		self.wideshortoriginoffset = 42               # Hours from origin to now
-		self.widelongoriginoffset = 12 + (10 * 24)    # Hours from origin to now
-		self.narrowshortoriginoffset = 42             # Hours from origin to now
-		self.narrowlongoriginoffset = 12 + (10 * 24)  # Hours from origin to now
+		self.wideshortoriginoffset = 39               # Hours from origin to now
+		self.wideshortoriginoffsetminutes = 40        # Minutes from origin to now
+		self.narrowshortoriginoffset = 25             # Hours from origin to now
+		self.narrowshortoriginoffsetminutes = 20      # Minutes from origin to now
+
+		self.widelongoriginoffset = 23 + (9 * 24)      # Hours from origin to now
+		self.narrowlongoriginoffset = 9 + (6 * 24)    # Hours from origin to now
 
 	# =========================================================================================
 
@@ -78,7 +81,7 @@ class DefineGraphing:
 
 		# Legends
 			graphset.addto(graphindex, Graph.createstatuslegend(
-														self.graphhorizontaloffset,
+														self.determinegraphwidth(graphindex + 1),
 														self.determinegraphbottom(1)))
 
 			if longhistorymode == True:
@@ -137,11 +140,13 @@ class DefineGraphing:
 				graph.adjusthours(0 - self.narrowlongoriginoffset)
 			else:
 				graph.adjusthours(0 - self.narrowshortoriginoffset)
+				graph.adjustminutes(0 - self.narrowshortoriginoffsetminutes)
 		else:
 			if longhistorymode == True:
 				graph.adjusthours(0 - self.widelongoriginoffset)
 			else:
 				graph.adjusthours(0 - self.wideshortoriginoffset)
+				graph.adjustminutes(0 - self.wideshortoriginoffsetminutes)
 		return graph
 
 	def determinegraphwidth(self, index):

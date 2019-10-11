@@ -57,7 +57,7 @@ Banner Content
 {% for thisgraphindex, thisgraph in monitoroutput.items() %}
 
      --><div><!-- class="monitorchart">-->
-            <svg width="974" height="175">
+            <svg width="{% if thisgraphindex > 3 %}480{% else %}974{% endif %}" height="175">
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
                     .littlegraphtext { font: 6px 'Oswald', sans-serif; fill: #777777; font-weight: normal; }

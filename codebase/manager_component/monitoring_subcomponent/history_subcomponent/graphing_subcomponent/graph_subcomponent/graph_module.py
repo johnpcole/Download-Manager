@@ -15,26 +15,26 @@ def createblank():
 	return GraphClass.DefineGraph()
 
 
-def createstatuslegend(horizontaloffset, graphbottom):
+def createstatuslegend(graphright, graphbottom):
 
 	outcome = createblank()
-	ho = 696 + horizontaloffset
-	vo = graphbottom - 134
+	ho = graphright - 290
+	vo = graphbottom - 132
 
-	outcome.additem('red', Draw.rectangle(ho + 244, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 254, vo, 'Other-Error'))
+	outcome.additem('red', Draw.rectangle(ho + 246, vo - 7, 5, 7))
+	outcome.additem('graphlegends', Draw.text(ho + 256, vo, 'Other-Error'))
 
-	outcome.additem('orange', Draw.rectangle(ho + 164, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 174, vo, 'Invalid-Argument'))
+	outcome.additem('orange', Draw.rectangle(ho + 168, vo - 7, 5, 7))
+	outcome.additem('graphlegends', Draw.text(ho + 178, vo, 'Invalid-Argument'))
 
-	outcome.additem('amber', Draw.rectangle(ho + 103, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 113, vo, 'Timed-Out'))
+	outcome.additem('amber', Draw.rectangle(ho + 109, vo - 7, 5, 7))
+	outcome.additem('graphlegends', Draw.text(ho + 119, vo, 'Timed-Out'))
 
-	outcome.additem('yellow', Draw.rectangle(ho + 46, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 56, vo, 'Unknown'))
+	outcome.additem('yellow', Draw.rectangle(ho + 54, vo - 7, 5, 7))
+	outcome.additem('graphlegends', Draw.text(ho + 64, vo, 'Unknown'))
 
-	outcome.additem('green', Draw.rectangle(ho + 0, vo - 7, 5, 7))
-	outcome.additem('graphlegends', Draw.text(ho + 10, vo, 'Good'))
+	outcome.additem('green', Draw.rectangle(ho + 10, vo - 7, 5, 7))
+	outcome.additem('graphlegends', Draw.text(ho + 20, vo, 'Good'))
 
 	return outcome
 
@@ -121,6 +121,9 @@ def creategraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbo
 
 	outcome = createblank()
 
+	colmax = graphwidth - (horizontaloffset + 6)
+	colmin = horizontaloffset + 2
+
 	#horizontal axes
 	outcome.additem("axeslines", Draw.line(horizontaloffset, graphbottom, graphwidth, 0))
 
@@ -136,10 +139,10 @@ def creategraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbo
 	currentmarker = Calculate.firstcurrentmarker(erasize, origintimedate)
 	column = 0
 	hoffset = horizontaloffset + (boxwidth / 2.0)
-	while column < 1000:
+	while column < colmax:
 		currentmarker.adjusthours(littlemarkergapsize)
 		column = Calculate.columnposition(boxwidth, hoffset, origintimedate, currentmarker, erasize)
-		if column >= horizontaloffset + 2:
+		if column >= colmin:
 
 			if Calculate.markertype(erasize, currentmarker) == "Big":
 				markerheight = 4
