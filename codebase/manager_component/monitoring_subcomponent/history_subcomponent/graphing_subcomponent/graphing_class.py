@@ -28,7 +28,7 @@ class DefineGraphing:
 		self.narrowshortoriginoffset = 25             # Hours from origin to now
 		self.narrowshortoriginoffsetminutes = 20      # Minutes from origin to now
 
-		self.widelongoriginoffset = 22 + (9 * 24)      # Hours from origin to now
+		self.widelongoriginoffset = 23 + (9 * 24)      # Hours from origin to now
 		self.narrowlongoriginoffset = 7 + (6 * 24)    # Hours from origin to now
 
 	# =========================================================================================
