@@ -18,8 +18,8 @@ def createblank():
 def createstatuslegend(graphright, graphbottom):
 
 	outcome = createblank()
-	ho = graphright - 300
-	vo = graphbottom - 134
+	ho = graphright - 290
+	vo = graphbottom - 136
 
 	outcome.additem('red', Draw.rectangle(ho + 244, vo - 7, 5, 7))
 	outcome.additem('graphlegends', Draw.text(ho + 254, vo, 'Other-Error'))
