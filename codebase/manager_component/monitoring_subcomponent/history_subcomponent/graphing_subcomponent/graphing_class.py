@@ -138,7 +138,7 @@ class DefineGraphing:
 				graph.adjustminutes(0 - 30)
 			else:
 				graph.adjusthours(0 - self.narrowshortoriginoffset)
-				graph.adjustminutes(0 - 30) # Dont change
+				graph.adjustminutes(0 - 40) # Dont change
 		else:
 			if longhistorymode == True:
 				graph.adjusthours(0 - self.widelongoriginoffset)
