@@ -5,9 +5,10 @@ $(document).ready(function ()
     $('#ajaxloader').hide();
 });
 
+
 function switchView()
 {
-    var newurl = "/Monitor=" + getNewView
+    var newurl = "/Monitor=" + getNewView();
     window.location.replace(newurl);
 };
 
