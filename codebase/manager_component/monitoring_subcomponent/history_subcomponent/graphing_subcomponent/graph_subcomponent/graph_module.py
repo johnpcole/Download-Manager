@@ -121,6 +121,9 @@ def creategraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbo
 
 	outcome = createblank()
 
+	colmax = graphwidth - horizontaloffset
+	colmin = horizontaloffset + 2
+
 	#horizontal axes
 	outcome.additem("axeslines", Draw.line(horizontaloffset, graphbottom, graphwidth, 0))
 
@@ -136,10 +139,10 @@ def creategraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbo
 	currentmarker = Calculate.firstcurrentmarker(erasize, origintimedate)
 	column = 0
 	hoffset = horizontaloffset + (boxwidth / 2.0)
-	while column < graphwidth:
+	while column < colmax:
 		currentmarker.adjusthours(littlemarkergapsize)
 		column = Calculate.columnposition(boxwidth, hoffset, origintimedate, currentmarker, erasize)
-		if column >= horizontaloffset + 2:
+		if column >= colmin:
 
 			if Calculate.markertype(erasize, currentmarker) == "Big":
 				markerheight = 4
