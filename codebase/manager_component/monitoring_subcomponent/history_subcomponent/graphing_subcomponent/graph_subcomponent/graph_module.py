@@ -121,7 +121,7 @@ def creategraphaxes(origintimedate, erasize, boxwidth, horizontaloffset, graphbo
 
 	outcome = createblank()
 
-	colmax = graphwidth - (horizontaloffset + 4)
+	colmax = graphwidth - (horizontaloffset + 6)
 	colmin = horizontaloffset + 2
 
 	#horizontal axes
