@@ -2,7 +2,10 @@ from ......common_components.datetime_datatypes import eras_module as EraFunctio
 
 
 def columnposition(boxwidth, horizontaloffset, origindatetime, bardatetime, erasize):
-	return (((boxwidth + 1) * EraFunctions.geteradifference(origindatetime, bardatetime, erasize)) + horizontaloffset)
+	position = (((boxwidth + 1) * EraFunctions.geteradifference(origindatetime, bardatetime, erasize)) + horizontaloffset)
+	if boxwidth == 2:
+		position = position + 1
+	return position
 
 def rowposition(boxheight, verticaloffset, previousboxes):
 	return (verticaloffset - ((boxheight + 1) * (previousboxes + 1)) - 1)
