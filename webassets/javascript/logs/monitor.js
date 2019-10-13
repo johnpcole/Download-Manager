@@ -22,7 +22,6 @@ function switchView()
         dataType:'json',
         success: function(data)
         {
-            alert(data.monitoroutput);
             updateMonitorCharts(data.monitoroutput);
             rerenderText("CurrentView", newview);
             changeButtonState("SwitchView", "Enable");
@@ -46,6 +45,7 @@ function getNewView()
 
 function updateMonitorCharts(dataset)
 {
+    alert("PASSED DATA: " + dataset);
     var arrayLength = dataset.length;
     alert(arrayLength);
     for (var i = 0; i < arrayLength; i++) {
