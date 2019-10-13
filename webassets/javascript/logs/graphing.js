@@ -10,7 +10,7 @@ function generateGraphBlocksAndBars(dataset)
         outcome = outcome + '" height="' + logentry.h
         outcome = outcome + '" width="' + logentry.w
         outcome = outcome + '"></rect>'
-    }
+    });
     return outcome
 };
 
@@ -27,7 +27,7 @@ function generateGraphLines(dataset)
         outcome = outcome + '" x2="' + logentry.xb
         outcome = outcome + '" y2="' + logentry.yb
         outcome = outcome + '"></line>'
-    }
+    });
     return outcome
 };
 
@@ -45,7 +45,7 @@ function generateGraphText(dataset, textstyle, textalign)
         outcome = outcome + '" y="' + logentry.y
         outcome = outcome + '">' + logentry.t
         outcome = outcome + '</text>'
-    }
+    });
     return outcome
 };
 
