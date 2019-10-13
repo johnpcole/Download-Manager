@@ -1,7 +1,6 @@
 {% macro graphblocksandbarssection(graphindex, graphname, blockcolour) %}
 
-    <g id="{{ graphindex }}_{{ graphname }}" stroke-linecap="square" stroke="#000000" stroke-width="0" fill="{{ blockcolour }}">
-    </g>
+    <g id="{{ graphindex }}_{{ graphname }}" stroke-linecap="square" stroke="#000000" stroke-width="0" fill="{{ blockcolour }}"> </g>
 
 {% endmacro %}
 
@@ -11,8 +10,7 @@
 
 {% macro graphlinessection(graphindex, graphname, linecolour) %}
 
-    <g id="{{ graphindex }}_{{ graphname }}" stroke-linecap="round" stroke="{{ linecolour }}" stroke-width="1">
-    </g>
+    <g id="{{ graphindex }}_{{ graphname }}" stroke-linecap="round" stroke="{{ linecolour }}" stroke-width="1"> </g>
 
 {% endmacro %}
 
@@ -20,10 +18,9 @@
 <!-- ------------------------------------------------------------------------------------------------ -->
 
 
-{% macro graphtextsection(graphindex, graphname, textstyle, textalign) %}
+{% macro graphtextsection(graphindex, graphname) %}
 
-        <text id="{{ graphindex }}_{{ graphname }}" text-anchor="{{ textalign }}" class="{{ textstyle }}" x="{{ logentry.x }}" y="{{ logentry.y }}"> </text>
-
+        <g id="{{ graphindex }}_{{ graphname }}"> </g>
 {% endmacro %}
 
 
