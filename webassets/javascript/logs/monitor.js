@@ -45,9 +45,8 @@ function getNewView()
 
 function updateMonitorCharts(graphs)
 {
-    var arrayLength = graphs.length;
-    alert(graphs.length);
-    for (var i = 0; i < arrayLength; i++) {
-        alert(graphs[i]);
-    };
+    $.each(graphs, function(index)
+    {
+        alert(str(index) + ":" + graphs[index]);
+    });
 };
