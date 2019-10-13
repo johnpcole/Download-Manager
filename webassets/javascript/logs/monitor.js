@@ -47,6 +47,7 @@ function updateMonitorCharts(graphs)
 {
     $.each(graphs, function(index)
     {
-        alert(str(index) + ":" + graphs[index]);
+        alert(index);
+        alert(graphs[index]);
     });
 };
