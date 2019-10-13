@@ -8,7 +8,7 @@ span.torrentfieldlabel {
     display: inline;
 }
 
-@media screen and (max-width: 1069px) {
+@media screen and (max-width: 1079px) {
     span.torrentfieldlabel {
         width: 88px;
         display: inline-block;
@@ -17,7 +17,7 @@ span.torrentfieldlabel {
     }
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
 }
 
 div.buttongroupequivalent {
