@@ -43,12 +43,11 @@ function getNewView()
 
 
 
-function updateMonitorCharts(dataset)
+function updateMonitorCharts(graphs)
 {
-    alert("PASSED DATA: " + dataset);
-    var arrayLength = dataset.length;
-    alert(arrayLength);
+    var arrayLength = graphs.length;
+    alert(graphs.length);
     for (var i = 0; i < arrayLength; i++) {
-        alert(dataset[i]);
+        alert(graphs[i]);
     };
 };
