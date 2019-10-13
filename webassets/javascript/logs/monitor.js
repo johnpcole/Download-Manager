@@ -22,7 +22,7 @@ function switchView()
         dataType:'json',
         success: function(data)
         {
-            alert(data.monitorstats);
+            alert(data);
             updateMonitorCharts(data.monitorstats);
             rerenderText("CurrentView", newview);
             changeButtonState("SwitchView", "Enable");
