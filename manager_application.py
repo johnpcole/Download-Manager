@@ -217,7 +217,7 @@ def displaymonitor():
 def displaymonitordata():
 
 	inputdata = WebServer.getrequestdata()
-	result = torrentset.displaymonitordara(inputdata['timespan'])
+	result = torrentset.displaymonitordata(inputdata['timespan'])
 	return WebServer.makejson(**result)
 
 
