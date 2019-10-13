@@ -201,11 +201,24 @@ def displaylogs():
 # Display the monitor
 #===============================================================================================
 
-@website.route('/Monitor=<historyperiod>')
-def displaymonitor(historyperiod):
+@website.route('/Monitor')
+def displaymonitor():
 
-	result = torrentset.displaymonitor(historyperiod)
+	result = torrentset.displaymonitordata("Initial Page Load with no data")
 	return WebServer.makehtml('monitor.html', **result)
+
+
+
+#===============================================================================================
+# Display the monitor
+#===============================================================================================
+
+@website.route('/MonitorData', methods=['POST'])
+def displaymonitordata():
+
+	inputdata = WebServer.getrequestdata()
+	result = torrentset.displaymonitordara(inputdata['timespan'])
+	return WebServer.makejson(**result)
 
 
 

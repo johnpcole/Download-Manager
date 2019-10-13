@@ -1,0 +1,3 @@
+function updateMonitorCharts(data)
+{
+};

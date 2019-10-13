@@ -3,25 +3,36 @@
 $(document).ready(function ()
 {
     $('#ajaxloader').hide();
-    if (getCurrentView() == "None") {
-        switchView();
-    } else {
-        changeButtonState("SwitchView", "Enable");
-    };
+    switchView();
 });
 
+
+
+// Ajax call for all torrent data
 
 function switchView()
 {
     changeButtonState("SwitchView", "Disable");
-    var newurl = "/Monitor=" + getNewView();
-    window.location.replace(newurl);
+    var newview = getNewView()
+    $.ajax({
+        url: 'MonitorData',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({'timespan': newview}),
+        dataType:'json',
+        success: function(data)
+        {
+            updateMonitorCharts(data.monitorstats);
+            rerenderText("CurrentView", newview);
+            changeButtonState("SwitchView", "Enable");
+        }
+    });
 };
 
 
 function getNewView()
 {
-    if (getCurrentView() == 'Latest') {
+    if (getText("CurrentView") == 'Latest') {
         var newview = 'Recent';
     } else {
         var newview = 'Latest';
@@ -30,9 +41,5 @@ function getNewView()
 };
 
 
-function getCurrentView()
-{
-    var pathname = window.location.pathname;
-    var currentview = pathname.substring(9);
-    return currentview;
-};
+
+

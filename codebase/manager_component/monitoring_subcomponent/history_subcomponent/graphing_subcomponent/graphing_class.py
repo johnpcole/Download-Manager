@@ -31,13 +31,6 @@ class DefineGraphing:
 		self.widelongoriginoffset = 23 + (9 * 24)      # Hours from origin to now
 		self.narrowlongoriginoffset = 9 + (6 * 24)    # Hours from origin to now
 
-	# =========================================================================================
-
-	def drawdummygraphs(self):
-
-		graphset = Graph.creategraphset(self.graphsetsize)
-		return graphset.printout()
-
 
 	# =========================================================================================
 

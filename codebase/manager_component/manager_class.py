@@ -288,10 +288,10 @@ class DefineTorrentSet:
 	# Display the monitor
 	#===============================================================================================
 
-	def displaymonitor(self, historyperiod):
+	def displaymonitordata(self, historyperiod):
 
-		Logging.printinvocation("Loading Monitor History Page (" + historyperiod + ")", "")
-		return {'displaymode': historyperiod, 'monitoroutput': self.monitormanager.gethistorygraphics(historyperiod)}
+		Logging.printinvocation("Loading Monitor History Data (" + historyperiod + ")", "")
+		return {'monitoroutput': self.monitormanager.gethistorygraphics(historyperiod)}
 
 
 

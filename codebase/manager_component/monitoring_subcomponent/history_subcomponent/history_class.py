@@ -46,7 +46,7 @@ class DefineHistory:
 		elif historyperiod == "Recent":
 			output = self.graphs.drawgraphs(True, self.getlonghistory())
 		else:
-			output = self.graphs.drawdummygraphs()
+			output = {}
 
 		return output
 
