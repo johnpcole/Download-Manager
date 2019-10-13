@@ -43,10 +43,11 @@ function getNewView()
 
 
 
-function updateMonitorCharts(data)
+function updateMonitorCharts(dataset)
 {
-    var arrayLength = data.length;
+    var arrayLength = dataset.length;
+    alert(arrayLength);
     for (var i = 0; i < arrayLength; i++) {
-        alert(data[i]);
+        alert(dataset[i]);
     };
 };
