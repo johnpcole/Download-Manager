@@ -7,7 +7,7 @@ div.speedmeter, div.countmeter, div.spacemeter, div.thermometer {
     top: 80px;
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     div.speedmeter, div.countmeter, div.spacemeter, div.thermometer {
         top: 8px;
     }

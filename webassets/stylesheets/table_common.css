@@ -18,7 +18,7 @@ table.copier, table.logs {
   background-color: #00FFFF;
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     table.copier, table.logs {
         width: 974px;
     }

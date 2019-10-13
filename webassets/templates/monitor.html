@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% from 'macros/graphing.html' import graphblocksandbars %}
-{% from 'macros/graphing.html' import graphlines %}
-{% from 'macros/graphing.html' import graphtext %}
+{% from 'macros/graphing.html' import graphblocksandbarssection %}
+{% from 'macros/graphing.html' import graphlinessection %}
+{% from 'macros/graphing.html' import graphtextsection %}
 {% from 'macros/button.html' import buttontemplate %}
 {% from 'macros/button.html' import disabledbuttontemplate %}
 
@@ -14,6 +14,7 @@
 {% block javascript %}
 
     <script src="{{ url_for('static', filename='javascript/logs/monitor.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/logs/graphing.js') }}"></script>
 
 {% endblock %}
 
@@ -55,9 +56,9 @@ Banner Content
 
      --><div class="mainpagecontent"><!--
 
-{% for thisgraphindex, thisgraph in monitoroutput.items() %}
+{% for thisgraphindex in range(1, 7) %}
 
-     --><div><!-- class="monitorchart">-->
+     --><div>
             <svg width="{% if thisgraphindex > 3 %}480{% else %}974{% endif %}" height="175">
                 <style>
                     .graphtext { font: 10px 'Oswald', sans-serif; fill: #DDDDDD; font-weight: normal; }
@@ -69,40 +70,38 @@ Banner Content
                 <g stroke-linecap="square" stroke="#000000" stroke-width="0" fill="#333333">
                     <rect height="500" width="1500" x="-50" y="-50"/>
                 </g>
-    {% if displaymode != "None" %}
 <!-- Bright Red -->
-                {{ graphblocksandbars(thisgraph.brightred, "#FF0000") }}
+                {{ graphblocksandbarssection(thisgraphindex, "brightred", "#FF0000") }}
 <!-- Red -->
-                {{ graphblocksandbars(thisgraph.red, "#CC0000") }}
+                {{ graphblocksandbarssection(thisgraphindex, "red", "#CC0000") }}
 <!-- Orange -->
-                {{ graphblocksandbars(thisgraph.orange, "#FF6600") }}
+                {{ graphblocksandbarssection(thisgraphindex, "orange", "#FF6600") }}
 <!-- Amber -->
-                {{ graphblocksandbars(thisgraph.amber, "#FFBB11") }}
+                {{ graphblocksandbarssection(thisgraphindex, "amber", "#FFBB11") }}
 <!-- Yellow -->
-                {{ graphblocksandbars(thisgraph.yellow, "#FFFF99") }}
+                {{ graphblocksandbarssection(thisgraphindex, "yellow", "#FFFF99") }}
 <!-- Green -->
-                {{ graphblocksandbars(thisgraph.green, "#00CC00") }}
+                {{ graphblocksandbarssection(thisgraphindex, "green", "#00CC00") }}
 <!-- Light Blue -->
-                {{ graphblocksandbars(thisgraph.blue, "#6688FF") }}
+                {{ graphblocksandbarssection(thisgraphindex, "blue", "#6688FF") }}
 <!-- Temp 1 -->
-                {{ graphblocksandbars(thisgraph.tempa, "#EE2200") }}
+                {{ graphblocksandbarssection(thisgraphindex, "tempa", "#EE2200") }}
 <!-- Temp 2 -->
-                {{ graphblocksandbars(thisgraph.tempb, "#DD4400") }}
+                {{ graphblocksandbarssection(thisgraphindex, "tempb", "#DD4400") }}
 <!-- Temp 3 -->
-                {{ graphblocksandbars(thisgraph.tempc, "#CC6600") }}
+                {{ graphblocksandbarssection(thisgraphindex, "tempc", "#CC6600") }}
 <!-- Temp 4 -->
-                {{ graphblocksandbars(thisgraph.tempd, "#BB8800") }}
+                {{ graphblocksandbarssection(thisgraphindex, "tempd", "#BB8800") }}
 <!-- Temp 5 -->
-                {{ graphblocksandbars(thisgraph.tempe, "#AAAA00") }}
+                {{ graphblocksandbarssection(thisgraphindex, "tempe", "#AAAA00") }}
 <!-- Axes Lines-->
-                {{ graphlines(thisgraph.axeslines, "#DDDDDD") }}
+                {{ graphlinessection(thisgraphindex, "axeslines", "#DDDDDD") }}
 <!-- Axes Labels -->
-                {{ graphtext(thisgraph.biglabels, "graphtext", "middle") }}
-                {{ graphtext(thisgraph.littlelabels, "littlegraphtext", "middle") }}
+                {{ graphtextsection(thisgraphindex, "biglabels") }}
+                {{ graphtextsection(thisgraphindex, "littlelabels") }}
 <!-- Chart Headings & Legends -->
-                {{ graphtext(thisgraph.graphtitles, "graphheadings", "start") }}
-                {{ graphtext(thisgraph.graphlegends, "graphlegends", "start") }}
-    {% endif %}
+                {{ graphtextsection(thisgraphindex, "graphtitles") }}
+                {{ graphtextsection(thisgraphindex, "graphlegends") }}
             </svg>
         </div><!--
 
@@ -146,6 +145,7 @@ Banner Content
 {% block hiddendata %}
 
  --><div class="hidden">
+        <div id="CurrentView">None</div>
     </div><!--
 
 {% endblock %}

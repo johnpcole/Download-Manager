@@ -8,7 +8,7 @@
 }
 
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     #IndexBanner, #TorrentBanner, #AuditBanner {
         width: 1018px;
     }
@@ -19,7 +19,7 @@
     text-align: center;
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     #IndexBanner {
         height: 72px;
     }
@@ -50,7 +50,7 @@
     width: 492px;
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     .bannerupperrow > div:first-of-type {
         width: 986px;
     }
@@ -68,7 +68,7 @@
     width: 516px;
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     .bannerlowerrow > div:first-of-type {
         width: 822px;
     }
@@ -78,13 +78,13 @@
     width: 516px;
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     .bannerlowerrow > div:last-of-type {
         width: 180px;
     }
 }
 
-@media screen and (max-width: 1069px) {
+@media screen and (max-width: 1079px) {
     .bannerlowerrow > div:last-of-type {
         padding-top: 0px;
     }

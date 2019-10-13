@@ -7,7 +7,7 @@ body {
     padding: 5px;
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     body{
         width: 1054px;
     }
@@ -48,7 +48,7 @@ div.mainpagecontent, div.tilesgroup {
     background-color: #FF0000;
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     div.mainpagecontent, div.tilesgroup {
         width: 990px;
     }
