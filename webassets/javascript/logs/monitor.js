@@ -47,7 +47,30 @@ function updateMonitorCharts(graphs)
 {
     $.each(graphs, function(index)
     {
-        alert(index);
-        alert(graphs[index]);
+        updateMonitorChart(graphs[index], index);
     });
 };
+
+
+function updateMonitorChart(thisgraph, graphindex)
+{
+    rerenderText(generateGraphID(graphindex,'brightred'), generateGraphBlocksAndBars(thisgraph.brightred));
+    rerenderText(generateGraphID(graphindex,'red'), generateGraphBlocksAndBars(thisgraph.red));
+    rerenderText(generateGraphID(graphindex,'orange'), generateGraphBlocksAndBars(thisgraph.orange));
+    rerenderText(generateGraphID(graphindex,'amber'), generateGraphBlocksAndBars(thisgraph.amber));
+    rerenderText(generateGraphID(graphindex,'yellow'), generateGraphBlocksAndBars(thisgraph.yellow));
+    rerenderText(generateGraphID(graphindex,'green'), generateGraphBlocksAndBars(thisgraph.green));
+    rerenderText(generateGraphID(graphindex,'blue'), generateGraphBlocksAndBars(thisgraph.blue));
+    rerenderText(generateGraphID(graphindex,'tempa'), generateGraphBlocksAndBars(thisgraph.tempa));
+    rerenderText(generateGraphID(graphindex,'tempb'), generateGraphBlocksAndBars(thisgraph.tempb));
+    rerenderText(generateGraphID(graphindex,'tempc'), generateGraphBlocksAndBars(thisgraph.tempc));
+    rerenderText(generateGraphID(graphindex,'tempd'), generateGraphBlocksAndBars(thisgraph.tempd));
+    rerenderText(generateGraphID(graphindex,'tempe'), generateGraphBlocksAndBars(thisgraph.tempe));
+    rerenderText(generateGraphID(graphindex,'axeslines'), generateGraphLines(thisgraph.axeslines));
+    rerenderText(generateGraphID(graphindex,'biglabels'), generateGraphText(thisgraph.biglabels, "graphtext", "middle"));
+    rerenderText(generateGraphID(graphindex,'littlelabels'), generateGraphText(thisgraph.littlelabels, "littlegraphtext", "middle"));
+    rerenderText(generateGraphID(graphindex,'graphtitles'), generateGraphText(thisgraph.graphtitles, "graphheadings", "start"));
+    rerenderText(generateGraphID(graphindex,'graphlegends'), generateGraphText(thisgraph.graphlegends, "graphlegends", "start"));
+};
+
+
