@@ -32,10 +32,10 @@ function switchView()
 
 function getNewView()
 {
-    if (getText("CurrentView") == 'Latest') {
-        var newview = 'Recent';
-    } else {
+    if (getText("CurrentView") == 'Recent') {
         var newview = 'Latest';
+    } else {
+        var newview = 'Recent';
     };
     return newview;
 };
