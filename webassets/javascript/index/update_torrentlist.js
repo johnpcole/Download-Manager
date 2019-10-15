@@ -31,6 +31,7 @@ function updateTorrentsList()
             updateAllTorrentTiles(data.torrents);
             updateStats(data.stats);
             updateCopierButton(data.copyqueuestate);
+            updateRefreshFoldersButton(data.refreshfolderstate);
         }
     });
 };
@@ -97,4 +98,12 @@ function updateCopierButton(copyqueuestate)
     rerenderAnimatedImage('ViewCopier_Overlay', 'copierstates/'+copyqueuestate, 'gif')
 };
 
+function updateRefreshFoldersButton(refreshfoldersstate)
+{
+    if (refreshfoldersstate == "Incomplete") {
+        changeButtonState('RescanFileServer', 'Disable');
+    } else {
+        changeButtonState('RescanFileServer', 'Enable');
+    };
+};
 

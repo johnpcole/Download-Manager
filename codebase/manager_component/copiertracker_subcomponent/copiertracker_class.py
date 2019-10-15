@@ -166,6 +166,8 @@ class DefineCopierTracker:
 
 		if torrentid == "ALL":
 			tracker = CopySet.createglobalactiontracker()
+		elif torrentid == "FOLDER REFRESH":
+			tracker = CopySet.createrefreshtracker()
 		else:
 			tracker = CopySet.createtorrentcopytracker(torrentid)
 

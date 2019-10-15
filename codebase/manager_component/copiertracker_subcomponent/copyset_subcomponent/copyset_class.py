@@ -24,6 +24,11 @@ class DefineSet:
 			elif newcopystatus == "Succeeded":
 				if self.copystatus.get("Nothing") == True:
 					self.copystatus.set("Completed")
+		elif (self.torrentid == "< REFRESH FOLDERS >") and (copyactionobject.getactiontype() == "Scrape TV Shows"):
+			newcopystatus = copyactionobject.getstatus()
+			if newcopystatus == "Queued":
+				self.copystatus.set("Incomplete")
+
 
 
 
