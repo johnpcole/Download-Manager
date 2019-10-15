@@ -3,6 +3,7 @@
 
 function rescanTVShows()
 {
+    changeButtonState('RescanFileServer', 'Disable');
     $.ajax({
         url: 'PerformTVShowRescan',
         type: 'POST',

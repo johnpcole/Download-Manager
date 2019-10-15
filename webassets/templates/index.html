@@ -158,9 +158,9 @@ Copier-Button
 Rescan-File-Server-Button
 
         {% if refreshfolderstate == "Incomplete" %}
-        {{ buttontemplate("RescanFileServer", "rescanTVShows()", "indexactions/folder_refresh", "rescan fileserver") }}
-        {% else %}
         {{ disabledbuttontemplate("RescanFileServer", "rescanTVShows()", "indexactions/folder_refresh", "rescan fileserver") }}
+        {% else %}
+        {{ buttontemplate("RescanFileServer", "rescanTVShows()", "indexactions/folder_refresh", "rescan fileserver") }}
         {% endif %}
 
 Monitor-Button
