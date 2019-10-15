@@ -3,9 +3,7 @@
 
 function rescanTVShows()
 {
-    updateCopierButton(copyqueuestate);
     updateRefreshFoldersButton('incomplete');
-    changeButtonState('RescanFileServer', 'Disable');
     $.ajax({
         url: 'PerformTVShowRescan',
         type: 'POST',
