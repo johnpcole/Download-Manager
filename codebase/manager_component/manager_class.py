@@ -37,7 +37,7 @@ class DefineTorrentSet:
 			return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 					'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
 					'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
-					'refreshfolderstate': self.copiermanager.getcopystate("FOLDER REFRESH")}
+					'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
 
 
@@ -52,7 +52,7 @@ class DefineTorrentSet:
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
 				'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
-				'refreshfolderstate': self.copiermanager.getcopystate("FOLDER REFRESH")}
+				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
 
 
