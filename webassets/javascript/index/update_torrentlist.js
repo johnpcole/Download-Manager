@@ -100,7 +100,7 @@ function updateCopierButton(copyqueuestate)
 
 function updateRefreshFoldersButton(refreshfoldersstate)
 {
-    if (refreshfoldersstate == "Incomplete") {
+    if (refreshfoldersstate == "incomplete") {
         changeButtonState('RescanFileServer', 'Disable');
     } else {
         changeButtonState('RescanFileServer', 'Enable');

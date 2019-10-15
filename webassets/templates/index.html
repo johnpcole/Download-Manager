@@ -156,8 +156,8 @@ Copier-Button
         {{ buttonwithoverlaytemplate("ViewCopier", "loadCopierPage()", "indexactions/copier", "copierstates/"+copyqueuestate, "view copier") }}
 
 Rescan-File-Server-Button
-{{ refreshfolderstate }}
-        {% if refreshfolderstate == "Incomplete" %}
+
+        {% if refreshfolderstate == "incomplete" %}
         {{ disabledbuttontemplate("RescanFileServer", "rescanTVShows()", "indexactions/folder_refresh", "rescan fileserver") }}
         {% else %}
         {{ buttontemplate("RescanFileServer", "rescanTVShows()", "indexactions/folder_refresh", "rescan fileserver") }}
