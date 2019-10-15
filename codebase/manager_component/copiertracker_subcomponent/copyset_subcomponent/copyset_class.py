@@ -15,7 +15,8 @@ class DefineSet:
 
 		if self.torrentid == "< REFRESH FOLDERS >":
 			if copyactionobject.getactiontype() == "Scrape TV Shows":
-				if copyactionobject.getstatus() == "Queued":
+				newcopystatus = copyactionobject.getstatus()
+				if (newcopystatus == "Queued") or (newcopystatus == "In Progress"):
 					self.copystatus.set("Incomplete")
 		else:
 			if (self.torrentid == copyactionobject.gettorrentid()) or (self.torrentid == "< ALL ACTION ITEMS >"):
@@ -29,9 +30,9 @@ class DefineSet:
 					if self.copystatus.get("Nothing") == True:
 						self.copystatus.set("Completed")
 
-		print("tracker-id: ", self.torrentid, "   lookup-type: ", copyactionobject.getactiontype(),
-				"   lookup-id: ", copyactionobject.gettorrentid(), "   lookup-state: ", copyactionobject.getstatus(),
-				"   new-tracker-status: ", self.copystatus.displaycurrent())
+		#print("tracker-id: ", self.torrentid, "   lookup-type: ", copyactionobject.getactiontype(),
+		#		"   lookup-id: ", copyactionobject.gettorrentid(), "   lookup-state: ", copyactionobject.getstatus(),
+		#		"   new-tracker-status: ", self.copystatus.displaycurrent())
 
 
 
