@@ -29,6 +29,10 @@ class DefineSet:
 					if self.copystatus.get("Nothing") == True:
 						self.copystatus.set("Completed")
 
+		print("tracker-id: ", self.torrentid, "   lookup-type: ", copyactionobject.getactiontype(),
+				"   lookup-id: ", copyactionobject.gettorrentid(), "   lookup-state: ", copyactionobject.getstatus(),
+				"   new-tracker-status: ", self.copystatus.displaycurrent())
+
 
 
 
