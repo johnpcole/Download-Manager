@@ -3,6 +3,8 @@
 
 function rescanTVShows()
 {
+    updateCopierButton(copyqueuestate);
+    updateRefreshFoldersButton('incomplete');
     changeButtonState('RescanFileServer', 'Disable');
     $.ajax({
         url: 'PerformTVShowRescan',
@@ -12,6 +14,8 @@ function rescanTVShows()
         dataType:'json',
         success: function(data)
         {
+            updateCopierButton(data.copyqueuestate);
+            updateRefreshFoldersButton(data.refreshfolderstate);
         }
     });
 };

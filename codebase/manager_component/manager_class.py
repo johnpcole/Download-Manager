@@ -84,7 +84,9 @@ class DefineTorrentSet:
 		Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
 		self.copiermanager.queuefolderrefresh()
 		self.delugemanager.queuenewrefreshaction()
-		return {'rescantvshows': 'done'}
+		return {'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
+				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
+
 
 
 
