@@ -13,21 +13,21 @@ class DefineSet:
 
 	def updatestatus(self, copyactionobject):
 
-		torrentid = copyactionobject.gettorrentid()
-		if (self.torrentid == torrentid) or (self.torrentid == "< ALL ACTION ITEMS >"):
-			newcopystatus = copyactionobject.getstatus()
-			if (newcopystatus == "Queued") or (newcopystatus == "In Progress"):
-				if (self.copystatus.get("Nothing") == True) or (self.copystatus.get("Completed") == True):
+		if self.torrentid == "< REFRESH FOLDERS >":
+			if copyactionobject.getactiontype() == "Scrape TV Shows":
+				if copyactionobject.getstatus() == "Queued":
 					self.copystatus.set("Incomplete")
-			elif (newcopystatus == "Confirm") or (newcopystatus == "Failed"):
-				self.copystatus.set("Attention")
-			elif newcopystatus == "Succeeded":
-				if self.copystatus.get("Nothing") == True:
-					self.copystatus.set("Completed")
-		elif (self.torrentid == "< REFRESH FOLDERS >") and (copyactionobject.getactiontype() == "Scrape TV Shows"):
-			newcopystatus = copyactionobject.getstatus()
-			if newcopystatus == "Queued":
-				self.copystatus.set("Incomplete")
+		else:
+			if (self.torrentid == copyactionobject.gettorrentid()) or (self.torrentid == "< ALL ACTION ITEMS >"):
+				newcopystatus = copyactionobject.getstatus()
+				if (newcopystatus == "Queued") or (newcopystatus == "In Progress"):
+					if (self.copystatus.get("Nothing") == True) or (self.copystatus.get("Completed") == True):
+						self.copystatus.set("Incomplete")
+				elif (newcopystatus == "Confirm") or (newcopystatus == "Failed"):
+					self.copystatus.set("Attention")
+				elif newcopystatus == "Succeeded":
+					if self.copystatus.get("Nothing") == True:
+						self.copystatus.set("Completed")
 
 
 
