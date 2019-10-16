@@ -36,7 +36,8 @@ class DefineTorrentSet:
 		else:
 			return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 					'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
-					'copyqueuestate': self.copiermanager.getcopysetstate("ALL")}
+					'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
+					'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
 
 
@@ -50,7 +51,8 @@ class DefineTorrentSet:
 		self.delugemanager.queuenewrefreshaction()
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
 				'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
-				'copyqueuestate': self.copiermanager.getcopysetstate("ALL")}
+				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
+				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
 
 
@@ -82,7 +84,9 @@ class DefineTorrentSet:
 		Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
 		self.copiermanager.queuefolderrefresh()
 		self.delugemanager.queuenewrefreshaction()
-		return {'rescantvshows': 'done'}
+		return {'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
+				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
+
 
 
 

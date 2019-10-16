@@ -5,6 +5,7 @@
 {% from 'macros/meter.html' import meterlinetemplate %}
 {% from 'macros/meter.html' import meterendtemplate %}
 {% from 'macros/button.html' import buttontemplate %}
+{% from 'macros/button.html' import disabledbuttontemplate %}
 {% from 'macros/button.html' import buttonwithoverlaytemplate %}
 {% from 'macros/dialog.html' import dialogtoptemplate %}
 {% from 'macros/dialog.html' import dialogbottomtemplate %}
@@ -156,7 +157,11 @@ Copier-Button
 
 Rescan-File-Server-Button
 
+        {% if refreshfolderstate == "incomplete" %}
+        {{ disabledbuttontemplate("RescanFileServer", "rescanTVShows()", "indexactions/folder_refresh", "rescan fileserver") }}
+        {% else %}
         {{ buttontemplate("RescanFileServer", "rescanTVShows()", "indexactions/folder_refresh", "rescan fileserver") }}
+        {% endif %}
 
 Monitor-Button
 

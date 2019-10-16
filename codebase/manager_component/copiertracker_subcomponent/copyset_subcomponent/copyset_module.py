@@ -6,3 +6,6 @@ def createtorrentcopytracker(torrentid):
 
 def createglobalactiontracker():
 	return CopySetClass.DefineSet("< ALL ACTION ITEMS >")
+
+def createrefreshtracker():
+	return CopySetClass.DefineSet("< REFRESH FOLDERS >")

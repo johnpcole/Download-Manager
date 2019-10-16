@@ -3,6 +3,7 @@
 
 function rescanTVShows()
 {
+    updateRefreshFoldersButton('incomplete');
     $.ajax({
         url: 'PerformTVShowRescan',
         type: 'POST',
@@ -11,6 +12,8 @@ function rescanTVShows()
         dataType:'json',
         success: function(data)
         {
+            updateCopierButton(data.copyqueuestate);
+            updateRefreshFoldersButton(data.refreshfolderstate);
         }
     });
 };

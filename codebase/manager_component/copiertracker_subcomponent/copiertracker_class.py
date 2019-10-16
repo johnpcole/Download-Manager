@@ -166,11 +166,15 @@ class DefineCopierTracker:
 
 		if torrentid == "ALL":
 			tracker = CopySet.createglobalactiontracker()
+		elif torrentid == "FOLDER REFRESH":
+			tracker = CopySet.createrefreshtracker()
 		else:
 			tracker = CopySet.createtorrentcopytracker(torrentid)
 
+		#print("==============================================")
 		for actionid in self.copieractions.keys():
 			tracker.updatestatus(self.copieractions[actionid])
+		#print("==============================================")
 
 		return tracker.getstatus()
 

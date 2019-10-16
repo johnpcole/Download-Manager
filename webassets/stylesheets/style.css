@@ -45,7 +45,7 @@ div.mainpagecontent, div.tilesgroup {
     display: inline-block;
     overflow: hidden;
     width: 496px;
-    background-color: #FF0000;
+    /*background-color: #FF0000;*/
 }
 
 @media screen and (min-width: 1080px) {
