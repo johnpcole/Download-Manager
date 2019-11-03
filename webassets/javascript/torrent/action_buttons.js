@@ -35,7 +35,7 @@ function updateCopyButton(torrentstate, torrenttype, copyqueuestate)
     } else {
         changeButtonState('Copy', 'Disable');
     };
-    rerenderAnimatedImage('Copy_Overlay', 'copierstates/'+copyqueuestate, 'gif')
+    rerenderAnimatedImage('Copy_Overlay', 'copierstates/'+copyqueuestate, 'gif');
 };
 
 

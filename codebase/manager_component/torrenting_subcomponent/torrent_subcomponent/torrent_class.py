@@ -138,6 +138,7 @@ class DefineTorrentItem:
 						'progress': self.torrentstatus.getprogresssizeeta(),
 						'copyinfo': self.getcopydestinationlist(),
 						'files': self.torrentfiles.getextendedfiledata(datamode, self.torrentcategory.getseason())}
+			resetfilechangealert = self.torrentfiles.getfilechangealert()
 		elif datamode == "refresh":
 			outcome = { 'status': self.torrentstatus.getfulltorrentstatus(),
 						'progress': self.torrentstatus.getprogresssizeeta(),

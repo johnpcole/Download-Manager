@@ -47,7 +47,6 @@ function populateCopyDialog(copydata)
 
 function closeCopyDialog()
 {
-    //clearInterval(copycounter);
     $('#copydialog').hide();
 };
 
