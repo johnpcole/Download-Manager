@@ -1,0 +1,117 @@
+/* ===============================================================================
+   Generic Tile object, covers banner tiles and torrent & file tiles
+   =============================================================================== */
+
+#IndexBanner, #TorrentBanner, #AuditBanner, .tilesgroup > div, .tilesgroup > a, .mainpagecontent > table, .mainpagecontent > div {
+    display: inline-block;
+    overflow: hidden;
+    margin: 7px;
+    padding: 7px 10px;
+    color: #FFFFFF;
+    border-style: none;
+    box-shadow: 3px 3px 2px #AAAAAA;
+    outline: 0;
+}
+
+/* ===============================================================================
+   Tile Rows
+   =============================================================================== */
+
+div.tileupperrow, div.torrenttilelowerrow, div.filetilelowerrow, div.bannerupperrow, div.bannerlowerrow {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+}
+
+div.editupperrow {
+    margin: 0 0 5px 0;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+}
+
+/* ===============================================================================
+   TILE UPPER ROW
+   =============================================================================== */
+
+/* Title Boxes */
+.tileupperrow > div, .bannerupperrow > div, .bannerbigheading > div, div.contenttitlefull {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    padding: 2px 3px 6px 3px;
+}
+
+.tileupperrow > div:first-of-type, .bannerupperrow > div:first-of-type {
+    text-align: left;
+    float: left;
+}
+
+.tileupperrow > div:last-of-type, .bannerupperrow > div:last-of-type {
+    text-align: right;
+    float: right;
+}
+
+/* Title Box Images */
+.tileupperrow > div > img, .bannerupperrow > div > img, .contenttitlefull img {
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    margin: 0px 0px -2px 0px;
+    -webkit-filter: brightness(10) saturate(0) contrast(10);
+    filter: brightness(10) saturate(0) contrast(10);
+}
+
+/* ===============================================================================
+   TILE SEPARATOR LINE
+   =============================================================================== */
+
+/* Separator Bars */
+div.tilesplitter {
+    height: 2px;
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    border-color: #FFFFFF;
+    margin: 0px 5px;
+    padding: 0;
+}
+
+
+/* ===============================================================================
+   TILE LOWER ROW
+   =============================================================================== */
+
+/* Subtitle Boxes */
+.filetilelowerrow > div, .torrenttilelowerrow > div, .bannerlowerrow > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    font-size: 75%;
+    padding: 5px 4px 4px 4px;
+}
+
+.torrenttilelowerrow > div:first-of-type, .filetilelowerrow > div:first-of-type, .bannerlowerrow > div:first-of-type {
+    text-align: left;
+    float: left;
+}
+
+.torrenttilelowerrow > div:last-of-type, .filetilelowerrow > div:last-of-type, .bannerlowerrow > div:last-of-type {
+    text-align: right;
+    float: right;
+}
+
+/* Subtitle Box Images */
+.filetilelowerrow > div > img, .torrenttilelowerrow > div > img, .bannerlowerrow > div > img {
+    display: inline-block;
+    height: 13px;
+    width: 13px;
+    margin: -2px 5px -2px 5px;
+    -webkit-filter: brightness(10) saturate(0) contrast(10);
+    filter: brightness(10) saturate(0) contrast(10);
+}
+
+
+

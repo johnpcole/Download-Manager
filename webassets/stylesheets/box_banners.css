@@ -1,0 +1,93 @@
+/* ===============================================================================
+   BANNER CONTAINER
+   =============================================================================== */
+
+#IndexBanner, #TorrentBanner, #AuditBanner {
+    position: relative;
+    width: 524px;
+}
+
+
+@media screen and (min-width: 1080px) {
+    #IndexBanner, #TorrentBanner, #AuditBanner {
+        width: 1018px;
+    }
+}
+
+#IndexBanner {
+    height: 144px;
+    text-align: center;
+}
+
+@media screen and (min-width: 1080px) {
+    #IndexBanner {
+        height: 72px;
+    }
+}
+
+#AuditBanner {
+    height: 72px;
+    text-align: center;
+}
+
+/* ===============================================================================
+   INDEX/MONITOR/LOG BIG BANNER HEADING
+   =============================================================================== */
+
+.bannerbigheading {
+    display: inline-block;
+    text-align: center;
+    font-size: 28pt;
+    line-height: 175%;
+    width: 500px;
+}
+
+/* ===============================================================================
+   BANNER UPPER ROW
+   =============================================================================== */
+
+.bannerupperrow > div:first-of-type {
+    width: 492px;
+}
+
+@media screen and (min-width: 1080px) {
+    .bannerupperrow > div:first-of-type {
+        width: 986px;
+    }
+}
+
+.bannerupperrow > div:last-of-type {
+    width: 20px;
+}
+
+/* ===============================================================================
+   BANNER LOWER ROW
+   =============================================================================== */
+
+.bannerlowerrow > div:first-of-type {
+    width: 516px;
+}
+
+@media screen and (min-width: 1080px) {
+    .bannerlowerrow > div:first-of-type {
+        width: 822px;
+    }
+}
+
+.bannerlowerrow > div:last-of-type {
+    width: 516px;
+}
+
+@media screen and (min-width: 1080px) {
+    .bannerlowerrow > div:last-of-type {
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 1079px) {
+    .bannerlowerrow > div:last-of-type {
+        padding-top: 0px;
+    }
+}
+
+

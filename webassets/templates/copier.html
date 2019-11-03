@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% from 'macros/dialog.html' import dialogtoptemplate %}
+{% from 'macros/dialog.html' import dialogtriplebottomtemplate %}
+{% from 'macros/button.html' import buttontemplate %}
+
+{% block bodycontext %}{% endblock %}
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block javascript %}
+
+    <script src="{{ url_for('static', filename='javascript/copier/update_copierlist.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier/copieraction_dialog.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copier/intervene_copieraction.js') }}"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block styling %}
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/table_copier.css') }}" />
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block banner %}
+
+ --><div id="AuditBanner"><!--
+
+
+Banner Content
+
+     --><div class="bannerbigheading">
+            <span>Download Copier</span>
+        </div><!--
+
+
+ --></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block content %}
+ --><div class="mainpagecontent"><table class="copier">
+{% for copyentry in copyactions %}
+        {% if copyentry.action == "Copy File" %}
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="copystate_{{ copyentry.status }}" onclick="requestActionDetail('{{ copyentry.copyid }}')">
+        {% else %}
+        <tbody id="CopyItem_{{ copyentry.copyid }}" class="scrapestate_{{ copyentry.status }}">
+        {% endif %}
+            <tr>
+                <td rowspan="2"><img id="Icon_{{ copyentry.copyid }}" src="{{ url_for('static', filename='images/copier/'+copyentry.status+'.gif') }}" /></td>
+                <td colspan="2">{{ copyentry.target }}</td>
+            </tr>
+            <tr>
+                <td id="TorrentLink_{{ copyentry.copyid }}"{% if copyentry.stillavailable == "No" %} class="strikethrough"{% endif %}>{{ copyentry.torrentname }}</td>
+                <td>{{ copyentry.datetimestamp }}</td>
+            </tr>
+        </tbody>
+{% endfor %}
+</table></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block toolbar %}
+
+  --><div class="actionbuttonsgroup"><!--
+
+            {{ buttontemplate("Exit", "loadHomePage()", "home", "exit") }}
+
+ --></div><!--
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block dialogs %}
+
+DIALOG
+
+     {{ dialogtoptemplate("copierdialog", "File Copier Action", "CloseCopyInformation", "closeActionDialog()") }}
+
+ Dialog-Content
+
+         --><div id="dialogcontent"></div><!--
+
+    {{ dialogtriplebottomtemplate("AbandonCopy", "abandonCopy()", "dialogs/copy_abandon", "Abandon Copy", "RetryCopy", "retryCopy()", "dialogs/copy_again", "Retry Copy", "ConfirmOverwrite", "forceCopy()", "dialogs/copy_confirm", "Overwrite Copy") }}
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block hiddendata %}
+
+ --><div class="hidden">
+        <img src="{{ url_for('static', filename='images/copier/queued.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/inprogress.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/confirm.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/succeeded.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/failed.gif') }}" />
+        <img src="{{ url_for('static', filename='images/copier/abandoned.gif') }}" />
+    </div><!--
+
+{% endblock %}

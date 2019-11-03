@@ -1,0 +1,52 @@
+{% from 'macros/button.html' import buttontemplate %}
+
+{% macro dialogtoptemplate(dialogid, dialogtitle, cancelbuttonid, canceljsaction) %}
+
+ --><div id="{{ dialogid }}" class="screenblock hidden">
+        <div class="dialog"><!--
+
+Dialog-Title and Cancel-Button
+
+         --><div><span>{{ dialogtitle }}...</span><!--
+         {{ buttontemplate(cancelbuttonid, canceljsaction, "dialogs/close", "close") }}
+         --></div><!--
+
+Horizontal-Bar
+
+         --><div></div><!--
+
+{% endmacro %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% macro dialogbottomtemplate(id, jsaction, image, alttext) %}
+
+Ok-Button
+
+         --><div><!--
+         {{ buttontemplate(id, jsaction, image, alttext) }}
+         --></div><!--
+
+     --></div>
+    </div><!--
+
+{% endmacro %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% macro dialogtriplebottomtemplate(idone, jsactionone, imageone, alttextone, idtwo, jsactiontwo, imagetwo, alttexttwo, idthree, jsactionthree, imagethree, alttextthree) %}
+
+         --><div><!--
+         {{ buttontemplate(idone, jsactionone, imageone, alttextone) }}
+         {{ buttontemplate(idtwo, jsactiontwo, imagetwo, alttexttwo) }}
+         {{ buttontemplate(idthree, jsactionthree, imagethree, alttextthree) }}
+         --></div><!--
+
+     --></div>
+    </div><!--
+
+{% endmacro %}

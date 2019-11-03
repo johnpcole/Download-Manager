@@ -1,0 +1,62 @@
+body.editview div.tileupperrow, body.editview div.bannerupperrow, body.readview div.editupperrow {
+    display: none;
+}
+
+body.readview div.tileupperrow, body.readview div.bannerupperrow, body.editview div.editupperrow {
+    display: inline-block;
+}
+
+
+/* ====================================================================== */
+
+
+body.readview div.filetilelowerrow > div:first-of-type {
+}
+
+body.editview div.filetilelowerrow > div:first-of-type {
+    overflow-wrap: break-word;
+    white-space: normal;
+    height: 32px;
+}
+
+
+/* ====================================================================== */
+
+body.editview  div.actionbuttonsgroup > div:first-of-type, body.readview  div.actionbuttonsgroup > div:last-of-type {
+    display: none;
+}
+
+body.readview  div.actionbuttonsgroup > div:first-of-type, body.editview  div.actionbuttonsgroup > div:last-of-type {
+    display: inline-block;
+}
+
+
+/* ====================================================================== */
+
+
+div.tvshowonlyfields, div.movieonlyfields, div.unknownonlyfields {
+    margin: 0;
+    padding: 0;
+    display: none;
+    overflow: hidden;
+}
+
+div.ignoreonlyfields, div.copyonlyfields {
+    margin: 0;
+    padding: 0;
+    display: none;
+    overflow: hidden;
+}
+
+
+div.narrowspacer {
+    width: 100%;
+    height: 5px;
+    /*background-color: #ff0000;*/
+    display: inline-block;
+}
+@media screen and (min-width: 1080px) {
+    div.narrowspacer {
+        display: none;
+    }
+}

@@ -1,0 +1,27 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0px;
+  padding: 0px !important;
+  display: table !important;
+}
+
+td {
+  padding: 4px;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.copier, table.logs {
+  width: 480px;
+  color: #FFFFFF;
+  background-color: #00FFFF;
+}
+
+@media screen and (min-width: 1080px) {
+    table.copier, table.logs {
+        width: 974px;
+    }
+}
+
+

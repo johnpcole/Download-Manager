@@ -1,27 +1,39 @@
 {% extends "base.html" %}
-{% from 'button.html' import buttontemplate %}
-{% from 'button.html' import disabledbuttontemplate %}
-{% from 'button.html' import itembuttontemplate %}
-{% from 'dialog.html' import dialogtoptemplate %}
-{% from 'dialog.html' import dialogbottomtemplate %}
+{% from 'macros/button.html' import buttontemplate %}
+{% from 'macros/button.html' import disabledbuttontemplate %}
+{% from 'macros/button.html' import disabledbuttonwithoverlaytemplate %}
+{% from 'macros/button.html' import itembuttontemplate %}
+{% from 'macros/dialog.html' import dialogtoptemplate %}
+{% from 'macros/dialog.html' import dialogbottomtemplate %}
 
-{% block bodycontext %}{% endblock %}
+{% block bodycontext %} id="Page" class="readview"{% endblock %}
 
 <!-- ------------------------------------------------------------------------------------------------ -->
 
 
 {% block javascript %}
 
-    <script src="{{ url_for('static', filename='javascript/torrent_action_buttons.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/torrent_change_tvshow.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/torrent_change_torrenttype.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/torrent_change_fileoutcome.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/torrent_save_config.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/torrent_edit_config.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/torrent_cancel_config.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/torrent_update_state.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/torrent_copy.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascript/torrent_delete.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/action_buttons.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/change_tvshow.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/change_torrenttype.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/change_fileoutcome.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/config_save.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/config_edit.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/config_cancel.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/update_torrentinfo.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/copy_torrent.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/delete_torrent.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/torrent/startstop_torrent.js') }}"></script>
+
+{% endblock %}
+
+
+<!-- ------------------------------------------------------------------------------------------------ -->
+
+
+{% block styling %}
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/editing.css') }}" />
 
 {% endblock %}
 
@@ -31,39 +43,32 @@
 
 {% block banner %}
 
- --><div id="TorrentTile" class="bannertile torrent_{{ selectedtorrent.status }}"><!--
+ --><div id="TorrentBanner" class="torrent_{{ selectedtorrent.status }}"><!--
 
 Section: Configured-Title & Type Read-Only-View
 
-     --><div class="readonlyfields"><!--
-
-Subsection: Configured-Title
-
-          --><div class="bannertitleleft" id="TorrentTitle">
-                <span>{{ selectedtorrent.torrenttitle }}</span>
+     --><div class="bannerupperrow"><!--
+          --><div>
+                <span id="TorrentTitle">{{ selectedtorrent.torrenttitle }}</span>
             </div><!--
-
-Subsection: Type
-
-         --><div class="bannertitleright">
-                <img id="TorrentType" src="{{ url_for('static', filename='images/type_' + selectedtorrent.torrenttype + '.png') }}" alt="{{ selectedtorrent.torrenttype }}" />
+         --><div>
+                <img id="TorrentType" src="{{ url_for('static', filename='images/torrenttypes/' + selectedtorrent.torrenttype + '.png') }}" alt="{{ selectedtorrent.torrenttype }}" />
             </div><!--
-
      --></div><!--
 
 Section: Configured-Title & Type Edit-Mode-View
 
-     --><div class="editmodefields"><!--
+     --><div class="editupperrow"><!--
 
 Subsection: Type-Selector-Buttons
 
          --><div class="buttongroup"><!--
 
-                {{ buttontemplate("MakeUnknown", "changeTorrentType('unknown')", "type_unknown", "unknown") }}
+                {{ buttontemplate("MakeUnknown", "changeTorrentType('unknown')", "torrenttypes/unknown", "unknown") }}
 
-                {{ buttontemplate("MakeMovie", "changeTorrentType('movie')", "type_movie", "movie") }}
+                {{ buttontemplate("MakeMovie", "changeTorrentType('movie')", "torrenttypes/movie", "movie") }}
 
-                {{ buttontemplate("MakeTVShow", "changeTorrentType('tvshow')", "type_tvshow", "tv show") }}
+                {{ buttontemplate("MakeTVShow", "changeTorrentType('tvshow')", "torrenttypes/tvshow", "tv show") }}
 
          --></div><!--
 
@@ -100,21 +105,19 @@ Subsection: Movie-Type-Fields
 
 Section: Horizontal-Line
 
-     --><div class="bannersplitter"></div><!--
+     --><div class="tilesplitter"></div><!--
 
-Section: Raw-Title
+Section: Raw-Title, Progress and Status
 
-     --><div class="bannersubtitleleft">
-            <span>{{ selectedtorrent.torrentname }}</span>
-        </div><!--
-
-Section: Progress and Status
-
-     --><div class="bannersubtitleright"><!--
-         --><img id="Status" src="{{ url_for('static', filename='images/status_' + selectedtorrent.status + '.png') }}" alt="{{ selectedtorrent.status }}" /><!--
-         --><span id="Progress">{{ selectedtorrent.progress }}</span><!--
+     --><div class="bannerlowerrow"><!--
+         --><div>
+                <span>{{ selectedtorrent.torrentname }}</span>
+            </div><!--
+         --><div><!--
+             --><img id="Status" src="{{ url_for('static', filename='images/torrentstatuses/' + selectedtorrent.status + '.png') }}" alt="{{ selectedtorrent.status }}" /><!--
+             --><span id="Progress">{{ selectedtorrent.progress }}</span><!--
+         --></div><!--
      --></div><!--
-
  --></div><!--
 
 {% endblock %}
@@ -131,29 +134,21 @@ Section: Progress and Status
 
 File {{ fileitem.filetitle }}
 
-     --><div id="File-{{ fileitem.fileid }}" class="contenttile file_{{ fileitem.filetype }}_{{ fileitem.outcome }}"><!--
+     --><div id="File-{{ fileitem.fileid }}" class="file_{{ fileitem.filetype }}_{{ fileitem.outcome }}"><!--
 
 Section: Configured-Filename & Type Read-Only-View
-
-         --><div class="readonlyfields"><!--
-
-Subsection: Configured-Filename
-
-             --><div class="contenttitleleft" id="filetitle-{{ fileitem.fileid }}">
-                    <span>{{ fileitem.filetitle }}</span>
+         --><div class="tileupperrow"><!--
+             --><div>
+                    <span id="filetitle-{{ fileitem.fileid }}">{{ fileitem.filetitle }}</span>
                 </div><!--
-
-Subsection: Type
-
-             --><div class="contenttitleright">
-                    <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileaction_' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />
+             --><div>
+                    <img id="outcome-{{ fileitem.fileid }}" class="outeredgeimage" src="{{ url_for('static', filename='images/fileactions/' + fileitem.outcome + '.png') }}" alt="{{ fileitem.outcome }}" />
                 </div><!--
-
          --></div><!--
 
 Section: Configured-Filename & Type Edit-Mode-View
 
-         --><div class="editmodefields"><!--
+         --><div class="editupperrow"><!--
 
 {% if fileitem.filetype == "none" %}
 
@@ -183,9 +178,9 @@ Subsection: FileMode-Selector-Buttons
 
                  --><div class="buttongroup"><!--
 
-                        {{ itembuttontemplate("MakeIgnore", fileitem.fileid, "changeFileDesignation", "ignore", "fileaction_ignore", "ignore") }}
+                        {{ itembuttontemplate("MakeIgnore", fileitem.fileid, "changeFileDesignation", "ignore", "fileactions/ignore", "ignore") }}
 
-                        {{ itembuttontemplate("MakeCopy", fileitem.fileid, "changeFileDesignation", "copy", "fileaction_copy", "copy") }}
+                        {{ itembuttontemplate("MakeCopy", fileitem.fileid, "changeFileDesignation", "copy", "fileactions/copy", "copy") }}
 
                  --></div><!--
 
@@ -225,24 +220,20 @@ Subsection: Do-Copy-Filemode
          --></div><!--
 
 Section: Horizontal-Line
-
-         --><div class="contentsplitter">
+§
+         --><div class="tilesplitter">
             </div><!--
 
-Section: Raw-Filename
-
-         --><div class="filesubtitleleft">
-                <span class="tooltip">{{ fileitem.filename }}</span><!--
-             --><span>{{ fileitem.filename }}</span>
-            </div><!--
-
-Section: File-Type & File-Size
-
-         --><div class="filesubtitleright">
-                <img id="filetype-{{ fileitem.fileid }}" src="{{ url_for('static', filename='images/filetype_' + fileitem.filetype + '.png') }}" alt="{{ fileitem.filetype }}" /><!--
-             --><span>{{ fileitem.size }}</span>
-            </div><!--
-
+Section: Raw-Filename, File-Type & File-Size
+         --><div class="filetilelowerrow"><!--
+              --><div>
+                    <span>{{ fileitem.filename }}</span>
+                </div><!--
+             --><div>
+                    <img id="filetype-{{ fileitem.fileid }}" src="{{ url_for('static', filename='images/filetypes/' + fileitem.filetype + '.png') }}" alt="{{ fileitem.filetype }}" /><!--
+                 --><span>{{ fileitem.size }}</span>
+                </div><!--
+         --></div><!--
      --></div><!--
 
 {% endfor %}
@@ -261,29 +252,29 @@ Section: File-Type & File-Size
 
 Section: Read-Only-Mode Action Buttons
 
-     --><div class="readmodebuttons"><!--
+     --><div><!--
 
-            {{ buttontemplate("Exit", "window.location.replace('/')", "torrentaction_exit", "exit") }}
+            {{ buttontemplate("Exit", "loadHomePage()", "home", "exit") }}
 
-            {{ buttontemplate("Stop", "updateTorrentState('Stop')", "torrentaction_stop", "stop") }}
+            {{ buttontemplate("Stop", "performTorrentAction('Stop')", "torrentactions/stop_torrent", "stop") }}
 
-            {{ buttontemplate("Start", "updateTorrentState('Start')", "torrentaction_start", "start") }}
+            {{ buttontemplate("Start", "performTorrentAction('Start')", "torrentactions/start_torrent", "start") }}
 
-            {{ disabledbuttontemplate("Edit", "editTorrentConfiguration()", "torrentaction_edit", "edit") }}
+            {{ disabledbuttontemplate("Edit", "editTorrentConfiguration()", "torrentactions/edit_torrent", "edit") }}
 
-            {{ disabledbuttontemplate("Copy", "copyTorrent()", "torrentaction_copy", "copy") }}
+            {{ disabledbuttonwithoverlaytemplate("Copy", "copyTorrent()", "torrentactions/copy_torrent", "copierstates/"+copyqueuestate, "copy") }}
 
-            {{ buttontemplate("Delete", "deleteTorrent()", "torrentaction_delete", "delete") }}
+            {{ buttontemplate("Delete", "deleteTorrent()", "torrentactions/delete_torrent", "delete") }}
 
      --></div><!--
 
 Section: Edit-Mode Action Buttons
 
-     --><div class="editmodebuttons"><!--
+     --><div><!--
 
-            {{ buttontemplate("Cancel", "cancelTorrentConfiguration()", "torrentaction_cancel", "cancel") }}
+            {{ buttontemplate("Cancel", "cancelTorrentConfiguration()", "torrentactions/cancel_edit", "cancel") }}
 
-            {{ buttontemplate("Save", "saveTorrentConfiguration()", "torrentaction_commit", "commit") }}
+            {{ buttontemplate("Save", "saveTorrentConfiguration()", "torrentactions/commit_edit", "commit") }}
 
      --></div><!--
 
@@ -303,13 +294,13 @@ COPY-DIALOG
 
 Dialog-Content
 
-         --><div id="dialogcontent" class="dialogcontent">
-            </div><!--
+         --><div id="dialogcontent"><!--
+                {% for copyitem in selectedtorrent.copyinfo %}
+             --><div class="dialogitemmax">{{ copyitem }}</div><!--
+                {% endfor %}
+         --></div><!--
 
-
-Ok-Button
-
-    {{ dialogbottomtemplate("ConfirmCopy", "confirmCopy()") }}
+    {{ dialogbottomtemplate("ConfirmCopy", "confirmCopy()", "dialogs/copy", "Confirm Copy") }}
 
 
 
@@ -319,13 +310,11 @@ DELETE-DIALOG
 
 Dialog-Content
 
-         --><div class="dialogcontent">
-                <div class="dialogitem dialogitemfull">
-                    <span>Do you want to delete this torrent and all its files?</span>
-                </div>
+         --><div>
+                <div class="dialogitemfull"><span>Do you want to delete this torrent and all its files?</span></div>
             </div><!--
 
-    {{ dialogbottomtemplate("ConfirmDelete", "confirmDelete()") }}
+    {{ dialogbottomtemplate("ConfirmDelete", "confirmDelete()", "dialogs/delete", "Confirm Delete") }}
 
 {% endblock %}
 
@@ -336,13 +325,10 @@ Dialog-Content
 {% block hiddendata %}
 
  --><div class="hidden">
-        <span id="copyprogress">0</span>
-        <span id="copystep">0</span>
-        <img src="{{ url_for('static', filename='images/copy_queued.png') }}" />
-        <img src="{{ url_for('static', filename='images/copy_copying.png') }}" />
-        <img src="{{ url_for('static', filename='images/copy_connecting.png') }}" />
-        <img src="{{ url_for('static', filename='images/copy_copied.png') }}" />
-        <img src="{{ url_for('static', filename='images/copy_failed.png') }}" />
+         <img src="{{ url_for('static', filename='images/copierstates/attention.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copierstates/completed.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copierstates/incomplete.gif') }}" />
+         <img src="{{ url_for('static', filename='images/copierstates/nothing.gif') }}" />
     </div><!--
 
 {% endblock %}

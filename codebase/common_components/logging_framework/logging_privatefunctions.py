@@ -1,21 +1,45 @@
 def extractflaskoutput(logentry, linecounter, sublinecounter):
 	outcome = {}
 	outcome["lineindex"] = formlinecounter(linecounter, sublinecounter)
-	datetimestart = logentry.find("[")
-	datetimeend = logentry.find("]")
-	datetime = logentry[datetimeend - 8:datetimeend] + " - " + logentry[datetimestart + 1:datetimeend - 9]
-	outcome["datetime"] = datetime.replace("/", " ")
-	outcome["requestipaddress"] = "From " + logentry[:datetimestart - 4]
-	rawdata = logentry[datetimeend + 3:]
-	rawdata = rawdata.split(" ")
-	outcome["method"] = rawdata[0]
-	requestedpath = rawdata[1]
-	outcome["path"] = requestedpath
-	outcome["outcome"] = rawdata[3]
-	if (rawdata[3] == "200") or (rawdata[3] == "304"):
-		outcome["entrytype"] = "success"
+
+	if logentry.find("[pid: ") == 0:
+		reducedlog = logentry[logentry.find("] ")+2:]
+		datetime = reducedlog[reducedlog.find("[")+5:reducedlog.find("]")]
+		datetime = datetime.split(" ")
+		outcome["datetime"] = datetime[1] + " " + datetime[0] + " " + datetime[3] + " - " + datetime[2]
+		outcome["requestipaddress"] = "From " + reducedlog[0:reducedlog.find("(")-1]
+		rawdata = reducedlog[reducedlog.find("] ")+2:reducedlog.find("=>")]
+		rawdata = rawdata.split(" ")
+		outcome["method"] = rawdata[0]
+		outcome["path"] = rawdata[1]
+		resultstart = reducedlog.find("(HTTP")
+		result = reducedlog[resultstart:]
+		result = result.split(" ")
+		result = result[1]
+		result = result[:-1]
+		outcome["outcome"] = result
+		if (result == "200") or (result == "304"):
+			outcome["entrytype"] = "success"
+		else:
+			outcome["entrytype"] = "failure"
+
 	else:
-		outcome["entrytype"] = "failure"
+		datetimestart = logentry.find("[")
+		datetimeend = logentry.find("]")
+		datetime = logentry[datetimeend - 8:datetimeend] + " - " + logentry[datetimestart + 1:datetimeend - 9]
+		outcome["datetime"] = datetime.replace("/", " ")
+		outcome["requestipaddress"] = "From " + logentry[:datetimestart - 4]
+		rawdata = logentry[datetimeend + 3:]
+		rawdata = rawdata.split(" ")
+		outcome["method"] = rawdata[0]
+		requestedpath = rawdata[1]
+		outcome["path"] = requestedpath
+		outcome["outcome"] = rawdata[3]
+		if (rawdata[3] == "200") or (rawdata[3] == "304"):
+			outcome["entrytype"] = "success"
+		else:
+			outcome["entrytype"] = "failure"
+
 	return outcome
 
 

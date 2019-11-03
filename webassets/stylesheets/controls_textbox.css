@@ -51,21 +51,22 @@ input.movienamefield {
     width: 431px;
 }
 
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     input.movienamefield {
         width: 746px;
     }
 }
 
 input.newurlfield {
-    width: 370px; /*386px;*/
+    width: 355px; /*370, after 386px;*/
     margin: 0px 12px 0px 10px;
+    font-size: 90%;
 }
 
 select.tvshownamefield {
     width: 431px;
 }
-@media screen and (min-width: 1070px) {
+@media screen and (min-width: 1080px) {
     select.tvshownamefield {
         width: 603px;
     }

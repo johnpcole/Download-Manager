@@ -12,28 +12,36 @@ div.dialog {
     outline: 0;
 }
 
-div.dialogcontent {
+/* Dialog Content */
+.dialog > div:nth-of-type(3) {
     margin: 0;
     padding: 0;
+    font-size: 90%;
+
 }
 
-div.dialogactions {
+/* Dialog Actions at the bottom */
+.dialog > div:nth-of-type(4) {
     margin: 0;
     padding: 0;
     text-align: center;
 }
 
-div.dialogsplitter {
+/* Dialog Separator Line */
+.dialog > div:nth-of-type(2) {
     height: 2px;
     border-style: solid;
     border-width: 0px 0px 1px 0px;
     border-color: #000033;
-    margin: 0 auto;
+    margin: 0px auto 5px auto;
     padding: 0;
     width: 490px;
 }
 
-div.dialogtitle {
+/* Dialog Title */
+.dialog > div:nth-of-type(1) {
+    font-size: 100%;
+    font-weight: bold;
     width: 100%;
     text-align: center;
     padding: 2px 3px 6px 3px;
@@ -44,8 +52,7 @@ div.dialogtitle {
     position: relative;
 }
 
-div.dialogitem {
-    font-size: 75%;
+div.dialogitemleft, div.dialogitemright, div.dialogitemfull, div.dialogitemmax {
     padding: 5px 4px 4px 4px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -55,6 +62,12 @@ div.dialogitem {
     border-width: 0px 0px 1px 0px;
     border-color: #FFFFFF;*/
 }
+
+div.wraptext {
+    white-space: normal !important;
+    line-height: normal !important;
+}
+
 
 div.dialogitemleft {
     width: 396px;
@@ -74,10 +87,50 @@ div.dialogitemfull {
     /*background-color: #ffffaa;*/
 }
 
-div.dialogitem img {
+div.dialogitemmax {
+    width: 100%;
+    text-align: left;
+    /*background-color: #ffffaa;*/
+}
+
+.dialog img {
     display: inline-block;
     height: 16px;
     width: 16px;
     margin: -2px 0px -4px 4px;
+}
+
+/* ------------------------------------------------ */
+
+table.copierresultstable {
+  margin: 10px 0px 10px 0px;
+}
+
+table.copierresultstable td {
+  text-align: center;
+  font-size: 90%;
+  width: 30%;
+  border-left: 1px #000000 solid;
+  padding: 0px 10px 0px 10px;
+}
+
+table.copierresultstable tr td:first-of-type, table.copierresultstable tr td:last-of-type {
+  width: auto;
+}
+
+table.copierresultstable tr td:first-of-type {
+  border-left: none;
+}
+
+table.copierresultstable tr:first-of-type td {
+  padding-top: 8px;
+}
+
+table.copierresultstable tr:nth-of-type(n+2) td {
+  padding-bottom: 10px;
+}
+
+table.copierresultstable tr:nth-of-type(2) td {
+  font-size: 60%;
 }
 

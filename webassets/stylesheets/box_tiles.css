@@ -1,0 +1,51 @@
+
+/* ===============================================================================
+   TILE CONTAINER
+   =============================================================================== */
+
+.tilesgroup > a, .tilesgroup > div {
+    width: 460px;
+}
+
+
+/* ===============================================================================
+   TILE UPPER ROW
+   =============================================================================== */
+
+.tileupperrow > div:first-of-type {
+    width: 427px;
+}
+
+.tileupperrow > div:last-of-type {
+    width: 20px;
+}
+
+div.contenttitlefull {
+    width: 454px;
+    text-align: left;
+}
+
+/* ===============================================================================
+   TILE LOWER ROW
+   =============================================================================== */
+
+.torrenttilelowerrow > div:first-of-type {
+    width: 387px;
+}
+
+.torrenttilelowerrow > div:last-of-type {
+    width: 56px;
+}
+
+div.contentsubtitlefull {
+    width: 452px;
+    text-align: left;
+}
+
+.filetilelowerrow > div:first-of-type {
+    width: 353px;
+}
+
+.filetilelowerrow > div:last-of-type {
+    width: 90px;
+}

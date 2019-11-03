@@ -1,0 +1,110 @@
+table.logs tr:hover {
+  color:#000000;
+}
+
+table.logs tr:hover td {
+  background-color: #FFFF55;
+}
+
+table.logs tr {
+  border-bottom: 1px solid #DDDDEE;
+}
+
+table.logs tr:first-of-type {
+  border-top: 0px;
+}
+
+table.logs tr:last-of-type {
+  border-bottom: 0px;
+}
+
+td.counter {
+  text-align: right;
+  width: 50px;
+  padding-right: 10px;
+}
+
+td.datetime {
+  text-align: right;
+  width: 110px;
+}
+
+td.torrentid {
+  text-align: right;
+}
+
+td.ipaddress {
+  text-indent: 20px;
+  width: 100px;
+}
+
+td.post {
+  width: 60px;
+}
+
+tr.showsuccess {
+  font-size: 55%;
+  background-color: #009600;
+}
+
+tr.failure {
+  font-size: 55%;
+  background-color: #AF0000;
+}
+
+tr.error {
+  font-size: 70%;
+  background-color: #AF0000;
+}
+
+tr.other {
+  font-size: 70%;
+  background-color: #DC6E00;
+}
+
+tr.showinformation {
+  font-size: 55%;
+  background-color: #454545;
+}
+
+tr.invocation {
+  font-size: 70%;
+  background-color: #000096;
+  border-top: 4px solid #DDDDEE;
+}
+
+tr.restart {
+  font-size: 70%;
+  background-color: #DDDDEE;
+  border-bottom: 10px solid #DDDDEE;
+  border-top: 10px solid #DDDDEE;
+  color: #AA0000;
+}
+
+tr.hidesuccess, tr.hideinformation {
+  display: none;
+}
+
+table.logs tr > td:first-of-type {
+  text-align: right;
+  vertical-align: middle;
+  width: 15px;
+  padding: 0px;
+}
+
+tr.invocation img {
+    display: inline-block;
+    margin: 0px;
+    -webkit-filter: brightness(9) saturate(9);
+    filter: brightness(9) saturate(9);
+    height: 6px;
+    width: 6px;
+}
+
+tr.invocation:hover img {
+    -webkit-filter: invert(0%);
+    filter: invert(0%);
+}
+
+
+

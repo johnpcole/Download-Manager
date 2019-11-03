@@ -1,0 +1,102 @@
+tbody.copystate_succeeded > tr, tbody.scrapestate_succeeded > tr  {
+    background-color: #009600;
+}
+
+tbody.copystate_failed > tr, tbody.scrapestate_failed > tr {
+    background-color: #AF0000;
+}
+
+tbody.copystate_queued > tr, tbody.scrapestate_queued > tr {
+    background-color: #454545;
+}
+
+tbody.copystate_inprogress > tr, tbody.scrapestate_inprogress > tr {
+    background-color: #000096;
+}
+
+tbody.copystate_confirm > tr, tbody.scrapestate_confirm > tr {
+    background-color: #DC6E00;
+}
+
+tbody.copystate_abandoned > tr, tbody.scrapestate_abandoned > tr {
+    background-color: #000000;
+    color: #888888;
+}
+
+table.copier img {
+    display: inline-block;
+    margin: 5px;
+    height: 30px;
+    width: 30px;
+    padding: 0px;
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+}
+
+tbody.copystate_abandoned img, tbody.scrapestate_abandoned img {
+    -webkit-filter: invert(100%) brightness(50%);
+    filter: invert(100%) brightness(50%);
+}
+
+
+
+
+/* Icon Cell */
+table.copier > tbody > tr:first-of-type > td:first-of-type {
+    width: 60px;
+    text-align: center;
+}
+
+table.copier > tbody > tr:first-of-type > td:nth-of-type(2) {
+    padding-right: 15px;
+    padding-bottom: 0px;
+    padding-top: 7px;
+    vertical-align: top;
+}
+
+table.copier td {
+    vertical-align: middle;
+}
+
+table.copier > tbody > tr:nth-of-type(2) > td {
+    font-size: x-small;
+    padding-right: 15px;
+    padding-bottom: 8px;
+    vertical-align: bottom;
+}
+
+tbody.copystate_succeeded, tbody.copystate_failed, tbody.copystate_confirm {
+    cursor: pointer;
+}
+
+tbody.copystate_succeeded:hover, tbody.copystate_failed:hover, tbody.copystate_confirm:hover {
+    color:#000000;
+}
+
+tbody.copystate_succeeded:hover td, tbody.copystate_failed:hover td, tbody.copystate_confirm:hover td {
+    background-color: #FFFF55;
+}
+
+tbody.copystate_succeeded:hover img, tbody.copystate_failed:hover img, tbody.copystate_confirm:hover img {
+    -webkit-filter: invert(0%);
+    filter: invert(0%);
+}
+
+table.copier > tbody > tr:nth-of-type(2) > td:nth-of-type(2) {
+    width: 165px;
+    text-align: right;
+}
+
+table.copier > tbody > tr:nth-of-type(2) {
+    border-bottom: 3px solid #DDDDEE;
+}
+
+table.copier > tbody:last-of-type > tr:nth-of-type(2) {
+    border-bottom: none;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+    text-decoration-style: double;
+    color: #AAAAAA;
+}
