@@ -46,7 +46,6 @@ function updateTorrentState()
         success: function(data)
         {
             if (data.selectedtorrent.filechangealert == true) {
-                alert("breakpoint");
                 window.location.replace("/Torrent="+getCurrentTorrentId());
             } else {
                 updateTorrentStateDisplay(data.selectedtorrent, data.copyqueuestate);
