@@ -37,15 +37,15 @@ function updateTorrentConfigFields(editinfo, listitems)
     changeTorrentType(editinfo.torrenttype);
     setFieldValue('moviename', editinfo.moviename);
     setFieldValue('movieyear', editinfo.movieyear);
-    repopulateDropDownList('tvshowselector', listitems.tvshows)
+    repopulateDropDownList('tvshowselector', listitems.tvshows);
     setDropDownValue('tvshowselector', editinfo.tvshowname);
     updateTVShowSeasonsList(listitems.tvshowseasons, editinfo.tvshowseason);
     var filelist = editinfo.files;
     $.each(filelist, function(index)
     {
-        var currentfile = filelist[index]
+        var currentfile = filelist[index];
         changeFileDesignation(currentfile.fileid, currentfile.outcome);
-        populateFileDropDownLists(currentfile.filetype, currentfile.fileid, listitems)
+        populateFileDropDownLists(currentfile.filetype, currentfile.fileid, listitems);
         if (currentfile.outcome == "copy") {
             if (editinfo.torrenttype == "tvshow") {
                 setDropDownValue('episodeselector-'+currentfile.fileid, currentfile.episodeselector);
@@ -65,7 +65,7 @@ function populateFileDropDownLists(filetype, fileindex, listitems)
     if (filetype != "none") {
         repopulateDropDownList('episodeselector-'+fileindex, listitems.episodes);
         if (filetype == "subtitle") {
-            repopulateDropDownList('subtitleselector-'+fileindex, listitems.subtitles)
+            repopulateDropDownList('subtitleselector-'+fileindex, listitems.subtitles);
         };
     };
 };

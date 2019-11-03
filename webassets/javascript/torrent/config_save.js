@@ -3,8 +3,8 @@
 
 function saveTorrentConfiguration()
 {
-    var newtype = getNewTorrentType()
-    var newinstructions = {}
+    var newtype = getNewTorrentType();
+    var newinstructions = {};
     if (newtype == 'tvshow') {
         newinstructions = { 'torrenttype' : newtype, 'tvshowname' : getFieldValue("tvshowselector"), 'season' : getFieldValue('tvshowseasonselector'), 'fileinstructions' : getFileInstructions("tvshow") };
     } else if (newtype == 'movie') {
@@ -55,7 +55,7 @@ function updateTorrentConfigDisplay(dataitem)
     {
         rerenderText("filetitle-"+filelist[index].fileid, filelist[index].filetitle);
         rerenderImage("outcome-"+filelist[index].fileid, "fileactions/"+filelist[index].outcome, 'png');
-        var filetypelabel = getImageName("filetype-"+filelist[index].fileid)
+        var filetypelabel = getImageName("filetype-"+filelist[index].fileid);
         updateFileTileColour("File-"+filelist[index].fileid, filetypelabel, filelist[index].outcome);
     });
 
@@ -98,12 +98,12 @@ function getFileControlStates()
         if (getButtonState('MakeIgnore-'+fileid) == 'Disabled') {
             fileinstructions.push([fileid, "ignore", "no-episode", "no-filetype", "no-subtitle"]);
         } else {
-            filetype = getImageName("filetype-"+fileid)
+            filetype = getImageName("filetype-"+fileid);
             if (filetype == "subtitle") {
-                subflag = getFieldValue("subtitleselector-"+fileid)
+                subflag = getFieldValue("subtitleselector-"+fileid);
             } else {
-                subflag = "-"
-            }
+                subflag = "-";
+            };
             fileinstructions.push([fileid, "copy", getFieldValue("episodeselector-"+fileid), filetype, subflag]);
         };
     };
