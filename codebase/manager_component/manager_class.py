@@ -31,7 +31,7 @@ class DefineTorrentSet:
 
 		Logging.printinvocation("Loading All Torrents List Page", "")
 		self.delugemanager.queuenewrefreshaction()
-		if self.areconfigsloaded == False:
+		if self.areconfigsloaded is False:
 			return {'waitingforinitialisation': True}
 		else:
 			return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
@@ -97,10 +97,10 @@ class DefineTorrentSet:
 
 	def initialisetorrentpage(self, torrentid):
 
-		if self.areconfigsloaded == False:
+		if self.areconfigsloaded is False:
 			return {'waitingforinitialisation': True}
 		else:
-			if self.torrentmanager.validatetorrentid(torrentid) == True:
+			if self.torrentmanager.validatetorrentid(torrentid) is True:
 				Logging.printinvocation("Loading Specific Torrent Page", torrentid)
 				self.delugemanager.queuenewrefreshaction()
 				return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
@@ -116,7 +116,7 @@ class DefineTorrentSet:
 
 	def updatetorrentpage(self, torrentid):
 
-		if self.torrentmanager.validatetorrentid(torrentid) == True:
+		if self.torrentmanager.validatetorrentid(torrentid) is True:
 			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
 			self.delugemanager.queuenewrefreshaction()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
@@ -131,7 +131,7 @@ class DefineTorrentSet:
 
 	def performtorrentaction(self, torrentid, torrentaction):
 
-		if self.torrentmanager.validatetorrentid(torrentid) == True:
+		if self.torrentmanager.validatetorrentid(torrentid) is True:
 			if torrentaction == "Start":
 				Logging.printinvocation("Starting Torrent", torrentid)
 				self.delugemanager.queuenewresumetorrentaction(torrentid)
@@ -154,7 +154,7 @@ class DefineTorrentSet:
 
 	def copytorrent(self, torrentid):
 
-		if self.torrentmanager.validatetorrentid(torrentid) == True:
+		if self.torrentmanager.validatetorrentid(torrentid) is True:
 			Logging.printinvocation("Initiating Torrent Copy", torrentid)
 			self.copiermanager.queuenewfilecopyactions(self.torrentmanager.getcopyactions(torrentid))
 			return {'copydata': "Queued"}
@@ -169,7 +169,7 @@ class DefineTorrentSet:
 
 	def deletetorrent(self, torrentid):
 
-		if self.torrentmanager.validatetorrentid(torrentid) == True:
+		if self.torrentmanager.validatetorrentid(torrentid) is True:
 			Logging.printinvocation("Deleting Torrent", torrentid)
 			self.torrentmanager.markasdeteled(torrentid)
 			self.delugemanager.queuenewdeletetorrentaction(torrentid)
@@ -186,7 +186,7 @@ class DefineTorrentSet:
 	def reconfiguretorrentconfiguration(self, torrentid, newconfiguration):
 
 		#Waste.time()
-		if self.torrentmanager.validatetorrentid(torrentid) == True:
+		if self.torrentmanager.validatetorrentid(torrentid) is True:
 			Logging.printinvocation("Saving Reconfigured Torrent", torrentid)
 			self.torrentmanager.reconfiguretorrent(torrentid, newconfiguration)
 			ConfigFile.savetorrentconfigs(self.torrentmanager.getconfigs())
@@ -202,7 +202,7 @@ class DefineTorrentSet:
 
 	def edittorrentconfiguration(self, torrentid):
 
-		if self.torrentmanager.validatetorrentid(torrentid) == True:
+		if self.torrentmanager.validatetorrentid(torrentid) is True:
 			Logging.printinvocation("Starting Torrent Reconfiguration", torrentid)
 			#Waste.time()
 			torrentdata = self.torrentmanager.gettorrentdata(torrentid, "prepareedit")
@@ -243,7 +243,7 @@ class DefineTorrentSet:
 
 	def displaylogs(self, verboseloggingmode):
 
-		if verboseloggingmode == True:
+		if verboseloggingmode is True:
 			logkind = "Verbose Log"
 		else:
 			logkind = "Log"
@@ -338,7 +338,7 @@ class DefineTorrentSet:
 
 		if torrentdata is not None:
 			self.torrentmanager.refreshtorrentlist(torrentdata)
-			if self.areconfigsloaded == False:
+			if self.areconfigsloaded is False:
 				self.torrentmanager.setconfigs(ConfigFile.loadtorrentconfigs())
 				self.areconfigsloaded = True
 			if sessiondata is not None:
@@ -349,7 +349,7 @@ class DefineTorrentSet:
 			outcome = self.monitormanager.addtohistory()
 			ConfigFile.savemonitor(outcome)
 
-		if self.areconfigsloaded == False:
+		if self.areconfigsloaded is False:
 			self.delugemanager.queuenewrefreshaction()
 
 		return self.delugemanager.getnextoperatoraction()

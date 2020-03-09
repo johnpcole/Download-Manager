@@ -162,7 +162,7 @@ class DefineFile:
 	def gettitlebase(self):
 
 		outcome = ""
-		if self.filetype.get("none") == False:
+		if self.filetype.get("none") is False:
 			if self.filepurpose == "ignore":
 				outcome = "Ignored"
 			else:
@@ -170,9 +170,9 @@ class DefineFile:
 				subtitle = self.getsubtitlepart()
 				if subtitle != "":
 					outcome = outcome + " " + subtitle
-			if self.filetype.get("video") == True:
+			if self.filetype.get("video") is True:
 				outcome = outcome + " Video File"
-			elif self.filetype.get("subtitle") == True:
+			elif self.filetype.get("subtitle") is True:
 				outcome = outcome + " Subtitle File"
 		else:
 			outcome = "Ignored File"
@@ -208,7 +208,7 @@ class DefineFile:
 	def getsubtitlepart(self):
 
 		outcome = ""
-		if self.filetype.get("subtitle") == True:
+		if self.filetype.get("subtitle") is True:
 			outcome = "Unknown"
 			rawsplit = self.filepurpose.split("_")
 			if len(rawsplit) > 1:

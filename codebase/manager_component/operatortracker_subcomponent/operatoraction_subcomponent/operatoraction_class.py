@@ -25,7 +25,7 @@ class DefineOperatorActionItem:
 
 	def isduplicate(self, action, context):
 
-		if (self.actiontype.get(action) == True) and (self.context == context):
+		if (self.actiontype.get(action) is True) and (self.context == context):
 			outcome = True
 		else:
 			outcome = False

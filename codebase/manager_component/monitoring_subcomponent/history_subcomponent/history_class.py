@@ -60,7 +60,7 @@ class DefineHistory:
 			threshold.adjustdays(-11)
 			newhistorylist = []
 			for historyitem in self.monitorhistory:
-				if DateTime.isfirstlaterthansecond(historyitem.getdatetime(), threshold) == True:
+				if DateTime.isfirstlaterthansecond(historyitem.getdatetime(), threshold) is True:
 					newhistorylist.append(historyitem)
 
 			self.monitorhistory = newhistorylist.copy()
@@ -75,13 +75,13 @@ class DefineHistory:
 		currentlonghistoryitem = HistoryItem.createblank(DateTime.createfromiso("20100101000000"))
 		for historyitem in self.monitorhistory:
 			newhour = historyitem.getdatetime()
-			if EraFunctions.compareeras(newhour, currentlonghistoryitem.getdatetime(), 5) == True:
+			if EraFunctions.compareeras(newhour, currentlonghistoryitem.getdatetime(), 5) is True:
 				currentlonghistoryitem.cumulate(historyitem)
 			else:
 				outcome.append(currentlonghistoryitem)
 				currentlonghistoryitem = HistoryItem.createblank(EraFunctions.geteraasobject(newhour, 5))
 				currentlonghistoryitem.cumulate(historyitem)
-		if EraFunctions.compareeras(currentlonghistoryitem.getdatetime(), DateTime.getnow(), 5) == False:
+		if EraFunctions.compareeras(currentlonghistoryitem.getdatetime(), DateTime.getnow(), 5) is False:
 			outcome.append(currentlonghistoryitem)
 		return outcome
 

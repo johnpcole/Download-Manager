@@ -85,7 +85,7 @@ class DefineGraphing:
 														self.determinegraphwidth(graphindex + 1),
 														self.determinegraphbottom(1)))
 
-			if longhistorymode == True:
+			if longhistorymode is True:
 		# Status bars for graphs 1 & 4
 				graphset.addto(graphindex, Graph.createstatusbars(
 										self.determineorigintimedate(currentdatetime, graphindex, longhistorymode),
@@ -126,7 +126,7 @@ class DefineGraphing:
 
 	def determinecorrecterasize(self, longhistorymode):
 
-		if longhistorymode == False:
+		if longhistorymode is False:
 			graph = self.shorterasize
 		else:
 			graph = self.longerasize
@@ -137,13 +137,13 @@ class DefineGraphing:
 
 		graph = DateTime.createfromobject(currenttimedate)
 		if graphindex > 3:
-			if longhistorymode == True:
+			if longhistorymode is True:
 				graph.adjusthours(0 - self.narrowlongoriginoffset)
 			else:
 				graph.adjusthours(0 - self.narrowshortoriginoffset)
 				graph.adjustminutes(0 - self.narrowshortoriginoffsetminutes)
 		else:
-			if longhistorymode == True:
+			if longhistorymode is True:
 				graph.adjusthours(0 - self.widelongoriginoffset)
 			else:
 				graph.adjusthours(0 - self.wideshortoriginoffset)

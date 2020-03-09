@@ -5,7 +5,7 @@
 
 def converttriplettoelapseddays(day, month, year):
 
-	if isdatevalid(day, month, year) == True:
+	if isdatevalid(day, month, year) is True:
 		outcome = extractelapseddaysfromyear(year) + extractelapseddaysfrommonth(month, year) + day
 	else:
 		outcome = -999
@@ -36,7 +36,7 @@ def convertelapseddaystotriplet(daysintomillennium):
 
 def converttriplettoiso(day, month, year):
 
-	if isdatevalid(day, month, year) == True:
+	if isdatevalid(day, month, year) is True:
 		monthstring = str(month)
 		if len(monthstring) < 2:
 			monthstring = "0" + monthstring
@@ -78,7 +78,7 @@ def convertisototriplet(datestring):
 
 def extractelapseddaysfromyear(year):
 
-	if isyearvalid(year) == True:
+	if isyearvalid(year) is True:
 		yearssincetwothousand = year - 2000
 		daycount = 0
 		if yearssincetwothousand > 0:
@@ -97,7 +97,7 @@ def extractelapseddaysfromyear(year):
 
 def extractelapseddaysfrommonth(month, year):
 
-	if ismonthvalid(month) == True:
+	if ismonthvalid(month) is True:
 		monthdaycounts = getlistofmonthdays(isleapyear(year))
 		totaldaycount = 0
 		for currentmonth in range(0, 11):
@@ -181,7 +181,7 @@ def extractmonthfromdays(daysintocurrentyear, isleapyear):
 
 def getlistofmonthdays(isyearleapyear):
 
-	if isyearleapyear == True:
+	if isyearleapyear is True:
 		februarydaycount = 29
 	else:
 		februarydaycount = 28
@@ -197,7 +197,7 @@ def getlistofmonthdays(isyearleapyear):
 
 def getdaysinmonth(month, isyearleapyear):
 
-	if ismonthvalid(month) == True:
+	if ismonthvalid(month) is True:
 		monthdays = getlistofmonthdays(isyearleapyear)
 		outcome = monthdays[month - 1]
 	else:
@@ -214,7 +214,7 @@ def getdaysinmonth(month, isyearleapyear):
 
 def getdaysinyear(isyearleapyear):
 
-	if isyearleapyear == True:
+	if isyearleapyear is True:
 		daycount = 366
 	else:
 		daycount = 365
@@ -259,7 +259,7 @@ def ismonthvalid(month):
 
 def isdatevalid(day, month, year):
 
-	if (ismonthvalid(month) == True) and (isyearvalid(year) == True):
+	if (ismonthvalid(month) is True) and (isyearvalid(year) is True):
 		if (day > 0) and (day < 1 + getdaysinmonth(month, isleapyear(year))):
 			outcome = True
 		else:

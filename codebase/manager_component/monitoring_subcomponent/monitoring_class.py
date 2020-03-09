@@ -48,7 +48,7 @@ class DefineMonitor:
 
 	def getdashboardmeters(self, isdatarecent):
 
-		if isdatarecent == True:
+		if isdatarecent is True:
 			outcome = self.dashboardmeters.getmetergraphics()
 			if self.networkstatus == 1:
 				outcome['networkstatus'] = "vpn_up"

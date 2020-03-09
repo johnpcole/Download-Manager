@@ -57,7 +57,7 @@ def savemonitor(monitordata):
 	datestamp = monitordata[:8]
 	filename = './data/monitor_history/history_' + datestamp + '.db'
 
-	if FileSystem.doesexist(filename) == True:
+	if FileSystem.doesexist(filename) is True:
 		appendflag = "Append"
 	else:
 		appendflag = "Overwrite"
@@ -74,7 +74,7 @@ def getmonitor(filenamelist):
 	for filenameitem in filenamelist:
 		filename = './data/monitor_history/history_' + filenameitem + '.db'
 
-		if FileSystem.doesexist(filename) == True:
+		if FileSystem.doesexist(filename) is True:
 			loggingitems = ConfigFile.readgeneralfile(filename)
 			outcome.extend(loggingitems)
 

@@ -66,7 +66,7 @@ def sanitisetext(rawtext):
 
 	if stringsize > 0:
 
-		if rawtext.isalnum() == True:
+		if rawtext.isalnum() is True:
 			outcome = rawtext
 
 		else:

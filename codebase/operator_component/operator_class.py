@@ -61,7 +61,7 @@ class DefineOperator:
 			outcome['action'] = instructionset['action']
 			outcome['context'] = instructionset['context']
 
-		if (outcome['action'] == "Null") and (monitormode == True):
+		if (outcome['action'] == "Null") and (monitormode is True):
 			outcome['action'] = "Refresh"
 			outcome['context'] = "None"
 

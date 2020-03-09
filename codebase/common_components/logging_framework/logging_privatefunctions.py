@@ -99,7 +99,7 @@ def determineoutputtype(outputstring, loggingmode):
 			if outputstring.find("[DOWNLOAD-MANAGER] > ") != -1:
 				outcome = "DOWNLOAD-MANAGER-INSTRUCTION"
 			else:
-				if (loggingmode == True) or (outputstring.find("[DOWNLOAD-MANAGER] - ") == -1):
+				if (loggingmode is True) or (outputstring.find("[DOWNLOAD-MANAGER] - ") == -1):
 					outcome = "DOWNLOAD-MANAGER-LOG"
 				else:
 					outcome = "IGNORE"

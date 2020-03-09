@@ -27,11 +27,11 @@ class DefineFileManager:
 
 		copydetail["Source File"] = self.getfiledetails(sourcelocation)
 
-		if connectionoutcome == True:
+		if connectionoutcome is True:
 
-			if FileSystem.doesexist(targetlocation) == True:
+			if FileSystem.doesexist(targetlocation) is True:
 				copydetail["Existing File"] = self.getfiledetails(targetlocation)
-				if forcemode == True:
+				if forcemode is True:
 					proceedwithcopy = True
 				else:
 					outcome = "Confirm"
@@ -41,9 +41,9 @@ class DefineFileManager:
 			copydetail["Error"] = "Cannot connect to Server"
 
 
-		if proceedwithcopy == True:
+		if proceedwithcopy is True:
 			actionoutcome = self.copyafile(sourcelocation, targetlocation)
-			if actionoutcome == True:
+			if actionoutcome is True:
 				outcome = "Succeeded"
 				copydetail["New Copied File"] = self.getfiledetails(targetlocation)
 			else:
@@ -84,7 +84,7 @@ class DefineFileManager:
 		tvshows = {}
 		outcome = "Failed"
 		connectionoutcome = self.serverconnection.connecttofileserver("Scrape TV Shows")
-		if connectionoutcome == True:
+		if connectionoutcome is True:
 			rootfolder = self.serverconnection.getserverpath("TV Shows")
 			rootlisting = FileSystem.getfolderlisting(rootfolder)
 			outcome = "Succeeded"

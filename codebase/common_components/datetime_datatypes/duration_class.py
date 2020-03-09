@@ -24,7 +24,7 @@ class DefineDuration:
 
 	def setfromvalues(self, dvalue, dunit):
 
-		if DurationFunction.isdurationunitvalid(dunit) == True:
+		if DurationFunction.isdurationunitvalid(dunit) is True:
 			self.dvalue = DurationFunction.convertunit(dvalue, dunit, "Seconds")
 		else:
 			self.dvalue = 0
@@ -70,7 +70,7 @@ class DefineDuration:
 
 	def getvalue(self, unitlabel):
 
-		if DurationFunction.isdurationunitvalid(unitlabel) == True:
+		if DurationFunction.isdurationunitvalid(unitlabel) is True:
 			outcome = DurationFunction.convertunit(self.dvalue, "Seconds", unitlabel)
 		else:
 			outcome = 0

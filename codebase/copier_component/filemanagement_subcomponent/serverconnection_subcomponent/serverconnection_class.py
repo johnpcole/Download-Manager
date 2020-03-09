@@ -25,7 +25,7 @@ class DefineConnection:
 		outcome = False
 		tries = 0
 		while tries < self.retrylimit:
-			if self.determineconnectionstate() == True:
+			if self.determineconnectionstate() is True:
 				tries = 9999
 			else:
 				connectionoutcome = FileSystem.mountnetworkdrive(self.mountpoint, self.networkpath, self.username,
@@ -44,7 +44,7 @@ class DefineConnection:
 		outcome = False
 		tries = 0
 		while tries < self.retrylimit:
-			if self.determineconnectionstate() == False:
+			if self.determineconnectionstate() is False:
 				tries = 9999
 			else:
 				connectionoutcome = FileSystem.unmountnetworkdrive(self.mountpoint)
@@ -60,8 +60,8 @@ class DefineConnection:
 	def determineconnectionstate(self):
 
 		outcome = False
-		if FileSystem.doesexist(FileSystem.concatenatepaths(self.mountpoint, "TV Shows")) == True:
-			if FileSystem.doesexist(FileSystem.concatenatepaths(self.mountpoint, "Movies")) == True:
+		if FileSystem.doesexist(FileSystem.concatenatepaths(self.mountpoint, "TV Shows")) is True:
+			if FileSystem.doesexist(FileSystem.concatenatepaths(self.mountpoint, "Movies")) is True:
 				outcome = True
 
 		return outcome

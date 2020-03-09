@@ -86,7 +86,7 @@ class DefineCopierTracker:
 
 		outcome = False
 		if copyid in self.copieractions.keys():
-			if self.copieractions[copyid].isvalidscrapedata() == True:
+			if self.copieractions[copyid].isvalidscrapedata() is True:
 				outcome = True
 		return outcome
 
@@ -126,7 +126,7 @@ class DefineCopierTracker:
 				if nextactionid == self.nullaction:
 					nextactionid = actionid
 
-		if inprogressflag == True:
+		if inprogressflag is True:
 			nextactionid = self.nullaction
 			Logging.printrawline("Looking for a new item in queue, but there is already an In Progress item")
 
@@ -155,7 +155,7 @@ class DefineCopierTracker:
 
 		outcome = []
 		for actionid in self.copieractions.keys():
-			if self.copieractions[actionid].getcachestate() == True:
+			if self.copieractions[actionid].getcachestate() is True:
 				outcome.append(self.copieractions[actionid].getcopierpageupdatedata(actionid))
 
 		return outcome

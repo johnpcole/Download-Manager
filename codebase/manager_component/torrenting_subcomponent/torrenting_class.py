@@ -62,7 +62,7 @@ class DefineTorrentManager:
 	def refreshalltorrentdata(self, torrentdata):
 
 		for torrentid in torrentdata.keys():
-			if self.validatetorrentid(torrentid) == True:
+			if self.validatetorrentid(torrentid) is True:
 				torrentobject = self.gettorrentobject(torrentid)
 				torrentobject.updateinfo(torrentdata[torrentid])
 
@@ -75,7 +75,7 @@ class DefineTorrentManager:
 		sortedtorrentslist = Functions.sortdictionary(self.torrents, 'dateadded', True)
 
 		for torrentitem in sortedtorrentslist:
-			if torrentitem.isvisible() == True:
+			if torrentitem.isvisible() is True:
 				outcome.append(torrentitem.getheadlinedata(datamode))
 
 		return outcome
@@ -136,7 +136,7 @@ class DefineTorrentManager:
 
 		for torrentiditem in torrentidlist:
 
-			if self.validatetorrentid(torrentiditem) == False:
+			if self.validatetorrentid(torrentiditem) is False:
 				self.torrents.append(TorrentData.createitem(torrentiditem))
 				Logging.printout("Registering Torrent in Download-Manager: " + torrentiditem)
 				#print("Registering Torrent in Download-Manager: " + torrentiditem)
@@ -159,7 +159,7 @@ class DefineTorrentManager:
 					cleanlist.append(existingtorrent)
 					foundflag = True
 
-			if foundflag == False:
+			if foundflag is False:
 				Logging.printout("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
 				#print("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
 
@@ -193,7 +193,7 @@ class DefineTorrentManager:
 
 		outcome = []
 		for torrentitem in self.torrents:
-			if torrentitem.isvisible() == True:
+			if torrentitem.isvisible() is True:
 				outcome.append(torrentitem.getid())
 
 		return outcome

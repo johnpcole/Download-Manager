@@ -63,14 +63,14 @@ def rendercopyresults(results, statusenum, targetpath):
 		datetimes.append("")
 
 	if "Existing File" in results.keys():
-		if statusenum.get("Succeeded") == True:
+		if statusenum.get("Succeeded") is True:
 			description = "The pre-existing file was overwritten with the downloaded file"
-		elif statusenum.get("Confirm") == True:
+		elif statusenum.get("Confirm") is True:
 			description = "The pre-existing file will be overwritten if you confirm this copy action"
 		else:
 			description = "The pre-existing file may have been compromised by the failed copy action"
 	else:
-		if statusenum.get("Succeeded") == True:
+		if statusenum.get("Succeeded") is True:
 			description = "The downloaded file was successfully copied"
 		else:
 			description = "The downloaded file was <b>NOT</b> successfully copied"

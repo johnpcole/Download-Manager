@@ -17,7 +17,7 @@ class DefineDelayer:
 
 		nowdatetime = DateTime.getnow()
 
-		if EraFunctions.compareeras(nowdatetime, self.latestcall, self.erasize) == False:
+		if EraFunctions.compareeras(nowdatetime, self.latestcall, self.erasize) is False:
 			self.latestcall.setfromobject(nowdatetime)
 			outcome = True
 		else:

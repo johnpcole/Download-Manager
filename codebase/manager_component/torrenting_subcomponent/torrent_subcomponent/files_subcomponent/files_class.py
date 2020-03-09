@@ -59,7 +59,7 @@ class DefineFiles:
 			if existingfile is None:
 				self.files.append(File.createfile(fileitem['index'], fileitem['path'], fileitem['size']))
 				self.filechangeflag = True
-		if self.filechangeflag == True:
+		if self.filechangeflag is True:
 			self.files = Functions.sortdictionary(self.files, 'sanitisedfilename', False)
 			outcome = []
 			for currentfiletype in ["video", "subtitle", "none"]:

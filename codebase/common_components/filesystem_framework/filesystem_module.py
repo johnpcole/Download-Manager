@@ -96,9 +96,9 @@ def getfolderlisting(folderpath):
 
 		for listitem in listing:
 			fullitempath = OperatingSystem.path.join(folderpath, listitem)
-			if OperatingSystem.path.isfile(fullitempath) == True:
+			if OperatingSystem.path.isfile(fullitempath) is True:
 				itemtype = "File"
-			elif OperatingSystem.path.isdir(fullitempath) == True:
+			elif OperatingSystem.path.isdir(fullitempath) is True:
 				itemtype = "Folder"
 			else:
 				itemtype = "Unknown"

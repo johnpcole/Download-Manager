@@ -211,7 +211,7 @@ def createtitles(longhistorymode, horizontaloffset, verticaloffset, verticalspac
 	horizontalposition = horizontaloffset + 10
 	verticalposition = verticalspacing + verticaloffset - 131
 	labellist = {1: 'Tracker Statuses', 2: 'Upload Rate', 0: 'Temperature'}
-	if longhistorymode == True:
+	if longhistorymode is True:
 		labeltext = 'Recent '
 	else:
 		labeltext = 'Latest '

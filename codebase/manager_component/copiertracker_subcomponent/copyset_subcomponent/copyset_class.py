@@ -22,12 +22,12 @@ class DefineSet:
 			if (self.torrentid == copyactionobject.gettorrentid()) or (self.torrentid == "< ALL ACTION ITEMS >"):
 				newcopystatus = copyactionobject.getstatus()
 				if (newcopystatus == "Queued") or (newcopystatus == "In Progress"):
-					if (self.copystatus.get("Nothing") == True) or (self.copystatus.get("Completed") == True):
+					if (self.copystatus.get("Nothing") is True) or (self.copystatus.get("Completed") is True):
 						self.copystatus.set("Incomplete")
 				elif (newcopystatus == "Confirm") or (newcopystatus == "Failed"):
 					self.copystatus.set("Attention")
 				elif newcopystatus == "Succeeded":
-					if self.copystatus.get("Nothing") == True:
+					if self.copystatus.get("Nothing") is True:
 						self.copystatus.set("Completed")
 
 		#print("tracker-id: ", self.torrentid, "   lookup-type: ", copyactionobject.getactiontype(),

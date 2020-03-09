@@ -385,7 +385,7 @@ class DefineDateTime:
 
 	def getdummynowfraction(self, secondsmodeflag):
 
-		if secondsmodeflag == True:
+		if secondsmodeflag is True:
 			outcome = DateTimeFunction.getcurrentsecondfraction()
 		else:
 			outcome = DateTimeFunction.getcurrentsubsecondfraction()

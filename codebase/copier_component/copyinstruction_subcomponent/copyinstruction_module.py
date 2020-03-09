@@ -38,7 +38,7 @@ def isvalidinstruction(newinstructionset):
 	else:
 		outcome = False
 
-	if outcome == False:
+	if outcome is False:
 		print("Invalid response from Download-Manager:")
 		print(newinstructionset)
 		print("====================================")

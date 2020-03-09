@@ -5,7 +5,7 @@
 
 def converttriplettoelapsedseconds(hour, minute, second):
 
-	if istimevalid(hour, minute, second) == True:
+	if istimevalid(hour, minute, second) is True:
 		outcome = ((minute + (hour * 60)) * 60) + second
 	else:
 		outcome = -9999999
@@ -37,7 +37,7 @@ def convertelapsedsecondstotriplet(secondsintoday):
 
 def converttriplettoiso(hour, minute, second):
 
-	if istimevalid(hour, minute, second) == True:
+	if istimevalid(hour, minute, second) is True:
 		hourstring = str(hour)
 		if len(hourstring) < 2:
 			hourstring = "0" + hourstring
@@ -142,7 +142,7 @@ def getreadabletime(hours, minutes, seconds, timeformat, secondsflag):
 
 
 
-	if secondsflag == True:
+	if secondsflag is True:
 		outcome = ":" + gettwodigitvalue(seconds) + outcome
 
 	return htext + ":" + gettwodigitvalue(minutes) + outcome

@@ -172,13 +172,13 @@ class DefineLibraryManager:
 			if copyitem.getstatus() == "copying":
 				startnewitem = False
 
-		if startnewitem == True:
+		if startnewitem is True:
 			for copyitem in self.copyactions:
-				if continueprocessing == False:
-					if copyitem.startaction() == True:
+				if continueprocessing is False:
+					if copyitem.startaction() is True:
 						continueprocessing = True
 
-		if actionoutcome == True:
+		if actionoutcome is True:
 			continueprocessing = True
 
 		return continueprocessing

@@ -44,18 +44,18 @@ class DefineCopierActionItem:
 
 		self.cacheupdateflag = True
 		if intervention == "Abandon":
-			if (self.status.get("Failed") == True) or (self.status.get("Confirm") == True):
+			if (self.status.get("Failed") is True) or (self.status.get("Confirm") is True):
 				self.status.set("Abandoned")
 			else:
 				print("Invalid Abandon intervention for status ",self.status.displaycurrent())
 		elif intervention == "Overwrite":
-			if self.status.get("Confirm") == True:
+			if self.status.get("Confirm") is True:
 				self.status.set("Queued")
 				self.forcecopy = True
 			else:
 				print("Invalid Overwrite intervention for status ", self.status.displaycurrent())
 		elif intervention == "Retry":
-			if self.status.get("Failed") == True:
+			if self.status.get("Failed") is True:
 				self.status.set("Queued")
 			else:
 				print("Invalid Retry intervention for status ",self.status.displaycurrent())
@@ -86,8 +86,8 @@ class DefineCopierActionItem:
 	def isvalidscrapedata(self):
 
 		outcome = False
-		if self.actiontype.get("Scrape TV Shows") == True:
-			if self.status.get("Succeeded") == True:
+		if self.actiontype.get("Scrape TV Shows") is True:
+			if self.status.get("Succeeded") is True:
 				outcome = True
 
 		return outcome
@@ -98,7 +98,7 @@ class DefineCopierActionItem:
 
 		outcome = {'action': self.actiontype.displaycurrent(),
 					'copyid': nextactionid}
-		if self.actiontype.get("Copy File") == True:
+		if self.actiontype.get("Copy File") is True:
 			outcome['source'] = self.source
 			outcome['target'] = self.target
 			outcome['overwrite'] = self.forcecopy
@@ -113,7 +113,7 @@ class DefineCopierActionItem:
 					'copyid': actionid,
 					'datetimestamp': Functions.sanitisecopydatetimestamp(actionid)}
 
-		if self.actiontype.get("Copy File") == True:
+		if self.actiontype.get("Copy File") is True:
 			outcome['target'] = Functions.sanitisetargetpath(self.target)
 			outcome['source'] = self.source
 			outcome['torrentid'] = self.torrentid
@@ -147,7 +147,7 @@ class DefineCopierActionItem:
 
 	def getcopieractiondetail(self):
 
-		if self.actiontype.get("Copy File") == True:
+		if self.actiontype.get("Copy File") is True:
 			outcome = Functions.rendercopyresults(self.resultdetail, self.status, self.target)
 		else:
 			dummydata = [["", ""], ["", ""]]

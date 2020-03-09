@@ -39,7 +39,7 @@ class DefineCategory:
 
 	def getmoviename(self):
 
-		if self.torrenttype.get("movie") == True:
+		if self.torrenttype.get("movie") is True:
 			outcome = self.movieorshowname
 		else:
 			outcome = ""
@@ -54,7 +54,7 @@ class DefineCategory:
 
 	def getshowname(self):
 
-		if self.torrenttype.get("tvshow") == True:
+		if self.torrenttype.get("tvshow") is True:
 			outcome = self.movieorshowname
 		else:
 			outcome = ""
@@ -69,7 +69,7 @@ class DefineCategory:
 
 	def getseason(self):
 
-		if self.torrenttype.get("tvshow") == True:
+		if self.torrenttype.get("tvshow") is True:
 			outcome = self.seasonoryear
 		else:
 			outcome = ""
@@ -84,7 +84,7 @@ class DefineCategory:
 
 	def getyear(self):
 
-		if self.torrenttype.get("movie") == True:
+		if self.torrenttype.get("movie") is True:
 			outcome = self.seasonoryear
 		else:
 			outcome = ""
@@ -121,7 +121,7 @@ class DefineCategory:
 
 	def settype(self, newvalue):
 
-		if self.torrenttype.checkexists(newvalue) == True:
+		if self.torrenttype.checkexists(newvalue) is True:
 			self.torrenttype.set(newvalue)
 		else:
 			assert 1 == 0, "Inappropriate Torrent Type " + newvalue
@@ -135,7 +135,7 @@ class DefineCategory:
 
 	def setmoviename(self, newvalue):
 
-		if self.torrenttype.get("movie") == False:
+		if self.torrenttype.get("movie") is False:
 			assert 1 == 0, "Cannot set movie name for non-movie"
 		self.movieorshowname = newvalue
 
@@ -147,7 +147,7 @@ class DefineCategory:
 
 	def setshowname(self, newvalue):
 
-		if self.torrenttype.get("tvshow") == False:
+		if self.torrenttype.get("tvshow") is False:
 			assert 1 == 0, "Cannot set show name for non-tv-show"
 		self.movieorshowname = newvalue
 
@@ -159,7 +159,7 @@ class DefineCategory:
 
 	def setseason(self, newvalue):
 
-		if self.torrenttype.get("tvshow") == False:
+		if self.torrenttype.get("tvshow") is False:
 			assert 1 == 0, "Cannot set season for non-tv-show"
 		self.seasonoryear = newvalue
 
@@ -171,7 +171,7 @@ class DefineCategory:
 
 	def setyear(self, newvalue):
 
-		if self.torrenttype.get("movie") == False:
+		if self.torrenttype.get("movie") is False:
 			assert 1 == 0, "Cannot set year for non-movie"
 		self.seasonoryear = newvalue
 
@@ -207,10 +207,10 @@ class DefineCategory:
 	def getdestinationfolder(self):
 
 		folders = []
-		if self.torrenttype.get("movie") == True:
+		if self.torrenttype.get("movie") is True:
 			folders.append("Movies")
 			folders.append(Functions.getinitial(self.movieorshowname))
-		elif self.torrenttype.get("tvshow") == True:
+		elif self.torrenttype.get("tvshow") is True:
 			folders.append("TV Shows")
 			folders.append(self.movieorshowname)
 			if self.seasonoryear != "":

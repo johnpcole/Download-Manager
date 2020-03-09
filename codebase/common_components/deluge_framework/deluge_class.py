@@ -42,7 +42,7 @@ class DefineDelugeInterface:
 
 		# Logging.printout("- Connecting to Deluge Daemon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(" + reasontext + ")</small>")
 		try:
-			while self.delugeinterface.connected == False:
+			while self.delugeinterface.connected is False:
 				self.delugeinterface.connect()
 		# print "========================================================="
 		# print self.delugeinterface.call('client.api_methods')
@@ -67,7 +67,7 @@ class DefineDelugeInterface:
 	def closeconnection(self):
 
 		try:
-			while self.delugeinterface.connected == True:
+			while self.delugeinterface.connected is True:
 				self.delugeinterface.disconnect()
 			outcome = self.delugeinterface.connected
 		except Exception as errortype:
@@ -115,16 +115,16 @@ class DefineDelugeInterface:
 				itemdata = rawtorrentdata[itemkey]
 				newkeyname = itemkey.decode("utf-8", "ignore")
 
-				if isinstance(itemdata, bytes) == True:
+				if isinstance(itemdata, bytes) is True:
 					outcome[newkeyname] = itemdata.decode("utf-8", "ignore")
 
-				elif isinstance(itemdata, tuple) == True:
+				elif isinstance(itemdata, tuple) is True:
 					newlist = []
 					for subitem in itemdata:
 						newsubdictionary = {}
 						for subitemkey in subitem:
 							newsubitemkey = subitemkey.decode("utf-8", "ignore")
-							if isinstance(subitem[subitemkey], bytes) == True:
+							if isinstance(subitem[subitemkey], bytes) is True:
 								newsubitemdata = subitem[subitemkey].decode("utf-8", "ignore")
 							else:
 								newsubitemdata = subitem[subitemkey]

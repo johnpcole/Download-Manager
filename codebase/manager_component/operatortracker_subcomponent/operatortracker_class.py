@@ -53,7 +53,7 @@ class DefineOperatorTracker:
 	def cleanrefreshactionsout(self):
 		foundindexes = []
 		for actionindex in self.operatoractions.keys():
-			if self.operatoractions[actionindex].isrefresh() == True:
+			if self.operatoractions[actionindex].isrefresh() is True:
 				foundindexes.append(actionindex)
 		if len(foundindexes) > 0:
 			for actionindex in foundindexes:
@@ -136,10 +136,10 @@ class DefineOperatorTracker:
 		duplicatefound = False
 		for existingactionid in self.operatoractions.keys():
 			existingaction = self.operatoractions[existingactionid]
-			if existingaction.isduplicate(action, context) == True:
+			if existingaction.isduplicate(action, context) is True:
 				duplicatefound = True
 
-		if duplicatefound == False:
+		if duplicatefound is False:
 			newindex = self.generateindex()
 		#	print("=============================================================================")
 		#	print("=============================================================================")
@@ -160,7 +160,7 @@ class DefineOperatorTracker:
 	#	outcome = 0
 	#	for actionindex in self.operatoractions.keys():
 	#		existingaction = self.operatoractions[actionindex]
-	#		if existingaction.isontorrent(torrentid) == True:
+	#		if existingaction.isontorrent(torrentid) is True:
 	#			outcome = outcome + 1
 
 	#	return outcome
@@ -173,7 +173,7 @@ class DefineOperatorTracker:
 	def hasrecentlybeenseen(self):
 
 		timedifference = DateTime.timedifferenceasduration(self.lastseen, DateTime.getnow())
-		if abs(timedifference.getsecondsvalue()) > 10:
+		if abs(timedifference.getsecondsvalue()) > 15:
 			outcome = False
 		else:
 			outcome = True

@@ -26,24 +26,24 @@ class DefineCopier:
 
 		longwait = False
 
-		if self.shouldcalldownloadmanager() == True:
+		if self.shouldcalldownloadmanager() is True:
 			self.delayer.wait(5)
 			self.scraper.posttourl(self.lastinstruction.getstatus())
 			newinstruction = self.scraper.getjsonresult()
-			if CopyInstruction.isvalidinstruction(newinstruction) == True:
-				if CopyInstruction.isalldone(newinstruction) == True:
+			if CopyInstruction.isvalidinstruction(newinstruction) is True:
+				if CopyInstruction.isalldone(newinstruction) is True:
 					longwait = self.performafinish()
 				else:
 					self.performanaction(newinstruction)
 
-		if longwait == True:
+		if longwait is True:
 			self.delayer.waitlong()
 		else:
 			self.delayer.waitshort()
 
 
 	def performanaction(self, newinstruction):
-		if CopyInstruction.isfolderrefresh(newinstruction) == True:
+		if CopyInstruction.isfolderrefresh(newinstruction) is True:
 			self.performafolderrefresh(newinstruction['copyid'])
 		else:
 			self.performafilecopy(newinstruction['copyid'], newinstruction['source'],
@@ -60,7 +60,7 @@ class DefineCopier:
 	def performafinish(self):
 		longwait = False
 		self.filemanager.gotosleep()
-		if self.lastinstruction.isalldone() == True:
+		if self.lastinstruction.isalldone() is True:
 			longwait = True
 		self.lastinstruction.setalldone()
 		return longwait
@@ -75,8 +75,8 @@ class DefineCopier:
 	def shouldcalldownloadmanager(self):
 
 		calldownloadmanager = False
-		if self.lastinstruction.isalldone() == True:
-			if self.delayer.checkdelay() == True:
+		if self.lastinstruction.isalldone() is True:
+			if self.delayer.checkdelay() is True:
 				# If the last instruction was all done, and a minute has elapsed since last time
 				calldownloadmanager = True
 		else:

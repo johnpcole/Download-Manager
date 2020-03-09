@@ -87,12 +87,12 @@ class DefineStatus:
 	def getfulltorrentstatus(self):
 
 		if self.status == "queued":
-			if self.iscompleted == True:
+			if self.iscompleted is True:
 				outcome = "seeding_queued"
 			else:
 				outcome = "downloading_queued"
 		elif self.status == "paused":
-			if self.iscompleted == True:
+			if self.iscompleted is True:
 				outcome = "seeding_paused"
 			else:
 				outcome = "downloading_paused"
@@ -152,7 +152,7 @@ class DefineStatus:
 
 	def getfinished(self):
 
-		if self.iscompleted == True:
+		if self.iscompleted is True:
 			outcome = "Completed"
 		else:
 			outcome = "In Progress"
