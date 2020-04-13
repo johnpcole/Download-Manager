@@ -18,12 +18,12 @@ def savetorrentconfigs(outputlist):
 									torrentid CHAR(40) PRIMARY KEY NOT NULL,
 									torrenttype CHAR(10) NOT NULL,
 									torrentname CHAR(100),
-									torrentseasonyear CHAR(10);''')
+									torrentseasonyear CHAR(10));''')
 
 	currentconnection.execute('''CREATE TABLE IF NOT EXISTS file(
 									fileid CHAR(40) PRIMARY KEY NOT NULL,
 									torrentid CHAR(40) NOT NULL,
-									filepurpose CHAR(20);''')
+									filepurpose CHAR(20));''')
 
 	databasetransaction = currentconnection.cursor()
 
