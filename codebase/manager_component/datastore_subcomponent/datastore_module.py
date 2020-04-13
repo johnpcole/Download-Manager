@@ -12,7 +12,7 @@ def savetorrentconfigs(outputlist):
 	Logging.printout("Saving Torrents Configuration Data")
 	#FileSystem.writetodisk('./data/torrent_configs.db', outputlist, "Overwrite")
 
-	currentconnection = ConnectDatabase('./data/torrent_configs.sqlite')
+	currentconnection = ConnectDatabase('./data/application_memory/torrent_configs.sqlite')
 
 	sqlcommand = "CREATE TABLE IF NOT EXISTS torrent("
 	sqlcommand = sqlcommand + "torrentid CHAR(40) PRIMARY KEY NOT NULL, "
