@@ -4,7 +4,6 @@ from ...common_components.filesystem_framework import configfile_module as Confi
 from ...common_components.database_framework import database_module as Database
 
 
-
 # =========================================================================================
 # Saves the current torrent config information, to a file
 # =========================================================================================
@@ -22,7 +21,7 @@ def savetorrentconfigs(outputlist):
 	tablecolumns.append({'name': 'torrenttype', 'type': 'CHAR(10)', 'nullable': False})
 	tablecolumns.append({'name': 'torrentname', 'type': 'CHAR(100)', 'nullable': True})
 	tablecolumns.append({'name': 'torrentseasonyear', 'type': 'CHAR(10)', 'nullable': True})
-	currentconnection.createdatabasetable(currentconnection, 'torrent', tablecolumns, 'torrentid')
+	currentconnection.createdatabasetable('torrent', tablecolumns, 'torrentid')
 
 
 	tablecolumns = []
@@ -30,7 +29,7 @@ def savetorrentconfigs(outputlist):
 	tablecolumns.append({'name': 'torrentid', 'type': 'CHAR(40)', 'nullable': False})
 	tablecolumns.append({'name': 'torrentfileid', 'type': 'CHAR(45)', 'nullable': False})
 	tablecolumns.append({'name': 'filepurpose', 'type': 'CHAR(30)', 'nullable': True})
-	currentconnection.createdatabasetable(currentconnection, 'file', tablecolumns, 'torrentfileid')
+	currentconnection.createdatabasetable('file', tablecolumns, 'torrentfileid')
 
 	for databaseoperation in outputlist:
 
@@ -39,9 +38,9 @@ def savetorrentconfigs(outputlist):
 		torrentdeleteset = []
 		torrentdeleteset.append({'recordtype': 'torrent', 'torrentid': torrentidtoreset})
 		torrentdeleteset.append({'recordtype': 'file', 'torrentid': torrentidtoreset})
-		currentconnection.deletedatabaserows(currentconnection, torrentdeleteset)
+		currentconnection.deletedatabaserows(torrentdeleteset)
 
-	currentconnection.insertdatabaserows(currentconnection, outputlist)
+	currentconnection.insertdatabaserows(outputlist)
 
 	currentconnection.close()
 
