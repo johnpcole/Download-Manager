@@ -42,7 +42,6 @@ def savetorrentconfigs(outputlist):
 
 	currentconnection.insertdatabaserows(outputlist)
 
-	currentconnection.close()
 
 
 
