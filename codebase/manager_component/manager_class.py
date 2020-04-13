@@ -189,7 +189,7 @@ class DefineTorrentSet:
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Saving Reconfigured Torrent", torrentid)
 			self.torrentmanager.reconfiguretorrent(torrentid, newconfiguration)
-			ConfigFile.savetorrentconfigs(self.torrentmanager.getconfigs())
+			ConfigFile.savetorrentconfigs(self.torrentmanager.getconfigs(torrentid))
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "reconfigure")}
 		else:
 			Logging.printinvocation("Requested Save Reconfiguration of Unknown Torrent", torrentid)

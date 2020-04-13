@@ -68,18 +68,21 @@ def savetorrentconfigs(outputlist):
 	sqlcommand = sqlcommand + "fileid CHAR(4) NOT NULL, "
 	sqlcommand = sqlcommand + "torrentid CHAR(40) NOT NULL, "
 	sqlcommand = sqlcommand + "torrentfileid CHAR(45) PRIMARY KEY NOT NULL, "
-	sqlcommand = sqlcommand + "filepurpose CHAR(20));"
+	sqlcommand = sqlcommand + "filepurpose CHAR(30));"
 
 	operatedatabase(currentconnection, sqlcommand)
 
-	sqlcommand = "DELETE FROM torrent WHERE torrentid != ''"
+	for databaseoperation in outputlist:
 
-	operatedatabase(currentconnection, sqlcommand)
+		torrentidtoreset = databaseoperation['torrentid']
 
-	sqlcommand = "DELETE FROM file WHERE torrentid != ''"
+		sqlcommand = "DELETE FROM torrent WHERE torrentid = ?;"
 
-	operatedatabase(currentconnection, sqlcommand)
+		operatedatabasewithparameters(currentconnection, sqlcommand, (torrentidtoreset, ))
 
+		sqlcommand = "DELETE FROM file WHERE torrentid = ?;"
+
+		operatedatabasewithparameters(currentconnection, sqlcommand, (torrentidtoreset, ))
 
 	for databaseoperation in outputlist:
 

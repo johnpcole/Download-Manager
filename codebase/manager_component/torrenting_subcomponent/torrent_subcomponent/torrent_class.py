@@ -179,17 +179,6 @@ class DefineTorrentItem:
 
 # =========================================================================================
 
-	def getsaveolddata(self):
-
-		outcomelist = []
-		outcomelist.append(self.getid() + "|-|" + self.torrentcategory.getcategorysavedata())
-		filesavedata = self.torrentfiles.getfilesavedata()
-		for fileitem in filesavedata:
-			outcomelist.append(self.getid() + "|" + fileitem)
-		return outcomelist
-
-# =========================================================================================
-
 	def setsavedata(self, dataarray):
 
 		if dataarray[1] == "-":

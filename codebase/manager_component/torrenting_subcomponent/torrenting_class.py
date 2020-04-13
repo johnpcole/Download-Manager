@@ -97,13 +97,10 @@ class DefineTorrentManager:
 
 # =========================================================================================
 
-	def getconfigs(self):
+	def getconfigs(self, torrentid):
 
-		outcome = []
-		for torrentitem in self.torrents:
-			newrows = torrentitem.getsavedata()
-			for newrow in newrows:
-				outcome.append(newrow)
+		torrentobject = self.gettorrentobject(torrentid)
+		outcome = torrentobject.getsavedata()
 		return outcome
 
 # =========================================================================================
