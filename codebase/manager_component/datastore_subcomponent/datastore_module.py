@@ -50,41 +50,76 @@ def operatedatabasewithparameters(databaseconnection, sqlcommand, sqlparameters)
 # Saves the current torrent config information, to a file
 # =========================================================================================
 
+def createdatabasetable(currentconnection, tablename, columndefinitionlist, primarykey):
+
+	sqlcommand = ""
+	for columndefinition in columndefinitionlist:
+		if sqlcommand != "":
+			sqlcommand = sqlcommand + ", "
+		sqlcommand = sqlcommand + columndefinition['name'] + " " + columndefinition['type']
+		if columndefinition['name'] == primarykey:
+			sqlcommand = sqlcommand + " PRIMARY KEY"
+		if columndefinition['nullable'] != True:
+			sqlcommand = sqlcommand + " NOT NULL"
+	sqlcommand = "CREATE TABLE IF NOT EXISTS " + tablename + "(" + sqlcommand + ");"
+
+	operatedatabase(currentconnection, sqlcommand)
+
+
+
 def savetorrentconfigs(outputlist):
 	Logging.printout("Saving Torrents Configuration Data")
 	#FileSystem.writetodisk('./data/torrent_configs.db', outputlist, "Overwrite")
 
 	currentconnection = ConnectDatabase('./data/application_memory/torrent_configs.sqlite')
 
-	sqlcommand = "CREATE TABLE IF NOT EXISTS torrent("
-	sqlcommand = sqlcommand + "torrentid CHAR(40) PRIMARY KEY NOT NULL, "
-	sqlcommand = sqlcommand + "torrenttype CHAR(10) NOT NULL, "
-	sqlcommand = sqlcommand + "torrentname CHAR(100), "
-	sqlcommand = sqlcommand + "torrentseasonyear CHAR(10));"
+	tablecolumns = []
+	tablecolumns.append({'name': 'torrentid', 'type': 'CHAR(40)', 'nullable': False})
+	tablecolumns.append({'name': 'torrenttype', 'type': 'CHAR(10)', 'nullable': False})
+	tablecolumns.append({'name': 'torrentname', 'type': 'CHAR(100)', 'nullable': True})
+	tablecolumns.append({'name': 'torrentseasonyear', 'type': 'CHAR(10)', 'nullable': True})
+	createdatabasetable(currentconnection, 'torrent', tablecolumns, 'torrentid')
 
-	operatedatabase(currentconnection, sqlcommand)
 
-	sqlcommand = "CREATE TABLE IF NOT EXISTS file("
-	sqlcommand = sqlcommand + "fileid CHAR(4) NOT NULL, "
-	sqlcommand = sqlcommand + "torrentid CHAR(40) NOT NULL, "
-	sqlcommand = sqlcommand + "torrentfileid CHAR(45) PRIMARY KEY NOT NULL, "
-	sqlcommand = sqlcommand + "filepurpose CHAR(30));"
-
-	operatedatabase(currentconnection, sqlcommand)
+	tablecolumns = []
+	tablecolumns.append({'name': 'fileid', 'type': 'CHAR(4)', 'nullable': False})
+	tablecolumns.append({'name': 'torrentid', 'type': 'CHAR(40)', 'nullable': False})
+	tablecolumns.append({'name': 'torrentfileid', 'type': 'CHAR(45)', 'nullable': False})
+	tablecolumns.append({'name': 'filepurpose', 'type': 'CHAR(30)', 'nullable': True})
+	createdatabasetable(currentconnection, 'file', tablecolumns, 'torrentfileid')
 
 	for databaseoperation in outputlist:
 
 		torrentidtoreset = databaseoperation['torrentid']
 
-		sqlcommand = "DELETE FROM torrent WHERE torrentid = ?;"
+		torrentdeleteset = []
+		torrentdeleteset.append({'recordtype': 'torrent', 'torrentid': torrentidtoreset})
+		torrentdeleteset.append({'recordtype': 'file', 'torrentid': torrentidtoreset})
+		deletedatabaserows(currentconnection, torrentdeleteset)
 
-		operatedatabasewithparameters(currentconnection, sqlcommand, (torrentidtoreset, ))
+	insertdatabaserows(currentconnection, outputlist)
 
-		sqlcommand = "DELETE FROM file WHERE torrentid = ?;"
+	currentconnection.close()
 
-		operatedatabasewithparameters(currentconnection, sqlcommand, (torrentidtoreset, ))
 
-	for databaseoperation in outputlist:
+def deletedatabaserows(currentconnection, deletingrows):
+
+	for databaseoperation in deletingrows:
+
+		sqlcommand = "DELETE FROM " + databaseoperation['recordtype'] + " WHERE "
+		valuelist = []
+
+		for fieldname in databaseoperation.keys():
+			if fieldname != 'recordtype':
+				sqlcommand = sqlcommand + fieldname + " = ?"
+				valuelist.append(databaseoperation[fieldname])
+
+		operatedatabasewithparameters(currentconnection, sqlcommand, tuple(valuelist))
+
+
+def insertdatabaserows(currentconnection, newrows):
+
+	for databaseoperation in newrows:
 
 		sqlcommand = "INSERT INTO " + databaseoperation['recordtype']
 
@@ -107,7 +142,11 @@ def savetorrentconfigs(outputlist):
 
 		operatedatabasewithparameters(currentconnection, sqlcommand, tuple(valuelist))
 
-	currentconnection.close()
+
+
+
+
+
 
 
 # =========================================================================================
