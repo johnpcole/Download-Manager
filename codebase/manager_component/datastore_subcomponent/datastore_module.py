@@ -24,6 +24,28 @@ def operatedatabase(databaseconnection, sqlcommand):
 	print("============================================")
 	print("============================================")
 
+def operatedatabasewithparameters(databaseconnection, sqlcommand, sqlparameters):
+
+	print("============================================")
+	print("============================================")
+	print("============================================")
+	print("NEW SQL COMMAND WITH PARAMETERS")
+	print("============================================")
+	print(sqlcommand)
+	print("============================================")
+	print(sqlparameters)
+	print("============================================")
+
+	databaseconnection.execute(sqlcommand, sqlparameters)
+
+	print("============================================")
+
+	databaseconnection.commit()
+
+	print("============================================")
+	print("============================================")
+	print("============================================")
+
 # =========================================================================================
 # Saves the current torrent config information, to a file
 # =========================================================================================
@@ -54,21 +76,23 @@ def savetorrentconfigs(outputlist):
 		sqlcommand = "INSERT INTO " + databaseoperation['recordtype']
 
 		fieldlist = ""
-		valuelist = ""
+		valuelist = []
+		parameterlist = ""
 
 		for fieldname in databaseoperation.keys():
 			if fieldname != 'recordtype':
 				if fieldlist != "":
 					fieldlist = fieldlist + ", "
-					valuelist = valuelist + ", "
+					parameterlist = parameterlist + ", "
 				fieldlist = fieldlist + fieldname
-				valuelist = valuelist + "'" + databaseoperation[fieldname] + "'"
+				parameterlist = parameterlist + "?"
+				valuelist.append(databaseoperation[fieldname])
 		fieldlist = " (" + fieldlist + ")"
-		valuelist = " VALUES (" + valuelist + ");"
+		parameterlist = " VALUES (" + parameterlist + ");"
 
-		sqlcommand = sqlcommand + fieldlist + valuelist
+		sqlcommand = sqlcommand + fieldlist + parameterlist
 
-		operatedatabase(currentconnection, sqlcommand)
+		operatedatabasewithparameters(currentconnection, sqlcommand, tuple(valuelist))
 
 	currentconnection.close()
 
