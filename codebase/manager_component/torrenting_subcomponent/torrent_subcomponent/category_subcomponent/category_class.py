@@ -194,8 +194,10 @@ class DefineCategory:
 
 	def getcategorysavedata(self):
 
-		outcome = {'torrenttype': self.gettype(), 'torrentname': self.movieorshowname,
-																			'torrentseasonyear', self.seasonoryear}
+		outcome = {}
+		outcome['torrenttype'] = self.gettype()
+		outcome['torrentname'] = self.movieorshowname
+		outcome['torrentseasonyear'] = self.seasonoryear
 		return outcome
 
 

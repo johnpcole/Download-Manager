@@ -150,7 +150,9 @@ class DefineFile:
 
 	def getsavedata(self):
 
-		outcome = {'fileid': str(self.fileid), 'filepurpose': self.filepurpose}
+		outcome = {}
+		outcome['fileid'] = str(self.fileid)
+		outcome['filepurpose'] = self.filepurpose
 		return outcome
 
 	# =========================================================================================
