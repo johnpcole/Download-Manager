@@ -14,16 +14,24 @@ def savetorrentconfigs(outputlist):
 
 	currentconnection = ConnectDatabase('./data/torrent_configs.sqlite')
 
-	currentconnection.execute('''CREATE TABLE IF NOT EXISTS torrent(
-									torrentid CHAR(40) PRIMARY KEY NOT NULL,
-									torrenttype CHAR(10) NOT NULL,
-									torrentname CHAR(100),
-									torrentseasonyear CHAR(10));''')
+	sqlcommand = "CREATE TABLE IF NOT EXISTS torrent("
+	sqlcommand = sqlcommand + "torrentid CHAR(40) PRIMARY KEY NOT NULL, "
+	sqlcommand = sqlcommand + "torrenttype CHAR(10) NOT NULL, "
+	sqlcommand = sqlcommand + "torrentname CHAR(100), "
+	sqlcommand = sqlcommand + "torrentseasonyear CHAR(10));"
 
-	currentconnection.execute('''CREATE TABLE IF NOT EXISTS file(
-									fileid CHAR(40) PRIMARY KEY NOT NULL,
-									torrentid CHAR(40) NOT NULL,
-									filepurpose CHAR(20));''')
+	currentconnection.execute(sqlcommand)
+
+	currentconnection.commit()
+
+	sqlcommand = "CREATE TABLE IF NOT EXISTS file("
+	sqlcommand = sqlcommand + "fileid CHAR(40) PRIMARY KEY NOT NULL, "
+	sqlcommand = sqlcommand + "torrentid CHAR(40) NOT NULL, "
+	sqlcommand = sqlcommand + "filepurpose CHAR(20));"
+
+	currentconnection.execute(sqlcommand)
+
+	currentconnection.commit()
 
 	databasetransaction = currentconnection.cursor()
 
