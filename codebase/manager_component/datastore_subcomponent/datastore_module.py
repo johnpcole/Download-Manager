@@ -1,6 +1,7 @@
 from ...common_components.filesystem_framework import filesystem_module as FileSystem
 from ...common_components.logging_framework import logging_module as Logging
 from ...common_components.filesystem_framework import configfile_module as ConfigFile
+from sqlite3 import connect as ConnectDatabase
 
 
 # =========================================================================================
@@ -9,7 +10,48 @@ from ...common_components.filesystem_framework import configfile_module as Confi
 
 def savetorrentconfigs(outputlist):
 	Logging.printout("Saving Torrents Configuration Data")
-	FileSystem.writetodisk('./data/torrent_configs.db', outputlist, "Overwrite")
+	#FileSystem.writetodisk('./data/torrent_configs.db', outputlist, "Overwrite")
+
+	currentconnection = ConnectDatabase('./data/torrent_configs.sqlite')
+
+	currentconnection.execute('''CREATE TABLE IF NOT EXISTS torrent(
+									torrentid CHAR(40) PRIMARY KEY NOT NULL,
+									torrenttype CHAR(10) NOT NULL,
+									torrentname CHAR(100),
+									torrentseasonyear CHAR(10);''')
+
+	currentconnection.execute('''CREATE TABLE IF NOT EXISTS file(
+									fileid CHAR(40) PRIMARY KEY NOT NULL,
+									torrentid CHAR(40) NOT NULL,
+									filepurpose CHAR(20);''')
+
+	databasetransaction = currentconnection.cursor()
+
+	for databaseoperation in outputlist:
+
+		sqlcommand = "INSERT INTO " + databaseoperation['recordtype']
+
+		fieldlist = ""
+		valuelist = ""
+
+		for fieldname in databaseoperation.keys():
+			if fieldname != 'recordtype':
+				if fieldlist != "":
+					fieldlist = fieldlist + ", "
+					valuelist = valuelist + ", "
+				fieldlist = fieldlist + fieldname
+				valuelist = valuelist + "'" + databaseoperation[fieldname] + "'"
+		fieldlist = " (" + fieldlist + ")"
+		valuelist = " VALUES (" + valuelist + ");"
+
+		sqlcommand = sqlcommand + fieldlist + valuelist
+
+		databasetransaction.execute(sqlcommand)
+
+	currentconnection.commit()
+
+	currentconnection.close()
+
 
 # =========================================================================================
 # Reads the current torrent config information, from a file

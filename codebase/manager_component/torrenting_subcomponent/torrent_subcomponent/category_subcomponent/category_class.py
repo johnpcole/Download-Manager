@@ -181,9 +181,21 @@ class DefineCategory:
 # Returns the category data in file writable format (pipe delimited string)
 # =========================================================================================
 
+	def getcategorysaveolddata(self):
+
+		outcome = self.gettype() + "|" + self.movieorshowname + "|" + self.seasonoryear
+		return outcome
+
+
+
+# =========================================================================================
+# Returns the category data in file writable format (SQLite)
+# =========================================================================================
+
 	def getcategorysavedata(self):
 
-		outcome = self.torrenttype.displaycurrent() + "|" + self.movieorshowname + "|" + self.seasonoryear
+		outcome = {'torrenttype': self.gettype(), 'torrentname': self.movieorshowname,
+																			'torrentseasonyear', self.seasonoryear}
 		return outcome
 
 

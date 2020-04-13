@@ -164,6 +164,23 @@ class DefineTorrentItem:
 	def getsavedata(self):
 
 		outcomelist = []
+		newoutcome = self.torrentcategory.getcategorysavedata().copy()
+		newoutcome['recordtype'] = 'torrent'
+		newoutcome['torrentid'] = self.getid()
+		outcomelist.append(newoutcome)
+		filesavedata = self.torrentfiles.getfilesavedata()
+		for fileitem in filesavedata:
+			newoutcome = fileitem.copy()
+			newoutcome['recordtype'] = 'file'
+			newoutcome['torrentid'] = self.getid()
+			outcomelist.append(newoutcome)
+		return outcomelist
+
+# =========================================================================================
+
+	def getsaveolddata(self):
+
+		outcomelist = []
 		outcomelist.append(self.getid() + "|-|" + self.torrentcategory.getcategorysavedata())
 		filesavedata = self.torrentfiles.getfilesavedata()
 		for fileitem in filesavedata:

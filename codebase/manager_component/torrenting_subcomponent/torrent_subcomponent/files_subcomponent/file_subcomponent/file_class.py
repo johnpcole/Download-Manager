@@ -150,10 +150,17 @@ class DefineFile:
 
 	def getsavedata(self):
 
+		outcome = {'fileid': str(self.fileid), 'filepurpose': self.filepurpose}
+		return outcome
+
+	# =========================================================================================
+
+	def getsaveolddata(self):
+
 		outcome = str(self.fileid) + "|" + self.filepurpose
 		return outcome
 
-# =========================================================================================
+	# =========================================================================================
 # Returns the computed title of the file: Ignored File, Ignored Video File, Ignored Subtitle File
 # WHAT ABOUT FILMS??????????????????????????????????????????
 # This is the "Title" that is displayed on the torrent webpage?????
