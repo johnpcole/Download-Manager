@@ -7,7 +7,6 @@ from .datastore_subcomponent import datastore_module as ConfigFile
 from .fileoptions_subcomponent import fileoptions_module as FileOptions
 
 
-
 class DefineTorrentSet:
 
 	def __init__(self, torrentsetname):
