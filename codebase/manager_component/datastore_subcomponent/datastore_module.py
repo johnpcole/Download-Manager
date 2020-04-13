@@ -4,6 +4,26 @@ from ...common_components.filesystem_framework import configfile_module as Confi
 from sqlite3 import connect as ConnectDatabase
 
 
+def operatedatabase(databaseconnection, sqlcommand):
+
+	print("============================================")
+	print("============================================")
+	print("============================================")
+	print("NEW SQL COMMAND")
+	print("============================================")
+	print(sqlcommand)
+	print("============================================")
+
+	databaseconnection.execute(sqlcommand)
+
+	print("============================================")
+
+	databaseconnection.commit()
+
+	print("============================================")
+	print("============================================")
+	print("============================================")
+
 # =========================================================================================
 # Saves the current torrent config information, to a file
 # =========================================================================================
@@ -20,20 +40,14 @@ def savetorrentconfigs(outputlist):
 	sqlcommand = sqlcommand + "torrentname CHAR(100), "
 	sqlcommand = sqlcommand + "torrentseasonyear CHAR(10));"
 
-	currentconnection.execute(sqlcommand)
-
-	currentconnection.commit()
+	operatedatabase(currentconnection, sqlcommand)
 
 	sqlcommand = "CREATE TABLE IF NOT EXISTS file("
 	sqlcommand = sqlcommand + "fileid CHAR(40) PRIMARY KEY NOT NULL, "
 	sqlcommand = sqlcommand + "torrentid CHAR(40) NOT NULL, "
 	sqlcommand = sqlcommand + "filepurpose CHAR(20));"
 
-	currentconnection.execute(sqlcommand)
-
-	currentconnection.commit()
-
-	databasetransaction = currentconnection.cursor()
+	operatedatabase(currentconnection, sqlcommand)
 
 	for databaseoperation in outputlist:
 
@@ -54,9 +68,7 @@ def savetorrentconfigs(outputlist):
 
 		sqlcommand = sqlcommand + fieldlist + valuelist
 
-		databasetransaction.execute(sqlcommand)
-
-	currentconnection.commit()
+		operatedatabase(currentconnection, sqlcommand)
 
 	currentconnection.close()
 
