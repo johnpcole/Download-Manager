@@ -65,8 +65,9 @@ def savetorrentconfigs(outputlist):
 	operatedatabase(currentconnection, sqlcommand)
 
 	sqlcommand = "CREATE TABLE IF NOT EXISTS file("
-	sqlcommand = sqlcommand + "fileid CHAR(40) PRIMARY KEY NOT NULL, "
+	sqlcommand = sqlcommand + "fileid CHAR(4) NOT NULL, "
 	sqlcommand = sqlcommand + "torrentid CHAR(40) NOT NULL, "
+	sqlcommand = sqlcommand + "torrentfileid CHAR(45) PRIMARY KEY NOT NULL, "
 	sqlcommand = sqlcommand + "filepurpose CHAR(20));"
 
 	operatedatabase(currentconnection, sqlcommand)

@@ -173,6 +173,7 @@ class DefineTorrentItem:
 			newoutcome = fileitem.copy()
 			newoutcome['recordtype'] = 'file'
 			newoutcome['torrentid'] = self.getid()
+			newoutcome['torrentfileid'] = newoutcome['torrentid'] + ":" + newoutcome['fileid']
 			outcomelist.append(newoutcome)
 		return outcomelist
 
