@@ -72,6 +72,15 @@ def savetorrentconfigs(outputlist):
 
 	operatedatabase(currentconnection, sqlcommand)
 
+	sqlcommand = "DELETE FROM torrent WHERE torrentid != ''"
+
+	operatedatabase(currentconnection, sqlcommand)
+
+	sqlcommand = "DELETE FROM file WHERE torrentid != ''"
+
+	operatedatabase(currentconnection, sqlcommand)
+
+
 	for databaseoperation in outputlist:
 
 		sqlcommand = "INSERT INTO " + databaseoperation['recordtype']
