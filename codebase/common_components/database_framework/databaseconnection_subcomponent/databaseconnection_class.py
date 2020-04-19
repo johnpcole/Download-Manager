@@ -11,7 +11,7 @@ class DefineDatabaseConnection:
 
 
 
-	def performdatabaseextract(self, databaseoperation, databasemode):
+	def performdatabaseextract(self, databaseoperation, operationvariables, databasemode):
 
 		if databasemode.get('Live') is True:
 
@@ -23,13 +23,28 @@ class DefineDatabaseConnection:
 			currentconnection = ConnectDatabase(self.databasename)
 			currentcursor = currentconnection.cursor()
 
-			if self.debugging is True:
-				print("NEW SQL COMMAND")
-				print("============================================")
-				print(databaseoperation)
-				print("============================================")
+			if operationvariables is None:
 
-			currentcursor.execute(databaseoperation)
+				if self.debugging is True:
+					print("NEW SQL CURSOR COMMAND")
+					print("============================================")
+					print(databaseoperation)
+					print("============================================")
+
+				currentcursor.execute(databaseoperation)
+
+			else:
+
+				if self.debugging is True:
+					print("NEW SQL CURSOR COMMAND WITH PARAMETERS")
+					print("============================================")
+					print(databaseoperation)
+					print("============================================")
+					print(operationvariables)
+					print("============================================")
+
+				currentcursor.execute(databaseoperation, operationvariables)
+
 			records = currentcursor.fetchall()
 
 			if self.debugging is True:
