@@ -177,14 +177,19 @@ class DefineTorrentItem:
 			outcomelist.append(newoutcome)
 		return outcomelist
 
+
+
 # =========================================================================================
 
 	def setsavedata(self, dataarray):
 
-		if dataarray[1] == "-":
-			self.torrentcategory.setcategorysavedata(dataarray[2], dataarray[3], dataarray[4])
-		else:
-			self.torrentfiles.updatefilespurposes({dataarray[1]: dataarray[2]})
+		for dataitem in dataarray:
+			if dataitem['recordtype'] == "torrent":
+				self.torrentcategory.setcategorysavedata(dataitem['torrenttype'], dataitem['torrentname'], dataitem['torrentseasonyear'])
+			elif dataitem['recordtype'] == "file":
+				self.torrentfiles.updatefilespurposes(dataitem['fileid'], dataitem['filepurpose'])
+			else:
+				assert(1 == 0, "Unexpected torrent config recordtype")
 
 
 

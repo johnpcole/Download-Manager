@@ -1,4 +1,5 @@
 from .torrent_subcomponent import torrent_module as TorrentData
+from .configdatastrore_subcomponent import configdatastore_module as Datastore
 from ...common_components.dataconversion_framework import dataconversion_module as Functions
 from ...common_components.logging_framework import logging_module as Logging
 
@@ -11,7 +12,7 @@ class DefineTorrentManager:
 		# The list of torrents in the deluge daemon; each item contains composite torrenting data (structured/layered dictionary)
 		self.torrents = []
 
-
+		self.configdatabase = Datastore.createtorrentconfigdatabase()
 
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
@@ -95,25 +96,10 @@ class DefineTorrentManager:
 		torrentobject = self.gettorrentobject(torrentid)
 		torrentobject.updateinfo(newconfig)
 
-# =========================================================================================
+		# Now save the new config to the database
+		self.configdatabase.savetorrentconfigs(torrentobject.getsavedata())
 
-	def getconfigs(self, torrentid):
 
-		torrentobject = self.gettorrentobject(torrentid)
-		outcome = torrentobject.getsavedata()
-		return outcome
-
-# =========================================================================================
-
-	def setconfigs(self, datalist):
-
-		for dataitem in datalist:
-			datavalues = dataitem.split("|")
-			torrentobject = self.gettorrentobject(datavalues[0])
-			if torrentobject is not None:
-				torrentobject.setsavedata(datavalues)
-			else:
-				Logging.printout("Ignoring Saved Config for Torrent " + datavalues[0])
 
 # =========================================================================================
 
@@ -134,10 +120,13 @@ class DefineTorrentManager:
 		for torrentiditem in torrentidlist:
 
 			if self.validatetorrentid(torrentiditem) == False:
-				self.torrents.append(TorrentData.createitem(torrentiditem))
 				Logging.printout("Registering Torrent in Download-Manager: " + torrentiditem)
 				#print("Registering Torrent in Download-Manager: " + torrentiditem)
+				self.torrents.append(TorrentData.createitem(torrentiditem))
 
+				#Now load config data from data if it exists (mainly to cope with app restart)
+				torrentobject = self.gettorrentobject(torrentiditem)
+				torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentiditem))
 
 
 # =========================================================================================
@@ -158,6 +147,7 @@ class DefineTorrentManager:
 
 			if foundflag == False:
 				Logging.printout("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
+				#self.configdatabase.deletetorrentconfigs()
 				#print("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
 
 		self.torrents = Functions.sortdictionary(cleanlist, 'dateadded', True)

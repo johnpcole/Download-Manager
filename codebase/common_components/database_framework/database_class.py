@@ -1,78 +1,60 @@
-from sqlite3 import connect as ConnectDatabase
+from .databasestructure_subcomponent import databasestructure_module as DatabaseStructure
+from .databaseconnection_subcomponent import databaseconnection_module as DatabaseConnection
+from . import database_privatefunctions as Function
+from ..enumeration_datatype import enumeration_module as Enumeration
 
 
 class DefineDatabase:
 
 	def __init__(self, databasefilename):
 
-		self.databasename = databasefilename
+		self.databasestructure = DatabaseStructure.createdatabasestructure()
+
+		self.databaseconnection = DatabaseConnection.createdatabaseconnection(databasefilename)
+
+		self.databasemode = Enumeration.createenum(['Build', 'Live'], 'Build')
 
 
 
-	def performdatabaseoperation(self, databaseoperation, operationvariables):
+	def adddatabasestructure(self, tablename, fieldname, fieldtype, nullable, primarykey):
 
-		print("============================================")
-		print("============================================")
-		print("============================================")
-
-		currentconnection = ConnectDatabase(self.databasename)
-
-		if operationvariables is None:
-			print("NEW SQL COMMAND")
-			print("============================================")
-			print(databaseoperation)
-			print("============================================")
-			currentconnection.execute(databaseoperation)
-		else:
-			print("NEW SQL COMMAND WITH PARAMETERS")
-			print("============================================")
-			print(databaseoperation)
-			print("============================================")
-			print(operationvariables)
-			print("============================================")
-			currentconnection.execute(databaseoperation, operationvariables)
-
-		print("============================================")
-
-		currentconnection.commit()
-
-		print("============================================")
-		print("============================================")
-		print("============================================")
-
-		currentconnection.close()
+		self.databasestructure.adddatabasestructure(tablename, fieldname, fieldtype, nullable, primarykey, self.databasemode)
 
 
 
-	def createdatabasetable(self, tablename, columndefinitionlist, primarykey):
+	def changedatabasestate(self, newstate):
 
-		sqlcommand = ""
-		for columndefinition in columndefinitionlist:
-			if sqlcommand != "":
-				sqlcommand = sqlcommand + ", "
-			sqlcommand = sqlcommand + columndefinition['name'] + " " + columndefinition['type']
-			if columndefinition['name'] == primarykey:
-				sqlcommand = sqlcommand + " PRIMARY KEY"
-			if columndefinition['nullable'] != True:
-				sqlcommand = sqlcommand + " NOT NULL"
-		sqlcommand = "CREATE TABLE IF NOT EXISTS " + tablename + "(" + sqlcommand + ");"
+		self.databasemode.set(newstate)
 
-		self.performdatabaseoperation(sqlcommand, None)
+
+
+
+
+	def createentiredatabase(self):
+
+		tablelist = self.databasestructure.gettablelist()
+		for tablename in tablelist:
+			self.createdatabasetable(tablename)
+
+
+
+	def createdatabasetable(self, tablename):
+
+		sqlcommand = self.databasestructure.gettablecreationsql(tablename)
+		self.databaseconnection.performdatabaseoperation(sqlcommand, None, self.databasemode)
+
 
 
 	def deletedatabaserows(self, deletingrows):
 
 		for databaseoperation in deletingrows:
 
-			sqlcommand = "DELETE FROM " + databaseoperation['recordtype'] + " WHERE "
-			valuelist = []
+			sqlcommand = "DELETE FROM " + databaseoperation['recordtype']
+			sqlcommand = sqlcommand + " WHERE " + Function.buildfieldssql(databaseoperation, " AND ", True) + ";"
+			valuelist = Function.buildvaluessql(databaseoperation)
 
-			for fieldname in databaseoperation.keys():
-				if fieldname != 'recordtype':
-					sqlcommand = sqlcommand + fieldname + " = ?"
-					valuelist.append(databaseoperation[fieldname])
+			self.databaseconnection.performdatabaseoperation(sqlcommand, tuple(valuelist), self.databasemode)
 
-			self.performdatabaseoperation(sqlcommand, tuple(valuelist))
 
 
 	def insertdatabaserows(self, newrows):
@@ -80,22 +62,35 @@ class DefineDatabase:
 		for databaseoperation in newrows:
 
 			sqlcommand = "INSERT INTO " + databaseoperation['recordtype']
+			sqlcommand = sqlcommand + " (" + Function.buildfieldssql(databaseoperation, ", ", False) + ")"
+			sqlcommand = sqlcommand + Function.buildparameterssql(databaseoperation) + ";"
+			valuelist = Function.buildvaluessql(databaseoperation)
 
-			fieldlist = ""
-			valuelist = []
-			parameterlist = ""
+			self.databaseconnection.performdatabaseoperation(sqlcommand, tuple(valuelist), self.databasemode)
 
-			for fieldname in databaseoperation.keys():
-				if fieldname != 'recordtype':
-					if fieldlist != "":
-						fieldlist = fieldlist + ", "
-						parameterlist = parameterlist + ", "
-					fieldlist = fieldlist + fieldname
-					parameterlist = parameterlist + "?"
-					valuelist.append(databaseoperation[fieldname])
-			fieldlist = " (" + fieldlist + ")"
-			parameterlist = " VALUES (" + parameterlist + ");"
-	
-			sqlcommand = sqlcommand + fieldlist + parameterlist
 
-			self.performdatabaseoperation(sqlcommand, tuple(valuelist))
+
+	def extractdatabaserows(self, lookuprows):
+
+		outcome = []
+
+		for databaseoperation in lookuprows:
+
+			databasetable = databaseoperation['recordtype']
+			sqlcommand = "SELECT " + Function.buildfieldssql(self.databasestructure.gettablefields(databasetable), ", ", False)
+			sqlcommand = sqlcommand + " FROM " + databasetable
+			sqlcommand = sqlcommand + " WHERE " + Function.buildfieldssql(databaseoperation, " AND ", True) + ";"
+			valuelist = Function.buildvaluessql(databaseoperation)
+
+			lookupdata = self.databaseconnection.performdatabaseextract(sqlcommand, tuple(valuelist), self.databasemode)
+
+			for lookupitem in lookupdata:
+
+				newitem = Function.buildresult(databaseoperation, lookupitem)
+				newitem['recordtype'] = databasetable
+				print(newitem)
+				outcome.append(newitem)
+
+		return outcome
+
+

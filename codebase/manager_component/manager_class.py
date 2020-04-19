@@ -20,7 +20,8 @@ class DefineTorrentSet:
 		self.monitormanager = MonitorManager.createmonitor()
 		self.monitormanager.restoresavedhistory(ConfigFile.getmonitor(MonitorManager.getloadlist()))
 		self.delugemanager = DelugeManager.createtracker()
-		self.areconfigsloaded = False
+
+		self.delugemanager.queuenewrefreshaction()
 
 	#===============================================================================================
 	# Load the Torrents List as new page
@@ -30,13 +31,10 @@ class DefineTorrentSet:
 
 		Logging.printinvocation("Loading All Torrents List Page", "")
 		self.delugemanager.queuenewrefreshaction()
-		if self.areconfigsloaded == False:
-			return {'waitingforinitialisation': True}
-		else:
-			return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
-					'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
-					'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
-					'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
+		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
+				'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
+				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
+				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
 
 
@@ -96,17 +94,14 @@ class DefineTorrentSet:
 
 	def initialisetorrentpage(self, torrentid):
 
-		if self.areconfigsloaded == False:
-			return {'waitingforinitialisation': True}
+		if self.torrentmanager.validatetorrentid(torrentid) == True:
+			Logging.printinvocation("Loading Specific Torrent Page", torrentid)
+			self.delugemanager.queuenewrefreshaction()
+			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
+					'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
 		else:
-			if self.torrentmanager.validatetorrentid(torrentid) == True:
-				Logging.printinvocation("Loading Specific Torrent Page", torrentid)
-				self.delugemanager.queuenewrefreshaction()
-				return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
-						'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
-			else:
-				Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
-				return {'waitingforinitialisation': True}
+			Logging.printinvocation("Requested view of Unknown Torrent", torrentid)
+			return {'waitingforinitialisation': True}
 
 
 	#===============================================================================================
@@ -188,7 +183,7 @@ class DefineTorrentSet:
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Saving Reconfigured Torrent", torrentid)
 			self.torrentmanager.reconfiguretorrent(torrentid, newconfiguration)
-			ConfigFile.savetorrentconfigs(self.torrentmanager.getconfigs(torrentid))
+			#ConfigFile.savetorrentconfigs(self.torrentmanager.getconfigs(torrentid))
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "reconfigure")}
 		else:
 			Logging.printinvocation("Requested Save Reconfiguration of Unknown Torrent", torrentid)
@@ -337,9 +332,6 @@ class DefineTorrentSet:
 
 		if torrentdata is not None:
 			self.torrentmanager.refreshtorrentlist(torrentdata)
-			if self.areconfigsloaded == False:
-				self.torrentmanager.setconfigs(ConfigFile.loadtorrentconfigs())
-				self.areconfigsloaded = True
 			if sessiondata is not None:
 				self.monitormanager.refreshsessiondata(sessiondata, self.torrentmanager.getaggregates())
 				self.delugemanager.lognewdatashare()
@@ -347,9 +339,6 @@ class DefineTorrentSet:
 		if monitorhistory is True:
 			outcome = self.monitormanager.addtohistory()
 			ConfigFile.savemonitor(outcome)
-
-		if self.areconfigsloaded == False:
-			self.delugemanager.queuenewrefreshaction()
 
 		return self.delugemanager.getnextoperatoraction()
 
