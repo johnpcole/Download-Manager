@@ -183,13 +183,16 @@ class DefineTorrentItem:
 
 	def setsavedata(self, dataarray):
 
+		newfiledata = {}
 		for dataitem in dataarray:
 			if dataitem['recordtype'] == "torrent":
 				self.torrentcategory.setcategorysavedata(dataitem['torrenttype'], dataitem['torrentname'], dataitem['torrentseasonyear'])
 			elif dataitem['recordtype'] == "file":
-				self.torrentfiles.updatefilespurposes(dataitem['fileid'], dataitem['filepurpose'])
+				newfileid = dataitem['fileid']
+				newfiledata[newfileid] = dataitem['filepurpose']
 			else:
 				assert(1 == 0, "Unexpected torrent config recordtype")
+		self.torrentfiles.updatefilespurposes(newfiledata)
 
 
 
