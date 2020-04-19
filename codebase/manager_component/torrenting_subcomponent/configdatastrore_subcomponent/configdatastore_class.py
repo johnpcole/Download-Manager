@@ -54,13 +54,12 @@ class DefineTorrentConfigsDatabase:
 	# Reads the current torrent config information, from a sqlite file
 	# =========================================================================================
 
-	def loadtorrentconfigs(self, torrentid):
+	def loadtorrentconfigs(self, torrentid, recordtype):
 
 		Logging.printout("Loading Torrents Configuration Data")
 
 		torrentlookupset = []
-		torrentlookupset.append({'recordtype': 'torrent', 'torrentid': torrentid})
-		torrentlookupset.append({'recordtype': 'file', 'torrentid': torrentid})
+		torrentlookupset.append({'recordtype': recordtype, 'torrentid': torrentid})
 
 		torrentdata = self.torrentconfigs.extractdatabaserows(torrentlookupset)
 		return torrentdata

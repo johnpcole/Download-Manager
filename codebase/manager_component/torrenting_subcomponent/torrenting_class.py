@@ -66,6 +66,8 @@ class DefineTorrentManager:
 			if self.validatetorrentid(torrentid) == True:
 				torrentobject = self.gettorrentobject(torrentid)
 				torrentobject.updateinfo(torrentdata[torrentid])
+				torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentid, 'file'))
+
 
 # =========================================================================================
 
@@ -126,7 +128,7 @@ class DefineTorrentManager:
 
 				#Now load config data from data if it exists (mainly to cope with app restart)
 				torrentobject = self.gettorrentobject(torrentiditem)
-				torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentiditem))
+				torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentiditem, 'torrent'))
 
 
 # =========================================================================================
