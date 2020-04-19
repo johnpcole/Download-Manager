@@ -41,12 +41,12 @@ def buildparameterssql(rawdata):
 
 
 
-def buildresult(rawdata, selectoutcome):
+def buildresult(tablefieldlist, selectoutcome):
 
 	outcome = {}
 
 	indexer = -1
-	for fieldname in sorted(rawdata.keys()):
+	for fieldname in sorted(tablefieldlist):
 		if fieldname != 'recordtype':
 			indexer = indexer + 1
 			outcome[fieldname] = selectoutcome[indexer]
