@@ -14,6 +14,8 @@ class DefineTorrentManager:
 
 		self.configdatabase = Datastore.createtorrentconfigdatabase()
 
+		self.loadexistingconfigurations = False
+
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
 # =========================================================================================
@@ -28,6 +30,17 @@ class DefineTorrentManager:
 
 		# Update all the torrents' data relevent for Download-Manager/Deluge-Monitor
 		self.refreshalltorrentdata(torrentdata)
+
+		if self.loadexistingconfigurations == False:
+			self.reloadsavedconfigdata()
+			self.loadexistingconfigurations = True
+
+
+	def reloadsavedconfigdata(self):
+
+		for torrentobject in self.torrents:
+			torrentid = torrentobject.getid()
+			torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentid))
 
 
 # =========================================================================================
@@ -66,8 +79,6 @@ class DefineTorrentManager:
 			if self.validatetorrentid(torrentid) == True:
 				torrentobject = self.gettorrentobject(torrentid)
 				torrentobject.updateinfo(torrentdata[torrentid])
-				torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentid, 'file'))
-
 
 # =========================================================================================
 
@@ -126,9 +137,6 @@ class DefineTorrentManager:
 				#print("Registering Torrent in Download-Manager: " + torrentiditem)
 				self.torrents.append(TorrentData.createitem(torrentiditem))
 
-				#Now load config data from data if it exists (mainly to cope with app restart)
-				torrentobject = self.gettorrentobject(torrentiditem)
-				torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentiditem, 'torrent'))
 
 
 # =========================================================================================

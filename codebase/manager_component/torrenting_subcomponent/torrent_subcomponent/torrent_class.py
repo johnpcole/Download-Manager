@@ -30,6 +30,7 @@ class DefineTorrentItem:
 		#self.istorrentvisible = True
 		self.deleteddate = DateTime.createfromiso("20000101000000")
 
+
 # =========================================================================================
 
 	def updateinfo(self, datalist):
