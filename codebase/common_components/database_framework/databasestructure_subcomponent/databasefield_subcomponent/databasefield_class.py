@@ -17,6 +17,9 @@ class DefineDatabaseField:
 
 		return self.tablename
 
+	def getfieldname(self):
+
+		return self.fieldname
 
 	def getfieldcreationsql(self):
 

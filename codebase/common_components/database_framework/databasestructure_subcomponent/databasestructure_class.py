@@ -1,4 +1,5 @@
 from .databasefield_subcomponent import databasefield_module as FieldClass
+from .. import database_privatefunctions as Function
 
 
 class DefineDatabaseStructure:
@@ -38,19 +39,14 @@ class DefineDatabaseStructure:
 		for fielddef in self.fieldslist:
 			tablename = fielddef.gettablename()
 			if tablename == desiredtablename:
-				outcome.append(fielddef)
+				outcome.append(fielddef.getfieldname())
 		return outcome
 
 
 
 	def gettablecreationsql(self, tablename):
 
-		sqlcommand = ""
-		columndefinitionlist = self.gettablefields(tablename)
-		for columndefinition in columndefinitionlist:
-			if sqlcommand != "":
-				sqlcommand = sqlcommand + ", "
-			sqlcommand = sqlcommand + columndefinition.getfieldcreationsql()
+		sqlcommand = Function.buildfieldnamelistsql(self.gettablefields(tablename))
 		sqlcommand = "CREATE TABLE IF NOT EXISTS " + tablename + "(" + sqlcommand + ");"
 		return sqlcommand
 

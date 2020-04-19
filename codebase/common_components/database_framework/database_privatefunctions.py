@@ -52,3 +52,17 @@ def buildresult(rawdata, selectoutcome):
 			outcome[fieldname] = selectoutcome[indexer]
 
 	return outcome
+
+
+
+def buildfieldnamelistsql(fieldnamelist):
+
+	outcome = ""
+
+	for fieldname in sorted(fieldnamelist):
+		if fieldname != 'recordtype':
+			if outcome != "":
+				outcome = outcome + ", "
+			outcome = outcome + fieldname
+
+	return outcome

@@ -77,7 +77,7 @@ class DefineDatabase:
 		for databaseoperation in lookuprows:
 
 			databasetable = databaseoperation['recordtype']
-			sqlcommand = "SELECT " + Function.buildfieldssql(self.databasestructure.gettablefields(databasetable), ", ", False)
+			sqlcommand = "SELECT " + Function.buildfieldnamelistsql(self.databasestructure.gettablefields(databasetable))
 			sqlcommand = sqlcommand + " FROM " + databasetable
 			sqlcommand = sqlcommand + " WHERE " + Function.buildfieldssql(databaseoperation, " AND ", True) + ";"
 			valuelist = Function.buildvaluessql(databaseoperation)
