@@ -56,7 +56,7 @@ class DefineTorrentConfigsDatabase:
 
 	def loadtorrentconfigs(self, torrentid, recordtype):
 
-		Logging.printout("Loading Torrents Configuration Data")
+		Logging.printout("Loading Torrents Configuration Data     (" + torrentid + " " + recordtype + " data)")
 
 		torrentlookupset = []
 		torrentlookupset.append({'recordtype': recordtype, 'torrentid': torrentid})
