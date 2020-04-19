@@ -77,7 +77,7 @@ class DefineFiles:
 			if existingfile is not None:
 				existingfile.updatefilepurpose(filedata[fileid])
 			else:
-				print("Cannot identify file" + fileid + " to update purpose")
+				print("Cannot identify file " + fileid + " to update purpose")
 
 # =========================================================================================
 
