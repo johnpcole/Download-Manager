@@ -87,6 +87,12 @@ class DefineTorrentItem:
 				outcome = "Unknown Data Label: " + dataitem
 				assert 0 == 1, outcome
 
+			print("<><><><><><><><><><><><><><><><>")
+			print(self.torrentid)
+			print(len(self.torrentfiles.files))
+			print("<><><><><><><><><><><><><><><><>")
+
+
 # =========================================================================================
 
 	def getid(self):
