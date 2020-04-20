@@ -63,11 +63,12 @@ class DefineOperator:
 			session = rawdata['sessiondata']
 			for sessionstat in session.keys():
 				dataout.append({'recordtype': 'session', 'sessionstat': sessionstat,
-															'sessionvalue': session[sessionstat], 'lastseen': lastseen})
+																				'sessionvalue': session[sessionstat]})
 		dataout.append({'recordtype': 'session', 'sessionstat': 'temperature',
-											'sessionvalue': Thermometer.getoveralltemperature(), 'lastseen': lastseen})
+																'sessionvalue': Thermometer.getoveralltemperature()})
 		dataout.append({'recordtype': 'session', 'sessionstat': 'vpnstatus',
-														'sessionvalue': VPNStatus.getvpnstatus(), 'lastseen': lastseen})
+																			'sessionvalue': VPNStatus.getvpnstatus()})
+		dataout.append({'recordtype': 'session', 'sessionstat': 'lastseen', 'sessionvalue': lastseen})
 
 		self.results.insertdatabaserows(dataout)
 
