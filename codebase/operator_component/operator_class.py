@@ -7,6 +7,7 @@ from ..common_components.filesystem_framework import configfile_module as Config
 from .. import database_definitions as Database
 import operator as Operator
 from ..common_components.datetime_datatypes import datetime_module as DateTime
+from json import dumps as MakeJson
 
 
 class DefineOperator:
@@ -50,27 +51,24 @@ class DefineOperator:
 		rawdata = self.torrentmanager.getdelugedata()
 		lastseen = rawdata['lastpolled']
 		dataout = []
-		deleter = []
 		if 'torrents' in rawdata.keys():
 			torrents = rawdata['torrents']
 			for torrentid in torrents.keys():
-				dataout.append({'recordtype': 'torrent', 'torrentid': torrentid, 'torrentstats': torrents[torrentid],
-																								'lastseen': lastseen})
-				deleter.append({'recordtype': 'torrent', 'torrentid': torrentid})
+				dataout.append({'recordtype': 'torrent', 'torrentid': torrentid,
+												'torrentstats': MakeJson(torrents[torrentid]), 'lastseen': lastseen})
+			self.results.deletedatabaserows([{'recordtype': 'torrent'}])
+
+		self.results.deletedatabaserows([{'recordtype': 'session'}])
 		if 'sessiondata' in rawdata.keys():
 			session = rawdata['sessiondata']
 			for sessionstat in session.keys():
 				dataout.append({'recordtype': 'session', 'sessionstat': sessionstat,
 															'sessionvalue': session[sessionstat], 'lastseen': lastseen})
-				deleter.append({'recordtype': 'session', 'sessionstat': sessionstat})
 		dataout.append({'recordtype': 'session', 'sessionstat': 'temperature',
 											'sessionvalue': Thermometer.getoveralltemperature(), 'lastseen': lastseen})
 		dataout.append({'recordtype': 'session', 'sessionstat': 'vpnstatus',
 														'sessionvalue': VPNStatus.getvpnstatus(), 'lastseen': lastseen})
-		deleter.append({'recordtype': 'session', 'sessionstat': 'temperature'})
-		deleter.append({'recordtype': 'session', 'sessionstat': 'vpnstatus'})
 
-		self.results.deletedatabaserows(deleter)
 		self.results.insertdatabaserows(dataout)
 
 

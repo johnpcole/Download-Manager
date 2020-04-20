@@ -1,4 +1,5 @@
 from .... import database_definitions as Database
+from json import loads as GetJson
 
 class DefineDelugeDatabase:
 
@@ -19,7 +20,7 @@ class DefineDelugeDatabase:
 		torrentdata = {}
 		for torrentitem in rawtorrentdata:
 			torrentid = torrentitem['torrentid']
-			torrentdata[torrentid] = torrentitem['torrentstats']
+			torrentdata[torrentid] = GetJson(torrentitem['torrentstats'])
 
 		return torrentdata
 
