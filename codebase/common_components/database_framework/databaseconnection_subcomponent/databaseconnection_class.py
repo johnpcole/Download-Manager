@@ -7,7 +7,7 @@ class DefineDatabaseConnection:
 
 		self.databasename = databasefilename
 
-		self.debugging = True
+		self.debugging = False
 
 
 

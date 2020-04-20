@@ -31,7 +31,7 @@ class DefineOperator:
 
 	def refresh(self):
 
-		self.delayer.wait(3)
+		self.delayer.wait(5)
 
 		self.refreshoutstandingactions()
 
@@ -53,10 +53,12 @@ class DefineOperator:
 		if 'torrents' in rawdata.keys():
 			lastseen = rawdata['lastpolled']
 			dataout = []
+			deleter = []
 			torrents = rawdata['torrents']
 			for torrentid in torrents.keys():
 				dataout.append({'recordtype': 'torrent', 'torrentid': torrentid,
 												'torrentstats': MakeJson(torrents[torrentid]), 'lastseen': lastseen})
+				deleter.append({'recordtype': 'torrent', 'torrentid': torrentid})
 
 			if 'sessiondata' in rawdata.keys():
 				session = rawdata['sessiondata']
@@ -69,10 +71,39 @@ class DefineOperator:
 																			'sessionvalue': VPNStatus.getvpnstatus()})
 			dataout.append({'recordtype': 'session', 'sessionstat': 'lastseen', 'sessionvalue': lastseen})
 
-			self.results.deletedatabaserows([{'recordtype': 'torrent'}])
-			self.results.deletedatabaserows([{'recordtype': 'session'}])
+			deleter.append([{'recordtype': 'session'}])
+
+			self.results.deletedatabaserows(deleter)
 			self.results.insertdatabaserows(dataout)
 
+
+
+	def clearmissingtorrents(self):
+
+		deleter = []
+
+		dataset = []
+		dataset.append({'recordtype': 'torrent'})
+		currentlsting = self.results.extractdatabaserows(dataset)
+		for currentitem in currentlsting:
+			if self.isdeleted(currentitem['lastseen']) is True:
+				deleter.append({'recordtype': 'torrent', 'torrentid': currentitem['torrentid']})
+				print("Deleting Torrent From Database: ", currentitem['torrentid'])
+
+		self.results.deletedatabaserows(deleter)
+
+		
+
+	def isdeleted(self, lastseen):
+
+		reallastseen = DateTime.createfromiso(lastseen)
+		timedifference = DateTime.timedifferenceasduration(reallastseen, DateTime.getnow())
+		if abs(timedifference.getsecondsvalue()) > 30:
+			outcome = True
+		else:
+			outcome = False
+
+		return outcome
 
 
 

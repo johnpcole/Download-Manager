@@ -17,7 +17,6 @@ class DefineTorrentManager:
 
 		self.torrentdatabase = Deluge.createdelugedatabase()
 
-		self.loadexistingconfigurations = False
 
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
@@ -28,7 +27,7 @@ class DefineTorrentManager:
 		torrentdata = self.torrentdatabase.getlatest()
 
 		# Update the list of torrents to include new torrents not previously managed by Download-Manager
-		self.registermissingtorrents(torrentdata.keys())
+		newtorrentslist = self.registermissingtorrents(torrentdata.keys())
 
 		# Update the list of torrents to exclude torrents previously managed by Download-Manager
 		self.cleantorrentlist(torrentdata.keys())
@@ -36,10 +35,8 @@ class DefineTorrentManager:
 		# Update all the torrents' data relevent for Download-Manager/Deluge-Monitor
 		self.refreshalltorrentdata(torrentdata)
 
-		# Loads torrent config data from disk on initial load
-		if self.loadexistingconfigurations == False:
-			self.reloadsavedconfigdata()
-			self.loadexistingconfigurations = True
+		# Loads torrent config data from disk on initial load or re-register
+		self.reloadsavedconfigdata(newtorrentslist)
 
 
 
@@ -48,11 +45,12 @@ class DefineTorrentManager:
 # Loads torrent config data from disk on initial load
 # =========================================================================================
 
-	def reloadsavedconfigdata(self):
+	def reloadsavedconfigdata(self, newtorrentslist):
 
-		for torrentobject in self.torrents:
-			torrentid = torrentobject.getid()
-			torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentid))
+		for torrentid in newtorrentslist:
+			if self.validatetorrentid(torrentid) is True:
+				torrentobject = self.gettorrentobject(torrentid)
+				torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentid))
 
 
 
@@ -143,12 +141,17 @@ class DefineTorrentManager:
 
 	def registermissingtorrents(self, torrentidlist):
 
+		outcome = []
+
 		for torrentiditem in torrentidlist:
 
 			if self.validatetorrentid(torrentiditem) == False:
 				Logging.printout("Registering Torrent in Download-Manager: " + torrentiditem)
 				#print("Registering Torrent in Download-Manager: " + torrentiditem)
 				self.torrents.append(TorrentData.createitem(torrentiditem))
+				outcome.append(torrentiditem)
+
+		return outcome
 
 
 
@@ -170,8 +173,6 @@ class DefineTorrentManager:
 
 			if foundflag == False:
 				Logging.printout("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
-				#self.configdatabase.deletetorrentconfigs()
-				#print("Deregistering Missing Torrent in Download-Manager: " + existingtorrent.getid())
 
 		self.torrents = Functions.sortdictionary(cleanlist, 'dateadded', True)
 
