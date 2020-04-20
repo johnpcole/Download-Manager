@@ -33,7 +33,7 @@ class DefineTorrentSet:
 		self.torrentmanager.refreshtorrentlist()
 		self.monitormanager.refreshsessiondata(self.torrentmanager.getaggregates())
 		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
-				'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
+				'stats': self.monitormanager.getdashboardmeters(True),  #self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
 				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
@@ -49,7 +49,7 @@ class DefineTorrentSet:
 		self.torrentmanager.refreshtorrentlist()
 		self.monitormanager.refreshsessiondata(self.torrentmanager.getaggregates())
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
-				'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
+				'stats': self.monitormanager.getdashboardmeters(True),  #self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
 				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
