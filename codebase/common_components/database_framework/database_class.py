@@ -89,7 +89,7 @@ class DefineDatabase:
 
 				newitem = Function.buildresult(databasefields, lookupitem)
 				newitem['recordtype'] = databasetable
-				print(newitem)
+				#print(newitem)
 				outcome.append(newitem)
 
 		return outcome
