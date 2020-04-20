@@ -71,7 +71,7 @@ class DefineOperator:
 																			'sessionvalue': VPNStatus.getvpnstatus()})
 			dataout.append({'recordtype': 'session', 'sessionstat': 'lastseen', 'sessionvalue': lastseen})
 
-			deleter.append([{'recordtype': 'session'}])
+			deleter.append({'recordtype': 'session'})
 
 			self.results.deletedatabaserows(deleter)
 			self.results.insertdatabaserows(dataout)
@@ -92,7 +92,7 @@ class DefineOperator:
 
 		self.results.deletedatabaserows(deleter)
 
-		
+
 
 	def isdeleted(self, lastseen):
 
