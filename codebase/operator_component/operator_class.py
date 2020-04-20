@@ -36,9 +36,9 @@ class DefineOperator:
 
 		newinstruction = self.getoldestinstruction()
 
-		self.torrentmanager.performdelugeaction(newinstruction['action'], newinstruction['context'])
+		self.torrentmanager.performdelugeaction(newinstruction['actiontype'], newinstruction['context'])
 
-		if newinstruction['action'] != "Refresh":
+		if newinstruction['actiontype'] != "Refresh":
 			self.tickoffinstruction(newinstruction['actionid'])
 
 		self.savesessiondata()
