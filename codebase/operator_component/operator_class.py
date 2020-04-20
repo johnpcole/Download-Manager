@@ -49,28 +49,29 @@ class DefineOperator:
 	def savesessiondata(self):
 
 		rawdata = self.torrentmanager.getdelugedata()
-		lastseen = rawdata['lastpolled']
-		dataout = []
+
 		if 'torrents' in rawdata.keys():
+			lastseen = rawdata['lastpolled']
+			dataout = []
 			torrents = rawdata['torrents']
 			for torrentid in torrents.keys():
 				dataout.append({'recordtype': 'torrent', 'torrentid': torrentid,
 												'torrentstats': MakeJson(torrents[torrentid]), 'lastseen': lastseen})
-			self.results.deletedatabaserows([{'recordtype': 'torrent'}])
 
-		self.results.deletedatabaserows([{'recordtype': 'session'}])
-		if 'sessiondata' in rawdata.keys():
-			session = rawdata['sessiondata']
-			for sessionstat in session.keys():
-				dataout.append({'recordtype': 'session', 'sessionstat': sessionstat,
+			if 'sessiondata' in rawdata.keys():
+				session = rawdata['sessiondata']
+				for sessionstat in session.keys():
+					dataout.append({'recordtype': 'session', 'sessionstat': sessionstat,
 																				'sessionvalue': session[sessionstat]})
-		dataout.append({'recordtype': 'session', 'sessionstat': 'temperature',
+			dataout.append({'recordtype': 'session', 'sessionstat': 'temperature',
 																'sessionvalue': Thermometer.getoveralltemperature()})
-		dataout.append({'recordtype': 'session', 'sessionstat': 'vpnstatus',
+			dataout.append({'recordtype': 'session', 'sessionstat': 'vpnstatus',
 																			'sessionvalue': VPNStatus.getvpnstatus()})
-		dataout.append({'recordtype': 'session', 'sessionstat': 'lastseen', 'sessionvalue': lastseen})
+			dataout.append({'recordtype': 'session', 'sessionstat': 'lastseen', 'sessionvalue': lastseen})
 
-		self.results.insertdatabaserows(dataout)
+			self.results.deletedatabaserows([{'recordtype': 'torrent'}])
+			self.results.deletedatabaserows([{'recordtype': 'session'}])
+			self.results.insertdatabaserows(dataout)
 
 
 
