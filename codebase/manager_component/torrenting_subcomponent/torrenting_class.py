@@ -1,7 +1,8 @@
 from .torrent_subcomponent import torrent_module as TorrentData
-from .configdatastrore_subcomponent import configdatastore_module as Datastore
+from .configdatastore_subcomponent import configdatastore_module as Datastore
 from ...common_components.dataconversion_framework import dataconversion_module as Functions
 from ...common_components.logging_framework import logging_module as Logging
+from .delugedatastore_subcomponent import delugedatastore_module as Deluge
 
 
 
@@ -14,13 +15,17 @@ class DefineTorrentManager:
 
 		self.configdatabase = Datastore.createtorrentconfigdatabase()
 
+		self.torrentdatabase = Deluge.createdelugedatabase()
+
 		self.loadexistingconfigurations = False
 
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
 # =========================================================================================
 
-	def refreshtorrentlist(self, torrentdata):
+	def refreshtorrentlist(self):
+
+		torrentdata = self.torrentdatabase.getlatest()
 
 		# Update the list of torrents to include new torrents not previously managed by Download-Manager
 		self.registermissingtorrents(torrentdata.keys())
@@ -31,16 +36,24 @@ class DefineTorrentManager:
 		# Update all the torrents' data relevent for Download-Manager/Deluge-Monitor
 		self.refreshalltorrentdata(torrentdata)
 
+		# Loads torrent config data from disk on initial load
 		if self.loadexistingconfigurations == False:
 			self.reloadsavedconfigdata()
 			self.loadexistingconfigurations = True
 
+
+
+
+# =========================================================================================
+# Loads torrent config data from disk on initial load
+# =========================================================================================
 
 	def reloadsavedconfigdata(self):
 
 		for torrentobject in self.torrents:
 			torrentid = torrentobject.getid()
 			torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentid))
+
 
 
 # =========================================================================================

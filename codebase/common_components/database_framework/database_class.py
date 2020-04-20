@@ -50,7 +50,7 @@ class DefineDatabase:
 		for databaseoperation in deletingrows:
 
 			sqlcommand = "DELETE FROM " + databaseoperation['recordtype']
-			sqlcommand = sqlcommand + " WHERE " + Function.buildfieldssql(databaseoperation, " AND ", True) + ";"
+			sqlcommand = sqlcommand + Function.buildwheresql(databaseoperation) + ";"
 			valuelist = Function.buildvaluessql(databaseoperation)
 
 			self.databaseconnection.performdatabaseoperation(sqlcommand, tuple(valuelist), self.databasemode)
@@ -80,7 +80,7 @@ class DefineDatabase:
 			databasefields = self.databasestructure.gettablefields(databasetable)
 			sqlcommand = "SELECT " + Function.buildfieldnamelistsql(databasefields)
 			sqlcommand = sqlcommand + " FROM " + databasetable
-			sqlcommand = sqlcommand + " WHERE " + Function.buildfieldssql(databaseoperation, " AND ", True) + ";"
+			sqlcommand = sqlcommand + Function.buildwheresql(databaseoperation)+ ";"
 			valuelist = Function.buildvaluessql(databaseoperation)
 
 			lookupdata = self.databaseconnection.performdatabaseextract(sqlcommand, tuple(valuelist), self.databasemode)

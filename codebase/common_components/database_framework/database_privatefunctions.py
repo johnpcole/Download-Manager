@@ -66,3 +66,14 @@ def buildfieldnamelistsql(fieldnamelist):
 			outcome = outcome + fieldname
 
 	return outcome
+
+
+def buildwheresql(databaseoperation):
+
+	filter = buildfieldssql(databaseoperation, " AND ", True)
+	if filter != "":
+		sqlcommand = " WHERE " + filter
+	else:
+		sqlcommand = ""
+	return sqlcommand
+

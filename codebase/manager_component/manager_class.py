@@ -21,7 +21,7 @@ class DefineTorrentSet:
 		self.monitormanager.restoresavedhistory(ConfigFile.getmonitor(MonitorManager.getloadlist()))
 		self.delugemanager = DelugeManager.createtracker()
 
-		self.delugemanager.queuenewrefreshaction()
+		#self.delugemanager.queuenewrefreshaction()
 
 	#===============================================================================================
 	# Load the Torrents List as new page
@@ -30,7 +30,8 @@ class DefineTorrentSet:
 	def initialiselistpage(self):
 
 		Logging.printinvocation("Loading All Torrents List Page", "")
-		self.delugemanager.queuenewrefreshaction()
+		self.torrentmanager.refreshtorrentlist()
+		self.monitormanager.refreshsessiondata(self.torrentmanager.getaggregates())
 		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 				'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
@@ -45,7 +46,8 @@ class DefineTorrentSet:
 	def updatelistpage(self):
 
 		Logging.printinvocation("Refreshing All Torrents List Page", "")
-		self.delugemanager.queuenewrefreshaction()
+		self.torrentmanager.refreshtorrentlist()
+		self.monitormanager.refreshsessiondata(self.torrentmanager.getaggregates())
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
 				'stats': self.monitormanager.getdashboardmeters(self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
@@ -67,7 +69,8 @@ class DefineTorrentSet:
 			self.delugemanager.queuenewpauseallaction()
 		else:
 			Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
-		self.delugemanager.queuenewrefreshaction()
+		self.torrentmanager.refreshtorrentlist()
+		self.monitormanager.refreshsessiondata(self.torrentmanager.getaggregates())
 		return {'bulktorrentaction': 'done'}
 
 
@@ -80,7 +83,7 @@ class DefineTorrentSet:
 
 		Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
 		self.copiermanager.queuefolderrefresh()
-		self.delugemanager.queuenewrefreshaction()
+		self.torrentmanager.refreshtorrentlist()
 		return {'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
 				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
@@ -96,7 +99,7 @@ class DefineTorrentSet:
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Loading Specific Torrent Page", torrentid)
-			self.delugemanager.queuenewrefreshaction()
+			self.torrentmanager.refreshtorrentlist()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
 					'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
 		else:
@@ -112,7 +115,7 @@ class DefineTorrentSet:
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
-			self.delugemanager.queuenewrefreshaction()
+			self.torrentmanager.refreshtorrentlist()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
 					'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
 		else:
@@ -134,7 +137,7 @@ class DefineTorrentSet:
 				self.delugemanager.queuenewpausetorrentaction(torrentid)
 			else:
 				Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
-			self.delugemanager.queuenewrefreshaction()
+			self.torrentmanager.refreshtorrentlist()
 			return {'torrentaction': 'done'}
 		else:
 			Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
@@ -183,7 +186,6 @@ class DefineTorrentSet:
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Saving Reconfigured Torrent", torrentid)
 			self.torrentmanager.reconfiguretorrent(torrentid, newconfiguration)
-			#ConfigFile.savetorrentconfigs(self.torrentmanager.getconfigs(torrentid))
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "reconfigure")}
 		else:
 			Logging.printinvocation("Requested Save Reconfiguration of Unknown Torrent", torrentid)
@@ -253,7 +255,7 @@ class DefineTorrentSet:
 	def displaycopier(self):
 
 		Logging.printinvocation("Loading Copier Page", "")
-		self.delugemanager.queuenewrefreshaction()
+		#self.delugemanager.queuenewrefreshaction()
 		return {'copyactions': self.copiermanager.getcopierpageinitialdata(
 																		self.torrentmanager.getvisibletorrentidlist())}
 
@@ -266,7 +268,7 @@ class DefineTorrentSet:
 	def updatecopierpage(self):
 
 		Logging.printinvocation("Refreshing Copier Page", "")
-		self.delugemanager.queuenewrefreshaction()
+		#self.delugemanager.queuenewrefreshaction()
 		return {'copyactions': self.copiermanager.getcopierpagerefreshdata()}
 
 
@@ -326,21 +328,21 @@ class DefineTorrentSet:
 	# Process Operator Queue
 	#===============================================================================================
 
-	def triggeroperator(self, torrentdata, sessiondata, monitorhistory):
-
-		Logging.printinvocation("Synchronising with Download-Operator", "")
-
-		if torrentdata is not None:
-			self.torrentmanager.refreshtorrentlist(torrentdata)
-			if sessiondata is not None:
-				self.monitormanager.refreshsessiondata(sessiondata, self.torrentmanager.getaggregates())
-				self.delugemanager.lognewdatashare()
-
-		if monitorhistory is True:
-			outcome = self.monitormanager.addtohistory()
-			ConfigFile.savemonitor(outcome)
-
-		return self.delugemanager.getnextoperatoraction()
+	# def triggeroperator(self, torrentdata, sessiondata, monitorhistory):
+	#
+	# 	Logging.printinvocation("Synchronising with Download-Operator", "")
+	#
+	# 	if torrentdata is not None:
+	# 		self.torrentmanager.refreshtorrentlist(torrentdata)
+	# 		if sessiondata is not None:
+	# 			self.monitormanager.refreshsessiondata(sessiondata, self.torrentmanager.getaggregates())
+	# 			self.delugemanager.lognewdatashare()
+	#
+	# 	if monitorhistory is True:
+	# 		outcome = self.monitormanager.addtohistory()
+	# 		ConfigFile.savemonitor(outcome)
+	#
+	# 	return self.delugemanager.getnextoperatoraction()!!!!!!!!!!!
 
 
 

@@ -287,27 +287,6 @@ def triggercopier():
 
 
 #===============================================================================================
-# Generate a Copier Interaction
-#===============================================================================================
-
-@website.route('/TriggerDownloadOperator', methods=['POST'])
-def triggeroperator():
-
-	inputdata = WebServer.getrequestdata()
-	#print("===========================================================")
-	#print("INPUT KEYS: ", inputdata.keys())
-	#print("===========================================================")
-	if ("torrents" in inputdata.keys()) and ("sessiondata" in inputdata.keys()
-																			and ("monitorhistory" in inputdata.keys())):
-		result = torrentset.triggeroperator(inputdata['torrents'], inputdata['sessiondata'],
-																							inputdata['monitorhistory'])
-	else:
-		result = torrentset.triggeroperator(None, None, None)
-	return WebServer.makejson(**result)
-
-
-
-#===============================================================================================
 # Start the web server
 #===============================================================================================
 

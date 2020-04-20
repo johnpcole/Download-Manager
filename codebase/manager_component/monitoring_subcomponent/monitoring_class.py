@@ -1,5 +1,6 @@
 from .dashboardmeters_subcomponent import dashboardmeters_module as DashboardMeters
 from .history_subcomponent import history_module as History
+from .sessiondatastore_subcomponent import sessiondatastore_module as Database
 
 
 class DefineMonitor:
@@ -20,12 +21,16 @@ class DefineMonitor:
 		# Torrent aggregate counts
 		self.colourcounts = {'redcount': 0, 'orangecount': 0, 'ambercount': 0, 'yellowcount': 0, 'greencount': 0}
 
+		self.sessiondatabase = Database.createsessiondatabase()
+
 
 # =========================================================================================
 #
 # =========================================================================================
 
-	def refreshsessiondata(self, sessiondata, torrentaggregates):
+	def refreshsessiondata(self, torrentaggregates):
+
+		sessiondata = self.sessiondatabase.getlatest()
 
 		self.dashboardmeters.updatesessiondata(sessiondata)
 
