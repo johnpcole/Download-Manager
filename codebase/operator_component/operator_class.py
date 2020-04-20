@@ -80,7 +80,7 @@ class DefineOperator:
 
 		outstandingactions = []
 		actiondata = self.actions.extractdatabaserows([{'recordtype': 'queuedaction'}])
-		resultdata = self.results.extractdatabaserows([{'recordtype': 'actionresult'}])
+		resultdata = self.results.extractdatabaserows([{'recordtype': 'processedaction'}])
 
 		for action in actiondata:
 			matchfound = False

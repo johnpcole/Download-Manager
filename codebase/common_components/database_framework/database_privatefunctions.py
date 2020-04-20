@@ -70,9 +70,9 @@ def buildfieldnamelistsql(fieldnamelist):
 
 def buildwheresql(databaseoperation):
 
-	filter = buildfieldssql(databaseoperation, " AND ", True)
-	if filter != "":
-		sqlcommand = " WHERE " + filter
+	wherefilter = buildfieldssql(databaseoperation, " AND ", True)
+	if wherefilter != "":
+		sqlcommand = " WHERE " + wherefilter
 	else:
 		sqlcommand = ""
 	return sqlcommand

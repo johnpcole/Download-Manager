@@ -80,7 +80,7 @@ class DefineDatabase:
 			databasefields = self.databasestructure.gettablefields(databasetable)
 			sqlcommand = "SELECT " + Function.buildfieldnamelistsql(databasefields)
 			sqlcommand = sqlcommand + " FROM " + databasetable
-			sqlcommand = sqlcommand + Function.buildwheresql(databaseoperation)+ ";"
+			sqlcommand = sqlcommand + Function.buildwheresql(databaseoperation) + ";"
 			valuelist = Function.buildvaluessql(databaseoperation)
 
 			lookupdata = self.databaseconnection.performdatabaseextract(sqlcommand, tuple(valuelist), self.databasemode)
