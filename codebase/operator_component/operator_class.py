@@ -6,7 +6,7 @@ from .network_subcomponent import network_module as VPNStatus
 from ..common_components.filesystem_framework import configfile_module as ConfigFile
 from .. import database_definitions as Database
 import operator as Operator
-from ..common_components import datetime_datatypes as DateTime
+from ..common_components.datetime_datatypes import datetime_module as DateTime
 
 
 class DefineOperator:
@@ -96,8 +96,8 @@ class DefineOperator:
 
 	def getoldestinstruction(self):
 
-		if len(self.actions) > 0:
-			sortedlist = sorted(self.actions, key=Operator.itemgetter('actionid'))
+		if len(self.outstandingactions) > 0:
+			sortedlist = sorted(self.outstandingactions, key=Operator.itemgetter('actionid'))
 			oldestinstruction = sortedlist[0]
 		else:
 			currentdatetime = DateTime.getnow()
