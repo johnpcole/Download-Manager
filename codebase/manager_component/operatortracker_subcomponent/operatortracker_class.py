@@ -9,19 +9,13 @@ class DefineOperatorTracker:
 
 	def __init__(self):
 
-		self.actionsqueue = Database.createoperatoractionsdatabase()
+		self.actionsqueue = Database.createoperatoractionsdatabase(1)
 
-		self.actionresults = Database.createoperatorresultsdatabase()
+		self.actionresults = Database.createoperatorresultsdatabase(2)
 
 		self.outstandingactions = []
 
-		#self.operatoractions = {}
-
-		#self.nullaction = "Null"
-
-		#self.actioncounter = 0
-
-		#self.queuenewrefreshaction()
+		self.actioncounter = 0
 
 		self.lastseen = DateTime.getnow()
 
@@ -100,7 +94,7 @@ class DefineOperatorTracker:
 
 		if duplicatefound == False:
 			newactions = []
-			newactions.append({'actionid': self.generateindex(), 'actiontype': action, 'context': context})
+			newactions.append({'recordtype': 'queuedaction', 'actionid': self.generateindex(), 'actiontype': action, 'context': context})
 
 			self.actionsqueue.insertdatabaserows(newactions)
 

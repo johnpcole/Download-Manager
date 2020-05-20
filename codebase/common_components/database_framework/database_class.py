@@ -6,11 +6,11 @@ from ..enumeration_datatype import enumeration_module as Enumeration
 
 class DefineDatabase:
 
-	def __init__(self, databasefilename):
+	def __init__(self, databasefilename, turn):
 
 		self.databasestructure = DatabaseStructure.createdatabasestructure()
 
-		self.databaseconnection = DatabaseConnection.createdatabaseconnection(databasefilename)
+		self.databaseconnection = DatabaseConnection.createdatabaseconnection(databasefilename, turn)
 
 		self.databasemode = Enumeration.createenum(['Build', 'Live'], 'Build')
 

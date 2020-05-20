@@ -22,9 +22,9 @@ class DefineOperator:
 																	'./data/application_config/operator_connection.cfg',
 																	['Address', 'Port', 'Username', 'Password']))
 
-		self.actions = Database.createoperatoractionsdatabase()
+		self.actions = Database.createoperatoractionsdatabase(2)
 
-		self.results = Database.createoperatorresultsdatabase()
+		self.results = Database.createoperatorresultsdatabase(1)
 
 		self.outstandingactions = []
 

@@ -1,13 +1,16 @@
 from sqlite3 import connect as ConnectDatabase
+from . import databaseconnection_privatefunctions as DatabaseSharer
 
 
 class DefineDatabaseConnection:
 
-	def __init__(self, databasefilename):
+	def __init__(self, databasefilename, turn):
 
 		self.databasename = databasefilename
 
 		self.debugging = False
+
+		self.sharedmode = turn
 
 
 
@@ -20,6 +23,7 @@ class DefineDatabaseConnection:
 				print("============================================")
 				print("============================================")
 
+			DatabaseSharer.waittoaccess(self.sharedmode)
 			currentconnection = ConnectDatabase(self.databasename)
 			currentcursor = currentconnection.cursor()
 
@@ -71,6 +75,7 @@ class DefineDatabaseConnection:
 				print("============================================")
 				print("============================================")
 
+			DatabaseSharer.waittoaccess(self.sharedmode)
 			currentconnection = ConnectDatabase(self.databasename)
 
 			if operationvariables is None:

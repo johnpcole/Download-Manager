@@ -1,8 +1,8 @@
 from .common_components.database_framework import database_module as Database
 
-def createoperatoractionsdatabase():
+def createoperatoractionsdatabase(turn):
 
-	actionsqueue = Database.createdatabase('./data/application_memory/operator_actions.sqlite')
+	actionsqueue = Database.createshareddatabase('./data/application_memory/operator_actions.sqlite', turn)
 
 	actionsqueue.adddatabasestructure('queuedaction', 'actionid', 'CHAR(20)', False, True)
 	actionsqueue.adddatabasestructure('queuedaction', 'actiontype', 'CHAR(6)', False, False)
@@ -16,9 +16,9 @@ def createoperatoractionsdatabase():
 
 
 
-def createoperatorresultsdatabase():
+def createoperatorresultsdatabase(turn):
 
-	actionresults = Database.createdatabase('./data/application_memory/operator_results.sqlite')
+	actionresults = Database.createshareddatabase('./data/application_memory/operator_results.sqlite', turn)
 
 	actionresults.adddatabasestructure('processedaction', 'actionid', 'CHAR(20)', False, True)
 	actionresults.adddatabasestructure('torrent', 'torrentid', 'CHAR(40)', False, True)
