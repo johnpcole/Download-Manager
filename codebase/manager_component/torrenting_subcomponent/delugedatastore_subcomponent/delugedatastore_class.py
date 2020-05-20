@@ -5,7 +5,7 @@ class DefineDelugeDatabase:
 
 	def __init__(self):
 
-		self.delugedata = Database.createoperatorresultsdatabase()
+		self.delugedata = Database.createoperatorresultsdatabase(2)
 
 
 
