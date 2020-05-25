@@ -1,5 +1,6 @@
 from . import filesystem_module as FileSystem
 from ..logging_framework import logging_module as Logging
+from json import dumps as MakeJson
 
 
 def readconfigurationfile(filepath, configlist):
@@ -23,4 +24,8 @@ def readgeneralfile(filepath):
 		Logging.printout("Cannot find configuration file " + filepath)
 		outcome = []
 	return outcome
+
+
+def writejsonfile(filepath, datalibrary):
+	FileSystem.writetodisk(filepath, MakeJson(datalibrary), "Overwrite")
 

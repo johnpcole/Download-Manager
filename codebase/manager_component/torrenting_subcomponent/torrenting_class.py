@@ -121,7 +121,7 @@ class DefineTorrentManager:
 		torrentobject.updateinfo(newconfig)
 
 		# Now save the new config to the database
-		self.configdatabase.savetorrentconfigs(torrentobject.getsavedata())
+		torrentobject.savetorrentconfiguration()
 
 
 

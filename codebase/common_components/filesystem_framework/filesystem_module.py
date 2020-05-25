@@ -51,39 +51,6 @@ def readfromdisk(filename):
 
 
 # ---------------------------------------------
-# Returns a list of strings, extracted from a
-# single string of tab separated substrings
-# ---------------------------------------------
-
-def extracttabulateddata(fileline):
-	splitdata = fileline.split("\t")
-	return splitdata
-
-
-
-# ---------------------------------------------
-# Returns a list of strings, extracted from a
-# single string of comma-space separated substrings
-# ---------------------------------------------
-
-def extractcommadata(fileline):
-	splitdata = fileline.split(", ")
-	return splitdata
-
-
-
-# ---------------------------------------------
-# Returns a list of two strings, extracted from a
-# single string of space-equals-space separated substrings
-# ---------------------------------------------
-
-def extractdatapair(dataitem):
-	splitdata = dataitem.split(" = ")
-	return splitdata[0], splitdata[1]
-
-
-
-# ---------------------------------------------
 # Returns a list items found in the specified
 # folderpath, with File/Folder/Unknown designations
 # ---------------------------------------------
@@ -237,6 +204,23 @@ def copyfile(source, target):
 		outcome = OperatingSystem.system('copy "' + source + '" "' + target + '"')
 
 	return outcome
+
+
+
+
+# ---------------------------------------------
+# Deletes a file
+# ---------------------------------------------
+
+def deletefile(location):
+
+	if concatenatepaths(" ", " ") == " / ":
+		outcome = OperatingSystem.system('rm -v "' + location + '"')
+	else:
+		outcome = OperatingSystem.system('delete "' + location + '"')
+
+	return outcome
+
 
 
 

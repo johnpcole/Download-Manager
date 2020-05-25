@@ -3,6 +3,7 @@ from ....common_components.dataconversion_framework import dataconversion_module
 from .category_subcomponent import category_module as Category
 from .status_subcomponent import status_module as Status
 from ....common_components.datetime_datatypes import datetime_module as DateTime
+from ....common_components.filesystem_framework import configfile_module as ConfigFile
 
 
 # This class creates an object which is used to capture information about an individual torrent
@@ -164,19 +165,25 @@ class DefineTorrentItem:
 
 # =========================================================================================
 
+	def savetorrentconfiguration(self):
+
+		configfilename = "./torrentconfigs/" + self.torrentid + ".config"
+
+		ConfigFile.writejsonfile(configfilename, self.getsavedata())
+
+
+# =========================================================================================
+
 	def getsavedata(self):
 
 		outcomelist = []
 		newoutcome = self.torrentcategory.getcategorysavedata().copy()
 		newoutcome['recordtype'] = 'torrent'
-		newoutcome['torrentid'] = self.getid()
 		outcomelist.append(newoutcome)
 		filesavedata = self.torrentfiles.getfilesavedata()
 		for fileitem in filesavedata:
 			newoutcome = fileitem.copy()
 			newoutcome['recordtype'] = 'file'
-			newoutcome['torrentid'] = self.getid()
-			newoutcome['torrentfileid'] = newoutcome['torrentid'] + ":" + newoutcome['fileid']
 			outcomelist.append(newoutcome)
 		return outcomelist
 

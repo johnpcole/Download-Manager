@@ -1,39 +1,14 @@
 from .... import database_definitions as Database
 from ....common_components.logging_framework import logging_module as Logging
 
+
 class DefineTorrentConfigsDatabase:
 
 	def __init__(self):
 
 		self.torrentconfigs = Database.createtorrentconfigsdatabase()
 
-	# =========================================================================================
-	# Saves the current torrent config information, to a sqlite file
-	# =========================================================================================
 
-	def savetorrentconfigs(self, outputlist):
-
-		Logging.printout("Saving Torrents Configuration Data")
-
-		for databaseoperation in outputlist:
-			self.deletetorrentconfigs(databaseoperation['torrentid'])
-
-		self.torrentconfigs.insertdatabaserows(outputlist)
-
-
-
-	# =========================================================================================
-	# Deletes the current torrent config information, from a sqlite file
-	# =========================================================================================
-
-	def deletetorrentconfigs(self, torrentid):
-
-		Logging.printout("Deleting Torrents Configuration Data")
-
-		torrentdeleteset = []
-		torrentdeleteset.append({'recordtype': 'torrent', 'torrentid': torrentid})
-		torrentdeleteset.append({'recordtype': 'file', 'torrentid': torrentid})
-		self.torrentconfigs.deletedatabaserows(torrentdeleteset)
 
 
 
