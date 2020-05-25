@@ -165,11 +165,28 @@ class DefineTorrentItem:
 
 # =========================================================================================
 
-	def savetorrentconfiguration(self):
+	def gettorrentconfigfilepath(self):
 
 		configfilename = "./data/torrent_configs/" + self.torrentid + ".config"
 
-		FileSystem.writejsontodisk(configfilename, self.getsavedata())
+		return configfilename
+
+
+# =========================================================================================
+
+	def savetorrentconfiguration(self):
+
+
+		FileSystem.writejsontodisk(self.gettorrentconfigfilepath(), self.getsavedata())
+
+
+# =========================================================================================
+
+	def loadtorrentconfiguration(self):
+
+		filepath = self.gettorrentconfigfilepath()
+		if FileSystem.doesexist(filepath):
+			self.setsavedata(FileSystem.readjsonfromdisk(filepath))
 
 
 # =========================================================================================

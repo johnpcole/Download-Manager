@@ -1,6 +1,8 @@
 import os as OperatingSystem
 import time as TimeFunctions
 from json import dumps as MakeJson
+from json import loads as ReadJson
+
 
 
 def mountnetworkdrive(mountpoint, networkpath, username, password):
@@ -48,6 +50,36 @@ def readfromdisk(filename):
 
 
 	return newfilelist
+
+
+
+# ---------------------------------------------
+# Reads a file from disk and returns an object
+# ---------------------------------------------
+
+def readjsonfromdisk(filename):
+
+	filedata = ""
+
+	try:
+		# Open the file for the duration of this process
+		with open(filename, 'r') as fileobject:
+
+			# Loop over all lines in the file
+			for fileline in fileobject.readlines():
+
+				# Only process if the line isn't blank
+				if fileline != "":
+					filedata = filedata + fileline.rstrip('\r\n')
+
+		filedata = ReadJson(filedata)
+
+	except:
+		# Print an error if the file cannot be read
+		print("Cannot read file - " + filename)
+
+
+	return filedata
 
 
 
@@ -190,7 +222,7 @@ def writejsontodisk(filename, datalibrary):
 		with open(filename, 'w') as targetfile:
 
 			# Print out all items in list
-			targetfile.writelines(MakeJson(datalibrary))
+			targetfile.writelines(MakeJson(datalibrary, sort_keys=True, indent=4))
 
 	except:
 		# Print an error if the file cannot be written

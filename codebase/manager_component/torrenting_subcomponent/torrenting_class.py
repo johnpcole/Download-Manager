@@ -50,7 +50,7 @@ class DefineTorrentManager:
 		for torrentid in newtorrentslist:
 			if self.validatetorrentid(torrentid) is True:
 				torrentobject = self.gettorrentobject(torrentid)
-				torrentobject.setsavedata(self.configdatabase.loadtorrentconfigs(torrentid))
+				torrentobject.loadtorrentconfiguration()
 
 
 
