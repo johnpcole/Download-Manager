@@ -167,7 +167,7 @@ class DefineTorrentItem:
 
 	def savetorrentconfiguration(self):
 
-		configfilename = "./torrentconfigs/" + self.torrentid + ".config"
+		configfilename = "./data/torrent_configs/" + self.torrentid + ".config"
 
 		ConfigFile.writejsonfile(configfilename, self.getsavedata())
 
