@@ -12,8 +12,6 @@ class DefineTorrentManager:
 		# The list of torrents in the deluge daemon; each item contains composite torrenting data (structured/layered dictionary)
 		self.torrents = []
 
-		self.configdatabase = Datastore.createtorrentconfigdatabase()
-
 		self.torrentdatabase = Deluge.createdelugedatabase()
 
 
