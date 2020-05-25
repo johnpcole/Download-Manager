@@ -1,5 +1,4 @@
 from .torrent_subcomponent import torrent_module as TorrentData
-from .configdatastore_subcomponent import configdatastore_module as Datastore
 from ...common_components.dataconversion_framework import dataconversion_module as Functions
 from ...common_components.logging_framework import logging_module as Logging
 from .delugedatastore_subcomponent import delugedatastore_module as Deluge
