@@ -1,5 +1,6 @@
 import os as OperatingSystem
 import time as TimeFunctions
+from json import dumps as MakeJson
 
 
 def mountnetworkdrive(mountpoint, networkpath, username, password):
@@ -171,6 +172,25 @@ def writetodisk(filename, outputlist, appendwritemode):
 
 			# Print out all items in list
 			targetfile.writelines(newlist)
+
+	except:
+		# Print an error if the file cannot be written
+		print("Cannot write file - " + filename)
+
+
+# ---------------------------------------------
+# Writes a file to disk from a list
+# ---------------------------------------------
+
+def writejsontodisk(filename, datalibrary):
+
+
+	try:
+		# Open the file for the duration of this process
+		with open(filename, 'w') as targetfile:
+
+			# Print out all items in list
+			targetfile.writelines(MakeJson(datalibrary))
 
 	except:
 		# Print an error if the file cannot be written

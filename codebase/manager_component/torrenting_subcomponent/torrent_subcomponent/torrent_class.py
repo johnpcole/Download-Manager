@@ -3,7 +3,7 @@ from ....common_components.dataconversion_framework import dataconversion_module
 from .category_subcomponent import category_module as Category
 from .status_subcomponent import status_module as Status
 from ....common_components.datetime_datatypes import datetime_module as DateTime
-from ....common_components.filesystem_framework import configfile_module as ConfigFile
+from ....common_components.filesystem_framework import filesystem_module as FileSystem
 
 
 # This class creates an object which is used to capture information about an individual torrent
@@ -169,7 +169,7 @@ class DefineTorrentItem:
 
 		configfilename = "./data/torrent_configs/" + self.torrentid + ".config"
 
-		ConfigFile.writejsonfile(configfilename, self.getsavedata())
+		FileSystem.writejsontodisk(configfilename, self.getsavedata())
 
 
 # =========================================================================================
