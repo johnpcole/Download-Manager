@@ -16,21 +16,29 @@ class DefineQueue:
 	def createqueueditem(self, data):
 
 		if self.role.get("Queuer") is True:
-			duplicatefilename = True
-			fullfilepath = "./"
-			while duplicatefilename == True:
-				currenttime = DateTime.getnow()
-				draftfilename = currenttime.getiso()
-				fullfilepath = FileSystem.concatenatepaths(self.location, draftfilename)
-				if (FileSystem.doesexist(fullfilepath + ".queued") == False):
-					if (FileSystem.doesexist(fullfilepath + ".draft") == False):
-						if (FileSystem.doesexist(fullfilepath + ".processed") == False):
-							duplicatefilename = False
+			fullfilepath = FileSystem.concatenatepaths(self.location, self.getuniquefileid())
 			FileSystem.writejsontodisk(FileSystem.doesexist(fullfilepath + ".draft"), data)
 			FileSystem.movefile(fullfilepath + ".draft", fullfilepath + ".queued")
 
 		else:
 			assert(1 == 0, "Cannot add a queued item when the role is not Queuer")
+
+
+	def getuniquefileid(self):
+
+		outcome = ""
+		while outcome == "":
+			currenttime = DateTime.getnow()
+			draftfilename = currenttime.getiso()
+			fullfilepath = FileSystem.concatenatepaths(self.location, draftfilename)
+			if (FileSystem.doesexist(fullfilepath + ".queued") == False):
+				if (FileSystem.doesexist(fullfilepath + ".draft") == False):
+					if (FileSystem.doesexist(fullfilepath + ".processed") == False):
+						if (FileSystem.doesexist(fullfilepath + ".ignored") == False):
+							outcome = draftfilename
+
+		print("UNIQUE FILE ID FOR QUEUE: ",outcome)
+		return outcome
 
 
 

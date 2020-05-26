@@ -218,6 +218,8 @@ def writetodisk(filename, outputlist, appendwritemode):
 def writejsontodisk(filename, datalibrary):
 
 
+	print("WRITING JSON FILE: ", filename)
+
 	try:
 		# Open the file for the duration of this process
 		with open(filename, 'w') as targetfile:

@@ -22,7 +22,7 @@ class DefineOperator:
 
 		self.results = Queue.createqueue("./data/session_data", "Queuer")
 
-		self.outstandingactions = []
+
 
 
 	def refresh(self):
