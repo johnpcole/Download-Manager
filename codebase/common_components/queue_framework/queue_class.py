@@ -17,7 +17,7 @@ class DefineQueue:
 
 		if self.role.get("Queuer") is True:
 			fullfilepath = FileSystem.concatenatepaths(self.location, self.getuniquefileid())
-			FileSystem.writejsontodisk(FileSystem.doesexist(fullfilepath + ".draft"), data)
+			FileSystem.writejsontodisk(fullfilepath + ".draft", data)
 			FileSystem.movefile(fullfilepath + ".draft", fullfilepath + ".queued")
 
 		else:
