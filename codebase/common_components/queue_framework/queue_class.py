@@ -34,30 +34,83 @@ class DefineQueue:
 
 
 
+	def getqueueend(self, which):
+
+		latestallowedtime = DateTime.getnow()
+		latestallowedtime.adjustseconds(-1)
+		filelisting = FileSystem.getfolderlisting(self.location)
+		oldestqueuedfile = "29991231235959"
+		newestqueuedfile = "19991231235959"
+		for filenameandextension in filelisting.keys():
+			if FileSystem.getextension(filenameandextension) == "queued":
+				filename = FileSystem.getname(filenameandextension)
+				if (oldestqueuedfile > filename) or (filename > newestqueuedfile):
+					fullfilepath = FileSystem.concatenatepaths(self.location, filenameandextension)
+					filedatetime = FileSystem.getmodifytimedate(fullfilepath)
+					if DateTime.isfirstlaterthansecond(latestallowedtime, filedatetime) == True:
+						if oldestqueuedfile > filename:
+							oldestqueuedfile = filename
+						if newestqueuedfile < filename:
+							newestqueuedfile = filename
+		if which == "oldest":
+			if oldestqueuedfile == "29991231235959":
+				outcome = ""
+			else:
+				outcome = oldestqueuedfile
+		else:
+			if oldestqueuedfile == "19991231235959":
+				outcome = ""
+			else:
+				outcome = newestqueuedfile
+
+		return outcome
+
+
+	def getqueuebacklog(self, latestfilename):
+		outcome = []
+		filelisting = FileSystem.getfolderlisting(self.location)
+		for filenameandextension in filelisting.keys():
+			if FileSystem.getextension(filenameandextension) == "queued":
+				filename = FileSystem.getname(filenameandextension)
+				if latestfilename > filename:
+					outcome.append(FileSystem.concatenatepaths(self.location, filename))
+
+		return outcome
+
+
+
+
 	def readfromqueue(self):
 
+		outcome = {}
 		if self.role.get("Reader") is True:
-			latestallowedtime = DateTime.getnow()
-			latestallowedtime.adjustseconds(-1)
-			filelisting = FileSystem.getfolderlisting(self.location)
-			oldestqueuedfile = "29991231235959"
-			for filenameandextension in filelisting.keys():
-				if FileSystem.getextension(filenameandextension) == "queued":
-					filename = FileSystem.getname(filenameandextension)
-					if oldestqueuedfile > filename:
-						fullfilepath = FileSystem.concatenatepaths(self.location, filenameandextension)
-						filedatetime = FileSystem.getmodifytimedate(fullfilepath)
-						if DateTime.isfirstlaterthansecond(latestallowedtime, filedatetime) == True:
-							oldestqueuedfile = filename
-			if oldestqueuedfile == "29991231235959":
-				outcome = []
-			else:
-				fullfilepath = FileSystem.concatenatepaths(self.location, oldestqueuedfile)
-				outcome = FileSystem.readjsonfromdisk(fullfilepath + ".queued")
+			selectedfile = self.getqueueend("oldest")
+			if selectedfile != "":
+				fullfilepath = FileSystem.concatenatepaths(self.location, selectedfile)
+				outcome['result'] = FileSystem.readjsonfromdisk(fullfilepath + ".queued")
 				FileSystem.movefile(fullfilepath + ".queued", fullfilepath + ".processed")
 		else:
 			assert (1 == 0, "Cannot read from queue when the role is not Reader")
-			outcome = []
+
+		return outcome
+
+
+
+
+	def readqueuelatest(self):
+
+		outcome = {}
+		if self.role.get("Reader") is True:
+			selectedfile = self.getqueueend("newest")
+			if selectedfile != "":
+				fullfilepath = FileSystem.concatenatepaths(self.location, selectedfile)
+				outcome['result'] = FileSystem.readjsonfromdisk(fullfilepath + ".queued")
+				FileSystem.movefile(fullfilepath + ".queued", fullfilepath + ".processed")
+				ignorelist = self.getqueuebacklog(selectedfile)
+				for fullfilepath in ignorelist:
+					FileSystem.movefile(fullfilepath + ".queued", fullfilepath + ".ignored")
+		else:
+			assert (1 == 0, "Cannot read from queue when the role is not Reader")
 
 		return outcome
 
@@ -71,7 +124,8 @@ class DefineQueue:
 			latestallowedtime.adjusthours(-24)
 			filelisting = FileSystem.getfolderlisting(self.location)
 			for filenameandextension in filelisting.keys():
-				if FileSystem.getextension(filenameandextension) == "processed":
+				fileextension = FileSystem.getextension(filenameandextension)
+				if (fileextension == "processed") or (fileextension == "ignored"):
 					fullfilepath = FileSystem.concatenatepaths(self.location, filenameandextension)
 					filedatetime = FileSystem.getmodifytimedate(fullfilepath)
 					if DateTime.isfirstlaterthansecond(latestallowedtime, filedatetime) == True:
