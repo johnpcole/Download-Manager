@@ -46,6 +46,7 @@ class DefineTorrentManager:
 
 		for torrentid in newtorrentslist:
 			if self.validatetorrentid(torrentid) is True:
+				Logging.printout("Loading Torrent Configuration from disk: " + torrentid)
 				torrentobject = self.gettorrentobject(torrentid)
 				torrentobject.loadtorrentconfiguration()
 
@@ -118,6 +119,7 @@ class DefineTorrentManager:
 		torrentobject.updateinfo(newconfig)
 
 		# Now save the new config to the database
+		Logging.printout("Saving Torrent Configuration to disk: " + torrentiditem)
 		torrentobject.savetorrentconfiguration()
 
 

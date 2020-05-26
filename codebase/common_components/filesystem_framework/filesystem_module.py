@@ -2,6 +2,7 @@ import os as OperatingSystem
 import time as TimeFunctions
 from json import dumps as MakeJson
 from json import loads as ReadJson
+from ..datetime_datatypes import datetime_module as DateTime
 
 
 
@@ -259,6 +260,20 @@ def copyfile(source, target):
 
 
 
+# ---------------------------------------------
+# Moves a file
+# ---------------------------------------------
+
+def movefile(source, target):
+
+	if concatenatepaths(" ", " ") == " / ":
+		outcome = OperatingSystem.system('mv -v "' + source + '" "' + target + '"')
+	else:
+		outcome = OperatingSystem.system('rename "' + source + '" "' + target + '"')
+
+	return outcome
+
+
 
 # ---------------------------------------------
 # Deletes a file
@@ -291,8 +306,7 @@ def getsize(fullpath):
 
 def getmodifytimedate(fullpath):
 	dt = TimeFunctions.localtime(OperatingSystem.path.getmtime(fullpath))
-	outcome = {"Year": dt.tm_year, "Month": dt.tm_mon, "Day": dt.tm_mday, "Hour": dt.tm_hour, "Minute": dt.tm_min,
-																								"Second": dt.tm_sec}
+	outcome = DateTime.createfromsextuplet(dt.tm_mday, dt.tm_mon, dt.tm_year, dt.tm_hour, dt.tm_min, dt.tm_sec)
 
 	return outcome
 

@@ -4,9 +4,9 @@ from .delugeinterface_subcomponent import delugeinterface_module as DelugeInterf
 from ..common_components.thermometer_framework import thermometer_module as Thermometer
 from .network_subcomponent import network_module as VPNStatus
 from ..common_components.filesystem_framework import configfile_module as ConfigFile
-from .. import database_definitions as Database
 import operator as Operator
 from ..common_components.datetime_datatypes import datetime_module as DateTime
+from ..common_components.queue_framework import queue_module as Queue
 from json import dumps as MakeJson
 
 
@@ -22,9 +22,9 @@ class DefineOperator:
 																	'./data/application_config/operator_connection.cfg',
 																	['Address', 'Port', 'Username', 'Password']))
 
-		self.actions = Database.createoperatoractionsdatabase(2)
+		self.actions = Queue.createqueue("./data/operator_queue", "Reader")
 
-		self.results = Database.createoperatorresultsdatabase(1)
+		self.results = Queue.createqueue("./data/session_data", "Queuer")
 
 		self.outstandingactions = []
 
@@ -108,6 +108,11 @@ class DefineOperator:
 
 
 	def refreshoutstandingactions(self):
+
+
+		newaction = self.actions.readfromqueue()
+
+
 
 		outstandingactions = []
 		actiondata = self.actions.extractdatabaserows([{'recordtype': 'queuedaction'}])
