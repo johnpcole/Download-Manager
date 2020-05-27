@@ -1,6 +1,7 @@
 from ...common_components.deluge_framework import deluge_module as DelugeClient
 from ...common_components.logging_framework import logging_module as Logging
 from ...common_components.datetime_datatypes import datetime_module as DateTime
+from . import delugeinterface_privatefunctions as Functions
 
 
 class DefineDelugeInterface:
@@ -37,12 +38,25 @@ class DefineDelugeInterface:
 			for torrentid in reportedtorrentidlist:
 				torrentdata = self.delugeclient.retrievetorrentdata(torrentid)
 				self.torrents[torrentid] = torrentdata
+				self.torrents[torrentid]['dm_fullstatus'] = Functions.getfulltorrentstatus(torrentdata['state'], torrentdata['is_finished'])
 		else:
 			self.torrents = None
 
 		# Get the overall session data from the Deluge Daemon (as a flat dictionary of values)
 		# as well as summing up individual torrent data already gathered
 		self.sessiondata = self.delugeclient.retrievesessiondata()
+		self.sessiondata['activedownloads'] = 0
+		self.sessiondata['activeuploads'] = 0
+		self.sessiondata['downloadsavailable'] = 0
+		self.sessiondata['uploadsavailable'] = 0
+
+		if self.torrents is not None:
+			for torrentid in self.torrents.keys():
+				torrentcounts = Functions.getconnectionstatusdata(self.torrents[torrentid]['dm_fullstatus'],
+																	self.torrents[torrentid]['num_peers'],
+																	self.torrents[torrentid]['num_seeds'])
+				for datakey in torrentcounts.keys():
+					self.sessiondata[datakey] = self.sessiondata[datakey] + torrentcounts[datakey]
 
 		self.lastdatascrape.settonow()
 

@@ -1,6 +1,6 @@
 from .dashboardmeters_subcomponent import dashboardmeters_module as DashboardMeters
 from .history_subcomponent import history_module as History
-from .sessiondatastore_subcomponent import sessiondatastore_module as Database
+
 
 
 class DefineMonitor:
@@ -21,20 +21,15 @@ class DefineMonitor:
 		# Torrent aggregate counts
 		self.colourcounts = {'redcount': 0, 'orangecount': 0, 'ambercount': 0, 'yellowcount': 0, 'greencount': 0}
 
-		self.sessiondatabase = Database.createsessiondatabase()
 
 
 # =========================================================================================
 #
 # =========================================================================================
 
-	def refreshsessiondata(self, torrentaggregates):
-
-		sessiondata = self.sessiondatabase.getlatest()
+	def refreshsessiondata(self, sessiondata):
 
 		self.dashboardmeters.updatesessiondata(sessiondata)
-
-		self.dashboardmeters.updatesessiondata(torrentaggregates)
 
 		for index in sessiondata.keys():
 			if index == 'vpnstatus':
@@ -42,9 +37,9 @@ class DefineMonitor:
 			elif index == 'uploadedtotal':
 				self.uploadedtotal = sessiondata[index]
 
-		for index in torrentaggregates.keys():
-			if index in self.colourcounts.keys():
-				self.colourcounts[index] = torrentaggregates[index]
+		#for index in torrentaggregates.keys():
+		#	if index in self.colourcounts.keys():
+		#		self.colourcounts[index] = torrentaggregates[index]
 
 
 # =========================================================================================

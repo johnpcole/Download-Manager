@@ -30,8 +30,7 @@ class DefineTorrentSet:
 	def initialiselistpage(self):
 
 		Logging.printinvocation("Loading All Torrents List Page", "")
-		self.torrentmanager.refreshtorrentlist()
-		self.monitormanager.refreshsessiondata(self.torrentmanager.getaggregates())
+		self.updatealldelugedata()
 		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 				'stats': self.monitormanager.getdashboardmeters(True),  #self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
@@ -46,8 +45,7 @@ class DefineTorrentSet:
 	def updatelistpage(self):
 
 		Logging.printinvocation("Refreshing All Torrents List Page", "")
-		self.torrentmanager.refreshtorrentlist()
-		self.monitormanager.refreshsessiondata(self.torrentmanager.getaggregates())
+		self.updatealldelugedata()
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
 				'stats': self.monitormanager.getdashboardmeters(True),  #self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
@@ -69,8 +67,7 @@ class DefineTorrentSet:
 			self.delugemanager.queuenewpauseallaction()
 		else:
 			Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
-		self.torrentmanager.refreshtorrentlist()
-		self.monitormanager.refreshsessiondata(self.torrentmanager.getaggregates())
+		self.updatealldelugedata()
 		return {'bulktorrentaction': 'done'}
 
 
@@ -82,8 +79,7 @@ class DefineTorrentSet:
 	def rescantvshows(self):
 
 		Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
-		self.copiermanager.queuefolderrefresh()
-		self.torrentmanager.refreshtorrentlist()
+		self.updatealldelugedata()
 		return {'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
 				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
@@ -99,7 +95,7 @@ class DefineTorrentSet:
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Loading Specific Torrent Page", torrentid)
-			self.torrentmanager.refreshtorrentlist()
+			self.updatealldelugedata()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
 					'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
 		else:
@@ -115,7 +111,7 @@ class DefineTorrentSet:
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
-			self.torrentmanager.refreshtorrentlist()
+			self.updatealldelugedata()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
 					'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
 		else:
@@ -137,7 +133,7 @@ class DefineTorrentSet:
 				self.delugemanager.queuenewpausetorrentaction(torrentid)
 			else:
 				Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
-			self.torrentmanager.refreshtorrentlist()
+			self.updatealldelugedata()
 			return {'torrentaction': 'done'}
 		else:
 			Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
@@ -350,3 +346,9 @@ class DefineTorrentSet:
 	def determinewebmode(self):
 
 		return True # ConfigFile.getwebhostconfig()
+
+
+	def updatealldelugedata(self):
+		self.delugemanager.updatedelugedata()
+		self.torrentmanager.refreshtorrentlist(self.delugemanager.getlatesttorrentdata())
+		self.monitormanager.refreshsessiondata(self.delugemanager.getlatestsessiondata())

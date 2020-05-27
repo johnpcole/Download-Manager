@@ -16,6 +16,7 @@ class DefineQueue:
 	def createqueueditem(self, data):
 
 		if self.role.get("Queuer") is True:
+			self.cleanupqueue()
 			fullfilepath = FileSystem.concatenatepaths(self.location, self.getuniquefileid())
 			FileSystem.writejsontodisk(fullfilepath + ".draft", data)
 			FileSystem.movefile(fullfilepath + ".draft", fullfilepath + ".queued")
@@ -37,7 +38,6 @@ class DefineQueue:
 						if (FileSystem.doesexist(fullfilepath + ".ignored") == False):
 							outcome = draftfilename
 
-		print("UNIQUE FILE ID FOR QUEUE: ",outcome)
 		return outcome
 
 

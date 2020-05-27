@@ -1,6 +1,3 @@
-#from .operatoraction_subcomponent import operatoraction_module as OperatorAction
-#from ...common_components.datetime_datatypes import datetime_module as DateTime
-#from ...common_components.logging_framework import logging_module as Logging
 from ...common_components.queue_framework import queue_module as Queue
 
 
@@ -11,6 +8,9 @@ class DefineOperatorTracker:
 
 		self.actionsqueue = Queue.createqueue("./data/operator_queue", "Queuer")
 
+		self.delugedatastream = Queue.createqueue("./data/session_data", "Reader")
+
+		self.latestdelugedata = {}
 
 # =========================================================================================
 
@@ -49,4 +49,29 @@ class DefineOperatorTracker:
 		newactions.append({'recordtype': 'queuedaction', 'actiontype': action, 'context': context})
 		self.actionsqueue.createqueueditem(newactions)
 
+
+
+
+# =========================================================================================
+
+
+
+	def updatedelugedata(self):
+
+		latestdelugedata = self.delugedatastream.readqueuelatest()
+		if 'torrents' in latestdelugedata.keys():
+			if 'sessiondata' in latestdelugedata.keys():
+				self.latestdelugedata = latestdelugedata.copy()
+
+# =========================================================================================
+
+	def getlatesttorrentdata(self):
+
+		return self.latestdelugedata['torrents']
+
+# =========================================================================================
+
+	def getlatestsessiondata(self):
+
+		return self.latestdelugedata['sessiondata']
 

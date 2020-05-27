@@ -33,7 +33,12 @@ class DefineStatus:
 
 		self.trackerstatus = "None"
 
+		self.fullstatus = "unknown"
 
+# =========================================================================================
+
+	def setfullstatus(self, newvalue):
+		self.fullstatus = newvalue
 
 # =========================================================================================
 
@@ -86,23 +91,7 @@ class DefineStatus:
 
 	def getfulltorrentstatus(self):
 
-		if self.status == "queued":
-			if self.iscompleted == True:
-				outcome = "seeding_queued"
-			else:
-				outcome = "downloading_queued"
-		elif self.status == "paused":
-			if self.iscompleted == True:
-				outcome = "seeding_paused"
-			else:
-				outcome = "downloading_paused"
-		elif self.status == "downloading":
-			outcome = "downloading_active"
-		elif self.status == "seeding":
-			outcome = "seeding_active"
-		else:
-			outcome = self.status
-		return outcome
+		return self.fullstatus
 
 # =========================================================================================
 
@@ -124,7 +113,7 @@ class DefineStatus:
 
 # =========================================================================================
 
-	def getconnectionstatusdata(self):
+	def _getconnectionstatusdata(self):
 
 		outcome = {'activedownloads': 0, 'activeuploads': 0, 'downloadcount': 0, 'uploadcount': 0,
 									'redcount': 0, 'orangecount': 0, 'ambercount': 0, 'yellowcount': 0, 'greencount': 0}
@@ -160,7 +149,7 @@ class DefineStatus:
 
 # =========================================================================================
 
-	def gettrackerstatus(self):
+	def _gettrackerstatus(self):
 		if self.trackerstatus.find(" Announce OK") != -1:
 			outcome = 'green'
 		elif self.trackerstatus.find(" Error: ") != -1:

@@ -1,7 +1,6 @@
 from .torrent_subcomponent import torrent_module as TorrentData
 from ...common_components.dataconversion_framework import dataconversion_module as Functions
 from ...common_components.logging_framework import logging_module as Logging
-from .delugedatastore_subcomponent import delugedatastore_module as Deluge
 
 
 
@@ -12,16 +11,15 @@ class DefineTorrentManager:
 		# The list of torrents in the deluge daemon; each item contains composite torrenting data (structured/layered dictionary)
 		self.torrents = []
 
-		self.torrentdatabase = Deluge.createdelugedatabase()
+		self.delugedata = {}
+
 
 
 # =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
 # =========================================================================================
 
-	def refreshtorrentlist(self):
-
-		torrentdata = self.torrentdatabase.getlatest()
+	def refreshtorrentlist(self, torrentdata):
 
 		# Update the list of torrents to include new torrents not previously managed by Download-Manager
 		newtorrentslist = self.registermissingtorrents(torrentdata.keys())
@@ -119,7 +117,7 @@ class DefineTorrentManager:
 		torrentobject.updateinfo(newconfig)
 
 		# Now save the new config to the database
-		Logging.printout("Saving Torrent Configuration to disk: " + torrentiditem)
+		Logging.printout("Saving Torrent Configuration to disk: " + torrentid)
 		torrentobject.savetorrentconfiguration()
 
 
@@ -182,7 +180,7 @@ class DefineTorrentManager:
 # extracting data from individual torrents
 # =========================================================================================
 
-	def getaggregates(self):
+	def _agetaggregates(self):
 
 		outcome = {'downloadcount': 0, 'activedownloads': 0, 'uploadcount': 0, 'activeuploads': 0,
 								'redcount': 0, 'orangecount': 0, 'ambercount': 0, 'yellowcount': 0, 'greencount': 0}

@@ -54,11 +54,11 @@ class DefineDashboardMeters:
 				self.downloadspeed.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'freespace':
 				self.freespace.setmetervalue(dashboarddata[indexkey])
-			elif indexkey == 'downloadcount':
+			elif indexkey == 'downloadsavailable':
 				self.downloadcount.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'activedownloads':
 				self.activedownloads.setmetervalue(dashboarddata[indexkey])
-			elif indexkey == 'uploadcount':
+			elif indexkey == 'uploadsavailable':
 				self.uploadcount.setmetervalue(dashboarddata[indexkey])
 			elif indexkey == 'activeuploads':
 				self.activeuploads.setmetervalue(dashboarddata[indexkey])

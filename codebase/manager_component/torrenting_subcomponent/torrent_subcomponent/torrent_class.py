@@ -67,6 +67,9 @@ class DefineTorrentItem:
 			elif dataitem == "tracker_status":
 				self.torrentstatus.settrackerstatus(datalist[dataitem])
 			# -----------------------------------------------------------------------------------------------
+			elif dataitem == "dm_fullstatus":
+				self.torrentstatus.setfullstatus(datalist[dataitem])
+			# -----------------------------------------------------------------------------------------------
 			elif dataitem == "save_path":
 				self.torrentfiles.settorrentfilespath(datalist[dataitem])
 			elif dataitem == "files":
