@@ -11,7 +11,7 @@ class DefineOperatorTracker:
 
 		self.delugedatastream = Queue.createqueue("./data/session_data", "Reader")
 
-		self.latestdelugedata = {}
+		self.latestdelugedata = {'torrents': {}, 'sessiondata': {}, 'lastpolled': "19991231235959"}
 
 # =========================================================================================
 
@@ -60,9 +60,6 @@ class DefineOperatorTracker:
 	def updatedelugedata(self):
 
 		latestdelugedata = self.delugedatastream.readqueuelatest()
-		print("============================================")
-		print(MakeJson(latestdelugedata, sort_keys=True, indent=4))
-		print("============================================")
 		if 'torrents' in latestdelugedata.keys():
 			if 'sessiondata' in latestdelugedata.keys():
 				self.latestdelugedata = latestdelugedata.copy()
