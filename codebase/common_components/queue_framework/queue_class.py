@@ -42,8 +42,9 @@ class DefineQueue:
 
 
 
-	def getqueueend(self, which):
+	def getqueueend(self, whichend):
 
+		outcome = ""
 		latestallowedtime = DateTime.getnow()
 		latestallowedtime.adjustseconds(-1)
 		filelisting = FileSystem.getfolderlisting(self.location)
@@ -60,15 +61,11 @@ class DefineQueue:
 							oldestqueuedfile = filename
 						if newestqueuedfile < filename:
 							newestqueuedfile = filename
-		if which == "oldest":
-			if oldestqueuedfile == "29991231235959":
-				outcome = ""
-			else:
+		if whichend == "oldest":
+			if oldestqueuedfile != "29991231235959":
 				outcome = oldestqueuedfile
 		else:
-			if oldestqueuedfile == "19991231235959":
-				outcome = ""
-			else:
+			if newestqueuedfile != "19991231235959":
 				outcome = newestqueuedfile
 
 		return outcome
