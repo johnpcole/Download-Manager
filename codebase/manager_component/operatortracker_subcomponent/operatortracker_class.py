@@ -1,4 +1,5 @@
 from ...common_components.queue_framework import queue_module as Queue
+from json import dumps as MakeJson
 
 
 
@@ -59,6 +60,9 @@ class DefineOperatorTracker:
 	def updatedelugedata(self):
 
 		latestdelugedata = self.delugedatastream.readqueuelatest()
+		print("============================================")
+		print(MakeJson(latestdelugedata, sort_keys=True, indent=4))
+		print("============================================")
 		if 'torrents' in latestdelugedata.keys():
 			if 'sessiondata' in latestdelugedata.keys():
 				self.latestdelugedata = latestdelugedata.copy()

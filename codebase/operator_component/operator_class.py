@@ -5,6 +5,7 @@ from .network_subcomponent import network_module as VPNStatus
 from ..common_components.filesystem_framework import configfile_module as ConfigFile
 from ..common_components.queue_framework import queue_module as Queue
 from time import sleep as Wait
+from ..common_components.delayer_framework import delayer_module as Delayer
 
 
 
@@ -22,6 +23,9 @@ class DefineOperator:
 
 		self.results = Queue.createqueue("./data/session_data", "Queuer")
 
+		self.history = Queue.createqueue("./data/history_data", "Queuer")
+
+		self.historytrigger = Delayer.createdelayer(4)
 
 
 
@@ -32,6 +36,10 @@ class DefineOperator:
 		self.performaction()
 
 		self.savesessiondata()
+
+		if self.historytrigger.checkdelay() is True:
+			self.savehistorydata()
+
 
 
 
@@ -53,3 +61,9 @@ class DefineOperator:
 		self.results.createqueueditem(rawdata)
 
 
+
+
+	def savehistorydata(self):
+
+
+		self.history.createqueueditem(rawdata)

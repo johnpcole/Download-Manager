@@ -1,29 +1,102 @@
-from ...common_components.deluge_framework import deluge_module as DelugeClient
-from ...common_components.logging_framework import logging_module as Logging
-from ...common_components.datetime_datatypes import datetime_module as DateTime
-from . import delugeinterface_privatefunctions as Functions
+from .. import delugeinterface_privatefunctions as Functions
 
 
-class DefineDelugeInterface:
+class DefineDelugeTorrent:
 
-	def __init__(self, address, port, username, password):
+	def __init__(self, tid, tdata):
 
-		# The information required to connect to the deluge daemon
-		self.delugeclient = DelugeClient.createinterface(address, port, username, password)
+		self.tid = tid
 
-		# The list of torrents in the deluge daemon; each item contains composite torrenting data (structured/layered dictionary)
-		self.torrents = {}
+		self.tdata = tdata
 
-		# The dictionary of session data
-		self.sessiondata = {}
-
-		self.lastdatascrape = DateTime.createfromiso("20100101000000")
-
-		self.performdelugeaction("Refresh", "None")
+		self.tdata['dm_fullstatus'] = Functions.getfulltorrentstatus(tdata['state'], tdata['is_finished'])
 
 
 
-# =========================================================================================
+	def getid(self):
+
+		return self.tid
+
+
+
+	def getdata(self):
+
+		return self.getdata()
+
+
+
+	def gettrackerstatus(trackerstatus, torrentstatus):
+
+		if torrentstatus[-6:] == "active":
+			if trackerstatus.find(" Announce OK") != -1:
+				outcome = 'green'
+			elif trackerstatus.find(" Error: ") != -1:
+				if trackerstatus.find(" Error: timed out") != -1:
+					outcome = 'amber'
+				elif trackerstatus.find(" Error: Invalid argument") != -1:
+					outcome = 'orange'
+				else:
+					outcome = 'red'
+			else:
+				outcome = 'yellow'
+		else:
+			outcome = 'black'
+
+		return outcome
+
+
+
+	def calculatefulltorrentstatus(self):
+
+		status = self.tdata['state'].lower()
+		iscompleted = self.tdata['is_finished']
+
+		if status == "queued":
+			if iscompleted is True:
+				outcome = "seeding_queued"
+			else:
+				outcome = "downloading_queued"
+		elif status == "paused":
+			if iscompleted is True:
+				outcome = "seeding_paused"
+			else:
+				outcome = "downloading_paused"
+		elif status == "downloading":
+			outcome = "downloading_active"
+		elif status == "seeding":
+			outcome = "seeding_active"
+		else:
+			outcome = status
+
+		self.tdata['dm_fullstatus'] = outcome
+
+
+
+	def getconnectionstatusdata(torrentstatus, activepeers, activeseeders):
+
+		outcome = {'activedownloads': 0, 'activeuploads': 0, 'downloadsavailable': 0, 'uploadsavailable': 0}
+
+		if torrentstatus[-6:] == "active":
+			outcome['uploadsavailable'] = 1
+			if activepeers > 0:
+				outcome['activeuploads'] = 1
+			if torrentstatus == "downloading_active":
+				outcome['downloadsavailable'] = 1
+				if activeseeders > 0:
+					outcome['activedownloads'] = 1
+
+		return outcome
+
+
+
+
+
+
+
+
+
+
+	# =========================================================================================
 # Connects to the torrent daemon, and updates the local list of torrents
 # =========================================================================================
 
