@@ -46,9 +46,8 @@ class DefineOperatorTracker:
 
 	def queueaction(self, action, context):
 
-		newactions = []
-		newactions.append({'recordtype': 'queuedaction', 'actiontype': action, 'context': context})
-		self.actionsqueue.createqueueditem(newactions)
+		newaction = {'recordtype': 'queuedaction', 'actiontype': action, 'context': context}
+		self.actionsqueue.createqueueditem(newaction)
 
 
 
