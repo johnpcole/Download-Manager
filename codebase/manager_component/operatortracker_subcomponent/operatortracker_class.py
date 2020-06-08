@@ -60,9 +60,10 @@ class DefineOperatorTracker:
 	def updatedelugedata(self):
 
 		latestdelugedata = self.delugedatastream.readqueuelatest()
-		if 'torrents' in latestdelugedata.keys():
-			if 'sessiondata' in latestdelugedata.keys():
-				self.latestdelugedata = latestdelugedata.copy()
+		if latestdelugedata is not None:
+			if 'torrents' in latestdelugedata.keys():
+				if 'sessiondata' in latestdelugedata.keys():
+					self.latestdelugedata = latestdelugedata.copy()
 
 # =========================================================================================
 
