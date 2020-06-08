@@ -107,12 +107,12 @@ class DefineQueue:
 
 	def readqueuelatest(self):
 
-		outcome = {}
+		outcome = None
 		if self.role.get("Reader") is True:
 			selectedfile = self.getqueueend("newest")
 			if selectedfile != "":
 				fullfilepath = FileSystem.concatenatepaths(self.location, selectedfile)
-				outcome['result'] = FileSystem.readjsonfromdisk(fullfilepath + ".queued")
+				outcome = FileSystem.readjsonfromdisk(fullfilepath + ".queued")
 				FileSystem.movefile(fullfilepath + ".queued", fullfilepath + ".processed")
 				ignorelist = self.getqueuebacklog(selectedfile)
 				for fullfilepath in ignorelist:
