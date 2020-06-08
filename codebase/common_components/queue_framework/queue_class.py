@@ -87,12 +87,12 @@ class DefineQueue:
 
 	def readfromqueue(self):
 
-		outcome = {}
+		outcome = None
 		if self.role.get("Reader") is True:
 			selectedfile = self.getqueueend("oldest")
 			if selectedfile != "":
 				fullfilepath = FileSystem.concatenatepaths(self.location, selectedfile)
-				outcome['result'] = FileSystem.readjsonfromdisk(fullfilepath + ".queued")
+				outcome = FileSystem.readjsonfromdisk(fullfilepath + ".queued")
 				FileSystem.movefile(fullfilepath + ".queued", fullfilepath + ".processed")
 		else:
 			assert (1 == 0, "Cannot read from queue when the role is not Reader")

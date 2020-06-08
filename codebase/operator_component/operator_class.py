@@ -46,8 +46,7 @@ class DefineOperator:
 	def performaction(self):
 
 		newinstruction = self.actions.readfromqueue()
-		if 'result' in newinstruction.keys():
-			newinstruction = newinstruction['result']
+		if newinstruction is not None:
 			self.torrentmanager.performdelugeaction(newinstruction['actiontype'], newinstruction['context'])
 
 
