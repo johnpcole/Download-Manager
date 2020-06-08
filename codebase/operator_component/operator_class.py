@@ -6,7 +6,7 @@ from ..common_components.filesystem_framework import configfile_module as Config
 from ..common_components.queue_framework import queue_module as Queue
 from time import sleep as Wait
 from ..common_components.delayer_framework import delayer_module as Delayer
-
+from json import dumps as MakeJson
 
 
 class DefineOperator:
@@ -46,6 +46,7 @@ class DefineOperator:
 	def performaction(self):
 
 		newinstruction = self.actions.readfromqueue()
+		print(MakeJson(newinstruction, sort_keys=True, indent=4))
 		if newinstruction is not None:
 			self.torrentmanager.performdelugeaction(newinstruction['actiontype'], newinstruction['context'])
 
@@ -64,5 +65,5 @@ class DefineOperator:
 
 	def savehistorydata(self):
 
-
-		self.history.createqueueditem(rawdata)
+		x = 0
+		#self.history.createqueueditem(rawdata)
