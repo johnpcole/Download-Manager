@@ -9,7 +9,7 @@ from codebase.operator_component import operator_module as Operator
 
 Logging.printrawline("Starting Download-Operator Application")
 
-operator = Operator.createoperator("http://127.0.0.1:5000/TriggerDownloadOperator", 3)
+operator = Operator.createoperator()
 
 while 1 != 0:
 
