@@ -7,6 +7,7 @@ from ..common_components.queue_framework import queue_module as Queue
 from time import sleep as Wait
 from ..common_components.delayer_framework import delayer_module as Delayer
 from json import dumps as MakeJson
+from ..common_components.filesystem_framework import filesystem_module as FileSystem
 
 
 class DefineOperator:
@@ -23,7 +24,7 @@ class DefineOperator:
 
 		self.results = Queue.createqueue("./data/session_data", "Queuer")
 
-		self.history = Queue.createqueue("./data/history_data", "Queuer")
+		self.historypath = "./data/history_data"
 
 		self.historytrigger = Delayer.createdelayer(4)
 
@@ -35,10 +36,13 @@ class DefineOperator:
 
 		self.performaction()
 
-		self.savesessiondata()
+		temperature = Thermometer.getoveralltemperature()
+		vpnstatus = VPNStatus.getvpnstatus()
+
+		self.savesessiondata(temperature, vpnstatus)
 
 		if self.historytrigger.checkdelay() is True:
-			self.savehistorydata()
+			self.savehistorydata(temperature, vpnstatus)
 
 
 
@@ -53,17 +57,22 @@ class DefineOperator:
 
 
 
-	def savesessiondata(self):
+	def savesessiondata(self, temperature, vpnstatus):
 
 		rawdata = self.torrentmanager.getdelugedata()
-		rawdata['sessiondata']['temperature'] = Thermometer.getoveralltemperature()
-		rawdata['sessiondata']['vpnstatus'] = VPNStatus.getvpnstatus()
+		rawdata['sessiondata']['temperature'] = temperature
+		rawdata['sessiondata']['vpnstatus'] = vpnstatus
 		self.results.createqueueditem(rawdata)
 
 
 
 
-	def savehistorydata(self):
+	def savehistorydata(self, temperature, vpnstatus):
 
-		x = 0
-		#self.history.createqueueditem(rawdata)
+		fullfilepath = FileSystem.concatenatepaths(self.historypath, self.historytrigger.getlatestcallera())
+		rawdata = self.torrentmanager.gethistorydata()
+		rawdata['temperature'] = temperature
+		rawdata['vpnstatus'] = vpnstatus
+		FileSystem.writejsontodisk(fullfilepath + ".draft", rawdata)
+		FileSystem.movefile(fullfilepath + ".draft", fullfilepath + ".queued")
+

@@ -1,7 +1,8 @@
 from ...common_components.deluge_framework import deluge_module as DelugeClient
 from ...common_components.logging_framework import logging_module as Logging
 from ...common_components.datetime_datatypes import datetime_module as DateTime
-from . import delugeinterface_privatefunctions as Functions
+from .delugetorrent_subcomponent import delugetorrent_module as DelugeTorrent
+
 
 
 class DefineDelugeInterface:
@@ -37,26 +38,13 @@ class DefineDelugeInterface:
 			self.torrents = {}
 			for torrentid in reportedtorrentidlist:
 				torrentdata = self.delugeclient.retrievetorrentdata(torrentid)
-				self.torrents[torrentid] = torrentdata
-				self.torrents[torrentid]['dm_fullstatus'] = Functions.getfulltorrentstatus(torrentdata['state'], torrentdata['is_finished'])
+				self.torrents[torrentid] = DelugeTorrent.createtorrent(torrentdata)
 		else:
 			self.torrents = None
 
 		# Get the overall session data from the Deluge Daemon (as a flat dictionary of values)
 		# as well as summing up individual torrent data already gathered
 		self.sessiondata = self.delugeclient.retrievesessiondata()
-		self.sessiondata['activedownloads'] = 0
-		self.sessiondata['activeuploads'] = 0
-		self.sessiondata['downloadsavailable'] = 0
-		self.sessiondata['uploadsavailable'] = 0
-
-		if self.torrents is not None:
-			for torrentid in self.torrents.keys():
-				torrentcounts = Functions.getconnectionstatusdata(self.torrents[torrentid]['dm_fullstatus'],
-																	self.torrents[torrentid]['num_peers'],
-																	self.torrents[torrentid]['num_seeds'])
-				for datakey in torrentcounts.keys():
-					self.sessiondata[datakey] = self.sessiondata[datakey] + torrentcounts[datakey]
 
 		self.lastdatascrape.settonow()
 
@@ -110,34 +98,43 @@ class DefineDelugeInterface:
 
 		outcome = {'lastpolled': self.lastdatascrape.getiso()}
 		if self.torrents is not None:
-			outcome['torrents'] = self.torrents
+			torrentdata = {}
+			for torrentid in self.torrents.keys():
+				torrentdata[torrentid] = self.torrents[torrentid].gettorrentdata()
+			outcome['torrents'] = torrentdata
 		if self.sessiondata is not None:
-			outcome['sessiondata'] = self.sessiondata
+			outcome['sessiondata'] = self.calculateaggregatetorrentdata()
 
 		return outcome
 
 
 
-# =========================================================================================
-# Connects to the torrent daemon, and updates the local list of torrents
-# =========================================================================================
+	def calculateaggregatetorrentdata(self):
 
-	def gethistorydata(self):
-
-		self.sessiondata = self.delugeclient.retrievesessiondata()
-		self.sessiondata['activedownloads'] = 0
-		self.sessiondata['activeuploads'] = 0
-		self.sessiondata['downloadsavailable'] = 0
-		self.sessiondata['uploadsavailable'] = 0
+		sessiondata = self.sessiondata.copy()
+		sessiondata['activedownloads'] = 0
+		sessiondata['activeuploads'] = 0
+		sessiondata['downloadsavailable'] = 0
+		sessiondata['uploadsavailable'] = 0
 
 		if self.torrents is not None:
 			for torrentid in self.torrents.keys():
-				torrentcounts = Functions.getconnectionstatusdata(self.torrents[torrentid]['dm_fullstatus'],
-																	self.torrents[torrentid]['num_peers'],
-																	self.torrents[torrentid]['num_seeds'])
+				torrentcounts = self.torrents[torrentid].getconnectionstatusdata()
 				for datakey in torrentcounts.keys():
-					self.sessiondata[datakey] = self.sessiondata[datakey] + torrentcounts[datakey]
+					sessiondata[datakey] = sessiondata[datakey] + torrentcounts[datakey]
 
-		self.lastdatascrape.settonow()
+		return sessiondata
 
 
+
+	def gethistorydata(self):
+
+		sessiondata = {'red': 0, 'orange': 0, 'amber': 0, 'yellow': 0, 'green': 0, 'black': 0}
+		sessiondata['uploadedtotal'] = self.sessiondata['uploadedtotal']
+
+		if self.torrents is not None:
+			for torrentid in self.torrents.keys():
+				torrentcolour = self.torrents[torrentid].gettrackerstatus()
+				sessiondata[torrentcolour] = sessiondata[torrentcolour] + 1
+
+		return sessiondata

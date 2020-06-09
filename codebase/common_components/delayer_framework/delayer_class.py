@@ -33,6 +33,12 @@ class DefineDelayer:
 
 
 
+	def getlatestcallera(self):
+
+		return EraFunctions.getera(self.latestcall, self.erasize)
+
+
+
 	def waitshort(self):
 
 		if self.erasize > 1:
