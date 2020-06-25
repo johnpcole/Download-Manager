@@ -24,7 +24,7 @@ class DefineQueue:
 			FileSystem.movefile(fullfilepath + ".draft", fullfilepath + ".queued")
 
 		else:
-			assert(1 == 0, "Cannot add a queued item when the role is not Queuer")
+			print("Cannot add a queued item when the role is not Queuer")
 
 
 
@@ -74,10 +74,10 @@ class DefineQueue:
 						if newestqueuedfile < filename:
 							newestqueuedfile = filename
 		if whichend == "oldest":
-			if oldestqueuedfile != "29991231235959":
+			if oldestqueuedfile != "29991231_235959_000":
 				outcome = oldestqueuedfile
 		else:
-			if newestqueuedfile != "19991231235959":
+			if newestqueuedfile != "19991231_235959_000":
 				outcome = newestqueuedfile
 
 		return outcome
