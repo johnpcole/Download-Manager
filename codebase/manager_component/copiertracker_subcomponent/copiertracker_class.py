@@ -17,13 +17,13 @@ class DefineCopierTracker:
 
 		self.latestcopierresult = "00000000_000000_000"
 
-		self.queuefolderrefresh()
-
 		self.historylocation = copierhistorylocation
 
 		self.copieractionqueue = Queue.createqueuewriter(copieractionqueuelocation, 24)
 
 		self.copierdatastream = Queue.createqueuereader(filesystemqueuelocation)
+
+		self.queuefolderrefresh()
 
 
 # =========================================================================================
