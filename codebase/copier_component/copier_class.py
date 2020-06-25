@@ -32,7 +32,8 @@ class DefineCopier:
 		else:
 			trigger = DateTime.getnow()
 			trigger = trigger.adjustseconds(-10)
-			print(trigger.getiso(), self.latestaction.getiso())
+			print("trigger", trigger.getiso())
+			print("latestaction", self.latestaction.getiso())
 			if DateTime.isfirstlaterthansecond(trigger, self.latestaction) is True:
 				self.performafinish()
 
