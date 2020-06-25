@@ -31,12 +31,11 @@ class DefineCopier:
 			self.latestaction.settonow()
 		else:
 			sleeptrigger = DateTime.getnow()
-			print("trigger", sleeptrigger)
-			print("trigger", sleeptrigger.getiso())
-			sleeptrigger = sleeptrigger.adjustseconds(-10)
+			sleeptrigger.adjustseconds(-10)
 			print("trigger", sleeptrigger.getiso())
 			print("latestaction", self.latestaction.getiso())
-			if DateTime.isfirstlaterthansecond(trigger, self.latestaction) is True:
+			if DateTime.isfirstlaterthansecond(sleeptrigger, self.latestaction) is True:
+				print("disconnecting")
 				self.performafinish()
 
 
