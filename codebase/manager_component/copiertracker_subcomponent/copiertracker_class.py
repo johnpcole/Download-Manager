@@ -18,7 +18,7 @@ class DefineCopierTracker:
 		self.latestcopierresult = "00000000_000000_000"
 
 		self.historylocation = copierhistorylocation
-		print("HISTORY", self.historylocation)
+
 		self.copieractionqueue = Queue.createqueuewriter(copieractionqueuelocation, 24)
 
 		self.copierdatastream = Queue.createqueuereader(filesystemqueuelocation)
@@ -37,10 +37,9 @@ class DefineCopierTracker:
 			for newaction in newcopyactions:
 				copysource = FileSystem.createpathfromlist(newaction['source'])
 				copytarget = FileSystem.createpathfromlist(newaction['target'])
-				newaction = CopierAction.createcopyaction(copysource, copytarget,
+				newactionobject = CopierAction.createcopyaction(copysource, copytarget,
 												newaction['torrentid'], newaction['torrentname'], self.historylocation)
-				self.copieractions[newaction.getid()] = newaction
-				self.copieractionqueue.createqueueditem(newaction.getcopieractioninstruction())
+				self.writetoqueue(newactionobject)
 
 
 # =========================================================================================
@@ -48,9 +47,19 @@ class DefineCopierTracker:
 	def queuefolderrefresh(self):
 
 		print("HISTORY", self.historylocation)
-		newaction = CopierAction.createscrapeaction(self.historylocation)
-		self.copieractions[newaction.getid()] = newaction
-		self.copieractionqueue.createqueueditem(newaction.getcopieractioninstruction())
+		newactionobject = CopierAction.createscrapeaction(self.historylocation)
+		self.writetoqueue(newactionobject)
+
+
+# =========================================================================================
+
+	def writetoqueue(self, newactionobject):
+		newid = newactionobject.getid()
+		print("newid", newid)
+		self.copieractions[newid] = newactionobject
+		newinstruction = newactionobject.getcopieractioninstruction()
+		self.copieractionqueue.createqueueditem(newinstruction)
+
 
 # =========================================================================================
 
