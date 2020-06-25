@@ -1,45 +1,40 @@
-from ..common_components.delayer_framework import delayer_module as Delayer
-from ..common_components.webscraper_framework import webscraper_module as WebScraper
 from .filemanagement_subcomponent import filemanagement_module as FileManager
 from .copyinstruction_subcomponent import copyinstruction_module as CopyInstruction
-from ..common_components.filesystem_framework import configfile_module as ConfigFile
-
+from ..common_components.filesystem_framework import filesystem_module as FileSystem
+from ..common_components.queue_framework import queue_module as Queue
+from ..common_components.datetime_datatypes import datetime_module as DateTime
 
 
 class DefineCopier:
 
-	def __init__(self, webaddress, erasize, retrylimit):
+	def __init__(self, copieractionqueuelocation, copierresultslocation, copierappconfiglocation):
 
-		self.delayer = Delayer.createdelayer(erasize)
-
-		self.scraper = WebScraper.createscraper(webaddress, retrylimit)
-
-		self.filemanager = FileManager.createmanager(ConfigFile.readconfigurationfile(
-																	'./data/application_config/copier_connection.cfg',
-																	['Mountpoint', 'Address', 'Username', 'Password']),
-																	retrylimit)
+		self.filemanager = FileManager.createmanager(FileSystem.readjsonfromdisk(copierappconfiglocation), 3)
 
 		self.lastinstruction = CopyInstruction.createinstruction()
+
+		self.copieractionqueue = Queue.createqueuereader(copieractionqueuelocation)
+
+		self.copierdatastream = Queue.createqueuewriter(copierresultslocation, 24)
+
+		self.latestaction = DateTime.createfromiso("19991231235959")
+
 
 
 	def refresh(self):
 
-		longwait = False
+		newinstruction = self.copieractionqueue.readfromqueue()
 
-		if self.shouldcalldownloadmanager() == True:
-			self.delayer.wait(5)
-			self.scraper.posttourl(self.lastinstruction.getstatus())
-			newinstruction = self.scraper.getjsonresult()
-			if CopyInstruction.isvalidinstruction(newinstruction) == True:
-				if CopyInstruction.isalldone(newinstruction) == True:
-					longwait = self.performafinish()
-				else:
-					self.performanaction(newinstruction)
-
-		if longwait == True:
-			self.delayer.waitlong()
+		if CopyInstruction.isvalidinstruction(newinstruction) == True:
+			self.performanaction(newinstruction)
+			self.copierdatastream.createqueueditem(self.lastinstruction.getstatus())
+			self.latestaction.settonow()
 		else:
-			self.delayer.waitshort()
+			trigger = DateTime.getnow()
+			trigger = trigger.adjustseconds(-10)
+			if DateTime.isfirstlaterthansecond(trigger, self.latestaction):
+				self.performafinish()
+
 
 
 	def performanaction(self, newinstruction):
@@ -58,32 +53,13 @@ class DefineCopier:
 
 
 	def performafinish(self):
-		longwait = False
 		self.filemanager.gotosleep()
-		if self.lastinstruction.isalldone() == True:
-			longwait = True
-		self.lastinstruction.setalldone()
-		return longwait
 
 
 	def performafilecopy(self, copyid, source, target, forcemode):
 		self.lastinstruction.settonew(copyid, "File Copy")
 		copyoutcome = self.filemanager.performcopy(source, target, forcemode)
 		self.lastinstruction.updateresults(copyoutcome["outcome"], copyoutcome["feedback"])
-
-
-	def shouldcalldownloadmanager(self):
-
-		calldownloadmanager = False
-		if self.lastinstruction.isalldone() == True:
-			if self.delayer.checkdelay() == True:
-				# If the last instruction was all done, and a minute has elapsed since last time
-				calldownloadmanager = True
-		else:
-			# If the last instruction was a copy don't care how long ago it was
-			calldownloadmanager = True
-
-		return calldownloadmanager
 
 
 

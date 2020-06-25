@@ -6,12 +6,14 @@ from ...common_components.logging_framework import logging_module as Logging
 
 class DefineTorrentManager:
 
-	def __init__(self):
+	def __init__(self, torrentconfigurationslocation):
 
 		# The list of torrents in the deluge daemon; each item contains composite torrenting data (structured/layered dictionary)
 		self.torrents = []
 
 		self.delugedata = {}
+
+		self.configurationslocation = torrentconfigurationslocation
 
 
 
@@ -145,7 +147,7 @@ class DefineTorrentManager:
 			if self.validatetorrentid(torrentiditem) == False:
 				Logging.printout("Registering Torrent in Download-Manager: " + torrentiditem)
 				#print("Registering Torrent in Download-Manager: " + torrentiditem)
-				self.torrents.append(TorrentData.createitem(torrentiditem))
+				self.torrents.append(TorrentData.createitem(torrentiditem, self.configurationslocation))
 				outcome.append(torrentiditem)
 
 		return outcome

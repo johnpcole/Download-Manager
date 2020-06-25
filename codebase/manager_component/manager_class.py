@@ -7,19 +7,20 @@ from .datastore_subcomponent import datastore_module as ConfigFile
 from .fileoptions_subcomponent import fileoptions_module as FileOptions
 
 
+
 class DefineTorrentSet:
 
-	def __init__(self, torrentsetname):
+	def __init__(self, copierhistory, copieractionqueue, filesystemdataqueue, operatoractionqueue, sessiondataqueue,
+																							torrentconfigurations):
 
-		Logging.printinvocation("Initialising Manager for " + torrentsetname, "")
+		Logging.printinvocation("Initialising Manager")
 
 		self.fileoptions = FileOptions.createfileoptions()
-		self.managername = torrentsetname
-		self.copiermanager = CopierManager.createtracker()
-		self.torrentmanager = TorrentManager.createtorrentmanager()
+		self.copiermanager = CopierManager.createtracker(copierhistory, copieractionqueue, filesystemdataqueue)
+		self.torrentmanager = TorrentManager.createtorrentmanager(torrentconfigurations)
 		self.monitormanager = MonitorManager.createmonitor()
 		self.monitormanager.restoresavedhistory(ConfigFile.getmonitor(MonitorManager.getloadlist()))
-		self.delugemanager = DelugeManager.createtracker()
+		self.delugemanager = DelugeManager.createtracker(operatoractionqueue, sessiondataqueue)
 
 		#self.delugemanager.queuenewrefreshaction()
 
@@ -30,7 +31,7 @@ class DefineTorrentSet:
 	def initialiselistpage(self):
 
 		Logging.printinvocation("Loading All Torrents List Page", "")
-		self.updatealldelugedata()
+		self.updatealldelugeandcopierdata()
 		return {'torrentlist': self.torrentmanager.gettorrentlistdata("initialise"),
 				'stats': self.monitormanager.getdashboardmeters(True),  #self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
@@ -45,7 +46,7 @@ class DefineTorrentSet:
 	def updatelistpage(self):
 
 		Logging.printinvocation("Refreshing All Torrents List Page", "")
-		self.updatealldelugedata()
+		self.updatealldelugeandcopierdata()
 		return {'torrents': self.torrentmanager.gettorrentlistdata("refresh"),
 				'stats': self.monitormanager.getdashboardmeters(True),  #self.delugemanager.hasrecentlybeenseen()),
 				'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
@@ -67,7 +68,7 @@ class DefineTorrentSet:
 			self.delugemanager.queuenewpauseallaction()
 		else:
 			Logging.printinvocation("Unknown Torrents List Update Action: " + bulkaction, "")
-		self.updatealldelugedata()
+		self.updatealldelugeandcopierdata()
 		return {'bulktorrentaction': 'done'}
 
 
@@ -79,7 +80,7 @@ class DefineTorrentSet:
 	def rescantvshows(self):
 
 		Logging.printinvocation("Rescanning File-Server for TV Shows & Seasons", "")
-		self.updatealldelugedata()
+		self.updatealldelugeandcopierdata()
 		return {'copyqueuestate': self.copiermanager.getcopysetstate("ALL"),
 				'refreshfolderstate': self.copiermanager.getcopysetstate("FOLDER REFRESH")}
 
@@ -95,7 +96,7 @@ class DefineTorrentSet:
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Loading Specific Torrent Page", torrentid)
-			self.updatealldelugedata()
+			self.updatealldelugeandcopierdata()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "initialise"),
 					'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
 		else:
@@ -111,7 +112,7 @@ class DefineTorrentSet:
 
 		if self.torrentmanager.validatetorrentid(torrentid) == True:
 			Logging.printinvocation("Refreshing Specific Torrent Page", torrentid)
-			self.updatealldelugedata()
+			self.updatealldelugeandcopierdata()
 			return {'selectedtorrent': self.torrentmanager.gettorrentdata(torrentid, "refresh"),
 					'copyqueuestate': self.copiermanager.getcopysetstate(torrentid)}
 		else:
@@ -133,7 +134,7 @@ class DefineTorrentSet:
 				self.delugemanager.queuenewpausetorrentaction(torrentid)
 			else:
 				Logging.printinvocation("Unknown Torrent Update Action: " + torrentaction, torrentid)
-			self.updatealldelugedata()
+			self.updatealldelugeandcopierdata()
 			return {'torrentaction': 'done'}
 		else:
 			Logging.printinvocation("Requested Update to Unknown Torrent", torrentid)
@@ -251,6 +252,7 @@ class DefineTorrentSet:
 	def displaycopier(self):
 
 		Logging.printinvocation("Loading Copier Page", "")
+		self.updatealldelugeandcopierdata()
 		#self.delugemanager.queuenewrefreshaction()
 		return {'copyactions': self.copiermanager.getcopierpageinitialdata(
 																		self.torrentmanager.getvisibletorrentidlist())}
@@ -264,6 +266,7 @@ class DefineTorrentSet:
 	def updatecopierpage(self):
 
 		Logging.printinvocation("Refreshing Copier Page", "")
+		self.updatealldelugeandcopierdata()
 		#self.delugemanager.queuenewrefreshaction()
 		return {'copyactions': self.copiermanager.getcopierpagerefreshdata()}
 
@@ -307,16 +310,16 @@ class DefineTorrentSet:
 	#===============================================================================================
 	# Process Copy Queue
 	#===============================================================================================
-
-	def triggercopier(self, latestcopyid, copyoutcome, notes):
-
-		Logging.printinvocation("Synchronising with Download-Copier", "")
-		self.copiermanager.updatecopieractionwithresult(latestcopyid, copyoutcome, notes)
-
-		if self.copiermanager.shouldrefreshtvshowdata(latestcopyid) is True:
-			self.fileoptions.importtvshows(notes)
-
-		return self.copiermanager.startnextcopieraction()
+	# ???result = torrentset.triggercopier(inputdata['copyid'], inputdata['outcome'], inputdata['notes'])
+	# ???def triggercopier(self, latestcopyid, copyoutcome, notes):
+	#
+	# ???	Logging.printinvocation("Synchronising with Download-Copier", "")
+	# ???	self.copiermanager.updatecopieractionwithresult(latestcopyid, copyoutcome, notes)
+	#
+	# ???	if self.copiermanager.shouldrefreshtvshowdata(latestcopyid) is True:
+	# ???		self.fileoptions.importtvshows(notes)
+	#
+	# ???	return self.copiermanager.startnextcopieraction()
 
 
 
@@ -348,7 +351,13 @@ class DefineTorrentSet:
 		return True # ConfigFile.getwebhostconfig()
 
 
-	def updatealldelugedata(self):
+	def updatealldelugeandcopierdata(self):
 		self.delugemanager.updatedelugedata()
 		self.torrentmanager.refreshtorrentlist(self.delugemanager.getlatesttorrentdata())
 		self.monitormanager.refreshsessiondata(self.delugemanager.getlatestsessiondata())
+		self.copiermanager.getlatestcopierresults()
+		copierresultdetail = self.copiermanager.getrefreshedtvshowdata()
+		if copierresultdetail is not None:
+			self.fileoptions.importtvshows(copierresultdetail)
+
+

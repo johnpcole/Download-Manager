@@ -1,11 +1,16 @@
 from codebase.common_components.logging_framework import logging_module as Logging
 from codebase.common_components.webserver_framework import webserver_module as WebServer
 from codebase.manager_component import manager_module as TorrentSet
+from codebase import file_locations as Locations
+
 
 
 Logging.printinvocation("Starting Download-Manager Application", "")
 
-torrentset = TorrentSet.createmanager("Public Daemon")
+torrentset = TorrentSet.createmanager(Locations.copierhistory(), Locations.copieractionqueue(),
+										Locations.filesystemdataqueue(), Locations.operatoractionqueue(),
+										Locations.sessiondataqueue(), Locations.torrentconfigurations())
+
 website = WebServer.createwebsite(__name__)
 
 
@@ -269,19 +274,6 @@ def performcopyintervention():
 
 	inputdata = WebServer.getrequestdata()
 	result = torrentset.processcopyintervention(inputdata['copyid'], inputdata['intervention'])
-	return WebServer.makejson(**result)
-
-
-
-#===============================================================================================
-# Generate a Copier Interaction
-#===============================================================================================
-
-@website.route('/TriggerDownloadCopier', methods=['POST'])
-def triggercopier():
-
-	inputdata = WebServer.getrequestdata()
-	result = torrentset.triggercopier(inputdata['copyid'], inputdata['outcome'], inputdata['notes'])
 	return WebServer.makejson(**result)
 
 

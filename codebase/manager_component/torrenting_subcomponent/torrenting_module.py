@@ -1,5 +1,5 @@
 from . import torrenting_class as TorrentManagerClass
 
 
-def createtorrentmanager():
-	return TorrentManagerClass.DefineTorrentManager()
+def createtorrentmanager(torrentconfigurationslocation):
+	return TorrentManagerClass.DefineTorrentManager(torrentconfigurationslocation)

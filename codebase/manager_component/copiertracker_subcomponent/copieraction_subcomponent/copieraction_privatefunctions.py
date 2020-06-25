@@ -1,5 +1,7 @@
 from ....common_components.dataconversion_framework import dataconversion_module as DataConversion
 from ....common_components.datetime_datatypes import datetime_module as DateTime
+from ....common_components.filesystem_framework import filesystem_module as FileSystem
+
 
 def sanitisestatus(statuslabel):
 
@@ -92,6 +94,36 @@ def rendercopydatetime(filedetails):
 	return datetime[:-6]
 
 
+
+
+
+# =========================================================================================
+
+def generatesavedatafilename(filelocation):
+
+	currentdatetime = DateTime.getnow()
+	currentdatetimetext = currentdatetime.getiso()
+	currentdatetimeprefix = currentdatetimetext[:8] + "_" + currentdatetimetext[-6:]
+	foundgap = ""
+	for currentsearch in range(0, 1000, 1):
+		if foundgap == "":
+			indexstring = "0000" + str(currentsearch)
+			trialfilename = currentdatetimeprefix + "_" + indexstring[-3:]
+			trialfile = generatesavedatafullpath(filelocation, trialfilename)
+			if FileSystem.doesexist(trialfile) is False:
+				foundgap = trialfilename
+
+	if foundgap == "":
+		print("Could not find unique copier action save slot for " + currentdatetimetext + " in " + filelocation)
+		foundgap = generatesavedatafilename(filelocation)
+
+	return foundgap
+
+
+def generatesavedatafullpath(filelocation, filename):
+
+	outcome = FileSystem.concatenatepaths(filelocation, filename + ".action")
+	return outcome
 
 
 

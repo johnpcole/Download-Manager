@@ -1,7 +1,6 @@
 from codebase.common_components.logging_framework import logging_module as Logging
 from codebase.operator_component import operator_module as Operator
-
-
+from codebase import file_locations as Locations
 
 
 
@@ -9,7 +8,10 @@ from codebase.operator_component import operator_module as Operator
 
 Logging.printrawline("Starting Download-Operator Application")
 
-operator = Operator.createoperator()
+operator = Operator.createoperator(Locations.operatoractionqueue(),
+									Locations.sessiondataqueue(),
+									Locations.operatorapplicationconfiguration(),
+									Locations.historydataqueue())
 
 while 1 != 0:
 

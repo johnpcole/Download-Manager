@@ -1,6 +1,7 @@
 from . import operator_class as OperatorClass
 
-def createoperator():
+def createoperator(operatorqueuelocation, sessiondataqueuelocation, operatorconfiglocation, historydatalocation):
 
-	return OperatorClass.DefineOperator()
+	return OperatorClass.DefineOperator(operatorqueuelocation, sessiondataqueuelocation, operatorconfiglocation,
+																									historydatalocation)
 

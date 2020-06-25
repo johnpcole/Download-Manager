@@ -1,12 +1,14 @@
 from ....common_components.enumeration_datatype import enumeration_module as Enumeration
 from . import copieraction_privatefunctions as Functions
+from ....common_components.filesystem_framework import filesystem_module as FileSystem
+
 
 class DefineCopierActionItem:
 
-	def __init__(self, actiontype, source, target, torrentid, torrentname):
+	def __init__(self, actiontype, source, target, torrentid, torrentname, copierhistorylocation, existingsavefilename):
 
 
-		self.actiontype = Enumeration.createenum(["Copy File", "Scrape TV Shows"], actiontype)
+		self.actiontype = Enumeration.createenum(["Copy File", "Scrape TV Shows", "Load Old Data"], actiontype)
 
 		self.source = source
 
@@ -24,6 +26,20 @@ class DefineCopierActionItem:
 
 		self.forcecopy = False
 
+		self.filename = ""
+
+		self.filelocation = copierhistorylocation
+
+		if self.actiontype.get("Load Old Data") is True:
+			self.filename = existingsavefilename
+			self.loadcopieractiondata()
+		else:
+			self.filename = Functions.generatesavedatafilename(copierhistorylocation)
+			self.savecopieractiondata()
+
+
+
+
 # =========================================================================================
 
 	def getcachestate(self):
@@ -37,30 +53,32 @@ class DefineCopierActionItem:
 		self.cacheupdateflag = True
 		self.resultdetail = newresultdetail
 		self.status.set(newstatus)
+		self.savecopieractiondata()
 
-# =========================================================================================
+	# =========================================================================================
 
 	def intervention(self, intervention):
 
 		self.cacheupdateflag = True
 		if intervention == "Abandon":
-			if (self.status.get("Failed") == True) or (self.status.get("Confirm") == True):
+			if (self.status.get("Failed") is True) or (self.status.get("Confirm") is True):
 				self.status.set("Abandoned")
 			else:
-				print("Invalid Abandon intervention for status ",self.status.displaycurrent())
+				print("Invalid Abandon intervention for status ", self.status.displaycurrent())
 		elif intervention == "Overwrite":
-			if self.status.get("Confirm") == True:
+			if self.status.get("Confirm") is True:
 				self.status.set("Queued")
 				self.forcecopy = True
 			else:
 				print("Invalid Overwrite intervention for status ", self.status.displaycurrent())
 		elif intervention == "Retry":
-			if self.status.get("Failed") == True:
+			if self.status.get("Failed") is True:
 				self.status.set("Queued")
 			else:
-				print("Invalid Retry intervention for status ",self.status.displaycurrent())
+				print("Invalid Retry intervention for status ", self.status.displaycurrent())
 		else:
 			print("Unknown intervention specified: ", intervention)
+		self.savecopieractiondata()
 
 # =========================================================================================
 
@@ -80,25 +98,36 @@ class DefineCopierActionItem:
 
 		return self.torrentid
 
+# =========================================================================================
+
+	def getcopyid(self):
+
+		return self.filename
+
+# =========================================================================================
+
+	def getactiondetail(self):
+
+		return self.resultdetail
 
 # =========================================================================================
 
 	def isvalidscrapedata(self):
 
 		outcome = False
-		if self.actiontype.get("Scrape TV Shows") == True:
-			if self.status.get("Succeeded") == True:
+		if self.actiontype.get("Scrape TV Shows") is True:
+			if self.status.get("Succeeded") is True:
 				outcome = True
 
 		return outcome
 
 # =========================================================================================
 
-	def getcopieractioninstruction(self, nextactionid):
+	def getcopieractioninstruction(self):
 
 		outcome = {'action': self.actiontype.displaycurrent(),
-					'copyid': nextactionid}
-		if self.actiontype.get("Copy File") == True:
+					'copyid': self.filename}
+		if self.actiontype.get("Copy File") is True:
 			outcome['source'] = self.source
 			outcome['target'] = self.target
 			outcome['overwrite'] = self.forcecopy
@@ -113,7 +142,7 @@ class DefineCopierActionItem:
 					'copyid': actionid,
 					'datetimestamp': Functions.sanitisecopydatetimestamp(actionid)}
 
-		if self.actiontype.get("Copy File") == True:
+		if self.actiontype.get("Copy File") is True:
 			outcome['target'] = Functions.sanitisetargetpath(self.target)
 			outcome['source'] = self.source
 			outcome['torrentid'] = self.torrentid
@@ -134,8 +163,7 @@ class DefineCopierActionItem:
 		self.cacheupdateflag = False
 		return outcome
 
-
-# =========================================================================================
+	# =========================================================================================
 
 	def getcopierpageupdatedata(self, actionid):
 
@@ -147,7 +175,7 @@ class DefineCopierActionItem:
 
 	def getcopieractiondetail(self):
 
-		if self.actiontype.get("Copy File") == True:
+		if self.actiontype.get("Copy File") is True:
 			outcome = Functions.rendercopyresults(self.resultdetail, self.status, self.target)
 		else:
 			dummydata = [["", ""], ["", ""]]
@@ -156,5 +184,40 @@ class DefineCopierActionItem:
 		return outcome
 
 
+# =========================================================================================
 
+	def savecopieractiondata(self):
+
+		fullfilepath = Functions.generatesavedatafullpath(self.filelocation, self.filename)
+
+		if FileSystem.doesexist(fullfilepath) is True:
+			FileSystem.deletefile(fullfilepath)
+
+		outcome = {'actiontype': self.actiontype.displaycurrent(),
+					'source': self.source,
+					'target': self.target,
+					'status': self.status.displaycurrent(),
+					'resultdetail': self.resultdetail,
+					'torrentid': self.torrentid,
+					'torrentname': self.torrentname,
+					'forcecopy': self.forcecopy}
+
+		FileSystem.writejsontodisk(fullfilepath, outcome)
+
+
+
+# =========================================================================================
+
+	def loadcopieractiondata(self):
+
+		loadeddata = FileSystem.readjsonfromdisk(Functions.generatesavedatafullpath(self.filelocation, self.filename))
+
+		self.actiontype.set(loadeddata['actiontype'])
+		self.source = loadeddata['source']
+		self.target = loadeddata['target']
+		self.status.set(loadeddata['status'])
+		self.resultdetail = loadeddata['resultdetail']
+		self.torrentid = loadeddata['torrentid']
+		self.torrentname = loadeddata['torrentname']
+		self.forcecopy = loadeddata['forcecopy']
 

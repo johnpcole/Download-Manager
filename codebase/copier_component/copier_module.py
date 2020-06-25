@@ -1,6 +1,6 @@
 from . import copier_class as CopierClass
 
-def createcopier(webaddress, erasize, retrylimit):
+def createcopier(copieractionqueuelocation, copierresultslocation, copierappconfiglocation):
 
-	return CopierClass.DefineCopier(webaddress, erasize, retrylimit)
+	return CopierClass.DefineCopier(copieractionqueuelocation, copierresultslocation, copierappconfiglocation)
 

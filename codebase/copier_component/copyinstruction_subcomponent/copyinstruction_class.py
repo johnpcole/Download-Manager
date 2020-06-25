@@ -32,20 +32,20 @@ class DefineInstruction:
 
 		self.resultsnotes = {}
 
-	def setalldone(self):
+	# def setalldone(self):
+	#
+	# 	self.copyid = "00000000000000000"
+	#
+	# 	self.actiontype.set("Null")
+	#
+	# 	self.status.set("All Done")
+	#
+	# 	self.resultsnotes = {}
 
-		self.copyid = "00000000000000000"
 
-		self.actiontype.set("Null")
-
-		self.status.set("All Done")
-
-		self.resultsnotes = {}
-
-
-	def isalldone(self):
-
-		return self.actiontype.get("Null")
+	# def isalldone(self):
+	#
+	# 	return self.actiontype.get("Null")
 
 
 	def getstatus(self):

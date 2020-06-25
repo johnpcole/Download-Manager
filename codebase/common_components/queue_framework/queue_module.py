@@ -2,8 +2,12 @@ from . import queue_class as QueueClass
 
 
 
-def createqueue(location, role):
-	newqueue = QueueClass.DefineQueue(location, role)
+def createqueuewriter(location, hourstimelimit):
+	newqueue = QueueClass.DefineQueue(location, "Queuer", hourstimelimit)
 	return newqueue
 
+
+def createqueuereader(location):
+	newqueue = QueueClass.DefineQueue(location, "Reader", 0)
+	return newqueue
 

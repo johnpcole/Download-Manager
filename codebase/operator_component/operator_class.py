@@ -1,7 +1,6 @@
 from .delugeinterface_subcomponent import delugeinterface_module as DelugeInterface
 from ..common_components.thermometer_framework import thermometer_module as Thermometer
 from .network_subcomponent import network_module as VPNStatus
-from ..common_components.filesystem_framework import configfile_module as ConfigFile
 from ..common_components.queue_framework import queue_module as Queue
 from ..common_components.delayer_framework import delayer_module as Delayer
 from ..common_components.filesystem_framework import filesystem_module as FileSystem
@@ -9,17 +8,15 @@ from ..common_components.filesystem_framework import filesystem_module as FileSy
 
 class DefineOperator:
 
-	def __init__(self):
+	def __init__(self, operatorqueuelocation, sessiondataqueuelocation, operatorconfiglocation, historydatalocation):
 
-		self.torrentmanager = DelugeInterface.createinterface(ConfigFile.readconfigurationfile(
-																	'./data/application_config/operator_connection.cfg',
-																	['Address', 'Port', 'Username', 'Password']))
+		self.torrentmanager = DelugeInterface.createinterface(FileSystem.readjsonfromdisk(operatorconfiglocation))
 
-		self.actions = Queue.createqueue("./data/operator_queue", "Reader")
+		self.actions = Queue.createqueuereader(operatorqueuelocation)
 
-		self.results = Queue.createqueue("./data/session_data", "Queuer")
+		self.results = Queue.createqueuewriter(sessiondataqueuelocation, 1)
 
-		self.historypath = "./data/history_data"
+		self.historypath = historydatalocation
 
 		self.historytrigger = Delayer.createdelayer(4)
 

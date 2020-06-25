@@ -1,6 +1,10 @@
-def getcopieractiondescription(copyid, copieritem):
 
-	data = copieritem.getcopieractioninstruction(copyid)
+
+
+def getcopieractiondescription(copieritem):
+
+	data = copieritem.getcopieractioninstruction()
+	copyid = data['copyid']
 
 	if data['action'] == "Scrape TV Shows":
 		outcome = "Request " + copyid + " sent to copier to scrape TV Show folders"
@@ -17,4 +21,7 @@ def getcopieractiondescription(copyid, copieritem):
 		outcome = "Unknown Action Type"
 
 	return outcome
+
+
+
 

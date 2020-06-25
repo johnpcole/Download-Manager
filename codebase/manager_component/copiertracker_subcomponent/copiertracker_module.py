@@ -6,6 +6,6 @@ from . import copiertracker_class as CopierTrackerClass
 # as well as lists of tv shows, and processes copy actions
 # =========================================================================================
 
-def createtracker():
-	return CopierTrackerClass.DefineCopierTracker()
+def createtracker(copierhistorylocation, copierqueuelocation, filesystemqueuelocation):
+	return CopierTrackerClass.DefineCopierTracker(copierhistorylocation, copierqueuelocation, filesystemqueuelocation)
 

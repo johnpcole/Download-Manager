@@ -5,11 +5,13 @@ from ..filesystem_framework import filesystem_module as FileSystem
 
 class DefineQueue:
 
-	def __init__(self, location, role):
+	def __init__(self, location, role, hourstimelimit):
 
 		self.location = location
 
 		self.role = Enumeration.createenum(["Queuer", "Reader"], role)
+
+		self.queuetimelimit = 0 - hourstimelimit
 
 
 
@@ -25,18 +27,28 @@ class DefineQueue:
 			assert(1 == 0, "Cannot add a queued item when the role is not Queuer")
 
 
+
 	def getuniquefileid(self):
 
 		outcome = ""
+		currenttime = DateTime.getnow()
+		currenttimetext = currenttime.getiso()
+		draftfilenameprefix = currenttimetext[:8] + "_" + currenttimetext[-6:]
+		indexer = -1
 		while outcome == "":
-			currenttime = DateTime.getnow()
-			draftfilename = currenttime.getiso()
-			fullfilepath = FileSystem.concatenatepaths(self.location, draftfilename)
-			if (FileSystem.doesexist(fullfilepath + ".queued") == False):
-				if (FileSystem.doesexist(fullfilepath + ".draft") == False):
-					if (FileSystem.doesexist(fullfilepath + ".processed") == False):
-						if (FileSystem.doesexist(fullfilepath + ".ignored") == False):
-							outcome = draftfilename
+			indexer = indexer + 1
+			if indexer < 1000:
+				draftfilenamesuffix = "0000" + str(indexer)
+				draftfilename = draftfilenameprefix + "_" + draftfilenamesuffix[-3:]
+				fullfilepath = FileSystem.concatenatepaths(self.location, draftfilename)
+				if (FileSystem.doesexist(fullfilepath + ".queued") == False):
+					if (FileSystem.doesexist(fullfilepath + ".draft") == False):
+						if (FileSystem.doesexist(fullfilepath + ".processed") == False):
+							if (FileSystem.doesexist(fullfilepath + ".ignored") == False):
+								outcome = draftfilename
+			else:
+				print("Run out of unique file ids for " + draftfilenameprefix + ". Trying again...")
+				outcome = self.getuniquefileid()
 
 		return outcome
 
@@ -48,8 +60,8 @@ class DefineQueue:
 		latestallowedtime = DateTime.getnow()
 		latestallowedtime.adjustseconds(-1)
 		filelisting = FileSystem.getfolderlisting(self.location)
-		oldestqueuedfile = "29991231235959"
-		newestqueuedfile = "19991231235959"
+		oldestqueuedfile = "29991231_235959_000"
+		newestqueuedfile = "19991231_235959_000"
 		for filenameandextension in filelisting.keys():
 			if FileSystem.getextension(filenameandextension) == "queued":
 				filename = FileSystem.getname(filenameandextension)
@@ -71,6 +83,7 @@ class DefineQueue:
 		return outcome
 
 
+
 	def getqueuebacklog(self, latestfilename):
 		outcome = []
 		filelisting = FileSystem.getfolderlisting(self.location)
@@ -84,7 +97,6 @@ class DefineQueue:
 
 
 
-
 	def readfromqueue(self):
 
 		outcome = None
@@ -95,10 +107,9 @@ class DefineQueue:
 				outcome = FileSystem.readjsonfromdisk(fullfilepath + ".queued")
 				FileSystem.movefile(fullfilepath + ".queued", fullfilepath + ".processed")
 		else:
-			assert (1 == 0, "Cannot read from queue when the role is not Reader")
+			print("Cannot read from queue when the role is not Reader")
 
 		return outcome
-
 
 
 
@@ -115,10 +126,9 @@ class DefineQueue:
 				for fullfilepath in ignorelist:
 					FileSystem.movefile(fullfilepath + ".queued", fullfilepath + ".ignored")
 		else:
-			assert (1 == 0, "Cannot read from queue when the role is not Reader")
+			print("Cannot read from queue when the role is not Reader")
 
 		return outcome
-
 
 
 
@@ -126,14 +136,14 @@ class DefineQueue:
 
 		if self.role.get("Reader") is True:
 			latestallowedtime = DateTime.getnow()
-			latestallowedtime.adjusthours(-24)
+			latestallowedtime.adjusthours(self.queuetimelimit)
 			filelisting = FileSystem.getfolderlisting(self.location)
 			for filenameandextension in filelisting.keys():
 				fileextension = FileSystem.getextension(filenameandextension)
 				if (fileextension == "processed") or (fileextension == "ignored"):
 					fullfilepath = FileSystem.concatenatepaths(self.location, filenameandextension)
 					filedatetime = FileSystem.getmodifytimedate(fullfilepath)
-					if DateTime.isfirstlaterthansecond(latestallowedtime, filedatetime) == True:
+					if DateTime.isfirstlaterthansecond(latestallowedtime, filedatetime) is True:
 						FileSystem.deletefile(fullfilepath)
 
 

@@ -1,6 +1,8 @@
 from . import manager_class as ManagerClass
 
-def createmanager(setname):
+def createmanager(copierhistory, copieractionqueue, filesystemdataqueue, operatoractionqueue, sessiondataqueue,
+																								torrentconfigurations):
 
-	return ManagerClass.DefineTorrentSet(setname)
+	return ManagerClass.DefineTorrentSet(copierhistory, copieractionqueue, filesystemdataqueue, operatoractionqueue,
+																				sessiondataqueue, torrentconfigurations)
 

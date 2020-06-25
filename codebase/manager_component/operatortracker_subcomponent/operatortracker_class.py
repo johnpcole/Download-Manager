@@ -5,11 +5,11 @@ from ...common_components.queue_framework import queue_module as Queue
 
 class DefineOperatorTracker:
 
-	def __init__(self):
+	def __init__(self, operatorqueuelocation, sessiondataqueuelocation):
 
-		self.actionsqueue = Queue.createqueue("./data/operator_queue", "Queuer")
+		self.actionsqueue = Queue.createqueuewriter(operatorqueuelocation, 250)
 
-		self.delugedatastream = Queue.createqueue("./data/session_data", "Reader")
+		self.delugedatastream = Queue.createqueuereader(sessiondataqueuelocation)
 
 		self.latestdelugedata = {'torrents': {}, 'sessiondata': {}, 'lastpolled': "19991231235959"}
 

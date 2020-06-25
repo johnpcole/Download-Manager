@@ -12,13 +12,15 @@ from ....common_components.filesystem_framework import filesystem_module as File
 
 class DefineTorrentItem:
 
-	def __init__(self, torrentid):
+	def __init__(self, torrentid, torrentconfigurationlocation):
 
 		# The raw name of the torrent (string)
 		self.torrentname = ""
 
 		# The GUID of the torrent, used to key the deluge daemon's list of torrents (string)
 		self.torrentid = torrentid
+
+		self.torrentconfiglocation = torrentconfigurationlocation + "/" + self.torrentid + ".config"
 
 		self.dateadded = -99999
 
@@ -168,28 +170,17 @@ class DefineTorrentItem:
 
 # =========================================================================================
 
-	def gettorrentconfigfilepath(self):
-
-		configfilename = "./data/torrent_configs/" + self.torrentid + ".config"
-
-		return configfilename
-
-
-# =========================================================================================
-
 	def savetorrentconfiguration(self):
 
-
-		FileSystem.writejsontodisk(self.gettorrentconfigfilepath(), self.getsavedata())
+		FileSystem.writejsontodisk(self.torrentconfiglocation, self.getsavedata())
 
 
 # =========================================================================================
 
 	def loadtorrentconfiguration(self):
 
-		filepath = self.gettorrentconfigfilepath()
-		if FileSystem.doesexist(filepath):
-			self.setsavedata(FileSystem.readjsonfromdisk(filepath))
+		if FileSystem.doesexist(self.torrentconfiglocation):
+			self.setsavedata(FileSystem.readjsonfromdisk(self.torrentconfiglocation))
 
 
 # =========================================================================================
