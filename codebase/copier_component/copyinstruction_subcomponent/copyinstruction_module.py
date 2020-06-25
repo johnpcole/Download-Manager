@@ -21,26 +21,30 @@ def isfolderrefresh(newinstructionset):
 
 def isvalidinstruction(newinstructionset):
 
-	if isinstance(newinstructionset, dict):
-		outcome = True
-		if "copyid" not in newinstructionset.keys():
-			outcome = False
-		if "action" not in newinstructionset.keys():
-			outcome = False
-		else:
-			if newinstructionset['action'] == "File Copy":
-				if "source" not in newinstructionset.keys():
-					outcome = False
-				if "target" not in newinstructionset.keys():
-					outcome = False
-				if "overwrite" not in newinstructionset.keys():
-					outcome = False
-	else:
+	if newinstructionset is None:
 		outcome = False
+	else:
+		if isinstance(newinstructionset, dict):
+			outcome = True
+			if "copyid" not in newinstructionset.keys():
+				outcome = False
+			if "action" not in newinstructionset.keys():
+				outcome = False
+			else:
+				if newinstructionset['action'] == "File Copy":
+					if "source" not in newinstructionset.keys():
+						outcome = False
+					if "target" not in newinstructionset.keys():
+						outcome = False
+					if "overwrite" not in newinstructionset.keys():
+						outcome = False
+		else:
+			outcome = False
 
-	if outcome == False:
-		print("Invalid response from Download-Manager:")
-		print(newinstructionset)
-		print("====================================")
+		if outcome == False:
+			print("Invalid response from Download-Manager:")
+			print(newinstructionset)
+			print("====================================")
+
 	return outcome
 

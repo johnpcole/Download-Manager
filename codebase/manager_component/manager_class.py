@@ -13,7 +13,7 @@ class DefineTorrentSet:
 	def __init__(self, copierhistory, copieractionqueue, filesystemdataqueue, operatoractionqueue, sessiondataqueue,
 																							torrentconfigurations):
 
-		Logging.printinvocation("Initialising Manager")
+		Logging.printinvocation("Initialising Manager", "")
 
 		self.fileoptions = FileOptions.createfileoptions()
 		self.copiermanager = CopierManager.createtracker(copierhistory, copieractionqueue, filesystemdataqueue)
