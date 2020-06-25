@@ -17,7 +17,7 @@ class DefineCopier:
 
 		self.copierdatastream = Queue.createqueuewriter(copierresultslocation, 24)
 
-		self.latestaction = DateTime.createfromiso("19991231235959")
+		self.latestaction = DateTime.createfromiso("20000101000000")
 
 
 
@@ -32,10 +32,7 @@ class DefineCopier:
 		else:
 			sleeptrigger = DateTime.getnow()
 			sleeptrigger.adjustseconds(-10)
-			print("trigger", sleeptrigger.getiso())
-			print("latestaction", self.latestaction.getiso())
 			if DateTime.isfirstlaterthansecond(sleeptrigger, self.latestaction) is True:
-				print("disconnecting")
 				self.performafinish()
 
 
