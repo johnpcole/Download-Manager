@@ -25,20 +25,21 @@ class DefineCopier:
 
 		newinstruction = self.copieractionqueue.readfromqueue()
 
-		if CopyInstruction.isvalidinstruction(newinstruction) == True:
+		if CopyInstruction.isvalidinstruction(newinstruction) is True:
 			self.performanaction(newinstruction)
 			self.copierdatastream.createqueueditem(self.lastinstruction.getstatus())
 			self.latestaction.settonow()
 		else:
 			trigger = DateTime.getnow()
 			trigger = trigger.adjustseconds(-10)
-			if DateTime.isfirstlaterthansecond(trigger, self.latestaction):
+			print(trigger.getiso(), self.latestaction.getiso())
+			if DateTime.isfirstlaterthansecond(trigger, self.latestaction) is True:
 				self.performafinish()
 
 
 
 	def performanaction(self, newinstruction):
-		if CopyInstruction.isfolderrefresh(newinstruction) == True:
+		if CopyInstruction.isfolderrefresh(newinstruction) is True:
 			self.performafolderrefresh(newinstruction['copyid'])
 		else:
 			self.performafilecopy(newinstruction['copyid'], newinstruction['source'],

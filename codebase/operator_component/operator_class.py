@@ -60,7 +60,8 @@ class DefineOperator:
 
 	def savehistorydata(self, temperature, vpnstatus):
 
-		fullfilepath = FileSystem.concatenatepaths(self.historypath, self.historytrigger.getlatestcallera())
+		filename = self.historytrigger.getlatestcallera()
+		fullfilepath = FileSystem.concatenatepaths(self.historypath, filename[:8] + "_" + filename[-6:] + "_000")
 		rawdata = self.torrentmanager.gethistorydata()
 		rawdata['temperature'] = temperature
 		rawdata['vpnstatus'] = vpnstatus
