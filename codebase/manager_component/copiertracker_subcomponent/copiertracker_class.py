@@ -46,7 +46,6 @@ class DefineCopierTracker:
 
 	def queuefolderrefresh(self):
 
-		print("HISTORY", self.historylocation)
 		newactionobject = CopierAction.createscrapeaction(self.historylocation)
 		self.writetoqueue(newactionobject)
 
@@ -54,8 +53,7 @@ class DefineCopierTracker:
 # =========================================================================================
 
 	def writetoqueue(self, newactionobject):
-		newid = newactionobject.getid()
-		print("newid", newid)
+		newid = newactionobject.getcopyid()
 		self.copieractions[newid] = newactionobject
 		newinstruction = newactionobject.getcopieractioninstruction()
 		self.copieractionqueue.createqueueditem(newinstruction)
