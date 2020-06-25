@@ -30,9 +30,11 @@ class DefineCopier:
 			self.copierdatastream.createqueueditem(self.lastinstruction.getstatus())
 			self.latestaction.settonow()
 		else:
-			trigger = DateTime.getnow()
-			trigger = trigger.adjustseconds(-10)
-			print("trigger", trigger.getiso())
+			sleeptrigger = DateTime.getnow()
+			print("trigger", sleeptrigger)
+			print("trigger", sleeptrigger.getiso())
+			sleeptrigger = sleeptrigger.adjustseconds(-10)
+			print("trigger", sleeptrigger.getiso())
 			print("latestaction", self.latestaction.getiso())
 			if DateTime.isfirstlaterthansecond(trigger, self.latestaction) is True:
 				self.performafinish()
