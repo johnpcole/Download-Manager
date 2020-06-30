@@ -65,7 +65,13 @@ class DefineCopierTracker:
 
 		nextresult = self.copierdatastream.readfromqueue()
 		if nextresult is not None:
+			print("================================================================")
+			print("================================================================")
+			print("================================================================")
 			print(nextresult)
+			print("================================================================")
+			print("================================================================")
+			print("================================================================")
 			copyid = nextresult['copyid']
 			newstatus = nextresult['outcome']
 			Logging.printout("Request " + copyid + " returned from copier with result <" + newstatus + ">")
