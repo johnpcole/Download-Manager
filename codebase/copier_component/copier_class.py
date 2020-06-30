@@ -27,40 +27,38 @@ class DefineCopier:
 
 		if CopyInstruction.isvalidinstruction(newinstruction) is True:
 			self.performanaction(newinstruction)
-			self.copierdatastream.createqueueditem(self.lastinstruction.getstatus())
-			self.latestaction.settonow()
 		else:
 			sleeptrigger = DateTime.getnow()
 			sleeptrigger.adjustseconds(-10)
 			if DateTime.isfirstlaterthansecond(sleeptrigger, self.latestaction) is True:
-				self.performafinish()
+				self.filemanager.gotosleep()
 
 
 
 	def performanaction(self, newinstruction):
+		copyid = newinstruction['copyid']
 		if CopyInstruction.isfolderrefresh(newinstruction) is True:
-			self.performafolderrefresh(newinstruction['copyid'])
+			self.begininstruction(copyid, "Scrape TV Shows")
+			actionoutcome = self.filemanager.scrapetvshows()
 		else:
-			self.performafilecopy(newinstruction['copyid'], newinstruction['source'],
-																newinstruction['target'], newinstruction['overwrite'])
+			self.begininstruction(copyid, "File Copy")
+			actionoutcome = self.filemanager.performcopy(newinstruction['source'], newinstruction['target'],
+																							newinstruction['overwrite'])
+
+		self.endinstruction(actionoutcome)
 
 
 
-	def performafolderrefresh(self, copyid):
-		self.lastinstruction.settonew(copyid, "Scrape TV Shows")
-		scrapeoutcome = self.filemanager.scrapetvshows()
-		self.lastinstruction.updateresults(scrapeoutcome["outcome"], scrapeoutcome["feedback"])
 
 
-	def performafinish(self):
-		self.filemanager.gotosleep()
 
+	def begininstruction(self, copyid, instructiontype):
+		self.lastinstruction.settonew(copyid, instructiontype)
+		self.copierdatastream.createqueueditem(self.lastinstruction.getstatus())
 
-	def performafilecopy(self, copyid, source, target, forcemode):
-		self.lastinstruction.settonew(copyid, "File Copy")
-		copyoutcome = self.filemanager.performcopy(source, target, forcemode)
+	def endinstruction(self, copyoutcome):
 		self.lastinstruction.updateresults(copyoutcome["outcome"], copyoutcome["feedback"])
-
-
+		self.copierdatastream.createqueueditem(self.lastinstruction.getstatus())
+		self.latestaction.settonow()
 
 

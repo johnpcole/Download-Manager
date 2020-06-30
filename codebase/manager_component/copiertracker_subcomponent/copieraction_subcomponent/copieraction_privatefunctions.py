@@ -26,9 +26,9 @@ def sanitisetargetpath(rawpath):
 
 def sanitisecopydatetimestamp(actionid):
 
-	datetime = actionid[:4] + "-" + actionid[4:6] + "-" + actionid[6:8] + " "
-	datetime = datetime + actionid[8:10] + ":" + actionid[10:12] + ":" + actionid[12:14]
-	datetime = datetime + " [" + actionid[14:] + "]"
+	datetime = actionid[:4] + "-" + actionid[5:7] + "-" + actionid[8:10] + " "
+	datetime = datetime + actionid[11:13] + ":" + actionid[14:16] + ":" + actionid[17:19]
+	datetime = datetime + " [" + actionid[20:] + "]"
 
 	return datetime
 
@@ -103,7 +103,8 @@ def generatesavedatafilename(filelocation):
 
 	currentdatetime = DateTime.getnow()
 	currentdatetimetext = currentdatetime.getiso()
-	currentdatetimeprefix = currentdatetimetext[:8] + "_" + currentdatetimetext[-6:]
+	currentdatetimeprefix = currentdatetimetext[:4] + "_" + currentdatetimetext[4:6] + "_" + currentdatetimetext[6:8] + "_"
+	currentdatetimeprefix = currentdatetimeprefix + currentdatetimetext[8:10] + "_" + currentdatetimetext[10:12] + "_" + currentdatetimetext[12:14]
 	foundgap = ""
 	for currentsearch in range(0, 1000, 1):
 		if foundgap == "":

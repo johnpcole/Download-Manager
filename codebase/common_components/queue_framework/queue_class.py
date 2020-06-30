@@ -134,7 +134,7 @@ class DefineQueue:
 
 	def cleanupqueue(self):
 
-		if self.role.get("Reader") is True:
+		if self.role.get("Queuer") is True:
 			latestallowedtime = DateTime.getnow()
 			latestallowedtime.adjusthours(self.queuetimelimit)
 			filelisting = FileSystem.getfolderlisting(self.location)
